@@ -1,12 +1,15 @@
 var path = require("path");
 var webpack = require("webpack");
-var fileName = "main.js";
+// var fileName = "main.js";
+var fileName = "js/app.js";
 var src = path.resolve(__dirname, "src");
 var dist = path.resolve(__dirname, "dist");
+var HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-    enty: {
-        app:path.joinrc, fileName
+    entry: {
+        app: path.join(src, fileName)
+        // app: "./src/js/app.js"
     },
     output: {
         path: dist,
@@ -26,12 +29,12 @@ module.exports = {
                 loader: "style-loader!css"
             },
             {
-              test: /\.(jpg | png)$/,
+                test: /\.(jpg | png)$/,
                 loader: "file-loader?name = [path][hash].[ext]"
             },
             {
                 //EaselJSの読み込み,
-                test: require.resolve("createjs-easejs"),
+                test: require.resolve("createjs-easeljs"),
                 loader: "imports-loader?this=>window!exports-loader?window.createjs"
             }
         ]

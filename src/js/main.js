@@ -4,7 +4,7 @@ import * as _ from "lodash";
 import * as createjs from "createjs-easeljs";
 
 {
-    console.log("hello");
+    //console.log("hello");
 
     console.log(_.map([1, 2, 3],(elm) => elm * elm));
 
@@ -16,6 +16,6 @@ import * as createjs from "createjs-easeljs";
         circle.y = 100;
         stage.addChild(circle);
         stage.update();
-        console.log("hello, again");
+        //console.log("hello, again");
     };
 }
