@@ -1,7 +1,7 @@
 var path = require("path");
 var webpack = require("webpack");
 // var fileName = "main.js";
-var fileName = "js/app.js";
+var fileName = "js/main.js";
 var src = path.resolve(__dirname, "src");
 var dist = path.resolve(__dirname, "dist");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -29,7 +29,7 @@ module.exports = {
                 loader: "style-loader!css"
             },
             {
-                test: /\.(jpg | png)$/,
+                test: /\.(jpg|png)$/,
                 loader: "file-loader?name = [path][hash].[ext]"
             },
             {
