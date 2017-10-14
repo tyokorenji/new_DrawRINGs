@@ -9,6 +9,9 @@ import { SidebarContens } from "./sidebarContents";
 export class SidebarLeftPush extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            textareaValue: ""
+        };
     }
 
     getContent(current_mode_type, functionConents) {
@@ -21,7 +24,7 @@ export class SidebarLeftPush extends React.Component {
 
     render(){
         const functionContents = new FunctionContents();
-        const sidebarContents = new SidebarContens();
+        const sidebarContents = new SidebarContens(this.state.textareaValue);
         const content = this.getContent(this.props.mode_type, functionContents);
         const sidebarContent = this.getSidebarContents(this.props.mode_type, sidebarContents);
 
@@ -34,7 +37,7 @@ export class SidebarLeftPush extends React.Component {
         return (
             <div>
                 <Sidebar.Pushable as={Segment}>
-                    <Sidebar as = { Menu } animation = "push"  width = "thin" visible = { this.props.visible } icon = "labeled" vertical inverted>
+                    <Sidebar as = { Menu } animation = "push"  width = "very wide" visible = { this.props.visible } icon = "labeled" vertical inverted>
                         { sidebarContent }
                     </Sidebar>
                     <Sidebar.Pusher>

@@ -1,69 +1,45 @@
 "use strict";
 import React from "react";
-import { Menu, Icon, Table } from "semantic-ui-react";
+import { Menu, Icon, Table, Image, TextArea, Form } from "semantic-ui-react";
 import { modeType } from "./modeType";
-
+import { nodeTable } from "./nodeTable";
+import { edgeTable } from "./edgeTable";
+import { structureTable } from "./structureTable";
+import { KCFTextArea } from "./KCFTextArea";
 export class SidebarContens {
-    constructor(){
-
+    constructor(textareaValue){
+        this.contents = undefined;
+        this.textAreaValue = textareaValue;
     }
+
+
     getContents(currentModeType){
         if (currentModeType === modeType.NODE) {
+            this.contents = new nodeTable();
             return (
-                <Table definition>
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell/>
-                            <Table.HeaderCell>White(Generic)</Table.HeaderCell>
-                            <Table.HeaderCell>Blue</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-
-                    <Table.Body>
-                        <Table.Row>
-                            <Table.Cell>reset rating</Table.Cell>
-                            <Table.Cell>None</Table.Cell>
-                            <Table.Cell>Resets rating to default value</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>set rating</Table.Cell>
-                            <Table.Cell>rating (integer)</Table.Cell>
-                            <Table.Cell>Sets the current star rating to specified value</Table.Cell>
-                        </Table.Row>
-                    </Table.Body>
-                </Table>
+                this.contents.getContents()
             );
         }
         else if (currentModeType === modeType.EDGE) {
+            this.contents = new edgeTable();
             return (
-                <Menu.Item name='gamepad'>
-                    <Icon name='gamepad' />
-                    Games
-                </Menu.Item>
+                this.contents.getContents()
             );
         }
         else if (currentModeType === modeType.STRUCTURE) {
+            this.contents = new structureTable();
             return (
-                <Menu.Item name='home'>
-                    <Icon name='home' />
-                    Home
-                </Menu.Item>
+                this.contents.getContents()
             );
         }
         else if (currentModeType === modeType.DRAW_KCF) {
             return (
-                <Menu.Item name='gamepad'>
-                    <Icon name='gamepad' />
-                    Games
-                </Menu.Item>
+                <KCFTextArea value = { this.textAreaValue }/>
             );
         }
         else if (currentModeType === modeType.KCF_TEXT_OUT) {
             return (
-                <Menu.Item name='home'>
-                    <Icon name='home' />
-                    Home
-                </Menu.Item>
+                <KCFTextArea value = { this.textAreaValue }/>
             );
         }
     }

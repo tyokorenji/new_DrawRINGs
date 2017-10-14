@@ -263,7 +263,7 @@ process.umask = function () {
 "use strict";
 
 
-module.exports = __webpack_require__(64);
+module.exports = __webpack_require__(65);
 
 /***/ }),
 /* 2 */
@@ -799,7 +799,7 @@ exports.default = function () {
 
 exports.__esModule = true;
 
-var _typeof2 = __webpack_require__(70);
+var _typeof2 = __webpack_require__(71);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -832,7 +832,7 @@ var _create = __webpack_require__(582);
 
 var _create2 = _interopRequireDefault(_create);
 
-var _typeof2 = __webpack_require__(70);
+var _typeof2 = __webpack_require__(71);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -1555,7 +1555,7 @@ module.exports = emptyFunction;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _prodInvariant = __webpack_require__(65);
+var _prodInvariant = __webpack_require__(66);
 
 var ReactCurrentOwner = __webpack_require__(34);
 
@@ -2224,8 +2224,8 @@ var _prodInvariant = __webpack_require__(12),
 var CallbackQueue = __webpack_require__(244);
 var PooledClass = __webpack_require__(55);
 var ReactFeatureFlags = __webpack_require__(245);
-var ReactReconciler = __webpack_require__(66);
-var Transaction = __webpack_require__(93);
+var ReactReconciler = __webpack_require__(67);
+var Transaction = __webpack_require__(94);
 
 var invariant = __webpack_require__(6);
 
@@ -2778,7 +2778,7 @@ function getPooledWarningPropertyDefinition(propName, getVal) {
 "use strict";
 
 
-var _Symbol = __webpack_require__(73),
+var _Symbol = __webpack_require__(74),
     getRawTag = __webpack_require__(587),
     objectToString = __webpack_require__(588);
 
@@ -3318,7 +3318,7 @@ module.exports = DOMProperty;
 var global = __webpack_require__(46),
     core = __webpack_require__(23),
     ctx = __webpack_require__(159),
-    hide = __webpack_require__(68),
+    hide = __webpack_require__(69),
     PROTOTYPE = 'prototype';
 
 var $export = function $export(type, name, source) {
@@ -3400,12 +3400,12 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 "use strict";
 
 
-var anObject = __webpack_require__(56),
+var anObject = __webpack_require__(57),
     IE8_DOM_DEFINE = __webpack_require__(265),
     toPrimitive = __webpack_require__(160),
     dP = Object.defineProperty;
 
-exports.f = __webpack_require__(57) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+exports.f = __webpack_require__(58) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
   anObject(O);
   P = toPrimitive(P, true);
   anObject(Attributes);
@@ -3483,7 +3483,7 @@ module.exports = isFunction;
 "use strict";
 
 
-var isSymbol = __webpack_require__(60);
+var isSymbol = __webpack_require__(61);
 
 /** Used as references for various `Number` constants. */
 var INFINITY = 1 / 0;
@@ -3624,7 +3624,7 @@ var _assign = __webpack_require__(16);
 var ReactCurrentOwner = __webpack_require__(34);
 
 var warning = __webpack_require__(7);
-var canDefineProperty = __webpack_require__(90);
+var canDefineProperty = __webpack_require__(91);
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 
 var REACT_ELEMENT_TYPE = __webpack_require__(235);
@@ -4069,2906 +4069,6 @@ module.exports = PooledClass;
 
 /***/ }),
 /* 56 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var isObject = __webpack_require__(81);
-module.exports = function (it) {
-  if (!isObject(it)) throw TypeError(it + ' is not an object!');
-  return it;
-};
-
-/***/ }),
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(69)(function () {
-  return Object.defineProperty({}, 'a', { get: function get() {
-      return 7;
-    } }).a != 7;
-});
-
-/***/ }),
-/* 58 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var hasOwnProperty = {}.hasOwnProperty;
-module.exports = function (it, key) {
-  return hasOwnProperty.call(it, key);
-};
-
-/***/ }),
-/* 59 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var isArray = __webpack_require__(13),
-    isKey = __webpack_require__(175),
-    stringToPath = __webpack_require__(277),
-    toString = __webpack_require__(39);
-
-/**
- * Casts `value` to a path array if it's not one.
- *
- * @private
- * @param {*} value The value to inspect.
- * @param {Object} [object] The object to query keys on.
- * @returns {Array} Returns the cast property path array.
- */
-function castPath(value, object) {
-  if (isArray(value)) {
-    return value;
-  }
-  return isKey(value, object) ? [value] : stringToPath(toString(value));
-}
-
-module.exports = castPath;
-
-/***/ }),
-/* 60 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var baseGetTag = __webpack_require__(38),
-    isObjectLike = __webpack_require__(32);
-
-/** `Object#toString` result references. */
-var symbolTag = '[object Symbol]';
-
-/**
- * Checks if `value` is classified as a `Symbol` primitive or object.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
- * @example
- *
- * _.isSymbol(Symbol.iterator);
- * // => true
- *
- * _.isSymbol('abc');
- * // => false
- */
-function isSymbol(value) {
-    return (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'symbol' || isObjectLike(value) && baseGetTag(value) == symbolTag;
-}
-
-module.exports = isSymbol;
-
-/***/ }),
-/* 61 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var baseIsNative = __webpack_require__(594),
-    getValue = __webpack_require__(597);
-
-/**
- * Gets the native function at `key` of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {string} key The key of the method to get.
- * @returns {*} Returns the function if it's native, else `undefined`.
- */
-function getNative(object, key) {
-  var value = getValue(object, key);
-  return baseIsNative(value) ? value : undefined;
-}
-
-module.exports = getNative;
-
-/***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var baseIndexOf = __webpack_require__(113),
-    isArrayLike = __webpack_require__(36),
-    isString = __webpack_require__(313),
-    toInteger = __webpack_require__(41),
-    values = __webpack_require__(194);
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeMax = Math.max;
-
-/**
- * Checks if `value` is in `collection`. If `collection` is a string, it's
- * checked for a substring of `value`, otherwise
- * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
- * is used for equality comparisons. If `fromIndex` is negative, it's used as
- * the offset from the end of `collection`.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Collection
- * @param {Array|Object|string} collection The collection to inspect.
- * @param {*} value The value to search for.
- * @param {number} [fromIndex=0] The index to search from.
- * @param- {Object} [guard] Enables use as an iteratee for methods like `_.reduce`.
- * @returns {boolean} Returns `true` if `value` is found, else `false`.
- * @example
- *
- * _.includes([1, 2, 3], 1);
- * // => true
- *
- * _.includes([1, 2, 3], 1, 2);
- * // => false
- *
- * _.includes({ 'a': 1, 'b': 2 }, 1);
- * // => true
- *
- * _.includes('abcd', 'bc');
- * // => true
- */
-function includes(collection, value, fromIndex, guard) {
-  collection = isArrayLike(collection) ? collection : values(collection);
-  fromIndex = fromIndex && !guard ? toInteger(fromIndex) : 0;
-
-  var length = collection.length;
-  if (fromIndex < 0) {
-    fromIndex = nativeMax(length + fromIndex, 0);
-  }
-  return isString(collection) ? fromIndex <= length && collection.indexOf(value, fromIndex) > -1 : !!length && baseIndexOf(collection, value, fromIndex) > -1;
-}
-
-module.exports = includes;
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _from = __webpack_require__(674);
-
-var _from2 = _interopRequireDefault(_from);
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
-
-exports.default = function (arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-      arr2[i] = arr[i];
-    }
-
-    return arr2;
-  } else {
-    return (0, _from2.default)(arr);
-  }
-};
-
-/***/ }),
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var _assign = __webpack_require__(16);
-
-var ReactBaseClasses = __webpack_require__(233);
-var ReactChildren = __webpack_require__(436);
-var ReactDOMFactories = __webpack_require__(440);
-var ReactElement = __webpack_require__(54);
-var ReactPropTypes = __webpack_require__(444);
-var ReactVersion = __webpack_require__(447);
-
-var createReactClass = __webpack_require__(448);
-var onlyChild = __webpack_require__(450);
-
-var createElement = ReactElement.createElement;
-var createFactory = ReactElement.createFactory;
-var cloneElement = ReactElement.cloneElement;
-
-if (process.env.NODE_ENV !== 'production') {
-  var lowPriorityWarning = __webpack_require__(141);
-  var canDefineProperty = __webpack_require__(90);
-  var ReactElementValidator = __webpack_require__(237);
-  var didWarnPropTypesDeprecated = false;
-  createElement = ReactElementValidator.createElement;
-  createFactory = ReactElementValidator.createFactory;
-  cloneElement = ReactElementValidator.cloneElement;
-}
-
-var __spread = _assign;
-var createMixin = function createMixin(mixin) {
-  return mixin;
-};
-
-if (process.env.NODE_ENV !== 'production') {
-  var warnedForSpread = false;
-  var warnedForCreateMixin = false;
-  __spread = function __spread() {
-    lowPriorityWarning(warnedForSpread, 'React.__spread is deprecated and should not be used. Use ' + 'Object.assign directly or another helper function with similar ' + 'semantics. You may be seeing this warning due to your compiler. ' + 'See https://fb.me/react-spread-deprecation for more details.');
-    warnedForSpread = true;
-    return _assign.apply(null, arguments);
-  };
-
-  createMixin = function createMixin(mixin) {
-    lowPriorityWarning(warnedForCreateMixin, 'React.createMixin is deprecated and should not be used. ' + 'In React v16.0, it will be removed. ' + 'You can use this mixin directly instead. ' + 'See https://fb.me/createmixin-was-never-implemented for more info.');
-    warnedForCreateMixin = true;
-    return mixin;
-  };
-}
-
-var React = {
-  // Modern
-
-  Children: {
-    map: ReactChildren.map,
-    forEach: ReactChildren.forEach,
-    count: ReactChildren.count,
-    toArray: ReactChildren.toArray,
-    only: onlyChild
-  },
-
-  Component: ReactBaseClasses.Component,
-  PureComponent: ReactBaseClasses.PureComponent,
-
-  createElement: createElement,
-  cloneElement: cloneElement,
-  isValidElement: ReactElement.isValidElement,
-
-  // Classic
-
-  PropTypes: ReactPropTypes,
-  createClass: createReactClass,
-  createFactory: createFactory,
-  createMixin: createMixin,
-
-  // This looks DOM specific but these are actually isomorphic helpers
-  // since they are just generating DOM strings.
-  DOM: ReactDOMFactories,
-
-  version: ReactVersion,
-
-  // Deprecated hook for JSX spread, don't use this for anything.
-  __spread: __spread
-};
-
-if (process.env.NODE_ENV !== 'production') {
-  var warnedForCreateClass = false;
-  if (canDefineProperty) {
-    Object.defineProperty(React, 'PropTypes', {
-      get: function get() {
-        lowPriorityWarning(didWarnPropTypesDeprecated, 'Accessing PropTypes via the main React package is deprecated,' + ' and will be removed in  React v16.0.' + ' Use the latest available v15.* prop-types package from npm instead.' + ' For info on usage, compatibility, migration and more, see ' + 'https://fb.me/prop-types-docs');
-        didWarnPropTypesDeprecated = true;
-        return ReactPropTypes;
-      }
-    });
-
-    Object.defineProperty(React, 'createClass', {
-      get: function get() {
-        lowPriorityWarning(warnedForCreateClass, 'Accessing createClass via the main React package is deprecated,' + ' and will be removed in React v16.0.' + " Use a plain JavaScript class instead. If you're not yet " + 'ready to migrate, create-react-class v15.* is available ' + 'on npm as a temporary, drop-in replacement. ' + 'For more info see https://fb.me/react-create-class');
-        warnedForCreateClass = true;
-        return createReactClass;
-      }
-    });
-  }
-
-  // React.DOM factories are deprecated. Wrap these methods so that
-  // invocations of the React.DOM namespace and alert users to switch
-  // to the `react-dom-factories` package.
-  React.DOM = {};
-  var warnedForFactories = false;
-  Object.keys(ReactDOMFactories).forEach(function (factory) {
-    React.DOM[factory] = function () {
-      if (!warnedForFactories) {
-        lowPriorityWarning(false, 'Accessing factories like React.DOM.%s has been deprecated ' + 'and will be removed in v16.0+. Use the ' + 'react-dom-factories package instead. ' + ' Version 1.0 provides a drop-in replacement.' + ' For more info, see https://fb.me/react-dom-factories', factory);
-        warnedForFactories = true;
-      }
-      return ReactDOMFactories[factory].apply(ReactDOMFactories, arguments);
-    };
-  });
-}
-
-module.exports = React;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 65 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * 
- */
-
-
-/**
- * WARNING: DO NOT manually require this module.
- * This is a replacement for `invariant(...)` used by the error code system
- * and will _only_ be required by the corresponding babel pass.
- * It always throws.
- */
-
-function reactProdInvariant(code) {
-  var argCount = arguments.length - 1;
-
-  var message = 'Minified React error #' + code + '; visit ' + 'http://facebook.github.io/react/docs/error-decoder.html?invariant=' + code;
-
-  for (var argIdx = 0; argIdx < argCount; argIdx++) {
-    message += '&args[]=' + encodeURIComponent(arguments[argIdx + 1]);
-  }
-
-  message += ' for the full message or use the non-minified dev environment' + ' for full errors and additional helpful warnings.';
-
-  var error = new Error(message);
-  error.name = 'Invariant Violation';
-  error.framesToPop = 1; // we don't care about reactProdInvariant's own frame
-
-  throw error;
-}
-
-module.exports = reactProdInvariant;
-
-/***/ }),
-/* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var ReactRef = __webpack_require__(459);
-var ReactInstrumentation = __webpack_require__(28);
-
-var warning = __webpack_require__(7);
-
-/**
- * Helper to call ReactRef.attachRefs with this composite component, split out
- * to avoid allocations in the transaction mount-ready queue.
- */
-function attachRefs() {
-  ReactRef.attachRefs(this, this._currentElement);
-}
-
-var ReactReconciler = {
-  /**
-   * Initializes the component, renders markup, and registers event listeners.
-   *
-   * @param {ReactComponent} internalInstance
-   * @param {ReactReconcileTransaction|ReactServerRenderingTransaction} transaction
-   * @param {?object} the containing host component instance
-   * @param {?object} info about the host container
-   * @return {?string} Rendered markup to be inserted into the DOM.
-   * @final
-   * @internal
-   */
-  mountComponent: function mountComponent(internalInstance, transaction, hostParent, hostContainerInfo, context, parentDebugID) // 0 in production and for roots
-  {
-    if (process.env.NODE_ENV !== 'production') {
-      if (internalInstance._debugID !== 0) {
-        ReactInstrumentation.debugTool.onBeforeMountComponent(internalInstance._debugID, internalInstance._currentElement, parentDebugID);
-      }
-    }
-    var markup = internalInstance.mountComponent(transaction, hostParent, hostContainerInfo, context, parentDebugID);
-    if (internalInstance._currentElement && internalInstance._currentElement.ref != null) {
-      transaction.getReactMountReady().enqueue(attachRefs, internalInstance);
-    }
-    if (process.env.NODE_ENV !== 'production') {
-      if (internalInstance._debugID !== 0) {
-        ReactInstrumentation.debugTool.onMountComponent(internalInstance._debugID);
-      }
-    }
-    return markup;
-  },
-
-  /**
-   * Returns a value that can be passed to
-   * ReactComponentEnvironment.replaceNodeWithMarkup.
-   */
-  getHostNode: function getHostNode(internalInstance) {
-    return internalInstance.getHostNode();
-  },
-
-  /**
-   * Releases any resources allocated by `mountComponent`.
-   *
-   * @final
-   * @internal
-   */
-  unmountComponent: function unmountComponent(internalInstance, safely) {
-    if (process.env.NODE_ENV !== 'production') {
-      if (internalInstance._debugID !== 0) {
-        ReactInstrumentation.debugTool.onBeforeUnmountComponent(internalInstance._debugID);
-      }
-    }
-    ReactRef.detachRefs(internalInstance, internalInstance._currentElement);
-    internalInstance.unmountComponent(safely);
-    if (process.env.NODE_ENV !== 'production') {
-      if (internalInstance._debugID !== 0) {
-        ReactInstrumentation.debugTool.onUnmountComponent(internalInstance._debugID);
-      }
-    }
-  },
-
-  /**
-   * Update a component using a new element.
-   *
-   * @param {ReactComponent} internalInstance
-   * @param {ReactElement} nextElement
-   * @param {ReactReconcileTransaction} transaction
-   * @param {object} context
-   * @internal
-   */
-  receiveComponent: function receiveComponent(internalInstance, nextElement, transaction, context) {
-    var prevElement = internalInstance._currentElement;
-
-    if (nextElement === prevElement && context === internalInstance._context) {
-      // Since elements are immutable after the owner is rendered,
-      // we can do a cheap identity compare here to determine if this is a
-      // superfluous reconcile. It's possible for state to be mutable but such
-      // change should trigger an update of the owner which would recreate
-      // the element. We explicitly check for the existence of an owner since
-      // it's possible for an element created outside a composite to be
-      // deeply mutated and reused.
-
-      // TODO: Bailing out early is just a perf optimization right?
-      // TODO: Removing the return statement should affect correctness?
-      return;
-    }
-
-    if (process.env.NODE_ENV !== 'production') {
-      if (internalInstance._debugID !== 0) {
-        ReactInstrumentation.debugTool.onBeforeUpdateComponent(internalInstance._debugID, nextElement);
-      }
-    }
-
-    var refsChanged = ReactRef.shouldUpdateRefs(prevElement, nextElement);
-
-    if (refsChanged) {
-      ReactRef.detachRefs(internalInstance, prevElement);
-    }
-
-    internalInstance.receiveComponent(nextElement, transaction, context);
-
-    if (refsChanged && internalInstance._currentElement && internalInstance._currentElement.ref != null) {
-      transaction.getReactMountReady().enqueue(attachRefs, internalInstance);
-    }
-
-    if (process.env.NODE_ENV !== 'production') {
-      if (internalInstance._debugID !== 0) {
-        ReactInstrumentation.debugTool.onUpdateComponent(internalInstance._debugID);
-      }
-    }
-  },
-
-  /**
-   * Flush any dirty changes in a component.
-   *
-   * @param {ReactComponent} internalInstance
-   * @param {ReactReconcileTransaction} transaction
-   * @internal
-   */
-  performUpdateIfNecessary: function performUpdateIfNecessary(internalInstance, transaction, updateBatchNumber) {
-    if (internalInstance._updateBatchNumber !== updateBatchNumber) {
-      // The component's enqueued batch number should always be the current
-      // batch or the following one.
-      process.env.NODE_ENV !== 'production' ? warning(internalInstance._updateBatchNumber == null || internalInstance._updateBatchNumber === updateBatchNumber + 1, 'performUpdateIfNecessary: Unexpected batch number (current %s, ' + 'pending %s)', updateBatchNumber, internalInstance._updateBatchNumber) : void 0;
-      return;
-    }
-    if (process.env.NODE_ENV !== 'production') {
-      if (internalInstance._debugID !== 0) {
-        ReactInstrumentation.debugTool.onBeforeUpdateComponent(internalInstance._debugID, internalInstance._currentElement);
-      }
-    }
-    internalInstance.performUpdateIfNecessary(transaction);
-    if (process.env.NODE_ENV !== 'production') {
-      if (internalInstance._debugID !== 0) {
-        ReactInstrumentation.debugTool.onUpdateComponent(internalInstance._debugID);
-      }
-    }
-  }
-};
-
-module.exports = ReactReconciler;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 67 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright 2015-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var DOMNamespaces = __webpack_require__(149);
-var setInnerHTML = __webpack_require__(95);
-
-var createMicrosoftUnsafeLocalFunction = __webpack_require__(150);
-var setTextContent = __webpack_require__(249);
-
-var ELEMENT_NODE_TYPE = 1;
-var DOCUMENT_FRAGMENT_NODE_TYPE = 11;
-
-/**
- * In IE (8-11) and Edge, appending nodes with no children is dramatically
- * faster than appending a full subtree, so we essentially queue up the
- * .appendChild calls here and apply them so each node is added to its parent
- * before any children are added.
- *
- * In other browsers, doing so is slower or neutral compared to the other order
- * (in Firefox, twice as slow) so we only do this inversion in IE.
- *
- * See https://github.com/spicyj/innerhtml-vs-createelement-vs-clonenode.
- */
-var enableLazy = typeof document !== 'undefined' && typeof document.documentMode === 'number' || typeof navigator !== 'undefined' && typeof navigator.userAgent === 'string' && /\bEdge\/\d/.test(navigator.userAgent);
-
-function insertTreeChildren(tree) {
-  if (!enableLazy) {
-    return;
-  }
-  var node = tree.node;
-  var children = tree.children;
-  if (children.length) {
-    for (var i = 0; i < children.length; i++) {
-      insertTreeBefore(node, children[i], null);
-    }
-  } else if (tree.html != null) {
-    setInnerHTML(node, tree.html);
-  } else if (tree.text != null) {
-    setTextContent(node, tree.text);
-  }
-}
-
-var insertTreeBefore = createMicrosoftUnsafeLocalFunction(function (parentNode, tree, referenceNode) {
-  // DocumentFragments aren't actually part of the DOM after insertion so
-  // appending children won't update the DOM. We need to ensure the fragment
-  // is properly populated first, breaking out of our lazy approach for just
-  // this level. Also, some <object> plugins (like Flash Player) will read
-  // <param> nodes immediately upon insertion into the DOM, so <object>
-  // must also be populated prior to insertion into the DOM.
-  if (tree.node.nodeType === DOCUMENT_FRAGMENT_NODE_TYPE || tree.node.nodeType === ELEMENT_NODE_TYPE && tree.node.nodeName.toLowerCase() === 'object' && (tree.node.namespaceURI == null || tree.node.namespaceURI === DOMNamespaces.html)) {
-    insertTreeChildren(tree);
-    parentNode.insertBefore(tree.node, referenceNode);
-  } else {
-    parentNode.insertBefore(tree.node, referenceNode);
-    insertTreeChildren(tree);
-  }
-});
-
-function replaceChildWithTree(oldNode, newTree) {
-  oldNode.parentNode.replaceChild(newTree.node, oldNode);
-  insertTreeChildren(newTree);
-}
-
-function queueChild(parentTree, childTree) {
-  if (enableLazy) {
-    parentTree.children.push(childTree);
-  } else {
-    parentTree.node.appendChild(childTree.node);
-  }
-}
-
-function queueHTML(tree, html) {
-  if (enableLazy) {
-    tree.html = html;
-  } else {
-    setInnerHTML(tree.node, html);
-  }
-}
-
-function queueText(tree, text) {
-  if (enableLazy) {
-    tree.text = text;
-  } else {
-    setTextContent(tree.node, text);
-  }
-}
-
-function toString() {
-  return this.node.nodeName;
-}
-
-function DOMLazyTree(node) {
-  return {
-    node: node,
-    children: [],
-    html: null,
-    text: null,
-    toString: toString
-  };
-}
-
-DOMLazyTree.insertTreeBefore = insertTreeBefore;
-DOMLazyTree.replaceChildWithTree = replaceChildWithTree;
-DOMLazyTree.queueChild = queueChild;
-DOMLazyTree.queueHTML = queueHTML;
-DOMLazyTree.queueText = queueText;
-
-module.exports = DOMLazyTree;
-
-/***/ }),
-/* 68 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var dP = __webpack_require__(47),
-    createDesc = __webpack_require__(82);
-module.exports = __webpack_require__(57) ? function (object, key, value) {
-  return dP.f(object, key, createDesc(1, value));
-} : function (object, key, value) {
-  object[key] = value;
-  return object;
-};
-
-/***/ }),
-/* 69 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function (exec) {
-  try {
-    return !!exec();
-  } catch (e) {
-    return true;
-  }
-};
-
-/***/ }),
-/* 70 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-exports.__esModule = true;
-
-var _iterator = __webpack_require__(558);
-
-var _iterator2 = _interopRequireDefault(_iterator);
-
-var _symbol = __webpack_require__(567);
-
-var _symbol2 = _interopRequireDefault(_symbol);
-
-var _typeof = typeof _symbol2.default === "function" && _typeof2(_iterator2.default) === "symbol" ? function (obj) {
-  return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
-} : function (obj) {
-  return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
-};
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
-
-exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.default) === "symbol" ? function (obj) {
-  return typeof obj === "undefined" ? "undefined" : _typeof(obj);
-} : function (obj) {
-  return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
-};
-
-/***/ }),
-/* 71 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {};
-
-/***/ }),
-/* 72 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var baseHas = __webpack_require__(585),
-    hasPath = __webpack_require__(275);
-
-/**
- * Checks if `path` is a direct property of `object`.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Object
- * @param {Object} object The object to query.
- * @param {Array|string} path The path to check.
- * @returns {boolean} Returns `true` if `path` exists, else `false`.
- * @example
- *
- * var object = { 'a': { 'b': 2 } };
- * var other = _.create({ 'a': _.create({ 'b': 2 }) });
- *
- * _.has(object, 'a');
- * // => true
- *
- * _.has(object, 'a.b');
- * // => true
- *
- * _.has(object, ['a', 'b']);
- * // => true
- *
- * _.has(other, 'a');
- * // => false
- */
-function has(object, path) {
-  return object != null && hasPath(object, path, baseHas);
-}
-
-module.exports = has;
-
-/***/ }),
-/* 73 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var root = __webpack_require__(24);
-
-/** Built-in value references. */
-var _Symbol = root.Symbol;
-
-module.exports = _Symbol;
-
-/***/ }),
-/* 74 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var baseForOwn = __webpack_require__(183),
-    createBaseEach = __webpack_require__(632);
-
-/**
- * The base implementation of `_.forEach` without support for iteratee shorthands.
- *
- * @private
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array|Object} Returns `collection`.
- */
-var baseEach = createBaseEach(baseForOwn);
-
-module.exports = baseEach;
-
-/***/ }),
-/* 75 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var assignValue = __webpack_require__(129),
-    baseAssignValue = __webpack_require__(201);
-
-/**
- * Copies properties of `source` to `object`.
- *
- * @private
- * @param {Object} source The object to copy properties from.
- * @param {Array} props The property identifiers to copy.
- * @param {Object} [object={}] The object to copy properties to.
- * @param {Function} [customizer] The function to customize copied values.
- * @returns {Object} Returns `object`.
- */
-function copyObject(source, props, object, customizer) {
-  var isNew = !object;
-  object || (object = {});
-
-  var index = -1,
-      length = props.length;
-
-  while (++index < length) {
-    var key = props[index];
-
-    var newValue = customizer ? customizer(object[key], source[key], key, object, source) : undefined;
-
-    if (newValue === undefined) {
-      newValue = source[key];
-    }
-    if (isNew) {
-      baseAssignValue(object, key, newValue);
-    } else {
-      assignValue(object, key, newValue);
-    }
-  }
-  return object;
-}
-
-module.exports = copyObject;
-
-/***/ }),
-/* 76 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _Image = __webpack_require__(347);
-
-var _Image2 = _interopRequireDefault(_Image);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _Image2.default;
-
-/***/ }),
-/* 77 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var EventPluginHub = __webpack_require__(78);
-var EventPluginUtils = __webpack_require__(143);
-
-var accumulateInto = __webpack_require__(241);
-var forEachAccumulated = __webpack_require__(242);
-var warning = __webpack_require__(7);
-
-var getListener = EventPluginHub.getListener;
-
-/**
- * Some event types have a notion of different registration names for different
- * "phases" of propagation. This finds listeners by a given phase.
- */
-function listenerAtPhase(inst, event, propagationPhase) {
-  var registrationName = event.dispatchConfig.phasedRegistrationNames[propagationPhase];
-  return getListener(inst, registrationName);
-}
-
-/**
- * Tags a `SyntheticEvent` with dispatched listeners. Creating this function
- * here, allows us to not have to bind or create functions for each event.
- * Mutating the event's members allows us to not have to create a wrapping
- * "dispatch" object that pairs the event with the listener.
- */
-function accumulateDirectionalDispatches(inst, phase, event) {
-  if (process.env.NODE_ENV !== 'production') {
-    process.env.NODE_ENV !== 'production' ? warning(inst, 'Dispatching inst must not be null') : void 0;
-  }
-  var listener = listenerAtPhase(inst, event, phase);
-  if (listener) {
-    event._dispatchListeners = accumulateInto(event._dispatchListeners, listener);
-    event._dispatchInstances = accumulateInto(event._dispatchInstances, inst);
-  }
-}
-
-/**
- * Collect dispatches (must be entirely collected before dispatching - see unit
- * tests). Lazily allocate the array to conserve memory.  We must loop through
- * each event and perform the traversal for each one. We cannot perform a
- * single traversal for the entire collection of events because each event may
- * have a different target.
- */
-function accumulateTwoPhaseDispatchesSingle(event) {
-  if (event && event.dispatchConfig.phasedRegistrationNames) {
-    EventPluginUtils.traverseTwoPhase(event._targetInst, accumulateDirectionalDispatches, event);
-  }
-}
-
-/**
- * Same as `accumulateTwoPhaseDispatchesSingle`, but skips over the targetID.
- */
-function accumulateTwoPhaseDispatchesSingleSkipTarget(event) {
-  if (event && event.dispatchConfig.phasedRegistrationNames) {
-    var targetInst = event._targetInst;
-    var parentInst = targetInst ? EventPluginUtils.getParentInstance(targetInst) : null;
-    EventPluginUtils.traverseTwoPhase(parentInst, accumulateDirectionalDispatches, event);
-  }
-}
-
-/**
- * Accumulates without regard to direction, does not look for phased
- * registration names. Same as `accumulateDirectDispatchesSingle` but without
- * requiring that the `dispatchMarker` be the same as the dispatched ID.
- */
-function accumulateDispatches(inst, ignoredDirection, event) {
-  if (event && event.dispatchConfig.registrationName) {
-    var registrationName = event.dispatchConfig.registrationName;
-    var listener = getListener(inst, registrationName);
-    if (listener) {
-      event._dispatchListeners = accumulateInto(event._dispatchListeners, listener);
-      event._dispatchInstances = accumulateInto(event._dispatchInstances, inst);
-    }
-  }
-}
-
-/**
- * Accumulates dispatches on an `SyntheticEvent`, but only for the
- * `dispatchMarker`.
- * @param {SyntheticEvent} event
- */
-function accumulateDirectDispatchesSingle(event) {
-  if (event && event.dispatchConfig.registrationName) {
-    accumulateDispatches(event._targetInst, null, event);
-  }
-}
-
-function accumulateTwoPhaseDispatches(events) {
-  forEachAccumulated(events, accumulateTwoPhaseDispatchesSingle);
-}
-
-function accumulateTwoPhaseDispatchesSkipTarget(events) {
-  forEachAccumulated(events, accumulateTwoPhaseDispatchesSingleSkipTarget);
-}
-
-function accumulateEnterLeaveDispatches(leave, enter, from, to) {
-  EventPluginUtils.traverseEnterLeave(from, to, accumulateDispatches, leave, enter);
-}
-
-function accumulateDirectDispatches(events) {
-  forEachAccumulated(events, accumulateDirectDispatchesSingle);
-}
-
-/**
- * A small set of propagation patterns, each of which will accept a small amount
- * of information, and generate a set of "dispatch ready event objects" - which
- * are sets of events that have already been annotated with a set of dispatched
- * listener functions/ids. The API is designed this way to discourage these
- * propagation strategies from actually executing the dispatches, since we
- * always want to collect the entire set of dispatches before executing event a
- * single one.
- *
- * @constructor EventPropagators
- */
-var EventPropagators = {
-  accumulateTwoPhaseDispatches: accumulateTwoPhaseDispatches,
-  accumulateTwoPhaseDispatchesSkipTarget: accumulateTwoPhaseDispatchesSkipTarget,
-  accumulateDirectDispatches: accumulateDirectDispatches,
-  accumulateEnterLeaveDispatches: accumulateEnterLeaveDispatches
-};
-
-module.exports = EventPropagators;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 78 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _prodInvariant = __webpack_require__(12);
-
-var EventPluginRegistry = __webpack_require__(92);
-var EventPluginUtils = __webpack_require__(143);
-var ReactErrorUtils = __webpack_require__(144);
-
-var accumulateInto = __webpack_require__(241);
-var forEachAccumulated = __webpack_require__(242);
-var invariant = __webpack_require__(6);
-
-/**
- * Internal store for event listeners
- */
-var listenerBank = {};
-
-/**
- * Internal queue of events that have accumulated their dispatches and are
- * waiting to have their dispatches executed.
- */
-var eventQueue = null;
-
-/**
- * Dispatches an event and releases it back into the pool, unless persistent.
- *
- * @param {?object} event Synthetic event to be dispatched.
- * @param {boolean} simulated If the event is simulated (changes exn behavior)
- * @private
- */
-var executeDispatchesAndRelease = function executeDispatchesAndRelease(event, simulated) {
-  if (event) {
-    EventPluginUtils.executeDispatchesInOrder(event, simulated);
-
-    if (!event.isPersistent()) {
-      event.constructor.release(event);
-    }
-  }
-};
-var executeDispatchesAndReleaseSimulated = function executeDispatchesAndReleaseSimulated(e) {
-  return executeDispatchesAndRelease(e, true);
-};
-var executeDispatchesAndReleaseTopLevel = function executeDispatchesAndReleaseTopLevel(e) {
-  return executeDispatchesAndRelease(e, false);
-};
-
-var getDictionaryKey = function getDictionaryKey(inst) {
-  // Prevents V8 performance issue:
-  // https://github.com/facebook/react/pull/7232
-  return '.' + inst._rootNodeID;
-};
-
-function isInteractive(tag) {
-  return tag === 'button' || tag === 'input' || tag === 'select' || tag === 'textarea';
-}
-
-function shouldPreventMouseEvent(name, type, props) {
-  switch (name) {
-    case 'onClick':
-    case 'onClickCapture':
-    case 'onDoubleClick':
-    case 'onDoubleClickCapture':
-    case 'onMouseDown':
-    case 'onMouseDownCapture':
-    case 'onMouseMove':
-    case 'onMouseMoveCapture':
-    case 'onMouseUp':
-    case 'onMouseUpCapture':
-      return !!(props.disabled && isInteractive(type));
-    default:
-      return false;
-  }
-}
-
-/**
- * This is a unified interface for event plugins to be installed and configured.
- *
- * Event plugins can implement the following properties:
- *
- *   `extractEvents` {function(string, DOMEventTarget, string, object): *}
- *     Required. When a top-level event is fired, this method is expected to
- *     extract synthetic events that will in turn be queued and dispatched.
- *
- *   `eventTypes` {object}
- *     Optional, plugins that fire events must publish a mapping of registration
- *     names that are used to register listeners. Values of this mapping must
- *     be objects that contain `registrationName` or `phasedRegistrationNames`.
- *
- *   `executeDispatch` {function(object, function, string)}
- *     Optional, allows plugins to override how an event gets dispatched. By
- *     default, the listener is simply invoked.
- *
- * Each plugin that is injected into `EventsPluginHub` is immediately operable.
- *
- * @public
- */
-var EventPluginHub = {
-  /**
-   * Methods for injecting dependencies.
-   */
-  injection: {
-    /**
-     * @param {array} InjectedEventPluginOrder
-     * @public
-     */
-    injectEventPluginOrder: EventPluginRegistry.injectEventPluginOrder,
-
-    /**
-     * @param {object} injectedNamesToPlugins Map from names to plugin modules.
-     */
-    injectEventPluginsByName: EventPluginRegistry.injectEventPluginsByName
-  },
-
-  /**
-   * Stores `listener` at `listenerBank[registrationName][key]`. Is idempotent.
-   *
-   * @param {object} inst The instance, which is the source of events.
-   * @param {string} registrationName Name of listener (e.g. `onClick`).
-   * @param {function} listener The callback to store.
-   */
-  putListener: function putListener(inst, registrationName, listener) {
-    !(typeof listener === 'function') ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Expected %s listener to be a function, instead got type %s', registrationName, typeof listener === 'undefined' ? 'undefined' : _typeof(listener)) : _prodInvariant('94', registrationName, typeof listener === 'undefined' ? 'undefined' : _typeof(listener)) : void 0;
-
-    var key = getDictionaryKey(inst);
-    var bankForRegistrationName = listenerBank[registrationName] || (listenerBank[registrationName] = {});
-    bankForRegistrationName[key] = listener;
-
-    var PluginModule = EventPluginRegistry.registrationNameModules[registrationName];
-    if (PluginModule && PluginModule.didPutListener) {
-      PluginModule.didPutListener(inst, registrationName, listener);
-    }
-  },
-
-  /**
-   * @param {object} inst The instance, which is the source of events.
-   * @param {string} registrationName Name of listener (e.g. `onClick`).
-   * @return {?function} The stored callback.
-   */
-  getListener: function getListener(inst, registrationName) {
-    // TODO: shouldPreventMouseEvent is DOM-specific and definitely should not
-    // live here; needs to be moved to a better place soon
-    var bankForRegistrationName = listenerBank[registrationName];
-    if (shouldPreventMouseEvent(registrationName, inst._currentElement.type, inst._currentElement.props)) {
-      return null;
-    }
-    var key = getDictionaryKey(inst);
-    return bankForRegistrationName && bankForRegistrationName[key];
-  },
-
-  /**
-   * Deletes a listener from the registration bank.
-   *
-   * @param {object} inst The instance, which is the source of events.
-   * @param {string} registrationName Name of listener (e.g. `onClick`).
-   */
-  deleteListener: function deleteListener(inst, registrationName) {
-    var PluginModule = EventPluginRegistry.registrationNameModules[registrationName];
-    if (PluginModule && PluginModule.willDeleteListener) {
-      PluginModule.willDeleteListener(inst, registrationName);
-    }
-
-    var bankForRegistrationName = listenerBank[registrationName];
-    // TODO: This should never be null -- when is it?
-    if (bankForRegistrationName) {
-      var key = getDictionaryKey(inst);
-      delete bankForRegistrationName[key];
-    }
-  },
-
-  /**
-   * Deletes all listeners for the DOM element with the supplied ID.
-   *
-   * @param {object} inst The instance, which is the source of events.
-   */
-  deleteAllListeners: function deleteAllListeners(inst) {
-    var key = getDictionaryKey(inst);
-    for (var registrationName in listenerBank) {
-      if (!listenerBank.hasOwnProperty(registrationName)) {
-        continue;
-      }
-
-      if (!listenerBank[registrationName][key]) {
-        continue;
-      }
-
-      var PluginModule = EventPluginRegistry.registrationNameModules[registrationName];
-      if (PluginModule && PluginModule.willDeleteListener) {
-        PluginModule.willDeleteListener(inst, registrationName);
-      }
-
-      delete listenerBank[registrationName][key];
-    }
-  },
-
-  /**
-   * Allows registered plugins an opportunity to extract events from top-level
-   * native browser events.
-   *
-   * @return {*} An accumulation of synthetic events.
-   * @internal
-   */
-  extractEvents: function extractEvents(topLevelType, targetInst, nativeEvent, nativeEventTarget) {
-    var events;
-    var plugins = EventPluginRegistry.plugins;
-    for (var i = 0; i < plugins.length; i++) {
-      // Not every plugin in the ordering may be loaded at runtime.
-      var possiblePlugin = plugins[i];
-      if (possiblePlugin) {
-        var extractedEvents = possiblePlugin.extractEvents(topLevelType, targetInst, nativeEvent, nativeEventTarget);
-        if (extractedEvents) {
-          events = accumulateInto(events, extractedEvents);
-        }
-      }
-    }
-    return events;
-  },
-
-  /**
-   * Enqueues a synthetic event that should be dispatched when
-   * `processEventQueue` is invoked.
-   *
-   * @param {*} events An accumulation of synthetic events.
-   * @internal
-   */
-  enqueueEvents: function enqueueEvents(events) {
-    if (events) {
-      eventQueue = accumulateInto(eventQueue, events);
-    }
-  },
-
-  /**
-   * Dispatches all synthetic events on the event queue.
-   *
-   * @internal
-   */
-  processEventQueue: function processEventQueue(simulated) {
-    // Set `eventQueue` to null before processing it so that we can tell if more
-    // events get enqueued while processing.
-    var processingEventQueue = eventQueue;
-    eventQueue = null;
-    if (simulated) {
-      forEachAccumulated(processingEventQueue, executeDispatchesAndReleaseSimulated);
-    } else {
-      forEachAccumulated(processingEventQueue, executeDispatchesAndReleaseTopLevel);
-    }
-    !!eventQueue ? process.env.NODE_ENV !== 'production' ? invariant(false, 'processEventQueue(): Additional events were enqueued while processing an event queue. Support for this has not yet been implemented.') : _prodInvariant('95') : void 0;
-    // This would be a good time to rethrow if any of the event handlers threw.
-    ReactErrorUtils.rethrowCaughtError();
-  },
-
-  /**
-   * These are needed for tests only. Do not use!
-   */
-  __purge: function __purge() {
-    listenerBank = {};
-  },
-
-  __getListenerBank: function __getListenerBank() {
-    return listenerBank;
-  }
-};
-
-module.exports = EventPluginHub;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 79 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var SyntheticEvent = __webpack_require__(37);
-
-var getEventTarget = __webpack_require__(145);
-
-/**
- * @interface UIEvent
- * @see http://www.w3.org/TR/DOM-Level-3-Events/
- */
-var UIEventInterface = {
-  view: function view(event) {
-    if (event.view) {
-      return event.view;
-    }
-
-    var target = getEventTarget(event);
-    if (target.window === target) {
-      // target is a window object
-      return target;
-    }
-
-    var doc = target.ownerDocument;
-    // TODO: Figure out why `ownerDocument` is sometimes undefined in IE8.
-    if (doc) {
-      return doc.defaultView || doc.parentWindow;
-    } else {
-      return window;
-    }
-  },
-  detail: function detail(event) {
-    return event.detail || 0;
-  }
-};
-
-/**
- * @param {object} dispatchConfig Configuration used to dispatch this event.
- * @param {string} dispatchMarker Marker identifying the event target.
- * @param {object} nativeEvent Native browser event.
- * @extends {SyntheticEvent}
- */
-function SyntheticUIEvent(dispatchConfig, dispatchMarker, nativeEvent, nativeEventTarget) {
-  return SyntheticEvent.call(this, dispatchConfig, dispatchMarker, nativeEvent, nativeEventTarget);
-}
-
-SyntheticEvent.augmentClass(SyntheticUIEvent, UIEventInterface);
-
-module.exports = SyntheticUIEvent;
-
-/***/ }),
-/* 80 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-/**
- * `ReactInstanceMap` maintains a mapping from a public facing stateful
- * instance (key) and the internal representation (value). This allows public
- * methods to accept the user facing instance as an argument and map them back
- * to internal methods.
- */
-
-// TODO: Replace this with ES6: var ReactInstanceMap = new Map();
-
-var ReactInstanceMap = {
-  /**
-   * This API should be called `delete` but we'd have to make sure to always
-   * transform these to strings for IE support. When this transform is fully
-   * supported we can rename it.
-   */
-  remove: function remove(key) {
-    key._reactInternalInstance = undefined;
-  },
-
-  get: function get(key) {
-    return key._reactInternalInstance;
-  },
-
-  has: function has(key) {
-    return key._reactInternalInstance !== undefined;
-  },
-
-  set: function set(key, value) {
-    key._reactInternalInstance = value;
-  }
-};
-
-module.exports = ReactInstanceMap;
-
-/***/ }),
-/* 81 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-module.exports = function (it) {
-  return (typeof it === 'undefined' ? 'undefined' : _typeof(it)) === 'object' ? it !== null : typeof it === 'function';
-};
-
-/***/ }),
-/* 82 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function (bitmap, value) {
-  return {
-    enumerable: !(bitmap & 1),
-    configurable: !(bitmap & 2),
-    writable: !(bitmap & 4),
-    value: value
-  };
-};
-
-/***/ }),
-/* 83 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys = __webpack_require__(267),
-    enumBugKeys = __webpack_require__(166);
-
-module.exports = Object.keys || function keys(O) {
-  return $keys(O, enumBugKeys);
-};
-
-/***/ }),
-/* 84 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Performs a
- * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
- * comparison between two values to determine if they are equivalent.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
- * @example
- *
- * var object = { 'a': 1 };
- * var other = { 'a': 1 };
- *
- * _.eq(object, object);
- * // => true
- *
- * _.eq(object, other);
- * // => false
- *
- * _.eq('a', 'a');
- * // => true
- *
- * _.eq('a', Object('a'));
- * // => false
- *
- * _.eq(NaN, NaN);
- * // => true
- */
-function eq(value, other) {
-  return value === other || value !== value && other !== other;
-}
-
-module.exports = eq;
-
-/***/ }),
-/* 85 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/** Used as references for various `Number` constants. */
-var MAX_SAFE_INTEGER = 9007199254740991;
-
-/** Used to detect unsigned integer values. */
-var reIsUint = /^(?:0|[1-9]\d*)$/;
-
-/**
- * Checks if `value` is a valid array-like index.
- *
- * @private
- * @param {*} value The value to check.
- * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
- * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
- */
-function isIndex(value, length) {
-  length = length == null ? MAX_SAFE_INTEGER : length;
-  return !!length && (typeof value == 'number' || reIsUint.test(value)) && value > -1 && value % 1 == 0 && value < length;
-}
-
-module.exports = isIndex;
-
-/***/ }),
-/* 86 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(module) {
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var root = __webpack_require__(24),
-    stubFalse = __webpack_require__(628);
-
-/** Detect free variable `exports`. */
-var freeExports = ( false ? 'undefined' : _typeof(exports)) == 'object' && exports && !exports.nodeType && exports;
-
-/** Detect free variable `module`. */
-var freeModule = freeExports && ( false ? 'undefined' : _typeof(module)) == 'object' && module && !module.nodeType && module;
-
-/** Detect the popular CommonJS extension `module.exports`. */
-var moduleExports = freeModule && freeModule.exports === freeExports;
-
-/** Built-in value references. */
-var Buffer = moduleExports ? root.Buffer : undefined;
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
-
-/**
- * Checks if `value` is a buffer.
- *
- * @static
- * @memberOf _
- * @since 4.3.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
- * @example
- *
- * _.isBuffer(new Buffer(2));
- * // => true
- *
- * _.isBuffer(new Uint8Array(2));
- * // => false
- */
-var isBuffer = nativeIsBuffer || stubFalse;
-
-module.exports = isBuffer;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(184)(module)))
-
-/***/ }),
-/* 87 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/**
- * Checks if `value` is likely a prototype object.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
- */
-function isPrototype(value) {
-  var Ctor = value && value.constructor,
-      proto = typeof Ctor == 'function' && Ctor.prototype || objectProto;
-
-  return value === proto;
-}
-
-module.exports = isPrototype;
-
-/***/ }),
-/* 88 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * A specialized version of `_.forEach` for arrays without support for
- * iteratee shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns `array`.
- */
-function arrayEach(array, iteratee) {
-  var index = -1,
-      length = array == null ? 0 : array.length;
-
-  while (++index < length) {
-    if (iteratee(array[index], index, array) === false) {
-      break;
-    }
-  }
-  return array;
-}
-
-module.exports = arrayEach;
-
-/***/ }),
-/* 89 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var isObject = __webpack_require__(27);
-
-/** Built-in value references. */
-var objectCreate = Object.create;
-
-/**
- * The base implementation of `_.create` without support for assigning
- * properties to the created object.
- *
- * @private
- * @param {Object} proto The object to inherit from.
- * @returns {Object} Returns the new object.
- */
-var baseCreate = function () {
-  function object() {}
-  return function (proto) {
-    if (!isObject(proto)) {
-      return {};
-    }
-    if (objectCreate) {
-      return objectCreate(proto);
-    }
-    object.prototype = proto;
-    var result = new object();
-    object.prototype = undefined;
-    return result;
-  };
-}();
-
-module.exports = baseCreate;
-
-/***/ }),
-/* 90 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * 
- */
-
-
-
-var canDefineProperty = false;
-if (process.env.NODE_ENV !== 'production') {
-  try {
-    // $FlowFixMe https://github.com/facebook/flow/issues/285
-    Object.defineProperty({}, 'x', { get: function get() {} });
-    canDefineProperty = true;
-  } catch (x) {
-    // IE will fail on defineProperty
-  }
-}
-
-module.exports = canDefineProperty;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 91 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var emptyObject = {};
-
-if (process.env.NODE_ENV !== 'production') {
-  Object.freeze(emptyObject);
-}
-
-module.exports = emptyObject;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 92 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * 
- */
-
-
-
-var _prodInvariant = __webpack_require__(12);
-
-var invariant = __webpack_require__(6);
-
-/**
- * Injectable ordering of event plugins.
- */
-var eventPluginOrder = null;
-
-/**
- * Injectable mapping from names to event plugin modules.
- */
-var namesToPlugins = {};
-
-/**
- * Recomputes the plugin list using the injected plugins and plugin ordering.
- *
- * @private
- */
-function recomputePluginOrdering() {
-  if (!eventPluginOrder) {
-    // Wait until an `eventPluginOrder` is injected.
-    return;
-  }
-  for (var pluginName in namesToPlugins) {
-    var pluginModule = namesToPlugins[pluginName];
-    var pluginIndex = eventPluginOrder.indexOf(pluginName);
-    !(pluginIndex > -1) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginRegistry: Cannot inject event plugins that do not exist in the plugin ordering, `%s`.', pluginName) : _prodInvariant('96', pluginName) : void 0;
-    if (EventPluginRegistry.plugins[pluginIndex]) {
-      continue;
-    }
-    !pluginModule.extractEvents ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginRegistry: Event plugins must implement an `extractEvents` method, but `%s` does not.', pluginName) : _prodInvariant('97', pluginName) : void 0;
-    EventPluginRegistry.plugins[pluginIndex] = pluginModule;
-    var publishedEvents = pluginModule.eventTypes;
-    for (var eventName in publishedEvents) {
-      !publishEventForPlugin(publishedEvents[eventName], pluginModule, eventName) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginRegistry: Failed to publish event `%s` for plugin `%s`.', eventName, pluginName) : _prodInvariant('98', eventName, pluginName) : void 0;
-    }
-  }
-}
-
-/**
- * Publishes an event so that it can be dispatched by the supplied plugin.
- *
- * @param {object} dispatchConfig Dispatch configuration for the event.
- * @param {object} PluginModule Plugin publishing the event.
- * @return {boolean} True if the event was successfully published.
- * @private
- */
-function publishEventForPlugin(dispatchConfig, pluginModule, eventName) {
-  !!EventPluginRegistry.eventNameDispatchConfigs.hasOwnProperty(eventName) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginHub: More than one plugin attempted to publish the same event name, `%s`.', eventName) : _prodInvariant('99', eventName) : void 0;
-  EventPluginRegistry.eventNameDispatchConfigs[eventName] = dispatchConfig;
-
-  var phasedRegistrationNames = dispatchConfig.phasedRegistrationNames;
-  if (phasedRegistrationNames) {
-    for (var phaseName in phasedRegistrationNames) {
-      if (phasedRegistrationNames.hasOwnProperty(phaseName)) {
-        var phasedRegistrationName = phasedRegistrationNames[phaseName];
-        publishRegistrationName(phasedRegistrationName, pluginModule, eventName);
-      }
-    }
-    return true;
-  } else if (dispatchConfig.registrationName) {
-    publishRegistrationName(dispatchConfig.registrationName, pluginModule, eventName);
-    return true;
-  }
-  return false;
-}
-
-/**
- * Publishes a registration name that is used to identify dispatched events and
- * can be used with `EventPluginHub.putListener` to register listeners.
- *
- * @param {string} registrationName Registration name to add.
- * @param {object} PluginModule Plugin publishing the event.
- * @private
- */
-function publishRegistrationName(registrationName, pluginModule, eventName) {
-  !!EventPluginRegistry.registrationNameModules[registrationName] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginHub: More than one plugin attempted to publish the same registration name, `%s`.', registrationName) : _prodInvariant('100', registrationName) : void 0;
-  EventPluginRegistry.registrationNameModules[registrationName] = pluginModule;
-  EventPluginRegistry.registrationNameDependencies[registrationName] = pluginModule.eventTypes[eventName].dependencies;
-
-  if (process.env.NODE_ENV !== 'production') {
-    var lowerCasedName = registrationName.toLowerCase();
-    EventPluginRegistry.possibleRegistrationNames[lowerCasedName] = registrationName;
-
-    if (registrationName === 'onDoubleClick') {
-      EventPluginRegistry.possibleRegistrationNames.ondblclick = registrationName;
-    }
-  }
-}
-
-/**
- * Registers plugins so that they can extract and dispatch events.
- *
- * @see {EventPluginHub}
- */
-var EventPluginRegistry = {
-  /**
-   * Ordered list of injected plugins.
-   */
-  plugins: [],
-
-  /**
-   * Mapping from event name to dispatch config
-   */
-  eventNameDispatchConfigs: {},
-
-  /**
-   * Mapping from registration name to plugin module
-   */
-  registrationNameModules: {},
-
-  /**
-   * Mapping from registration name to event name
-   */
-  registrationNameDependencies: {},
-
-  /**
-   * Mapping from lowercase registration names to the properly cased version,
-   * used to warn in the case of missing event handlers. Available
-   * only in __DEV__.
-   * @type {Object}
-   */
-  possibleRegistrationNames: process.env.NODE_ENV !== 'production' ? {} : null,
-  // Trust the developer to only use possibleRegistrationNames in __DEV__
-
-  /**
-   * Injects an ordering of plugins (by plugin name). This allows the ordering
-   * to be decoupled from injection of the actual plugins so that ordering is
-   * always deterministic regardless of packaging, on-the-fly injection, etc.
-   *
-   * @param {array} InjectedEventPluginOrder
-   * @internal
-   * @see {EventPluginHub.injection.injectEventPluginOrder}
-   */
-  injectEventPluginOrder: function injectEventPluginOrder(injectedEventPluginOrder) {
-    !!eventPluginOrder ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginRegistry: Cannot inject event plugin ordering more than once. You are likely trying to load more than one copy of React.') : _prodInvariant('101') : void 0;
-    // Clone the ordering so it cannot be dynamically mutated.
-    eventPluginOrder = Array.prototype.slice.call(injectedEventPluginOrder);
-    recomputePluginOrdering();
-  },
-
-  /**
-   * Injects plugins to be used by `EventPluginHub`. The plugin names must be
-   * in the ordering injected by `injectEventPluginOrder`.
-   *
-   * Plugins can be injected as part of page initialization or on-the-fly.
-   *
-   * @param {object} injectedNamesToPlugins Map from names to plugin modules.
-   * @internal
-   * @see {EventPluginHub.injection.injectEventPluginsByName}
-   */
-  injectEventPluginsByName: function injectEventPluginsByName(injectedNamesToPlugins) {
-    var isOrderingDirty = false;
-    for (var pluginName in injectedNamesToPlugins) {
-      if (!injectedNamesToPlugins.hasOwnProperty(pluginName)) {
-        continue;
-      }
-      var pluginModule = injectedNamesToPlugins[pluginName];
-      if (!namesToPlugins.hasOwnProperty(pluginName) || namesToPlugins[pluginName] !== pluginModule) {
-        !!namesToPlugins[pluginName] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginRegistry: Cannot inject two different event plugins using the same name, `%s`.', pluginName) : _prodInvariant('102', pluginName) : void 0;
-        namesToPlugins[pluginName] = pluginModule;
-        isOrderingDirty = true;
-      }
-    }
-    if (isOrderingDirty) {
-      recomputePluginOrdering();
-    }
-  },
-
-  /**
-   * Looks up the plugin for the supplied event.
-   *
-   * @param {object} event A synthetic event.
-   * @return {?object} The plugin that created the supplied event.
-   * @internal
-   */
-  getPluginModuleForEvent: function getPluginModuleForEvent(event) {
-    var dispatchConfig = event.dispatchConfig;
-    if (dispatchConfig.registrationName) {
-      return EventPluginRegistry.registrationNameModules[dispatchConfig.registrationName] || null;
-    }
-    if (dispatchConfig.phasedRegistrationNames !== undefined) {
-      // pulling phasedRegistrationNames out of dispatchConfig helps Flow see
-      // that it is not undefined.
-      var phasedRegistrationNames = dispatchConfig.phasedRegistrationNames;
-
-      for (var phase in phasedRegistrationNames) {
-        if (!phasedRegistrationNames.hasOwnProperty(phase)) {
-          continue;
-        }
-        var pluginModule = EventPluginRegistry.registrationNameModules[phasedRegistrationNames[phase]];
-        if (pluginModule) {
-          return pluginModule;
-        }
-      }
-    }
-    return null;
-  },
-
-  /**
-   * Exposed for unit testing.
-   * @private
-   */
-  _resetEventPlugins: function _resetEventPlugins() {
-    eventPluginOrder = null;
-    for (var pluginName in namesToPlugins) {
-      if (namesToPlugins.hasOwnProperty(pluginName)) {
-        delete namesToPlugins[pluginName];
-      }
-    }
-    EventPluginRegistry.plugins.length = 0;
-
-    var eventNameDispatchConfigs = EventPluginRegistry.eventNameDispatchConfigs;
-    for (var eventName in eventNameDispatchConfigs) {
-      if (eventNameDispatchConfigs.hasOwnProperty(eventName)) {
-        delete eventNameDispatchConfigs[eventName];
-      }
-    }
-
-    var registrationNameModules = EventPluginRegistry.registrationNameModules;
-    for (var registrationName in registrationNameModules) {
-      if (registrationNameModules.hasOwnProperty(registrationName)) {
-        delete registrationNameModules[registrationName];
-      }
-    }
-
-    if (process.env.NODE_ENV !== 'production') {
-      var possibleRegistrationNames = EventPluginRegistry.possibleRegistrationNames;
-      for (var lowerCasedName in possibleRegistrationNames) {
-        if (possibleRegistrationNames.hasOwnProperty(lowerCasedName)) {
-          delete possibleRegistrationNames[lowerCasedName];
-        }
-      }
-    }
-  }
-};
-
-module.exports = EventPluginRegistry;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 93 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * 
- */
-
-
-
-var _prodInvariant = __webpack_require__(12);
-
-var invariant = __webpack_require__(6);
-
-var OBSERVED_ERROR = {};
-
-/**
- * `Transaction` creates a black box that is able to wrap any method such that
- * certain invariants are maintained before and after the method is invoked
- * (Even if an exception is thrown while invoking the wrapped method). Whoever
- * instantiates a transaction can provide enforcers of the invariants at
- * creation time. The `Transaction` class itself will supply one additional
- * automatic invariant for you - the invariant that any transaction instance
- * should not be run while it is already being run. You would typically create a
- * single instance of a `Transaction` for reuse multiple times, that potentially
- * is used to wrap several different methods. Wrappers are extremely simple -
- * they only require implementing two methods.
- *
- * <pre>
- *                       wrappers (injected at creation time)
- *                                      +        +
- *                                      |        |
- *                    +-----------------|--------|--------------+
- *                    |                 v        |              |
- *                    |      +---------------+   |              |
- *                    |   +--|    wrapper1   |---|----+         |
- *                    |   |  +---------------+   v    |         |
- *                    |   |          +-------------+  |         |
- *                    |   |     +----|   wrapper2  |--------+   |
- *                    |   |     |    +-------------+  |     |   |
- *                    |   |     |                     |     |   |
- *                    |   v     v                     v     v   | wrapper
- *                    | +---+ +---+   +---------+   +---+ +---+ | invariants
- * perform(anyMethod) | |   | |   |   |         |   |   | |   | | maintained
- * +----------------->|-|---|-|---|-->|anyMethod|---|---|-|---|-|-------->
- *                    | |   | |   |   |         |   |   | |   | |
- *                    | |   | |   |   |         |   |   | |   | |
- *                    | |   | |   |   |         |   |   | |   | |
- *                    | +---+ +---+   +---------+   +---+ +---+ |
- *                    |  initialize                    close    |
- *                    +-----------------------------------------+
- * </pre>
- *
- * Use cases:
- * - Preserving the input selection ranges before/after reconciliation.
- *   Restoring selection even in the event of an unexpected error.
- * - Deactivating events while rearranging the DOM, preventing blurs/focuses,
- *   while guaranteeing that afterwards, the event system is reactivated.
- * - Flushing a queue of collected DOM mutations to the main UI thread after a
- *   reconciliation takes place in a worker thread.
- * - Invoking any collected `componentDidUpdate` callbacks after rendering new
- *   content.
- * - (Future use case): Wrapping particular flushes of the `ReactWorker` queue
- *   to preserve the `scrollTop` (an automatic scroll aware DOM).
- * - (Future use case): Layout calculations before and after DOM updates.
- *
- * Transactional plugin API:
- * - A module that has an `initialize` method that returns any precomputation.
- * - and a `close` method that accepts the precomputation. `close` is invoked
- *   when the wrapped process is completed, or has failed.
- *
- * @param {Array<TransactionalWrapper>} transactionWrapper Wrapper modules
- * that implement `initialize` and `close`.
- * @return {Transaction} Single transaction for reuse in thread.
- *
- * @class Transaction
- */
-var TransactionImpl = {
-  /**
-   * Sets up this instance so that it is prepared for collecting metrics. Does
-   * so such that this setup method may be used on an instance that is already
-   * initialized, in a way that does not consume additional memory upon reuse.
-   * That can be useful if you decide to make your subclass of this mixin a
-   * "PooledClass".
-   */
-  reinitializeTransaction: function reinitializeTransaction() {
-    this.transactionWrappers = this.getTransactionWrappers();
-    if (this.wrapperInitData) {
-      this.wrapperInitData.length = 0;
-    } else {
-      this.wrapperInitData = [];
-    }
-    this._isInTransaction = false;
-  },
-
-  _isInTransaction: false,
-
-  /**
-   * @abstract
-   * @return {Array<TransactionWrapper>} Array of transaction wrappers.
-   */
-  getTransactionWrappers: null,
-
-  isInTransaction: function isInTransaction() {
-    return !!this._isInTransaction;
-  },
-
-  /* eslint-disable space-before-function-paren */
-
-  /**
-   * Executes the function within a safety window. Use this for the top level
-   * methods that result in large amounts of computation/mutations that would
-   * need to be safety checked. The optional arguments helps prevent the need
-   * to bind in many cases.
-   *
-   * @param {function} method Member of scope to call.
-   * @param {Object} scope Scope to invoke from.
-   * @param {Object?=} a Argument to pass to the method.
-   * @param {Object?=} b Argument to pass to the method.
-   * @param {Object?=} c Argument to pass to the method.
-   * @param {Object?=} d Argument to pass to the method.
-   * @param {Object?=} e Argument to pass to the method.
-   * @param {Object?=} f Argument to pass to the method.
-   *
-   * @return {*} Return value from `method`.
-   */
-  perform: function perform(method, scope, a, b, c, d, e, f) {
-    /* eslint-enable space-before-function-paren */
-    !!this.isInTransaction() ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Transaction.perform(...): Cannot initialize a transaction when there is already an outstanding transaction.') : _prodInvariant('27') : void 0;
-    var errorThrown;
-    var ret;
-    try {
-      this._isInTransaction = true;
-      // Catching errors makes debugging more difficult, so we start with
-      // errorThrown set to true before setting it to false after calling
-      // close -- if it's still set to true in the finally block, it means
-      // one of these calls threw.
-      errorThrown = true;
-      this.initializeAll(0);
-      ret = method.call(scope, a, b, c, d, e, f);
-      errorThrown = false;
-    } finally {
-      try {
-        if (errorThrown) {
-          // If `method` throws, prefer to show that stack trace over any thrown
-          // by invoking `closeAll`.
-          try {
-            this.closeAll(0);
-          } catch (err) {}
-        } else {
-          // Since `method` didn't throw, we don't want to silence the exception
-          // here.
-          this.closeAll(0);
-        }
-      } finally {
-        this._isInTransaction = false;
-      }
-    }
-    return ret;
-  },
-
-  initializeAll: function initializeAll(startIndex) {
-    var transactionWrappers = this.transactionWrappers;
-    for (var i = startIndex; i < transactionWrappers.length; i++) {
-      var wrapper = transactionWrappers[i];
-      try {
-        // Catching errors makes debugging more difficult, so we start with the
-        // OBSERVED_ERROR state before overwriting it with the real return value
-        // of initialize -- if it's still set to OBSERVED_ERROR in the finally
-        // block, it means wrapper.initialize threw.
-        this.wrapperInitData[i] = OBSERVED_ERROR;
-        this.wrapperInitData[i] = wrapper.initialize ? wrapper.initialize.call(this) : null;
-      } finally {
-        if (this.wrapperInitData[i] === OBSERVED_ERROR) {
-          // The initializer for wrapper i threw an error; initialize the
-          // remaining wrappers but silence any exceptions from them to ensure
-          // that the first error is the one to bubble up.
-          try {
-            this.initializeAll(i + 1);
-          } catch (err) {}
-        }
-      }
-    }
-  },
-
-  /**
-   * Invokes each of `this.transactionWrappers.close[i]` functions, passing into
-   * them the respective return values of `this.transactionWrappers.init[i]`
-   * (`close`rs that correspond to initializers that failed will not be
-   * invoked).
-   */
-  closeAll: function closeAll(startIndex) {
-    !this.isInTransaction() ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Transaction.closeAll(): Cannot close transaction when none are open.') : _prodInvariant('28') : void 0;
-    var transactionWrappers = this.transactionWrappers;
-    for (var i = startIndex; i < transactionWrappers.length; i++) {
-      var wrapper = transactionWrappers[i];
-      var initData = this.wrapperInitData[i];
-      var errorThrown;
-      try {
-        // Catching errors makes debugging more difficult, so we start with
-        // errorThrown set to true before setting it to false after calling
-        // close -- if it's still set to true in the finally block, it means
-        // wrapper.close threw.
-        errorThrown = true;
-        if (initData !== OBSERVED_ERROR && wrapper.close) {
-          wrapper.close.call(this, initData);
-        }
-        errorThrown = false;
-      } finally {
-        if (errorThrown) {
-          // The closer for wrapper i threw an error; close the remaining
-          // wrappers but silence any exceptions from them to ensure that the
-          // first error is the one to bubble up.
-          try {
-            this.closeAll(i + 1);
-          } catch (e) {}
-        }
-      }
-    }
-    this.wrapperInitData.length = 0;
-  }
-};
-
-module.exports = TransactionImpl;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 94 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var SyntheticUIEvent = __webpack_require__(79);
-var ViewportMetrics = __webpack_require__(248);
-
-var getEventModifierState = __webpack_require__(147);
-
-/**
- * @interface MouseEvent
- * @see http://www.w3.org/TR/DOM-Level-3-Events/
- */
-var MouseEventInterface = {
-  screenX: null,
-  screenY: null,
-  clientX: null,
-  clientY: null,
-  ctrlKey: null,
-  shiftKey: null,
-  altKey: null,
-  metaKey: null,
-  getModifierState: getEventModifierState,
-  button: function button(event) {
-    // Webkit, Firefox, IE9+
-    // which:  1 2 3
-    // button: 0 1 2 (standard)
-    var button = event.button;
-    if ('which' in event) {
-      return button;
-    }
-    // IE<9
-    // which:  undefined
-    // button: 0 0 0
-    // button: 1 4 2 (onmouseup)
-    return button === 2 ? 2 : button === 4 ? 1 : 0;
-  },
-  buttons: null,
-  relatedTarget: function relatedTarget(event) {
-    return event.relatedTarget || (event.fromElement === event.srcElement ? event.toElement : event.fromElement);
-  },
-  // "Proprietary" Interface.
-  pageX: function pageX(event) {
-    return 'pageX' in event ? event.pageX : event.clientX + ViewportMetrics.currentScrollLeft;
-  },
-  pageY: function pageY(event) {
-    return 'pageY' in event ? event.pageY : event.clientY + ViewportMetrics.currentScrollTop;
-  }
-};
-
-/**
- * @param {object} dispatchConfig Configuration used to dispatch this event.
- * @param {string} dispatchMarker Marker identifying the event target.
- * @param {object} nativeEvent Native browser event.
- * @extends {SyntheticUIEvent}
- */
-function SyntheticMouseEvent(dispatchConfig, dispatchMarker, nativeEvent, nativeEventTarget) {
-  return SyntheticUIEvent.call(this, dispatchConfig, dispatchMarker, nativeEvent, nativeEventTarget);
-}
-
-SyntheticUIEvent.augmentClass(SyntheticMouseEvent, MouseEventInterface);
-
-module.exports = SyntheticMouseEvent;
-
-/***/ }),
-/* 95 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var ExecutionEnvironment = __webpack_require__(19);
-var DOMNamespaces = __webpack_require__(149);
-
-var WHITESPACE_TEST = /^[ \r\n\t\f]/;
-var NONVISIBLE_TEST = /<(!--|link|noscript|meta|script|style)[ \r\n\t\f\/>]/;
-
-var createMicrosoftUnsafeLocalFunction = __webpack_require__(150);
-
-// SVG temp container for IE lacking innerHTML
-var reusableSVGContainer;
-
-/**
- * Set the innerHTML property of a node, ensuring that whitespace is preserved
- * even in IE8.
- *
- * @param {DOMElement} node
- * @param {string} html
- * @internal
- */
-var setInnerHTML = createMicrosoftUnsafeLocalFunction(function (node, html) {
-  // IE does not have innerHTML for SVG nodes, so instead we inject the
-  // new markup in a temp node and then move the child nodes across into
-  // the target node
-  if (node.namespaceURI === DOMNamespaces.svg && !('innerHTML' in node)) {
-    reusableSVGContainer = reusableSVGContainer || document.createElement('div');
-    reusableSVGContainer.innerHTML = '<svg>' + html + '</svg>';
-    var svgNode = reusableSVGContainer.firstChild;
-    while (svgNode.firstChild) {
-      node.appendChild(svgNode.firstChild);
-    }
-  } else {
-    node.innerHTML = html;
-  }
-});
-
-if (ExecutionEnvironment.canUseDOM) {
-  // IE8: When updating a just created node with innerHTML only leading
-  // whitespace is removed. When updating an existing node with innerHTML
-  // whitespace in root TextNodes is also collapsed.
-  // @see quirksmode.org/bugreports/archives/2004/11/innerhtml_and_t.html
-
-  // Feature detection; only IE8 is known to behave improperly like this.
-  var testElement = document.createElement('div');
-  testElement.innerHTML = ' ';
-  if (testElement.innerHTML === '') {
-    setInnerHTML = function setInnerHTML(node, html) {
-      // Magic theory: IE8 supposedly differentiates between added and updated
-      // nodes when processing innerHTML, innerHTML on updated nodes suffers
-      // from worse whitespace behavior. Re-adding a node like this triggers
-      // the initial and more favorable whitespace behavior.
-      // TODO: What to do on a detached node?
-      if (node.parentNode) {
-        node.parentNode.replaceChild(node, node);
-      }
-
-      // We also implement a workaround for non-visible tags disappearing into
-      // thin air on IE8, this only happens if there is no visible text
-      // in-front of the non-visible tags. Piggyback on the whitespace fix
-      // and simply check if any non-visible tags appear in the source.
-      if (WHITESPACE_TEST.test(html) || html[0] === '<' && NONVISIBLE_TEST.test(html)) {
-        // Recover leading whitespace by temporarily prepending any character.
-        // \uFEFF has the potential advantage of being zero-width/invisible.
-        // UglifyJS drops U+FEFF chars when parsing, so use String.fromCharCode
-        // in hopes that this is preserved even if "\uFEFF" is transformed to
-        // the actual Unicode character (by Babel, for example).
-        // https://github.com/mishoo/UglifyJS2/blob/v2.4.20/lib/parse.js#L216
-        node.innerHTML = String.fromCharCode(0xfeff) + html;
-
-        // deleteData leaves an empty `TextNode` which offsets the index of all
-        // children. Definitely want to avoid this.
-        var textNode = node.firstChild;
-        if (textNode.data.length === 1) {
-          node.removeChild(textNode);
-        } else {
-          textNode.deleteData(0, 1);
-        }
-      } else {
-        node.innerHTML = html;
-      }
-    };
-  }
-  testElement = null;
-}
-
-module.exports = setInnerHTML;
-
-/***/ }),
-/* 96 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright 2016-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * Based on the escape-html library, which is used under the MIT License below:
- *
- * Copyright (c) 2012-2013 TJ Holowaychuk
- * Copyright (c) 2015 Andreas Lubbe
- * Copyright (c) 2015 Tiancheng "Timothy" Gu
- *
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * 'Software'), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
- *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
- * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
- * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
- * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- */
-
-
-
-// code copied and modified from escape-html
-/**
- * Module variables.
- * @private
- */
-
-var matchHtmlRegExp = /["'&<>]/;
-
-/**
- * Escape special characters in the given string of html.
- *
- * @param  {string} string The string to escape for inserting into HTML
- * @return {string}
- * @public
- */
-
-function escapeHtml(string) {
-  var str = '' + string;
-  var match = matchHtmlRegExp.exec(str);
-
-  if (!match) {
-    return str;
-  }
-
-  var escape;
-  var html = '';
-  var index = 0;
-  var lastIndex = 0;
-
-  for (index = match.index; index < str.length; index++) {
-    switch (str.charCodeAt(index)) {
-      case 34:
-        // "
-        escape = '&quot;';
-        break;
-      case 38:
-        // &
-        escape = '&amp;';
-        break;
-      case 39:
-        // '
-        escape = '&#x27;'; // modified from escape-html; used to be '&#39'
-        break;
-      case 60:
-        // <
-        escape = '&lt;';
-        break;
-      case 62:
-        // >
-        escape = '&gt;';
-        break;
-      default:
-        continue;
-    }
-
-    if (lastIndex !== index) {
-      html += str.substring(lastIndex, index);
-    }
-
-    lastIndex = index + 1;
-    html += escape;
-  }
-
-  return lastIndex !== index ? html + str.substring(lastIndex, index) : html;
-}
-// end code copied and modified from escape-html
-
-/**
- * Escapes text to prevent scripting attacks.
- *
- * @param {*} text Text value to escape.
- * @return {string} An escaped string.
- */
-function escapeTextContentForBrowser(text) {
-  if (typeof text === 'boolean' || typeof text === 'number') {
-    // this shortcircuit helps perf for types that we know will never have
-    // special characters, especially given that this function is used often
-    // for numeric dom ids.
-    return '' + text;
-  }
-  return escapeHtml(text);
-}
-
-module.exports = escapeTextContentForBrowser;
-
-/***/ }),
-/* 97 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var _assign = __webpack_require__(16);
-
-var EventPluginRegistry = __webpack_require__(92);
-var ReactEventEmitterMixin = __webpack_require__(485);
-var ViewportMetrics = __webpack_require__(248);
-
-var getVendorPrefixedEventName = __webpack_require__(486);
-var isEventSupported = __webpack_require__(146);
-
-/**
- * Summary of `ReactBrowserEventEmitter` event handling:
- *
- *  - Top-level delegation is used to trap most native browser events. This
- *    may only occur in the main thread and is the responsibility of
- *    ReactEventListener, which is injected and can therefore support pluggable
- *    event sources. This is the only work that occurs in the main thread.
- *
- *  - We normalize and de-duplicate events to account for browser quirks. This
- *    may be done in the worker thread.
- *
- *  - Forward these native events (with the associated top-level type used to
- *    trap it) to `EventPluginHub`, which in turn will ask plugins if they want
- *    to extract any synthetic events.
- *
- *  - The `EventPluginHub` will then process each event by annotating them with
- *    "dispatches", a sequence of listeners and IDs that care about that event.
- *
- *  - The `EventPluginHub` then dispatches the events.
- *
- * Overview of React and the event system:
- *
- * +------------+    .
- * |    DOM     |    .
- * +------------+    .
- *       |           .
- *       v           .
- * +------------+    .
- * | ReactEvent |    .
- * |  Listener  |    .
- * +------------+    .                         +-----------+
- *       |           .               +--------+|SimpleEvent|
- *       |           .               |         |Plugin     |
- * +-----|------+    .               v         +-----------+
- * |     |      |    .    +--------------+                    +------------+
- * |     +-----------.--->|EventPluginHub|                    |    Event   |
- * |            |    .    |              |     +-----------+  | Propagators|
- * | ReactEvent |    .    |              |     |TapEvent   |  |------------|
- * |  Emitter   |    .    |              |<---+|Plugin     |  |other plugin|
- * |            |    .    |              |     +-----------+  |  utilities |
- * |     +-----------.--->|              |                    +------------+
- * |     |      |    .    +--------------+
- * +-----|------+    .                ^        +-----------+
- *       |           .                |        |Enter/Leave|
- *       +           .                +-------+|Plugin     |
- * +-------------+   .                         +-----------+
- * | application |   .
- * |-------------|   .
- * |             |   .
- * |             |   .
- * +-------------+   .
- *                   .
- *    React Core     .  General Purpose Event Plugin System
- */
-
-var hasEventPageXY;
-var alreadyListeningTo = {};
-var isMonitoringScrollValue = false;
-var reactTopListenersCounter = 0;
-
-// For events like 'submit' which don't consistently bubble (which we trap at a
-// lower node than `document`), binding at `document` would cause duplicate
-// events so we don't include them here
-var topEventMapping = {
-  topAbort: 'abort',
-  topAnimationEnd: getVendorPrefixedEventName('animationend') || 'animationend',
-  topAnimationIteration: getVendorPrefixedEventName('animationiteration') || 'animationiteration',
-  topAnimationStart: getVendorPrefixedEventName('animationstart') || 'animationstart',
-  topBlur: 'blur',
-  topCanPlay: 'canplay',
-  topCanPlayThrough: 'canplaythrough',
-  topChange: 'change',
-  topClick: 'click',
-  topCompositionEnd: 'compositionend',
-  topCompositionStart: 'compositionstart',
-  topCompositionUpdate: 'compositionupdate',
-  topContextMenu: 'contextmenu',
-  topCopy: 'copy',
-  topCut: 'cut',
-  topDoubleClick: 'dblclick',
-  topDrag: 'drag',
-  topDragEnd: 'dragend',
-  topDragEnter: 'dragenter',
-  topDragExit: 'dragexit',
-  topDragLeave: 'dragleave',
-  topDragOver: 'dragover',
-  topDragStart: 'dragstart',
-  topDrop: 'drop',
-  topDurationChange: 'durationchange',
-  topEmptied: 'emptied',
-  topEncrypted: 'encrypted',
-  topEnded: 'ended',
-  topError: 'error',
-  topFocus: 'focus',
-  topInput: 'input',
-  topKeyDown: 'keydown',
-  topKeyPress: 'keypress',
-  topKeyUp: 'keyup',
-  topLoadedData: 'loadeddata',
-  topLoadedMetadata: 'loadedmetadata',
-  topLoadStart: 'loadstart',
-  topMouseDown: 'mousedown',
-  topMouseMove: 'mousemove',
-  topMouseOut: 'mouseout',
-  topMouseOver: 'mouseover',
-  topMouseUp: 'mouseup',
-  topPaste: 'paste',
-  topPause: 'pause',
-  topPlay: 'play',
-  topPlaying: 'playing',
-  topProgress: 'progress',
-  topRateChange: 'ratechange',
-  topScroll: 'scroll',
-  topSeeked: 'seeked',
-  topSeeking: 'seeking',
-  topSelectionChange: 'selectionchange',
-  topStalled: 'stalled',
-  topSuspend: 'suspend',
-  topTextInput: 'textInput',
-  topTimeUpdate: 'timeupdate',
-  topTouchCancel: 'touchcancel',
-  topTouchEnd: 'touchend',
-  topTouchMove: 'touchmove',
-  topTouchStart: 'touchstart',
-  topTransitionEnd: getVendorPrefixedEventName('transitionend') || 'transitionend',
-  topVolumeChange: 'volumechange',
-  topWaiting: 'waiting',
-  topWheel: 'wheel'
-};
-
-/**
- * To ensure no conflicts with other potential React instances on the page
- */
-var topListenersIDKey = '_reactListenersID' + String(Math.random()).slice(2);
-
-function getListeningForDocument(mountAt) {
-  // In IE8, `mountAt` is a host object and doesn't have `hasOwnProperty`
-  // directly.
-  if (!Object.prototype.hasOwnProperty.call(mountAt, topListenersIDKey)) {
-    mountAt[topListenersIDKey] = reactTopListenersCounter++;
-    alreadyListeningTo[mountAt[topListenersIDKey]] = {};
-  }
-  return alreadyListeningTo[mountAt[topListenersIDKey]];
-}
-
-/**
- * `ReactBrowserEventEmitter` is used to attach top-level event listeners. For
- * example:
- *
- *   EventPluginHub.putListener('myID', 'onClick', myFunction);
- *
- * This would allocate a "registration" of `('onClick', myFunction)` on 'myID'.
- *
- * @internal
- */
-var ReactBrowserEventEmitter = _assign({}, ReactEventEmitterMixin, {
-  /**
-   * Injectable event backend
-   */
-  ReactEventListener: null,
-
-  injection: {
-    /**
-     * @param {object} ReactEventListener
-     */
-    injectReactEventListener: function injectReactEventListener(ReactEventListener) {
-      ReactEventListener.setHandleTopLevel(ReactBrowserEventEmitter.handleTopLevel);
-      ReactBrowserEventEmitter.ReactEventListener = ReactEventListener;
-    }
-  },
-
-  /**
-   * Sets whether or not any created callbacks should be enabled.
-   *
-   * @param {boolean} enabled True if callbacks should be enabled.
-   */
-  setEnabled: function setEnabled(enabled) {
-    if (ReactBrowserEventEmitter.ReactEventListener) {
-      ReactBrowserEventEmitter.ReactEventListener.setEnabled(enabled);
-    }
-  },
-
-  /**
-   * @return {boolean} True if callbacks are enabled.
-   */
-  isEnabled: function isEnabled() {
-    return !!(ReactBrowserEventEmitter.ReactEventListener && ReactBrowserEventEmitter.ReactEventListener.isEnabled());
-  },
-
-  /**
-   * We listen for bubbled touch events on the document object.
-   *
-   * Firefox v8.01 (and possibly others) exhibited strange behavior when
-   * mounting `onmousemove` events at some node that was not the document
-   * element. The symptoms were that if your mouse is not moving over something
-   * contained within that mount point (for example on the background) the
-   * top-level listeners for `onmousemove` won't be called. However, if you
-   * register the `mousemove` on the document object, then it will of course
-   * catch all `mousemove`s. This along with iOS quirks, justifies restricting
-   * top-level listeners to the document object only, at least for these
-   * movement types of events and possibly all events.
-   *
-   * @see http://www.quirksmode.org/blog/archives/2010/09/click_event_del.html
-   *
-   * Also, `keyup`/`keypress`/`keydown` do not bubble to the window on IE, but
-   * they bubble to document.
-   *
-   * @param {string} registrationName Name of listener (e.g. `onClick`).
-   * @param {object} contentDocumentHandle Document which owns the container
-   */
-  listenTo: function listenTo(registrationName, contentDocumentHandle) {
-    var mountAt = contentDocumentHandle;
-    var isListening = getListeningForDocument(mountAt);
-    var dependencies = EventPluginRegistry.registrationNameDependencies[registrationName];
-
-    for (var i = 0; i < dependencies.length; i++) {
-      var dependency = dependencies[i];
-      if (!(isListening.hasOwnProperty(dependency) && isListening[dependency])) {
-        if (dependency === 'topWheel') {
-          if (isEventSupported('wheel')) {
-            ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent('topWheel', 'wheel', mountAt);
-          } else if (isEventSupported('mousewheel')) {
-            ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent('topWheel', 'mousewheel', mountAt);
-          } else {
-            // Firefox needs to capture a different mouse scroll event.
-            // @see http://www.quirksmode.org/dom/events/tests/scroll.html
-            ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent('topWheel', 'DOMMouseScroll', mountAt);
-          }
-        } else if (dependency === 'topScroll') {
-          if (isEventSupported('scroll', true)) {
-            ReactBrowserEventEmitter.ReactEventListener.trapCapturedEvent('topScroll', 'scroll', mountAt);
-          } else {
-            ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent('topScroll', 'scroll', ReactBrowserEventEmitter.ReactEventListener.WINDOW_HANDLE);
-          }
-        } else if (dependency === 'topFocus' || dependency === 'topBlur') {
-          if (isEventSupported('focus', true)) {
-            ReactBrowserEventEmitter.ReactEventListener.trapCapturedEvent('topFocus', 'focus', mountAt);
-            ReactBrowserEventEmitter.ReactEventListener.trapCapturedEvent('topBlur', 'blur', mountAt);
-          } else if (isEventSupported('focusin')) {
-            // IE has `focusin` and `focusout` events which bubble.
-            // @see http://www.quirksmode.org/blog/archives/2008/04/delegating_the.html
-            ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent('topFocus', 'focusin', mountAt);
-            ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent('topBlur', 'focusout', mountAt);
-          }
-
-          // to make sure blur and focus event listeners are only attached once
-          isListening.topBlur = true;
-          isListening.topFocus = true;
-        } else if (topEventMapping.hasOwnProperty(dependency)) {
-          ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent(dependency, topEventMapping[dependency], mountAt);
-        }
-
-        isListening[dependency] = true;
-      }
-    }
-  },
-
-  trapBubbledEvent: function trapBubbledEvent(topLevelType, handlerBaseName, handle) {
-    return ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent(topLevelType, handlerBaseName, handle);
-  },
-
-  trapCapturedEvent: function trapCapturedEvent(topLevelType, handlerBaseName, handle) {
-    return ReactBrowserEventEmitter.ReactEventListener.trapCapturedEvent(topLevelType, handlerBaseName, handle);
-  },
-
-  /**
-   * Protect against document.createEvent() returning null
-   * Some popup blocker extensions appear to do this:
-   * https://github.com/facebook/react/issues/6887
-   */
-  supportsEventPageXY: function supportsEventPageXY() {
-    if (!document.createEvent) {
-      return false;
-    }
-    var ev = document.createEvent('MouseEvent');
-    return ev != null && 'pageX' in ev;
-  },
-
-  /**
-   * Listens to window scroll and resize events. We cache scroll values so that
-   * application code can access them without triggering reflows.
-   *
-   * ViewportMetrics is only used by SyntheticMouse/TouchEvent and only when
-   * pageX/pageY isn't supported (legacy browsers).
-   *
-   * NOTE: Scroll events do not bubble.
-   *
-   * @see http://www.quirksmode.org/dom/events/scroll.html
-   */
-  ensureScrollValueMonitoring: function ensureScrollValueMonitoring() {
-    if (hasEventPageXY === undefined) {
-      hasEventPageXY = ReactBrowserEventEmitter.supportsEventPageXY();
-    }
-    if (!hasEventPageXY && !isMonitoringScrollValue) {
-      var refresh = ViewportMetrics.refreshScrollValues;
-      ReactBrowserEventEmitter.ReactEventListener.monitorScrollValue(refresh);
-      isMonitoringScrollValue = true;
-    }
-  }
-});
-
-module.exports = ReactBrowserEventEmitter;
-
-/***/ }),
-/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7428,7 +4528,7 @@ Object.defineProperty(exports, 'IconGroup', {
   }
 });
 
-var _Image = __webpack_require__(76);
+var _Image = __webpack_require__(77);
 
 Object.defineProperty(exports, 'Image', {
   enumerable: true,
@@ -8277,6 +5377,2906 @@ Object.defineProperty(exports, 'StatisticValue', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var isObject = __webpack_require__(82);
+module.exports = function (it) {
+  if (!isObject(it)) throw TypeError(it + ' is not an object!');
+  return it;
+};
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(70)(function () {
+  return Object.defineProperty({}, 'a', { get: function get() {
+      return 7;
+    } }).a != 7;
+});
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var hasOwnProperty = {}.hasOwnProperty;
+module.exports = function (it, key) {
+  return hasOwnProperty.call(it, key);
+};
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var isArray = __webpack_require__(13),
+    isKey = __webpack_require__(175),
+    stringToPath = __webpack_require__(277),
+    toString = __webpack_require__(39);
+
+/**
+ * Casts `value` to a path array if it's not one.
+ *
+ * @private
+ * @param {*} value The value to inspect.
+ * @param {Object} [object] The object to query keys on.
+ * @returns {Array} Returns the cast property path array.
+ */
+function castPath(value, object) {
+  if (isArray(value)) {
+    return value;
+  }
+  return isKey(value, object) ? [value] : stringToPath(toString(value));
+}
+
+module.exports = castPath;
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var baseGetTag = __webpack_require__(38),
+    isObjectLike = __webpack_require__(32);
+
+/** `Object#toString` result references. */
+var symbolTag = '[object Symbol]';
+
+/**
+ * Checks if `value` is classified as a `Symbol` primitive or object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+ * @example
+ *
+ * _.isSymbol(Symbol.iterator);
+ * // => true
+ *
+ * _.isSymbol('abc');
+ * // => false
+ */
+function isSymbol(value) {
+    return (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'symbol' || isObjectLike(value) && baseGetTag(value) == symbolTag;
+}
+
+module.exports = isSymbol;
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var baseIsNative = __webpack_require__(594),
+    getValue = __webpack_require__(597);
+
+/**
+ * Gets the native function at `key` of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the method to get.
+ * @returns {*} Returns the function if it's native, else `undefined`.
+ */
+function getNative(object, key) {
+  var value = getValue(object, key);
+  return baseIsNative(value) ? value : undefined;
+}
+
+module.exports = getNative;
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var baseIndexOf = __webpack_require__(113),
+    isArrayLike = __webpack_require__(36),
+    isString = __webpack_require__(313),
+    toInteger = __webpack_require__(41),
+    values = __webpack_require__(194);
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeMax = Math.max;
+
+/**
+ * Checks if `value` is in `collection`. If `collection` is a string, it's
+ * checked for a substring of `value`, otherwise
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * is used for equality comparisons. If `fromIndex` is negative, it's used as
+ * the offset from the end of `collection`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Collection
+ * @param {Array|Object|string} collection The collection to inspect.
+ * @param {*} value The value to search for.
+ * @param {number} [fromIndex=0] The index to search from.
+ * @param- {Object} [guard] Enables use as an iteratee for methods like `_.reduce`.
+ * @returns {boolean} Returns `true` if `value` is found, else `false`.
+ * @example
+ *
+ * _.includes([1, 2, 3], 1);
+ * // => true
+ *
+ * _.includes([1, 2, 3], 1, 2);
+ * // => false
+ *
+ * _.includes({ 'a': 1, 'b': 2 }, 1);
+ * // => true
+ *
+ * _.includes('abcd', 'bc');
+ * // => true
+ */
+function includes(collection, value, fromIndex, guard) {
+  collection = isArrayLike(collection) ? collection : values(collection);
+  fromIndex = fromIndex && !guard ? toInteger(fromIndex) : 0;
+
+  var length = collection.length;
+  if (fromIndex < 0) {
+    fromIndex = nativeMax(length + fromIndex, 0);
+  }
+  return isString(collection) ? fromIndex <= length && collection.indexOf(value, fromIndex) > -1 : !!length && baseIndexOf(collection, value, fromIndex) > -1;
+}
+
+module.exports = includes;
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _from = __webpack_require__(674);
+
+var _from2 = _interopRequireDefault(_from);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+exports.default = function (arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }
+
+    return arr2;
+  } else {
+    return (0, _from2.default)(arr);
+  }
+};
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var _assign = __webpack_require__(16);
+
+var ReactBaseClasses = __webpack_require__(233);
+var ReactChildren = __webpack_require__(436);
+var ReactDOMFactories = __webpack_require__(440);
+var ReactElement = __webpack_require__(54);
+var ReactPropTypes = __webpack_require__(444);
+var ReactVersion = __webpack_require__(447);
+
+var createReactClass = __webpack_require__(448);
+var onlyChild = __webpack_require__(450);
+
+var createElement = ReactElement.createElement;
+var createFactory = ReactElement.createFactory;
+var cloneElement = ReactElement.cloneElement;
+
+if (process.env.NODE_ENV !== 'production') {
+  var lowPriorityWarning = __webpack_require__(141);
+  var canDefineProperty = __webpack_require__(91);
+  var ReactElementValidator = __webpack_require__(237);
+  var didWarnPropTypesDeprecated = false;
+  createElement = ReactElementValidator.createElement;
+  createFactory = ReactElementValidator.createFactory;
+  cloneElement = ReactElementValidator.cloneElement;
+}
+
+var __spread = _assign;
+var createMixin = function createMixin(mixin) {
+  return mixin;
+};
+
+if (process.env.NODE_ENV !== 'production') {
+  var warnedForSpread = false;
+  var warnedForCreateMixin = false;
+  __spread = function __spread() {
+    lowPriorityWarning(warnedForSpread, 'React.__spread is deprecated and should not be used. Use ' + 'Object.assign directly or another helper function with similar ' + 'semantics. You may be seeing this warning due to your compiler. ' + 'See https://fb.me/react-spread-deprecation for more details.');
+    warnedForSpread = true;
+    return _assign.apply(null, arguments);
+  };
+
+  createMixin = function createMixin(mixin) {
+    lowPriorityWarning(warnedForCreateMixin, 'React.createMixin is deprecated and should not be used. ' + 'In React v16.0, it will be removed. ' + 'You can use this mixin directly instead. ' + 'See https://fb.me/createmixin-was-never-implemented for more info.');
+    warnedForCreateMixin = true;
+    return mixin;
+  };
+}
+
+var React = {
+  // Modern
+
+  Children: {
+    map: ReactChildren.map,
+    forEach: ReactChildren.forEach,
+    count: ReactChildren.count,
+    toArray: ReactChildren.toArray,
+    only: onlyChild
+  },
+
+  Component: ReactBaseClasses.Component,
+  PureComponent: ReactBaseClasses.PureComponent,
+
+  createElement: createElement,
+  cloneElement: cloneElement,
+  isValidElement: ReactElement.isValidElement,
+
+  // Classic
+
+  PropTypes: ReactPropTypes,
+  createClass: createReactClass,
+  createFactory: createFactory,
+  createMixin: createMixin,
+
+  // This looks DOM specific but these are actually isomorphic helpers
+  // since they are just generating DOM strings.
+  DOM: ReactDOMFactories,
+
+  version: ReactVersion,
+
+  // Deprecated hook for JSX spread, don't use this for anything.
+  __spread: __spread
+};
+
+if (process.env.NODE_ENV !== 'production') {
+  var warnedForCreateClass = false;
+  if (canDefineProperty) {
+    Object.defineProperty(React, 'PropTypes', {
+      get: function get() {
+        lowPriorityWarning(didWarnPropTypesDeprecated, 'Accessing PropTypes via the main React package is deprecated,' + ' and will be removed in  React v16.0.' + ' Use the latest available v15.* prop-types package from npm instead.' + ' For info on usage, compatibility, migration and more, see ' + 'https://fb.me/prop-types-docs');
+        didWarnPropTypesDeprecated = true;
+        return ReactPropTypes;
+      }
+    });
+
+    Object.defineProperty(React, 'createClass', {
+      get: function get() {
+        lowPriorityWarning(warnedForCreateClass, 'Accessing createClass via the main React package is deprecated,' + ' and will be removed in React v16.0.' + " Use a plain JavaScript class instead. If you're not yet " + 'ready to migrate, create-react-class v15.* is available ' + 'on npm as a temporary, drop-in replacement. ' + 'For more info see https://fb.me/react-create-class');
+        warnedForCreateClass = true;
+        return createReactClass;
+      }
+    });
+  }
+
+  // React.DOM factories are deprecated. Wrap these methods so that
+  // invocations of the React.DOM namespace and alert users to switch
+  // to the `react-dom-factories` package.
+  React.DOM = {};
+  var warnedForFactories = false;
+  Object.keys(ReactDOMFactories).forEach(function (factory) {
+    React.DOM[factory] = function () {
+      if (!warnedForFactories) {
+        lowPriorityWarning(false, 'Accessing factories like React.DOM.%s has been deprecated ' + 'and will be removed in v16.0+. Use the ' + 'react-dom-factories package instead. ' + ' Version 1.0 provides a drop-in replacement.' + ' For more info, see https://fb.me/react-dom-factories', factory);
+        warnedForFactories = true;
+      }
+      return ReactDOMFactories[factory].apply(ReactDOMFactories, arguments);
+    };
+  });
+}
+
+module.exports = React;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * 
+ */
+
+
+/**
+ * WARNING: DO NOT manually require this module.
+ * This is a replacement for `invariant(...)` used by the error code system
+ * and will _only_ be required by the corresponding babel pass.
+ * It always throws.
+ */
+
+function reactProdInvariant(code) {
+  var argCount = arguments.length - 1;
+
+  var message = 'Minified React error #' + code + '; visit ' + 'http://facebook.github.io/react/docs/error-decoder.html?invariant=' + code;
+
+  for (var argIdx = 0; argIdx < argCount; argIdx++) {
+    message += '&args[]=' + encodeURIComponent(arguments[argIdx + 1]);
+  }
+
+  message += ' for the full message or use the non-minified dev environment' + ' for full errors and additional helpful warnings.';
+
+  var error = new Error(message);
+  error.name = 'Invariant Violation';
+  error.framesToPop = 1; // we don't care about reactProdInvariant's own frame
+
+  throw error;
+}
+
+module.exports = reactProdInvariant;
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var ReactRef = __webpack_require__(459);
+var ReactInstrumentation = __webpack_require__(28);
+
+var warning = __webpack_require__(7);
+
+/**
+ * Helper to call ReactRef.attachRefs with this composite component, split out
+ * to avoid allocations in the transaction mount-ready queue.
+ */
+function attachRefs() {
+  ReactRef.attachRefs(this, this._currentElement);
+}
+
+var ReactReconciler = {
+  /**
+   * Initializes the component, renders markup, and registers event listeners.
+   *
+   * @param {ReactComponent} internalInstance
+   * @param {ReactReconcileTransaction|ReactServerRenderingTransaction} transaction
+   * @param {?object} the containing host component instance
+   * @param {?object} info about the host container
+   * @return {?string} Rendered markup to be inserted into the DOM.
+   * @final
+   * @internal
+   */
+  mountComponent: function mountComponent(internalInstance, transaction, hostParent, hostContainerInfo, context, parentDebugID) // 0 in production and for roots
+  {
+    if (process.env.NODE_ENV !== 'production') {
+      if (internalInstance._debugID !== 0) {
+        ReactInstrumentation.debugTool.onBeforeMountComponent(internalInstance._debugID, internalInstance._currentElement, parentDebugID);
+      }
+    }
+    var markup = internalInstance.mountComponent(transaction, hostParent, hostContainerInfo, context, parentDebugID);
+    if (internalInstance._currentElement && internalInstance._currentElement.ref != null) {
+      transaction.getReactMountReady().enqueue(attachRefs, internalInstance);
+    }
+    if (process.env.NODE_ENV !== 'production') {
+      if (internalInstance._debugID !== 0) {
+        ReactInstrumentation.debugTool.onMountComponent(internalInstance._debugID);
+      }
+    }
+    return markup;
+  },
+
+  /**
+   * Returns a value that can be passed to
+   * ReactComponentEnvironment.replaceNodeWithMarkup.
+   */
+  getHostNode: function getHostNode(internalInstance) {
+    return internalInstance.getHostNode();
+  },
+
+  /**
+   * Releases any resources allocated by `mountComponent`.
+   *
+   * @final
+   * @internal
+   */
+  unmountComponent: function unmountComponent(internalInstance, safely) {
+    if (process.env.NODE_ENV !== 'production') {
+      if (internalInstance._debugID !== 0) {
+        ReactInstrumentation.debugTool.onBeforeUnmountComponent(internalInstance._debugID);
+      }
+    }
+    ReactRef.detachRefs(internalInstance, internalInstance._currentElement);
+    internalInstance.unmountComponent(safely);
+    if (process.env.NODE_ENV !== 'production') {
+      if (internalInstance._debugID !== 0) {
+        ReactInstrumentation.debugTool.onUnmountComponent(internalInstance._debugID);
+      }
+    }
+  },
+
+  /**
+   * Update a component using a new element.
+   *
+   * @param {ReactComponent} internalInstance
+   * @param {ReactElement} nextElement
+   * @param {ReactReconcileTransaction} transaction
+   * @param {object} context
+   * @internal
+   */
+  receiveComponent: function receiveComponent(internalInstance, nextElement, transaction, context) {
+    var prevElement = internalInstance._currentElement;
+
+    if (nextElement === prevElement && context === internalInstance._context) {
+      // Since elements are immutable after the owner is rendered,
+      // we can do a cheap identity compare here to determine if this is a
+      // superfluous reconcile. It's possible for state to be mutable but such
+      // change should trigger an update of the owner which would recreate
+      // the element. We explicitly check for the existence of an owner since
+      // it's possible for an element created outside a composite to be
+      // deeply mutated and reused.
+
+      // TODO: Bailing out early is just a perf optimization right?
+      // TODO: Removing the return statement should affect correctness?
+      return;
+    }
+
+    if (process.env.NODE_ENV !== 'production') {
+      if (internalInstance._debugID !== 0) {
+        ReactInstrumentation.debugTool.onBeforeUpdateComponent(internalInstance._debugID, nextElement);
+      }
+    }
+
+    var refsChanged = ReactRef.shouldUpdateRefs(prevElement, nextElement);
+
+    if (refsChanged) {
+      ReactRef.detachRefs(internalInstance, prevElement);
+    }
+
+    internalInstance.receiveComponent(nextElement, transaction, context);
+
+    if (refsChanged && internalInstance._currentElement && internalInstance._currentElement.ref != null) {
+      transaction.getReactMountReady().enqueue(attachRefs, internalInstance);
+    }
+
+    if (process.env.NODE_ENV !== 'production') {
+      if (internalInstance._debugID !== 0) {
+        ReactInstrumentation.debugTool.onUpdateComponent(internalInstance._debugID);
+      }
+    }
+  },
+
+  /**
+   * Flush any dirty changes in a component.
+   *
+   * @param {ReactComponent} internalInstance
+   * @param {ReactReconcileTransaction} transaction
+   * @internal
+   */
+  performUpdateIfNecessary: function performUpdateIfNecessary(internalInstance, transaction, updateBatchNumber) {
+    if (internalInstance._updateBatchNumber !== updateBatchNumber) {
+      // The component's enqueued batch number should always be the current
+      // batch or the following one.
+      process.env.NODE_ENV !== 'production' ? warning(internalInstance._updateBatchNumber == null || internalInstance._updateBatchNumber === updateBatchNumber + 1, 'performUpdateIfNecessary: Unexpected batch number (current %s, ' + 'pending %s)', updateBatchNumber, internalInstance._updateBatchNumber) : void 0;
+      return;
+    }
+    if (process.env.NODE_ENV !== 'production') {
+      if (internalInstance._debugID !== 0) {
+        ReactInstrumentation.debugTool.onBeforeUpdateComponent(internalInstance._debugID, internalInstance._currentElement);
+      }
+    }
+    internalInstance.performUpdateIfNecessary(transaction);
+    if (process.env.NODE_ENV !== 'production') {
+      if (internalInstance._debugID !== 0) {
+        ReactInstrumentation.debugTool.onUpdateComponent(internalInstance._debugID);
+      }
+    }
+  }
+};
+
+module.exports = ReactReconciler;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright 2015-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var DOMNamespaces = __webpack_require__(149);
+var setInnerHTML = __webpack_require__(96);
+
+var createMicrosoftUnsafeLocalFunction = __webpack_require__(150);
+var setTextContent = __webpack_require__(249);
+
+var ELEMENT_NODE_TYPE = 1;
+var DOCUMENT_FRAGMENT_NODE_TYPE = 11;
+
+/**
+ * In IE (8-11) and Edge, appending nodes with no children is dramatically
+ * faster than appending a full subtree, so we essentially queue up the
+ * .appendChild calls here and apply them so each node is added to its parent
+ * before any children are added.
+ *
+ * In other browsers, doing so is slower or neutral compared to the other order
+ * (in Firefox, twice as slow) so we only do this inversion in IE.
+ *
+ * See https://github.com/spicyj/innerhtml-vs-createelement-vs-clonenode.
+ */
+var enableLazy = typeof document !== 'undefined' && typeof document.documentMode === 'number' || typeof navigator !== 'undefined' && typeof navigator.userAgent === 'string' && /\bEdge\/\d/.test(navigator.userAgent);
+
+function insertTreeChildren(tree) {
+  if (!enableLazy) {
+    return;
+  }
+  var node = tree.node;
+  var children = tree.children;
+  if (children.length) {
+    for (var i = 0; i < children.length; i++) {
+      insertTreeBefore(node, children[i], null);
+    }
+  } else if (tree.html != null) {
+    setInnerHTML(node, tree.html);
+  } else if (tree.text != null) {
+    setTextContent(node, tree.text);
+  }
+}
+
+var insertTreeBefore = createMicrosoftUnsafeLocalFunction(function (parentNode, tree, referenceNode) {
+  // DocumentFragments aren't actually part of the DOM after insertion so
+  // appending children won't update the DOM. We need to ensure the fragment
+  // is properly populated first, breaking out of our lazy approach for just
+  // this level. Also, some <object> plugins (like Flash Player) will read
+  // <param> nodes immediately upon insertion into the DOM, so <object>
+  // must also be populated prior to insertion into the DOM.
+  if (tree.node.nodeType === DOCUMENT_FRAGMENT_NODE_TYPE || tree.node.nodeType === ELEMENT_NODE_TYPE && tree.node.nodeName.toLowerCase() === 'object' && (tree.node.namespaceURI == null || tree.node.namespaceURI === DOMNamespaces.html)) {
+    insertTreeChildren(tree);
+    parentNode.insertBefore(tree.node, referenceNode);
+  } else {
+    parentNode.insertBefore(tree.node, referenceNode);
+    insertTreeChildren(tree);
+  }
+});
+
+function replaceChildWithTree(oldNode, newTree) {
+  oldNode.parentNode.replaceChild(newTree.node, oldNode);
+  insertTreeChildren(newTree);
+}
+
+function queueChild(parentTree, childTree) {
+  if (enableLazy) {
+    parentTree.children.push(childTree);
+  } else {
+    parentTree.node.appendChild(childTree.node);
+  }
+}
+
+function queueHTML(tree, html) {
+  if (enableLazy) {
+    tree.html = html;
+  } else {
+    setInnerHTML(tree.node, html);
+  }
+}
+
+function queueText(tree, text) {
+  if (enableLazy) {
+    tree.text = text;
+  } else {
+    setTextContent(tree.node, text);
+  }
+}
+
+function toString() {
+  return this.node.nodeName;
+}
+
+function DOMLazyTree(node) {
+  return {
+    node: node,
+    children: [],
+    html: null,
+    text: null,
+    toString: toString
+  };
+}
+
+DOMLazyTree.insertTreeBefore = insertTreeBefore;
+DOMLazyTree.replaceChildWithTree = replaceChildWithTree;
+DOMLazyTree.queueChild = queueChild;
+DOMLazyTree.queueHTML = queueHTML;
+DOMLazyTree.queueText = queueText;
+
+module.exports = DOMLazyTree;
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var dP = __webpack_require__(47),
+    createDesc = __webpack_require__(83);
+module.exports = __webpack_require__(58) ? function (object, key, value) {
+  return dP.f(object, key, createDesc(1, value));
+} : function (object, key, value) {
+  object[key] = value;
+  return object;
+};
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function (exec) {
+  try {
+    return !!exec();
+  } catch (e) {
+    return true;
+  }
+};
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports.__esModule = true;
+
+var _iterator = __webpack_require__(558);
+
+var _iterator2 = _interopRequireDefault(_iterator);
+
+var _symbol = __webpack_require__(567);
+
+var _symbol2 = _interopRequireDefault(_symbol);
+
+var _typeof = typeof _symbol2.default === "function" && _typeof2(_iterator2.default) === "symbol" ? function (obj) {
+  return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+} : function (obj) {
+  return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+};
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.default) === "symbol" ? function (obj) {
+  return typeof obj === "undefined" ? "undefined" : _typeof(obj);
+} : function (obj) {
+  return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
+};
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {};
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var baseHas = __webpack_require__(585),
+    hasPath = __webpack_require__(275);
+
+/**
+ * Checks if `path` is a direct property of `object`.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path to check.
+ * @returns {boolean} Returns `true` if `path` exists, else `false`.
+ * @example
+ *
+ * var object = { 'a': { 'b': 2 } };
+ * var other = _.create({ 'a': _.create({ 'b': 2 }) });
+ *
+ * _.has(object, 'a');
+ * // => true
+ *
+ * _.has(object, 'a.b');
+ * // => true
+ *
+ * _.has(object, ['a', 'b']);
+ * // => true
+ *
+ * _.has(other, 'a');
+ * // => false
+ */
+function has(object, path) {
+  return object != null && hasPath(object, path, baseHas);
+}
+
+module.exports = has;
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var root = __webpack_require__(24);
+
+/** Built-in value references. */
+var _Symbol = root.Symbol;
+
+module.exports = _Symbol;
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var baseForOwn = __webpack_require__(183),
+    createBaseEach = __webpack_require__(632);
+
+/**
+ * The base implementation of `_.forEach` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array|Object} Returns `collection`.
+ */
+var baseEach = createBaseEach(baseForOwn);
+
+module.exports = baseEach;
+
+/***/ }),
+/* 76 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var assignValue = __webpack_require__(129),
+    baseAssignValue = __webpack_require__(201);
+
+/**
+ * Copies properties of `source` to `object`.
+ *
+ * @private
+ * @param {Object} source The object to copy properties from.
+ * @param {Array} props The property identifiers to copy.
+ * @param {Object} [object={}] The object to copy properties to.
+ * @param {Function} [customizer] The function to customize copied values.
+ * @returns {Object} Returns `object`.
+ */
+function copyObject(source, props, object, customizer) {
+  var isNew = !object;
+  object || (object = {});
+
+  var index = -1,
+      length = props.length;
+
+  while (++index < length) {
+    var key = props[index];
+
+    var newValue = customizer ? customizer(object[key], source[key], key, object, source) : undefined;
+
+    if (newValue === undefined) {
+      newValue = source[key];
+    }
+    if (isNew) {
+      baseAssignValue(object, key, newValue);
+    } else {
+      assignValue(object, key, newValue);
+    }
+  }
+  return object;
+}
+
+module.exports = copyObject;
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _Image = __webpack_require__(347);
+
+var _Image2 = _interopRequireDefault(_Image);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _Image2.default;
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var EventPluginHub = __webpack_require__(79);
+var EventPluginUtils = __webpack_require__(143);
+
+var accumulateInto = __webpack_require__(241);
+var forEachAccumulated = __webpack_require__(242);
+var warning = __webpack_require__(7);
+
+var getListener = EventPluginHub.getListener;
+
+/**
+ * Some event types have a notion of different registration names for different
+ * "phases" of propagation. This finds listeners by a given phase.
+ */
+function listenerAtPhase(inst, event, propagationPhase) {
+  var registrationName = event.dispatchConfig.phasedRegistrationNames[propagationPhase];
+  return getListener(inst, registrationName);
+}
+
+/**
+ * Tags a `SyntheticEvent` with dispatched listeners. Creating this function
+ * here, allows us to not have to bind or create functions for each event.
+ * Mutating the event's members allows us to not have to create a wrapping
+ * "dispatch" object that pairs the event with the listener.
+ */
+function accumulateDirectionalDispatches(inst, phase, event) {
+  if (process.env.NODE_ENV !== 'production') {
+    process.env.NODE_ENV !== 'production' ? warning(inst, 'Dispatching inst must not be null') : void 0;
+  }
+  var listener = listenerAtPhase(inst, event, phase);
+  if (listener) {
+    event._dispatchListeners = accumulateInto(event._dispatchListeners, listener);
+    event._dispatchInstances = accumulateInto(event._dispatchInstances, inst);
+  }
+}
+
+/**
+ * Collect dispatches (must be entirely collected before dispatching - see unit
+ * tests). Lazily allocate the array to conserve memory.  We must loop through
+ * each event and perform the traversal for each one. We cannot perform a
+ * single traversal for the entire collection of events because each event may
+ * have a different target.
+ */
+function accumulateTwoPhaseDispatchesSingle(event) {
+  if (event && event.dispatchConfig.phasedRegistrationNames) {
+    EventPluginUtils.traverseTwoPhase(event._targetInst, accumulateDirectionalDispatches, event);
+  }
+}
+
+/**
+ * Same as `accumulateTwoPhaseDispatchesSingle`, but skips over the targetID.
+ */
+function accumulateTwoPhaseDispatchesSingleSkipTarget(event) {
+  if (event && event.dispatchConfig.phasedRegistrationNames) {
+    var targetInst = event._targetInst;
+    var parentInst = targetInst ? EventPluginUtils.getParentInstance(targetInst) : null;
+    EventPluginUtils.traverseTwoPhase(parentInst, accumulateDirectionalDispatches, event);
+  }
+}
+
+/**
+ * Accumulates without regard to direction, does not look for phased
+ * registration names. Same as `accumulateDirectDispatchesSingle` but without
+ * requiring that the `dispatchMarker` be the same as the dispatched ID.
+ */
+function accumulateDispatches(inst, ignoredDirection, event) {
+  if (event && event.dispatchConfig.registrationName) {
+    var registrationName = event.dispatchConfig.registrationName;
+    var listener = getListener(inst, registrationName);
+    if (listener) {
+      event._dispatchListeners = accumulateInto(event._dispatchListeners, listener);
+      event._dispatchInstances = accumulateInto(event._dispatchInstances, inst);
+    }
+  }
+}
+
+/**
+ * Accumulates dispatches on an `SyntheticEvent`, but only for the
+ * `dispatchMarker`.
+ * @param {SyntheticEvent} event
+ */
+function accumulateDirectDispatchesSingle(event) {
+  if (event && event.dispatchConfig.registrationName) {
+    accumulateDispatches(event._targetInst, null, event);
+  }
+}
+
+function accumulateTwoPhaseDispatches(events) {
+  forEachAccumulated(events, accumulateTwoPhaseDispatchesSingle);
+}
+
+function accumulateTwoPhaseDispatchesSkipTarget(events) {
+  forEachAccumulated(events, accumulateTwoPhaseDispatchesSingleSkipTarget);
+}
+
+function accumulateEnterLeaveDispatches(leave, enter, from, to) {
+  EventPluginUtils.traverseEnterLeave(from, to, accumulateDispatches, leave, enter);
+}
+
+function accumulateDirectDispatches(events) {
+  forEachAccumulated(events, accumulateDirectDispatchesSingle);
+}
+
+/**
+ * A small set of propagation patterns, each of which will accept a small amount
+ * of information, and generate a set of "dispatch ready event objects" - which
+ * are sets of events that have already been annotated with a set of dispatched
+ * listener functions/ids. The API is designed this way to discourage these
+ * propagation strategies from actually executing the dispatches, since we
+ * always want to collect the entire set of dispatches before executing event a
+ * single one.
+ *
+ * @constructor EventPropagators
+ */
+var EventPropagators = {
+  accumulateTwoPhaseDispatches: accumulateTwoPhaseDispatches,
+  accumulateTwoPhaseDispatchesSkipTarget: accumulateTwoPhaseDispatchesSkipTarget,
+  accumulateDirectDispatches: accumulateDirectDispatches,
+  accumulateEnterLeaveDispatches: accumulateEnterLeaveDispatches
+};
+
+module.exports = EventPropagators;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _prodInvariant = __webpack_require__(12);
+
+var EventPluginRegistry = __webpack_require__(93);
+var EventPluginUtils = __webpack_require__(143);
+var ReactErrorUtils = __webpack_require__(144);
+
+var accumulateInto = __webpack_require__(241);
+var forEachAccumulated = __webpack_require__(242);
+var invariant = __webpack_require__(6);
+
+/**
+ * Internal store for event listeners
+ */
+var listenerBank = {};
+
+/**
+ * Internal queue of events that have accumulated their dispatches and are
+ * waiting to have their dispatches executed.
+ */
+var eventQueue = null;
+
+/**
+ * Dispatches an event and releases it back into the pool, unless persistent.
+ *
+ * @param {?object} event Synthetic event to be dispatched.
+ * @param {boolean} simulated If the event is simulated (changes exn behavior)
+ * @private
+ */
+var executeDispatchesAndRelease = function executeDispatchesAndRelease(event, simulated) {
+  if (event) {
+    EventPluginUtils.executeDispatchesInOrder(event, simulated);
+
+    if (!event.isPersistent()) {
+      event.constructor.release(event);
+    }
+  }
+};
+var executeDispatchesAndReleaseSimulated = function executeDispatchesAndReleaseSimulated(e) {
+  return executeDispatchesAndRelease(e, true);
+};
+var executeDispatchesAndReleaseTopLevel = function executeDispatchesAndReleaseTopLevel(e) {
+  return executeDispatchesAndRelease(e, false);
+};
+
+var getDictionaryKey = function getDictionaryKey(inst) {
+  // Prevents V8 performance issue:
+  // https://github.com/facebook/react/pull/7232
+  return '.' + inst._rootNodeID;
+};
+
+function isInteractive(tag) {
+  return tag === 'button' || tag === 'input' || tag === 'select' || tag === 'textarea';
+}
+
+function shouldPreventMouseEvent(name, type, props) {
+  switch (name) {
+    case 'onClick':
+    case 'onClickCapture':
+    case 'onDoubleClick':
+    case 'onDoubleClickCapture':
+    case 'onMouseDown':
+    case 'onMouseDownCapture':
+    case 'onMouseMove':
+    case 'onMouseMoveCapture':
+    case 'onMouseUp':
+    case 'onMouseUpCapture':
+      return !!(props.disabled && isInteractive(type));
+    default:
+      return false;
+  }
+}
+
+/**
+ * This is a unified interface for event plugins to be installed and configured.
+ *
+ * Event plugins can implement the following properties:
+ *
+ *   `extractEvents` {function(string, DOMEventTarget, string, object): *}
+ *     Required. When a top-level event is fired, this method is expected to
+ *     extract synthetic events that will in turn be queued and dispatched.
+ *
+ *   `eventTypes` {object}
+ *     Optional, plugins that fire events must publish a mapping of registration
+ *     names that are used to register listeners. Values of this mapping must
+ *     be objects that contain `registrationName` or `phasedRegistrationNames`.
+ *
+ *   `executeDispatch` {function(object, function, string)}
+ *     Optional, allows plugins to override how an event gets dispatched. By
+ *     default, the listener is simply invoked.
+ *
+ * Each plugin that is injected into `EventsPluginHub` is immediately operable.
+ *
+ * @public
+ */
+var EventPluginHub = {
+  /**
+   * Methods for injecting dependencies.
+   */
+  injection: {
+    /**
+     * @param {array} InjectedEventPluginOrder
+     * @public
+     */
+    injectEventPluginOrder: EventPluginRegistry.injectEventPluginOrder,
+
+    /**
+     * @param {object} injectedNamesToPlugins Map from names to plugin modules.
+     */
+    injectEventPluginsByName: EventPluginRegistry.injectEventPluginsByName
+  },
+
+  /**
+   * Stores `listener` at `listenerBank[registrationName][key]`. Is idempotent.
+   *
+   * @param {object} inst The instance, which is the source of events.
+   * @param {string} registrationName Name of listener (e.g. `onClick`).
+   * @param {function} listener The callback to store.
+   */
+  putListener: function putListener(inst, registrationName, listener) {
+    !(typeof listener === 'function') ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Expected %s listener to be a function, instead got type %s', registrationName, typeof listener === 'undefined' ? 'undefined' : _typeof(listener)) : _prodInvariant('94', registrationName, typeof listener === 'undefined' ? 'undefined' : _typeof(listener)) : void 0;
+
+    var key = getDictionaryKey(inst);
+    var bankForRegistrationName = listenerBank[registrationName] || (listenerBank[registrationName] = {});
+    bankForRegistrationName[key] = listener;
+
+    var PluginModule = EventPluginRegistry.registrationNameModules[registrationName];
+    if (PluginModule && PluginModule.didPutListener) {
+      PluginModule.didPutListener(inst, registrationName, listener);
+    }
+  },
+
+  /**
+   * @param {object} inst The instance, which is the source of events.
+   * @param {string} registrationName Name of listener (e.g. `onClick`).
+   * @return {?function} The stored callback.
+   */
+  getListener: function getListener(inst, registrationName) {
+    // TODO: shouldPreventMouseEvent is DOM-specific and definitely should not
+    // live here; needs to be moved to a better place soon
+    var bankForRegistrationName = listenerBank[registrationName];
+    if (shouldPreventMouseEvent(registrationName, inst._currentElement.type, inst._currentElement.props)) {
+      return null;
+    }
+    var key = getDictionaryKey(inst);
+    return bankForRegistrationName && bankForRegistrationName[key];
+  },
+
+  /**
+   * Deletes a listener from the registration bank.
+   *
+   * @param {object} inst The instance, which is the source of events.
+   * @param {string} registrationName Name of listener (e.g. `onClick`).
+   */
+  deleteListener: function deleteListener(inst, registrationName) {
+    var PluginModule = EventPluginRegistry.registrationNameModules[registrationName];
+    if (PluginModule && PluginModule.willDeleteListener) {
+      PluginModule.willDeleteListener(inst, registrationName);
+    }
+
+    var bankForRegistrationName = listenerBank[registrationName];
+    // TODO: This should never be null -- when is it?
+    if (bankForRegistrationName) {
+      var key = getDictionaryKey(inst);
+      delete bankForRegistrationName[key];
+    }
+  },
+
+  /**
+   * Deletes all listeners for the DOM element with the supplied ID.
+   *
+   * @param {object} inst The instance, which is the source of events.
+   */
+  deleteAllListeners: function deleteAllListeners(inst) {
+    var key = getDictionaryKey(inst);
+    for (var registrationName in listenerBank) {
+      if (!listenerBank.hasOwnProperty(registrationName)) {
+        continue;
+      }
+
+      if (!listenerBank[registrationName][key]) {
+        continue;
+      }
+
+      var PluginModule = EventPluginRegistry.registrationNameModules[registrationName];
+      if (PluginModule && PluginModule.willDeleteListener) {
+        PluginModule.willDeleteListener(inst, registrationName);
+      }
+
+      delete listenerBank[registrationName][key];
+    }
+  },
+
+  /**
+   * Allows registered plugins an opportunity to extract events from top-level
+   * native browser events.
+   *
+   * @return {*} An accumulation of synthetic events.
+   * @internal
+   */
+  extractEvents: function extractEvents(topLevelType, targetInst, nativeEvent, nativeEventTarget) {
+    var events;
+    var plugins = EventPluginRegistry.plugins;
+    for (var i = 0; i < plugins.length; i++) {
+      // Not every plugin in the ordering may be loaded at runtime.
+      var possiblePlugin = plugins[i];
+      if (possiblePlugin) {
+        var extractedEvents = possiblePlugin.extractEvents(topLevelType, targetInst, nativeEvent, nativeEventTarget);
+        if (extractedEvents) {
+          events = accumulateInto(events, extractedEvents);
+        }
+      }
+    }
+    return events;
+  },
+
+  /**
+   * Enqueues a synthetic event that should be dispatched when
+   * `processEventQueue` is invoked.
+   *
+   * @param {*} events An accumulation of synthetic events.
+   * @internal
+   */
+  enqueueEvents: function enqueueEvents(events) {
+    if (events) {
+      eventQueue = accumulateInto(eventQueue, events);
+    }
+  },
+
+  /**
+   * Dispatches all synthetic events on the event queue.
+   *
+   * @internal
+   */
+  processEventQueue: function processEventQueue(simulated) {
+    // Set `eventQueue` to null before processing it so that we can tell if more
+    // events get enqueued while processing.
+    var processingEventQueue = eventQueue;
+    eventQueue = null;
+    if (simulated) {
+      forEachAccumulated(processingEventQueue, executeDispatchesAndReleaseSimulated);
+    } else {
+      forEachAccumulated(processingEventQueue, executeDispatchesAndReleaseTopLevel);
+    }
+    !!eventQueue ? process.env.NODE_ENV !== 'production' ? invariant(false, 'processEventQueue(): Additional events were enqueued while processing an event queue. Support for this has not yet been implemented.') : _prodInvariant('95') : void 0;
+    // This would be a good time to rethrow if any of the event handlers threw.
+    ReactErrorUtils.rethrowCaughtError();
+  },
+
+  /**
+   * These are needed for tests only. Do not use!
+   */
+  __purge: function __purge() {
+    listenerBank = {};
+  },
+
+  __getListenerBank: function __getListenerBank() {
+    return listenerBank;
+  }
+};
+
+module.exports = EventPluginHub;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var SyntheticEvent = __webpack_require__(37);
+
+var getEventTarget = __webpack_require__(145);
+
+/**
+ * @interface UIEvent
+ * @see http://www.w3.org/TR/DOM-Level-3-Events/
+ */
+var UIEventInterface = {
+  view: function view(event) {
+    if (event.view) {
+      return event.view;
+    }
+
+    var target = getEventTarget(event);
+    if (target.window === target) {
+      // target is a window object
+      return target;
+    }
+
+    var doc = target.ownerDocument;
+    // TODO: Figure out why `ownerDocument` is sometimes undefined in IE8.
+    if (doc) {
+      return doc.defaultView || doc.parentWindow;
+    } else {
+      return window;
+    }
+  },
+  detail: function detail(event) {
+    return event.detail || 0;
+  }
+};
+
+/**
+ * @param {object} dispatchConfig Configuration used to dispatch this event.
+ * @param {string} dispatchMarker Marker identifying the event target.
+ * @param {object} nativeEvent Native browser event.
+ * @extends {SyntheticEvent}
+ */
+function SyntheticUIEvent(dispatchConfig, dispatchMarker, nativeEvent, nativeEventTarget) {
+  return SyntheticEvent.call(this, dispatchConfig, dispatchMarker, nativeEvent, nativeEventTarget);
+}
+
+SyntheticEvent.augmentClass(SyntheticUIEvent, UIEventInterface);
+
+module.exports = SyntheticUIEvent;
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+/**
+ * `ReactInstanceMap` maintains a mapping from a public facing stateful
+ * instance (key) and the internal representation (value). This allows public
+ * methods to accept the user facing instance as an argument and map them back
+ * to internal methods.
+ */
+
+// TODO: Replace this with ES6: var ReactInstanceMap = new Map();
+
+var ReactInstanceMap = {
+  /**
+   * This API should be called `delete` but we'd have to make sure to always
+   * transform these to strings for IE support. When this transform is fully
+   * supported we can rename it.
+   */
+  remove: function remove(key) {
+    key._reactInternalInstance = undefined;
+  },
+
+  get: function get(key) {
+    return key._reactInternalInstance;
+  },
+
+  has: function has(key) {
+    return key._reactInternalInstance !== undefined;
+  },
+
+  set: function set(key, value) {
+    key._reactInternalInstance = value;
+  }
+};
+
+module.exports = ReactInstanceMap;
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+module.exports = function (it) {
+  return (typeof it === 'undefined' ? 'undefined' : _typeof(it)) === 'object' ? it !== null : typeof it === 'function';
+};
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function (bitmap, value) {
+  return {
+    enumerable: !(bitmap & 1),
+    configurable: !(bitmap & 2),
+    writable: !(bitmap & 4),
+    value: value
+  };
+};
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// 19.1.2.14 / 15.2.3.14 Object.keys(O)
+var $keys = __webpack_require__(267),
+    enumBugKeys = __webpack_require__(166);
+
+module.exports = Object.keys || function keys(O) {
+  return $keys(O, enumBugKeys);
+};
+
+/***/ }),
+/* 85 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Performs a
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * comparison between two values to determine if they are equivalent.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ * var other = { 'a': 1 };
+ *
+ * _.eq(object, object);
+ * // => true
+ *
+ * _.eq(object, other);
+ * // => false
+ *
+ * _.eq('a', 'a');
+ * // => true
+ *
+ * _.eq('a', Object('a'));
+ * // => false
+ *
+ * _.eq(NaN, NaN);
+ * // => true
+ */
+function eq(value, other) {
+  return value === other || value !== value && other !== other;
+}
+
+module.exports = eq;
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+
+/** Used to detect unsigned integer values. */
+var reIsUint = /^(?:0|[1-9]\d*)$/;
+
+/**
+ * Checks if `value` is a valid array-like index.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+ * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+ */
+function isIndex(value, length) {
+  length = length == null ? MAX_SAFE_INTEGER : length;
+  return !!length && (typeof value == 'number' || reIsUint.test(value)) && value > -1 && value % 1 == 0 && value < length;
+}
+
+module.exports = isIndex;
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var root = __webpack_require__(24),
+    stubFalse = __webpack_require__(628);
+
+/** Detect free variable `exports`. */
+var freeExports = ( false ? 'undefined' : _typeof(exports)) == 'object' && exports && !exports.nodeType && exports;
+
+/** Detect free variable `module`. */
+var freeModule = freeExports && ( false ? 'undefined' : _typeof(module)) == 'object' && module && !module.nodeType && module;
+
+/** Detect the popular CommonJS extension `module.exports`. */
+var moduleExports = freeModule && freeModule.exports === freeExports;
+
+/** Built-in value references. */
+var Buffer = moduleExports ? root.Buffer : undefined;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
+
+/**
+ * Checks if `value` is a buffer.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.3.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
+ * @example
+ *
+ * _.isBuffer(new Buffer(2));
+ * // => true
+ *
+ * _.isBuffer(new Uint8Array(2));
+ * // => false
+ */
+var isBuffer = nativeIsBuffer || stubFalse;
+
+module.exports = isBuffer;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(184)(module)))
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/**
+ * Checks if `value` is likely a prototype object.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+ */
+function isPrototype(value) {
+  var Ctor = value && value.constructor,
+      proto = typeof Ctor == 'function' && Ctor.prototype || objectProto;
+
+  return value === proto;
+}
+
+module.exports = isPrototype;
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * A specialized version of `_.forEach` for arrays without support for
+ * iteratee shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns `array`.
+ */
+function arrayEach(array, iteratee) {
+  var index = -1,
+      length = array == null ? 0 : array.length;
+
+  while (++index < length) {
+    if (iteratee(array[index], index, array) === false) {
+      break;
+    }
+  }
+  return array;
+}
+
+module.exports = arrayEach;
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var isObject = __webpack_require__(27);
+
+/** Built-in value references. */
+var objectCreate = Object.create;
+
+/**
+ * The base implementation of `_.create` without support for assigning
+ * properties to the created object.
+ *
+ * @private
+ * @param {Object} proto The object to inherit from.
+ * @returns {Object} Returns the new object.
+ */
+var baseCreate = function () {
+  function object() {}
+  return function (proto) {
+    if (!isObject(proto)) {
+      return {};
+    }
+    if (objectCreate) {
+      return objectCreate(proto);
+    }
+    object.prototype = proto;
+    var result = new object();
+    object.prototype = undefined;
+    return result;
+  };
+}();
+
+module.exports = baseCreate;
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * 
+ */
+
+
+
+var canDefineProperty = false;
+if (process.env.NODE_ENV !== 'production') {
+  try {
+    // $FlowFixMe https://github.com/facebook/flow/issues/285
+    Object.defineProperty({}, 'x', { get: function get() {} });
+    canDefineProperty = true;
+  } catch (x) {
+    // IE will fail on defineProperty
+  }
+}
+
+module.exports = canDefineProperty;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var emptyObject = {};
+
+if (process.env.NODE_ENV !== 'production') {
+  Object.freeze(emptyObject);
+}
+
+module.exports = emptyObject;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * 
+ */
+
+
+
+var _prodInvariant = __webpack_require__(12);
+
+var invariant = __webpack_require__(6);
+
+/**
+ * Injectable ordering of event plugins.
+ */
+var eventPluginOrder = null;
+
+/**
+ * Injectable mapping from names to event plugin modules.
+ */
+var namesToPlugins = {};
+
+/**
+ * Recomputes the plugin list using the injected plugins and plugin ordering.
+ *
+ * @private
+ */
+function recomputePluginOrdering() {
+  if (!eventPluginOrder) {
+    // Wait until an `eventPluginOrder` is injected.
+    return;
+  }
+  for (var pluginName in namesToPlugins) {
+    var pluginModule = namesToPlugins[pluginName];
+    var pluginIndex = eventPluginOrder.indexOf(pluginName);
+    !(pluginIndex > -1) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginRegistry: Cannot inject event plugins that do not exist in the plugin ordering, `%s`.', pluginName) : _prodInvariant('96', pluginName) : void 0;
+    if (EventPluginRegistry.plugins[pluginIndex]) {
+      continue;
+    }
+    !pluginModule.extractEvents ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginRegistry: Event plugins must implement an `extractEvents` method, but `%s` does not.', pluginName) : _prodInvariant('97', pluginName) : void 0;
+    EventPluginRegistry.plugins[pluginIndex] = pluginModule;
+    var publishedEvents = pluginModule.eventTypes;
+    for (var eventName in publishedEvents) {
+      !publishEventForPlugin(publishedEvents[eventName], pluginModule, eventName) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginRegistry: Failed to publish event `%s` for plugin `%s`.', eventName, pluginName) : _prodInvariant('98', eventName, pluginName) : void 0;
+    }
+  }
+}
+
+/**
+ * Publishes an event so that it can be dispatched by the supplied plugin.
+ *
+ * @param {object} dispatchConfig Dispatch configuration for the event.
+ * @param {object} PluginModule Plugin publishing the event.
+ * @return {boolean} True if the event was successfully published.
+ * @private
+ */
+function publishEventForPlugin(dispatchConfig, pluginModule, eventName) {
+  !!EventPluginRegistry.eventNameDispatchConfigs.hasOwnProperty(eventName) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginHub: More than one plugin attempted to publish the same event name, `%s`.', eventName) : _prodInvariant('99', eventName) : void 0;
+  EventPluginRegistry.eventNameDispatchConfigs[eventName] = dispatchConfig;
+
+  var phasedRegistrationNames = dispatchConfig.phasedRegistrationNames;
+  if (phasedRegistrationNames) {
+    for (var phaseName in phasedRegistrationNames) {
+      if (phasedRegistrationNames.hasOwnProperty(phaseName)) {
+        var phasedRegistrationName = phasedRegistrationNames[phaseName];
+        publishRegistrationName(phasedRegistrationName, pluginModule, eventName);
+      }
+    }
+    return true;
+  } else if (dispatchConfig.registrationName) {
+    publishRegistrationName(dispatchConfig.registrationName, pluginModule, eventName);
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Publishes a registration name that is used to identify dispatched events and
+ * can be used with `EventPluginHub.putListener` to register listeners.
+ *
+ * @param {string} registrationName Registration name to add.
+ * @param {object} PluginModule Plugin publishing the event.
+ * @private
+ */
+function publishRegistrationName(registrationName, pluginModule, eventName) {
+  !!EventPluginRegistry.registrationNameModules[registrationName] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginHub: More than one plugin attempted to publish the same registration name, `%s`.', registrationName) : _prodInvariant('100', registrationName) : void 0;
+  EventPluginRegistry.registrationNameModules[registrationName] = pluginModule;
+  EventPluginRegistry.registrationNameDependencies[registrationName] = pluginModule.eventTypes[eventName].dependencies;
+
+  if (process.env.NODE_ENV !== 'production') {
+    var lowerCasedName = registrationName.toLowerCase();
+    EventPluginRegistry.possibleRegistrationNames[lowerCasedName] = registrationName;
+
+    if (registrationName === 'onDoubleClick') {
+      EventPluginRegistry.possibleRegistrationNames.ondblclick = registrationName;
+    }
+  }
+}
+
+/**
+ * Registers plugins so that they can extract and dispatch events.
+ *
+ * @see {EventPluginHub}
+ */
+var EventPluginRegistry = {
+  /**
+   * Ordered list of injected plugins.
+   */
+  plugins: [],
+
+  /**
+   * Mapping from event name to dispatch config
+   */
+  eventNameDispatchConfigs: {},
+
+  /**
+   * Mapping from registration name to plugin module
+   */
+  registrationNameModules: {},
+
+  /**
+   * Mapping from registration name to event name
+   */
+  registrationNameDependencies: {},
+
+  /**
+   * Mapping from lowercase registration names to the properly cased version,
+   * used to warn in the case of missing event handlers. Available
+   * only in __DEV__.
+   * @type {Object}
+   */
+  possibleRegistrationNames: process.env.NODE_ENV !== 'production' ? {} : null,
+  // Trust the developer to only use possibleRegistrationNames in __DEV__
+
+  /**
+   * Injects an ordering of plugins (by plugin name). This allows the ordering
+   * to be decoupled from injection of the actual plugins so that ordering is
+   * always deterministic regardless of packaging, on-the-fly injection, etc.
+   *
+   * @param {array} InjectedEventPluginOrder
+   * @internal
+   * @see {EventPluginHub.injection.injectEventPluginOrder}
+   */
+  injectEventPluginOrder: function injectEventPluginOrder(injectedEventPluginOrder) {
+    !!eventPluginOrder ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginRegistry: Cannot inject event plugin ordering more than once. You are likely trying to load more than one copy of React.') : _prodInvariant('101') : void 0;
+    // Clone the ordering so it cannot be dynamically mutated.
+    eventPluginOrder = Array.prototype.slice.call(injectedEventPluginOrder);
+    recomputePluginOrdering();
+  },
+
+  /**
+   * Injects plugins to be used by `EventPluginHub`. The plugin names must be
+   * in the ordering injected by `injectEventPluginOrder`.
+   *
+   * Plugins can be injected as part of page initialization or on-the-fly.
+   *
+   * @param {object} injectedNamesToPlugins Map from names to plugin modules.
+   * @internal
+   * @see {EventPluginHub.injection.injectEventPluginsByName}
+   */
+  injectEventPluginsByName: function injectEventPluginsByName(injectedNamesToPlugins) {
+    var isOrderingDirty = false;
+    for (var pluginName in injectedNamesToPlugins) {
+      if (!injectedNamesToPlugins.hasOwnProperty(pluginName)) {
+        continue;
+      }
+      var pluginModule = injectedNamesToPlugins[pluginName];
+      if (!namesToPlugins.hasOwnProperty(pluginName) || namesToPlugins[pluginName] !== pluginModule) {
+        !!namesToPlugins[pluginName] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'EventPluginRegistry: Cannot inject two different event plugins using the same name, `%s`.', pluginName) : _prodInvariant('102', pluginName) : void 0;
+        namesToPlugins[pluginName] = pluginModule;
+        isOrderingDirty = true;
+      }
+    }
+    if (isOrderingDirty) {
+      recomputePluginOrdering();
+    }
+  },
+
+  /**
+   * Looks up the plugin for the supplied event.
+   *
+   * @param {object} event A synthetic event.
+   * @return {?object} The plugin that created the supplied event.
+   * @internal
+   */
+  getPluginModuleForEvent: function getPluginModuleForEvent(event) {
+    var dispatchConfig = event.dispatchConfig;
+    if (dispatchConfig.registrationName) {
+      return EventPluginRegistry.registrationNameModules[dispatchConfig.registrationName] || null;
+    }
+    if (dispatchConfig.phasedRegistrationNames !== undefined) {
+      // pulling phasedRegistrationNames out of dispatchConfig helps Flow see
+      // that it is not undefined.
+      var phasedRegistrationNames = dispatchConfig.phasedRegistrationNames;
+
+      for (var phase in phasedRegistrationNames) {
+        if (!phasedRegistrationNames.hasOwnProperty(phase)) {
+          continue;
+        }
+        var pluginModule = EventPluginRegistry.registrationNameModules[phasedRegistrationNames[phase]];
+        if (pluginModule) {
+          return pluginModule;
+        }
+      }
+    }
+    return null;
+  },
+
+  /**
+   * Exposed for unit testing.
+   * @private
+   */
+  _resetEventPlugins: function _resetEventPlugins() {
+    eventPluginOrder = null;
+    for (var pluginName in namesToPlugins) {
+      if (namesToPlugins.hasOwnProperty(pluginName)) {
+        delete namesToPlugins[pluginName];
+      }
+    }
+    EventPluginRegistry.plugins.length = 0;
+
+    var eventNameDispatchConfigs = EventPluginRegistry.eventNameDispatchConfigs;
+    for (var eventName in eventNameDispatchConfigs) {
+      if (eventNameDispatchConfigs.hasOwnProperty(eventName)) {
+        delete eventNameDispatchConfigs[eventName];
+      }
+    }
+
+    var registrationNameModules = EventPluginRegistry.registrationNameModules;
+    for (var registrationName in registrationNameModules) {
+      if (registrationNameModules.hasOwnProperty(registrationName)) {
+        delete registrationNameModules[registrationName];
+      }
+    }
+
+    if (process.env.NODE_ENV !== 'production') {
+      var possibleRegistrationNames = EventPluginRegistry.possibleRegistrationNames;
+      for (var lowerCasedName in possibleRegistrationNames) {
+        if (possibleRegistrationNames.hasOwnProperty(lowerCasedName)) {
+          delete possibleRegistrationNames[lowerCasedName];
+        }
+      }
+    }
+  }
+};
+
+module.exports = EventPluginRegistry;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * 
+ */
+
+
+
+var _prodInvariant = __webpack_require__(12);
+
+var invariant = __webpack_require__(6);
+
+var OBSERVED_ERROR = {};
+
+/**
+ * `Transaction` creates a black box that is able to wrap any method such that
+ * certain invariants are maintained before and after the method is invoked
+ * (Even if an exception is thrown while invoking the wrapped method). Whoever
+ * instantiates a transaction can provide enforcers of the invariants at
+ * creation time. The `Transaction` class itself will supply one additional
+ * automatic invariant for you - the invariant that any transaction instance
+ * should not be run while it is already being run. You would typically create a
+ * single instance of a `Transaction` for reuse multiple times, that potentially
+ * is used to wrap several different methods. Wrappers are extremely simple -
+ * they only require implementing two methods.
+ *
+ * <pre>
+ *                       wrappers (injected at creation time)
+ *                                      +        +
+ *                                      |        |
+ *                    +-----------------|--------|--------------+
+ *                    |                 v        |              |
+ *                    |      +---------------+   |              |
+ *                    |   +--|    wrapper1   |---|----+         |
+ *                    |   |  +---------------+   v    |         |
+ *                    |   |          +-------------+  |         |
+ *                    |   |     +----|   wrapper2  |--------+   |
+ *                    |   |     |    +-------------+  |     |   |
+ *                    |   |     |                     |     |   |
+ *                    |   v     v                     v     v   | wrapper
+ *                    | +---+ +---+   +---------+   +---+ +---+ | invariants
+ * perform(anyMethod) | |   | |   |   |         |   |   | |   | | maintained
+ * +----------------->|-|---|-|---|-->|anyMethod|---|---|-|---|-|-------->
+ *                    | |   | |   |   |         |   |   | |   | |
+ *                    | |   | |   |   |         |   |   | |   | |
+ *                    | |   | |   |   |         |   |   | |   | |
+ *                    | +---+ +---+   +---------+   +---+ +---+ |
+ *                    |  initialize                    close    |
+ *                    +-----------------------------------------+
+ * </pre>
+ *
+ * Use cases:
+ * - Preserving the input selection ranges before/after reconciliation.
+ *   Restoring selection even in the event of an unexpected error.
+ * - Deactivating events while rearranging the DOM, preventing blurs/focuses,
+ *   while guaranteeing that afterwards, the event system is reactivated.
+ * - Flushing a queue of collected DOM mutations to the main UI thread after a
+ *   reconciliation takes place in a worker thread.
+ * - Invoking any collected `componentDidUpdate` callbacks after rendering new
+ *   content.
+ * - (Future use case): Wrapping particular flushes of the `ReactWorker` queue
+ *   to preserve the `scrollTop` (an automatic scroll aware DOM).
+ * - (Future use case): Layout calculations before and after DOM updates.
+ *
+ * Transactional plugin API:
+ * - A module that has an `initialize` method that returns any precomputation.
+ * - and a `close` method that accepts the precomputation. `close` is invoked
+ *   when the wrapped process is completed, or has failed.
+ *
+ * @param {Array<TransactionalWrapper>} transactionWrapper Wrapper modules
+ * that implement `initialize` and `close`.
+ * @return {Transaction} Single transaction for reuse in thread.
+ *
+ * @class Transaction
+ */
+var TransactionImpl = {
+  /**
+   * Sets up this instance so that it is prepared for collecting metrics. Does
+   * so such that this setup method may be used on an instance that is already
+   * initialized, in a way that does not consume additional memory upon reuse.
+   * That can be useful if you decide to make your subclass of this mixin a
+   * "PooledClass".
+   */
+  reinitializeTransaction: function reinitializeTransaction() {
+    this.transactionWrappers = this.getTransactionWrappers();
+    if (this.wrapperInitData) {
+      this.wrapperInitData.length = 0;
+    } else {
+      this.wrapperInitData = [];
+    }
+    this._isInTransaction = false;
+  },
+
+  _isInTransaction: false,
+
+  /**
+   * @abstract
+   * @return {Array<TransactionWrapper>} Array of transaction wrappers.
+   */
+  getTransactionWrappers: null,
+
+  isInTransaction: function isInTransaction() {
+    return !!this._isInTransaction;
+  },
+
+  /* eslint-disable space-before-function-paren */
+
+  /**
+   * Executes the function within a safety window. Use this for the top level
+   * methods that result in large amounts of computation/mutations that would
+   * need to be safety checked. The optional arguments helps prevent the need
+   * to bind in many cases.
+   *
+   * @param {function} method Member of scope to call.
+   * @param {Object} scope Scope to invoke from.
+   * @param {Object?=} a Argument to pass to the method.
+   * @param {Object?=} b Argument to pass to the method.
+   * @param {Object?=} c Argument to pass to the method.
+   * @param {Object?=} d Argument to pass to the method.
+   * @param {Object?=} e Argument to pass to the method.
+   * @param {Object?=} f Argument to pass to the method.
+   *
+   * @return {*} Return value from `method`.
+   */
+  perform: function perform(method, scope, a, b, c, d, e, f) {
+    /* eslint-enable space-before-function-paren */
+    !!this.isInTransaction() ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Transaction.perform(...): Cannot initialize a transaction when there is already an outstanding transaction.') : _prodInvariant('27') : void 0;
+    var errorThrown;
+    var ret;
+    try {
+      this._isInTransaction = true;
+      // Catching errors makes debugging more difficult, so we start with
+      // errorThrown set to true before setting it to false after calling
+      // close -- if it's still set to true in the finally block, it means
+      // one of these calls threw.
+      errorThrown = true;
+      this.initializeAll(0);
+      ret = method.call(scope, a, b, c, d, e, f);
+      errorThrown = false;
+    } finally {
+      try {
+        if (errorThrown) {
+          // If `method` throws, prefer to show that stack trace over any thrown
+          // by invoking `closeAll`.
+          try {
+            this.closeAll(0);
+          } catch (err) {}
+        } else {
+          // Since `method` didn't throw, we don't want to silence the exception
+          // here.
+          this.closeAll(0);
+        }
+      } finally {
+        this._isInTransaction = false;
+      }
+    }
+    return ret;
+  },
+
+  initializeAll: function initializeAll(startIndex) {
+    var transactionWrappers = this.transactionWrappers;
+    for (var i = startIndex; i < transactionWrappers.length; i++) {
+      var wrapper = transactionWrappers[i];
+      try {
+        // Catching errors makes debugging more difficult, so we start with the
+        // OBSERVED_ERROR state before overwriting it with the real return value
+        // of initialize -- if it's still set to OBSERVED_ERROR in the finally
+        // block, it means wrapper.initialize threw.
+        this.wrapperInitData[i] = OBSERVED_ERROR;
+        this.wrapperInitData[i] = wrapper.initialize ? wrapper.initialize.call(this) : null;
+      } finally {
+        if (this.wrapperInitData[i] === OBSERVED_ERROR) {
+          // The initializer for wrapper i threw an error; initialize the
+          // remaining wrappers but silence any exceptions from them to ensure
+          // that the first error is the one to bubble up.
+          try {
+            this.initializeAll(i + 1);
+          } catch (err) {}
+        }
+      }
+    }
+  },
+
+  /**
+   * Invokes each of `this.transactionWrappers.close[i]` functions, passing into
+   * them the respective return values of `this.transactionWrappers.init[i]`
+   * (`close`rs that correspond to initializers that failed will not be
+   * invoked).
+   */
+  closeAll: function closeAll(startIndex) {
+    !this.isInTransaction() ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Transaction.closeAll(): Cannot close transaction when none are open.') : _prodInvariant('28') : void 0;
+    var transactionWrappers = this.transactionWrappers;
+    for (var i = startIndex; i < transactionWrappers.length; i++) {
+      var wrapper = transactionWrappers[i];
+      var initData = this.wrapperInitData[i];
+      var errorThrown;
+      try {
+        // Catching errors makes debugging more difficult, so we start with
+        // errorThrown set to true before setting it to false after calling
+        // close -- if it's still set to true in the finally block, it means
+        // wrapper.close threw.
+        errorThrown = true;
+        if (initData !== OBSERVED_ERROR && wrapper.close) {
+          wrapper.close.call(this, initData);
+        }
+        errorThrown = false;
+      } finally {
+        if (errorThrown) {
+          // The closer for wrapper i threw an error; close the remaining
+          // wrappers but silence any exceptions from them to ensure that the
+          // first error is the one to bubble up.
+          try {
+            this.closeAll(i + 1);
+          } catch (e) {}
+        }
+      }
+    }
+    this.wrapperInitData.length = 0;
+  }
+};
+
+module.exports = TransactionImpl;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var SyntheticUIEvent = __webpack_require__(80);
+var ViewportMetrics = __webpack_require__(248);
+
+var getEventModifierState = __webpack_require__(147);
+
+/**
+ * @interface MouseEvent
+ * @see http://www.w3.org/TR/DOM-Level-3-Events/
+ */
+var MouseEventInterface = {
+  screenX: null,
+  screenY: null,
+  clientX: null,
+  clientY: null,
+  ctrlKey: null,
+  shiftKey: null,
+  altKey: null,
+  metaKey: null,
+  getModifierState: getEventModifierState,
+  button: function button(event) {
+    // Webkit, Firefox, IE9+
+    // which:  1 2 3
+    // button: 0 1 2 (standard)
+    var button = event.button;
+    if ('which' in event) {
+      return button;
+    }
+    // IE<9
+    // which:  undefined
+    // button: 0 0 0
+    // button: 1 4 2 (onmouseup)
+    return button === 2 ? 2 : button === 4 ? 1 : 0;
+  },
+  buttons: null,
+  relatedTarget: function relatedTarget(event) {
+    return event.relatedTarget || (event.fromElement === event.srcElement ? event.toElement : event.fromElement);
+  },
+  // "Proprietary" Interface.
+  pageX: function pageX(event) {
+    return 'pageX' in event ? event.pageX : event.clientX + ViewportMetrics.currentScrollLeft;
+  },
+  pageY: function pageY(event) {
+    return 'pageY' in event ? event.pageY : event.clientY + ViewportMetrics.currentScrollTop;
+  }
+};
+
+/**
+ * @param {object} dispatchConfig Configuration used to dispatch this event.
+ * @param {string} dispatchMarker Marker identifying the event target.
+ * @param {object} nativeEvent Native browser event.
+ * @extends {SyntheticUIEvent}
+ */
+function SyntheticMouseEvent(dispatchConfig, dispatchMarker, nativeEvent, nativeEventTarget) {
+  return SyntheticUIEvent.call(this, dispatchConfig, dispatchMarker, nativeEvent, nativeEventTarget);
+}
+
+SyntheticUIEvent.augmentClass(SyntheticMouseEvent, MouseEventInterface);
+
+module.exports = SyntheticMouseEvent;
+
+/***/ }),
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var ExecutionEnvironment = __webpack_require__(19);
+var DOMNamespaces = __webpack_require__(149);
+
+var WHITESPACE_TEST = /^[ \r\n\t\f]/;
+var NONVISIBLE_TEST = /<(!--|link|noscript|meta|script|style)[ \r\n\t\f\/>]/;
+
+var createMicrosoftUnsafeLocalFunction = __webpack_require__(150);
+
+// SVG temp container for IE lacking innerHTML
+var reusableSVGContainer;
+
+/**
+ * Set the innerHTML property of a node, ensuring that whitespace is preserved
+ * even in IE8.
+ *
+ * @param {DOMElement} node
+ * @param {string} html
+ * @internal
+ */
+var setInnerHTML = createMicrosoftUnsafeLocalFunction(function (node, html) {
+  // IE does not have innerHTML for SVG nodes, so instead we inject the
+  // new markup in a temp node and then move the child nodes across into
+  // the target node
+  if (node.namespaceURI === DOMNamespaces.svg && !('innerHTML' in node)) {
+    reusableSVGContainer = reusableSVGContainer || document.createElement('div');
+    reusableSVGContainer.innerHTML = '<svg>' + html + '</svg>';
+    var svgNode = reusableSVGContainer.firstChild;
+    while (svgNode.firstChild) {
+      node.appendChild(svgNode.firstChild);
+    }
+  } else {
+    node.innerHTML = html;
+  }
+});
+
+if (ExecutionEnvironment.canUseDOM) {
+  // IE8: When updating a just created node with innerHTML only leading
+  // whitespace is removed. When updating an existing node with innerHTML
+  // whitespace in root TextNodes is also collapsed.
+  // @see quirksmode.org/bugreports/archives/2004/11/innerhtml_and_t.html
+
+  // Feature detection; only IE8 is known to behave improperly like this.
+  var testElement = document.createElement('div');
+  testElement.innerHTML = ' ';
+  if (testElement.innerHTML === '') {
+    setInnerHTML = function setInnerHTML(node, html) {
+      // Magic theory: IE8 supposedly differentiates between added and updated
+      // nodes when processing innerHTML, innerHTML on updated nodes suffers
+      // from worse whitespace behavior. Re-adding a node like this triggers
+      // the initial and more favorable whitespace behavior.
+      // TODO: What to do on a detached node?
+      if (node.parentNode) {
+        node.parentNode.replaceChild(node, node);
+      }
+
+      // We also implement a workaround for non-visible tags disappearing into
+      // thin air on IE8, this only happens if there is no visible text
+      // in-front of the non-visible tags. Piggyback on the whitespace fix
+      // and simply check if any non-visible tags appear in the source.
+      if (WHITESPACE_TEST.test(html) || html[0] === '<' && NONVISIBLE_TEST.test(html)) {
+        // Recover leading whitespace by temporarily prepending any character.
+        // \uFEFF has the potential advantage of being zero-width/invisible.
+        // UglifyJS drops U+FEFF chars when parsing, so use String.fromCharCode
+        // in hopes that this is preserved even if "\uFEFF" is transformed to
+        // the actual Unicode character (by Babel, for example).
+        // https://github.com/mishoo/UglifyJS2/blob/v2.4.20/lib/parse.js#L216
+        node.innerHTML = String.fromCharCode(0xfeff) + html;
+
+        // deleteData leaves an empty `TextNode` which offsets the index of all
+        // children. Definitely want to avoid this.
+        var textNode = node.firstChild;
+        if (textNode.data.length === 1) {
+          node.removeChild(textNode);
+        } else {
+          textNode.deleteData(0, 1);
+        }
+      } else {
+        node.innerHTML = html;
+      }
+    };
+  }
+  testElement = null;
+}
+
+module.exports = setInnerHTML;
+
+/***/ }),
+/* 97 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright 2016-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * Based on the escape-html library, which is used under the MIT License below:
+ *
+ * Copyright (c) 2012-2013 TJ Holowaychuk
+ * Copyright (c) 2015 Andreas Lubbe
+ * Copyright (c) 2015 Tiancheng "Timothy" Gu
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * 'Software'), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ */
+
+
+
+// code copied and modified from escape-html
+/**
+ * Module variables.
+ * @private
+ */
+
+var matchHtmlRegExp = /["'&<>]/;
+
+/**
+ * Escape special characters in the given string of html.
+ *
+ * @param  {string} string The string to escape for inserting into HTML
+ * @return {string}
+ * @public
+ */
+
+function escapeHtml(string) {
+  var str = '' + string;
+  var match = matchHtmlRegExp.exec(str);
+
+  if (!match) {
+    return str;
+  }
+
+  var escape;
+  var html = '';
+  var index = 0;
+  var lastIndex = 0;
+
+  for (index = match.index; index < str.length; index++) {
+    switch (str.charCodeAt(index)) {
+      case 34:
+        // "
+        escape = '&quot;';
+        break;
+      case 38:
+        // &
+        escape = '&amp;';
+        break;
+      case 39:
+        // '
+        escape = '&#x27;'; // modified from escape-html; used to be '&#39'
+        break;
+      case 60:
+        // <
+        escape = '&lt;';
+        break;
+      case 62:
+        // >
+        escape = '&gt;';
+        break;
+      default:
+        continue;
+    }
+
+    if (lastIndex !== index) {
+      html += str.substring(lastIndex, index);
+    }
+
+    lastIndex = index + 1;
+    html += escape;
+  }
+
+  return lastIndex !== index ? html + str.substring(lastIndex, index) : html;
+}
+// end code copied and modified from escape-html
+
+/**
+ * Escapes text to prevent scripting attacks.
+ *
+ * @param {*} text Text value to escape.
+ * @return {string} An escaped string.
+ */
+function escapeTextContentForBrowser(text) {
+  if (typeof text === 'boolean' || typeof text === 'number') {
+    // this shortcircuit helps perf for types that we know will never have
+    // special characters, especially given that this function is used often
+    // for numeric dom ids.
+    return '' + text;
+  }
+  return escapeHtml(text);
+}
+
+module.exports = escapeTextContentForBrowser;
+
+/***/ }),
+/* 98 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var _assign = __webpack_require__(16);
+
+var EventPluginRegistry = __webpack_require__(93);
+var ReactEventEmitterMixin = __webpack_require__(485);
+var ViewportMetrics = __webpack_require__(248);
+
+var getVendorPrefixedEventName = __webpack_require__(486);
+var isEventSupported = __webpack_require__(146);
+
+/**
+ * Summary of `ReactBrowserEventEmitter` event handling:
+ *
+ *  - Top-level delegation is used to trap most native browser events. This
+ *    may only occur in the main thread and is the responsibility of
+ *    ReactEventListener, which is injected and can therefore support pluggable
+ *    event sources. This is the only work that occurs in the main thread.
+ *
+ *  - We normalize and de-duplicate events to account for browser quirks. This
+ *    may be done in the worker thread.
+ *
+ *  - Forward these native events (with the associated top-level type used to
+ *    trap it) to `EventPluginHub`, which in turn will ask plugins if they want
+ *    to extract any synthetic events.
+ *
+ *  - The `EventPluginHub` will then process each event by annotating them with
+ *    "dispatches", a sequence of listeners and IDs that care about that event.
+ *
+ *  - The `EventPluginHub` then dispatches the events.
+ *
+ * Overview of React and the event system:
+ *
+ * +------------+    .
+ * |    DOM     |    .
+ * +------------+    .
+ *       |           .
+ *       v           .
+ * +------------+    .
+ * | ReactEvent |    .
+ * |  Listener  |    .
+ * +------------+    .                         +-----------+
+ *       |           .               +--------+|SimpleEvent|
+ *       |           .               |         |Plugin     |
+ * +-----|------+    .               v         +-----------+
+ * |     |      |    .    +--------------+                    +------------+
+ * |     +-----------.--->|EventPluginHub|                    |    Event   |
+ * |            |    .    |              |     +-----------+  | Propagators|
+ * | ReactEvent |    .    |              |     |TapEvent   |  |------------|
+ * |  Emitter   |    .    |              |<---+|Plugin     |  |other plugin|
+ * |            |    .    |              |     +-----------+  |  utilities |
+ * |     +-----------.--->|              |                    +------------+
+ * |     |      |    .    +--------------+
+ * +-----|------+    .                ^        +-----------+
+ *       |           .                |        |Enter/Leave|
+ *       +           .                +-------+|Plugin     |
+ * +-------------+   .                         +-----------+
+ * | application |   .
+ * |-------------|   .
+ * |             |   .
+ * |             |   .
+ * +-------------+   .
+ *                   .
+ *    React Core     .  General Purpose Event Plugin System
+ */
+
+var hasEventPageXY;
+var alreadyListeningTo = {};
+var isMonitoringScrollValue = false;
+var reactTopListenersCounter = 0;
+
+// For events like 'submit' which don't consistently bubble (which we trap at a
+// lower node than `document`), binding at `document` would cause duplicate
+// events so we don't include them here
+var topEventMapping = {
+  topAbort: 'abort',
+  topAnimationEnd: getVendorPrefixedEventName('animationend') || 'animationend',
+  topAnimationIteration: getVendorPrefixedEventName('animationiteration') || 'animationiteration',
+  topAnimationStart: getVendorPrefixedEventName('animationstart') || 'animationstart',
+  topBlur: 'blur',
+  topCanPlay: 'canplay',
+  topCanPlayThrough: 'canplaythrough',
+  topChange: 'change',
+  topClick: 'click',
+  topCompositionEnd: 'compositionend',
+  topCompositionStart: 'compositionstart',
+  topCompositionUpdate: 'compositionupdate',
+  topContextMenu: 'contextmenu',
+  topCopy: 'copy',
+  topCut: 'cut',
+  topDoubleClick: 'dblclick',
+  topDrag: 'drag',
+  topDragEnd: 'dragend',
+  topDragEnter: 'dragenter',
+  topDragExit: 'dragexit',
+  topDragLeave: 'dragleave',
+  topDragOver: 'dragover',
+  topDragStart: 'dragstart',
+  topDrop: 'drop',
+  topDurationChange: 'durationchange',
+  topEmptied: 'emptied',
+  topEncrypted: 'encrypted',
+  topEnded: 'ended',
+  topError: 'error',
+  topFocus: 'focus',
+  topInput: 'input',
+  topKeyDown: 'keydown',
+  topKeyPress: 'keypress',
+  topKeyUp: 'keyup',
+  topLoadedData: 'loadeddata',
+  topLoadedMetadata: 'loadedmetadata',
+  topLoadStart: 'loadstart',
+  topMouseDown: 'mousedown',
+  topMouseMove: 'mousemove',
+  topMouseOut: 'mouseout',
+  topMouseOver: 'mouseover',
+  topMouseUp: 'mouseup',
+  topPaste: 'paste',
+  topPause: 'pause',
+  topPlay: 'play',
+  topPlaying: 'playing',
+  topProgress: 'progress',
+  topRateChange: 'ratechange',
+  topScroll: 'scroll',
+  topSeeked: 'seeked',
+  topSeeking: 'seeking',
+  topSelectionChange: 'selectionchange',
+  topStalled: 'stalled',
+  topSuspend: 'suspend',
+  topTextInput: 'textInput',
+  topTimeUpdate: 'timeupdate',
+  topTouchCancel: 'touchcancel',
+  topTouchEnd: 'touchend',
+  topTouchMove: 'touchmove',
+  topTouchStart: 'touchstart',
+  topTransitionEnd: getVendorPrefixedEventName('transitionend') || 'transitionend',
+  topVolumeChange: 'volumechange',
+  topWaiting: 'waiting',
+  topWheel: 'wheel'
+};
+
+/**
+ * To ensure no conflicts with other potential React instances on the page
+ */
+var topListenersIDKey = '_reactListenersID' + String(Math.random()).slice(2);
+
+function getListeningForDocument(mountAt) {
+  // In IE8, `mountAt` is a host object and doesn't have `hasOwnProperty`
+  // directly.
+  if (!Object.prototype.hasOwnProperty.call(mountAt, topListenersIDKey)) {
+    mountAt[topListenersIDKey] = reactTopListenersCounter++;
+    alreadyListeningTo[mountAt[topListenersIDKey]] = {};
+  }
+  return alreadyListeningTo[mountAt[topListenersIDKey]];
+}
+
+/**
+ * `ReactBrowserEventEmitter` is used to attach top-level event listeners. For
+ * example:
+ *
+ *   EventPluginHub.putListener('myID', 'onClick', myFunction);
+ *
+ * This would allocate a "registration" of `('onClick', myFunction)` on 'myID'.
+ *
+ * @internal
+ */
+var ReactBrowserEventEmitter = _assign({}, ReactEventEmitterMixin, {
+  /**
+   * Injectable event backend
+   */
+  ReactEventListener: null,
+
+  injection: {
+    /**
+     * @param {object} ReactEventListener
+     */
+    injectReactEventListener: function injectReactEventListener(ReactEventListener) {
+      ReactEventListener.setHandleTopLevel(ReactBrowserEventEmitter.handleTopLevel);
+      ReactBrowserEventEmitter.ReactEventListener = ReactEventListener;
+    }
+  },
+
+  /**
+   * Sets whether or not any created callbacks should be enabled.
+   *
+   * @param {boolean} enabled True if callbacks should be enabled.
+   */
+  setEnabled: function setEnabled(enabled) {
+    if (ReactBrowserEventEmitter.ReactEventListener) {
+      ReactBrowserEventEmitter.ReactEventListener.setEnabled(enabled);
+    }
+  },
+
+  /**
+   * @return {boolean} True if callbacks are enabled.
+   */
+  isEnabled: function isEnabled() {
+    return !!(ReactBrowserEventEmitter.ReactEventListener && ReactBrowserEventEmitter.ReactEventListener.isEnabled());
+  },
+
+  /**
+   * We listen for bubbled touch events on the document object.
+   *
+   * Firefox v8.01 (and possibly others) exhibited strange behavior when
+   * mounting `onmousemove` events at some node that was not the document
+   * element. The symptoms were that if your mouse is not moving over something
+   * contained within that mount point (for example on the background) the
+   * top-level listeners for `onmousemove` won't be called. However, if you
+   * register the `mousemove` on the document object, then it will of course
+   * catch all `mousemove`s. This along with iOS quirks, justifies restricting
+   * top-level listeners to the document object only, at least for these
+   * movement types of events and possibly all events.
+   *
+   * @see http://www.quirksmode.org/blog/archives/2010/09/click_event_del.html
+   *
+   * Also, `keyup`/`keypress`/`keydown` do not bubble to the window on IE, but
+   * they bubble to document.
+   *
+   * @param {string} registrationName Name of listener (e.g. `onClick`).
+   * @param {object} contentDocumentHandle Document which owns the container
+   */
+  listenTo: function listenTo(registrationName, contentDocumentHandle) {
+    var mountAt = contentDocumentHandle;
+    var isListening = getListeningForDocument(mountAt);
+    var dependencies = EventPluginRegistry.registrationNameDependencies[registrationName];
+
+    for (var i = 0; i < dependencies.length; i++) {
+      var dependency = dependencies[i];
+      if (!(isListening.hasOwnProperty(dependency) && isListening[dependency])) {
+        if (dependency === 'topWheel') {
+          if (isEventSupported('wheel')) {
+            ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent('topWheel', 'wheel', mountAt);
+          } else if (isEventSupported('mousewheel')) {
+            ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent('topWheel', 'mousewheel', mountAt);
+          } else {
+            // Firefox needs to capture a different mouse scroll event.
+            // @see http://www.quirksmode.org/dom/events/tests/scroll.html
+            ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent('topWheel', 'DOMMouseScroll', mountAt);
+          }
+        } else if (dependency === 'topScroll') {
+          if (isEventSupported('scroll', true)) {
+            ReactBrowserEventEmitter.ReactEventListener.trapCapturedEvent('topScroll', 'scroll', mountAt);
+          } else {
+            ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent('topScroll', 'scroll', ReactBrowserEventEmitter.ReactEventListener.WINDOW_HANDLE);
+          }
+        } else if (dependency === 'topFocus' || dependency === 'topBlur') {
+          if (isEventSupported('focus', true)) {
+            ReactBrowserEventEmitter.ReactEventListener.trapCapturedEvent('topFocus', 'focus', mountAt);
+            ReactBrowserEventEmitter.ReactEventListener.trapCapturedEvent('topBlur', 'blur', mountAt);
+          } else if (isEventSupported('focusin')) {
+            // IE has `focusin` and `focusout` events which bubble.
+            // @see http://www.quirksmode.org/blog/archives/2008/04/delegating_the.html
+            ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent('topFocus', 'focusin', mountAt);
+            ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent('topBlur', 'focusout', mountAt);
+          }
+
+          // to make sure blur and focus event listeners are only attached once
+          isListening.topBlur = true;
+          isListening.topFocus = true;
+        } else if (topEventMapping.hasOwnProperty(dependency)) {
+          ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent(dependency, topEventMapping[dependency], mountAt);
+        }
+
+        isListening[dependency] = true;
+      }
+    }
+  },
+
+  trapBubbledEvent: function trapBubbledEvent(topLevelType, handlerBaseName, handle) {
+    return ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent(topLevelType, handlerBaseName, handle);
+  },
+
+  trapCapturedEvent: function trapCapturedEvent(topLevelType, handlerBaseName, handle) {
+    return ReactBrowserEventEmitter.ReactEventListener.trapCapturedEvent(topLevelType, handlerBaseName, handle);
+  },
+
+  /**
+   * Protect against document.createEvent() returning null
+   * Some popup blocker extensions appear to do this:
+   * https://github.com/facebook/react/issues/6887
+   */
+  supportsEventPageXY: function supportsEventPageXY() {
+    if (!document.createEvent) {
+      return false;
+    }
+    var ev = document.createEvent('MouseEvent');
+    return ev != null && 'pageX' in ev;
+  },
+
+  /**
+   * Listens to window scroll and resize events. We cache scroll values so that
+   * application code can access them without triggering reflows.
+   *
+   * ViewportMetrics is only used by SyntheticMouse/TouchEvent and only when
+   * pageX/pageY isn't supported (legacy browsers).
+   *
+   * NOTE: Scroll events do not bubble.
+   *
+   * @see http://www.quirksmode.org/dom/events/scroll.html
+   */
+  ensureScrollValueMonitoring: function ensureScrollValueMonitoring() {
+    if (hasEventPageXY === undefined) {
+      hasEventPageXY = ReactBrowserEventEmitter.supportsEventPageXY();
+    }
+    if (!hasEventPageXY && !isMonitoringScrollValue) {
+      var refresh = ViewportMetrics.refreshScrollValues;
+      ReactBrowserEventEmitter.ReactEventListener.monitorScrollValue(refresh);
+      isMonitoringScrollValue = true;
+    }
+  }
+});
+
+module.exports = ReactBrowserEventEmitter;
+
+/***/ }),
 /* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8342,7 +8342,7 @@ __webpack_require__(271)(String, 'String', function (iterated) {
 "use strict";
 
 
-var getNative = __webpack_require__(61);
+var getNative = __webpack_require__(62);
 
 /* Built-in method references that are verified to be native. */
 var nativeCreate = getNative(Object, 'create');
@@ -8396,7 +8396,7 @@ module.exports = ListCache;
 "use strict";
 
 
-var eq = __webpack_require__(84);
+var eq = __webpack_require__(85);
 
 /**
  * Gets the index at which the `key` is found in `array` of key-value pairs.
@@ -8527,7 +8527,7 @@ module.exports = apply;
 "use strict";
 
 
-var castPath = __webpack_require__(59),
+var castPath = __webpack_require__(60),
     toKey = __webpack_require__(50);
 
 /**
@@ -8845,7 +8845,7 @@ module.exports = isUndefined;
 
 
 var isObject = __webpack_require__(27),
-    isSymbol = __webpack_require__(60);
+    isSymbol = __webpack_require__(61);
 
 /** Used as references for various `Number` constants. */
 var NAN = 0 / 0;
@@ -9062,9 +9062,9 @@ module.exports = getPrototype;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var eq = __webpack_require__(84),
+var eq = __webpack_require__(85),
     isArrayLike = __webpack_require__(36),
-    isIndex = __webpack_require__(85),
+    isIndex = __webpack_require__(86),
     isObject = __webpack_require__(27);
 
 /**
@@ -9206,7 +9206,7 @@ module.exports = createWrap;
 "use strict";
 
 
-var baseCreate = __webpack_require__(89),
+var baseCreate = __webpack_require__(90),
     isObject = __webpack_require__(27);
 
 /**
@@ -9325,7 +9325,7 @@ module.exports = replaceHolders;
 
 
 var baseAssignValue = __webpack_require__(201),
-    eq = __webpack_require__(84);
+    eq = __webpack_require__(85);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -10546,13 +10546,13 @@ module.exports = getEventModifierState;
 
 
 
-var DOMLazyTree = __webpack_require__(67);
+var DOMLazyTree = __webpack_require__(68);
 var Danger = __webpack_require__(470);
 var ReactDOMComponentTree = __webpack_require__(18);
 var ReactInstrumentation = __webpack_require__(28);
 
 var createMicrosoftUnsafeLocalFunction = __webpack_require__(150);
-var setInnerHTML = __webpack_require__(95);
+var setInnerHTML = __webpack_require__(96);
 var setTextContent = __webpack_require__(249);
 
 function getNodeAfter(parentNode, node) {
@@ -10845,7 +10845,7 @@ var _prodInvariant = __webpack_require__(12);
 var ReactPropTypesSecret = __webpack_require__(253);
 var propTypesFactory = __webpack_require__(238);
 
-var React = __webpack_require__(64);
+var React = __webpack_require__(65);
 var PropTypes = propTypesFactory(React.isValidElement);
 
 var invariant = __webpack_require__(6);
@@ -11227,7 +11227,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 var _prodInvariant = __webpack_require__(12);
 
 var ReactCurrentOwner = __webpack_require__(34);
-var ReactInstanceMap = __webpack_require__(80);
+var ReactInstanceMap = __webpack_require__(81);
 var ReactInstrumentation = __webpack_require__(28);
 var ReactUpdates = __webpack_require__(35);
 
@@ -11918,7 +11918,7 @@ module.exports = function (fn, that, length) {
 
 
 // 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = __webpack_require__(81);
+var isObject = __webpack_require__(82);
 // instead of the ES6 spec version, we didn't implement @@toPrimitive case
 // and the second argument - flag - preferred type is a string
 module.exports = function (it, S) {
@@ -12033,7 +12033,7 @@ module.exports = true;
 
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject = __webpack_require__(56),
+var anObject = __webpack_require__(57),
     dPs = __webpack_require__(562),
     enumBugKeys = __webpack_require__(166),
     IE_PROTO = __webpack_require__(164)('IE_PROTO'),
@@ -12083,7 +12083,7 @@ module.exports = Object.create || function create(O, Properties) {
 
 
 var def = __webpack_require__(47).f,
-    has = __webpack_require__(58),
+    has = __webpack_require__(59),
     TAG = __webpack_require__(31)('toStringTag');
 
 module.exports = function (it, tag, stat) {
@@ -12099,8 +12099,8 @@ module.exports = function (it, tag, stat) {
 
 __webpack_require__(564);
 var global = __webpack_require__(46),
-    hide = __webpack_require__(68),
-    Iterators = __webpack_require__(71),
+    hide = __webpack_require__(69),
+    Iterators = __webpack_require__(72),
     TO_STRING_TAG = __webpack_require__(31)('toStringTag');
 
 for (var collections = ['NodeList', 'DOMTokenList', 'MediaList', 'StyleSheetList', 'CSSRuleList'], i = 0; i < 5; i++) {
@@ -12145,14 +12145,14 @@ module.exports = function (name) {
 
 
 var pIE = __webpack_require__(100),
-    createDesc = __webpack_require__(82),
+    createDesc = __webpack_require__(83),
     toIObject = __webpack_require__(48),
     toPrimitive = __webpack_require__(160),
-    has = __webpack_require__(58),
+    has = __webpack_require__(59),
     IE8_DOM_DEFINE = __webpack_require__(265),
     gOPD = Object.getOwnPropertyDescriptor;
 
-exports.f = __webpack_require__(57) ? gOPD : function getOwnPropertyDescriptor(O, P) {
+exports.f = __webpack_require__(58) ? gOPD : function getOwnPropertyDescriptor(O, P) {
   O = toIObject(O);
   P = toPrimitive(P, true);
   if (IE8_DOM_DEFINE) try {
@@ -12171,7 +12171,7 @@ exports.f = __webpack_require__(57) ? gOPD : function getOwnPropertyDescriptor(O
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var isArray = __webpack_require__(13),
-    isSymbol = __webpack_require__(60);
+    isSymbol = __webpack_require__(61);
 
 /** Used to match property names within property paths. */
 var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
@@ -12245,7 +12245,7 @@ module.exports = MapCache;
 "use strict";
 
 
-var getNative = __webpack_require__(61),
+var getNative = __webpack_require__(62),
     root = __webpack_require__(24);
 
 /* Built-in method references that are verified to be native. */
@@ -12260,10 +12260,10 @@ module.exports = Map;
 "use strict";
 
 
-var _Symbol = __webpack_require__(73),
+var _Symbol = __webpack_require__(74),
     arrayMap = __webpack_require__(40),
     isArray = __webpack_require__(13),
-    isSymbol = __webpack_require__(60);
+    isSymbol = __webpack_require__(61);
 
 /** Used as references for various `Number` constants. */
 var INFINITY = 1 / 0;
@@ -12481,7 +12481,7 @@ module.exports = function (module) {
 "use strict";
 
 
-var isPrototype = __webpack_require__(87),
+var isPrototype = __webpack_require__(88),
     nativeKeys = __webpack_require__(631);
 
 /** Used for built-in method references. */
@@ -12700,8 +12700,8 @@ var baseKeys = __webpack_require__(185),
     isArguments = __webpack_require__(107),
     isArray = __webpack_require__(13),
     isArrayLike = __webpack_require__(36),
-    isBuffer = __webpack_require__(86),
-    isPrototype = __webpack_require__(87),
+    isBuffer = __webpack_require__(87),
+    isPrototype = __webpack_require__(88),
     isTypedArray = __webpack_require__(120);
 
 /** `Object#toString` result references. */
@@ -12787,8 +12787,8 @@ module.exports = __webpack_require__(192);
 "use strict";
 
 
-var arrayEach = __webpack_require__(88),
-    baseEach = __webpack_require__(74),
+var arrayEach = __webpack_require__(89),
+    baseEach = __webpack_require__(75),
     castFunction = __webpack_require__(308),
     isArray = __webpack_require__(13);
 
@@ -12842,7 +12842,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.numberToWordMap = undefined;
 exports.numberToWord = numberToWord;
 
-var _typeof2 = __webpack_require__(70);
+var _typeof2 = __webpack_require__(71);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -12974,7 +12974,7 @@ module.exports = isEqual;
 "use strict";
 
 
-var baseCreate = __webpack_require__(89),
+var baseCreate = __webpack_require__(90),
     baseLodash = __webpack_require__(197);
 
 /** Used as references for the maximum length and index of an array. */
@@ -13051,7 +13051,7 @@ module.exports = getData;
 "use strict";
 
 
-var baseCreate = __webpack_require__(89),
+var baseCreate = __webpack_require__(90),
     baseLodash = __webpack_require__(197);
 
 /**
@@ -13136,7 +13136,7 @@ module.exports = baseAssignValue;
 
 
 var Stack = __webpack_require__(186),
-    arrayEach = __webpack_require__(88),
+    arrayEach = __webpack_require__(89),
     assignValue = __webpack_require__(129),
     baseAssign = __webpack_require__(332),
     baseAssignIn = __webpack_require__(699),
@@ -13151,7 +13151,7 @@ var Stack = __webpack_require__(186),
     initCloneByTag = __webpack_require__(706),
     initCloneObject = __webpack_require__(715),
     isArray = __webpack_require__(13),
-    isBuffer = __webpack_require__(86),
+    isBuffer = __webpack_require__(87),
     isObject = __webpack_require__(27),
     keys = __webpack_require__(29);
 
@@ -13586,8 +13586,8 @@ Label.create = (0, _lib.createShorthandFactory)(Label, function (value) {
 var arrayMap = __webpack_require__(40),
     baseClone = __webpack_require__(202),
     baseUnset = __webpack_require__(764),
-    castPath = __webpack_require__(59),
-    copyObject = __webpack_require__(75),
+    castPath = __webpack_require__(60),
+    copyObject = __webpack_require__(76),
     customOmitClone = __webpack_require__(765),
     flatRest = __webpack_require__(131),
     getAllKeysIn = __webpack_require__(335);
@@ -15420,13 +15420,13 @@ var modeType = exports.modeType = {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _prodInvariant = __webpack_require__(65),
+var _prodInvariant = __webpack_require__(66),
     _assign = __webpack_require__(16);
 
 var ReactNoopUpdateQueue = __webpack_require__(234);
 
-var canDefineProperty = __webpack_require__(90);
-var emptyObject = __webpack_require__(91);
+var canDefineProperty = __webpack_require__(91);
+var emptyObject = __webpack_require__(92);
 var invariant = __webpack_require__(6);
 var lowPriorityWarning = __webpack_require__(141);
 
@@ -15756,7 +15756,7 @@ var ReactElement = __webpack_require__(54);
 
 var checkReactTypeSpec = __webpack_require__(441);
 
-var canDefineProperty = __webpack_require__(90);
+var canDefineProperty = __webpack_require__(91);
 var getIteratorFn = __webpack_require__(236);
 var warning = __webpack_require__(7);
 var lowPriorityWarning = __webpack_require__(141);
@@ -16579,8 +16579,8 @@ module.exports = ViewportMetrics;
 
 
 var ExecutionEnvironment = __webpack_require__(19);
-var escapeTextContentForBrowser = __webpack_require__(96);
-var setInnerHTML = __webpack_require__(95);
+var escapeTextContentForBrowser = __webpack_require__(97);
+var setInnerHTML = __webpack_require__(96);
 
 /**
  * Set the textContent property of a node, ensuring that whitespace is preserved
@@ -17435,7 +17435,7 @@ module.exports = instantiateReactComponent;
 
 var _prodInvariant = __webpack_require__(12);
 
-var React = __webpack_require__(64);
+var React = __webpack_require__(65);
 
 var invariant = __webpack_require__(6);
 
@@ -18036,26 +18036,26 @@ module.exports = getActiveElement;
 
 var _prodInvariant = __webpack_require__(12);
 
-var DOMLazyTree = __webpack_require__(67);
+var DOMLazyTree = __webpack_require__(68);
 var DOMProperty = __webpack_require__(44);
-var React = __webpack_require__(64);
-var ReactBrowserEventEmitter = __webpack_require__(97);
+var React = __webpack_require__(65);
+var ReactBrowserEventEmitter = __webpack_require__(98);
 var ReactCurrentOwner = __webpack_require__(34);
 var ReactDOMComponentTree = __webpack_require__(18);
 var ReactDOMContainerInfo = __webpack_require__(526);
 var ReactDOMFeatureFlags = __webpack_require__(527);
 var ReactFeatureFlags = __webpack_require__(245);
-var ReactInstanceMap = __webpack_require__(80);
+var ReactInstanceMap = __webpack_require__(81);
 var ReactInstrumentation = __webpack_require__(28);
 var ReactMarkupChecksum = __webpack_require__(528);
-var ReactReconciler = __webpack_require__(66);
+var ReactReconciler = __webpack_require__(67);
 var ReactUpdateQueue = __webpack_require__(156);
 var ReactUpdates = __webpack_require__(35);
 
-var emptyObject = __webpack_require__(91);
+var emptyObject = __webpack_require__(92);
 var instantiateReactComponent = __webpack_require__(255);
 var invariant = __webpack_require__(6);
-var setInnerHTML = __webpack_require__(95);
+var setInnerHTML = __webpack_require__(96);
 var shouldUpdateReactComponent = __webpack_require__(154);
 var warning = __webpack_require__(7);
 
@@ -18603,7 +18603,7 @@ module.exports = getHostComponentFromComposite;
 "use strict";
 
 
-module.exports = !__webpack_require__(57) && !__webpack_require__(69)(function () {
+module.exports = !__webpack_require__(58) && !__webpack_require__(70)(function () {
   return Object.defineProperty(__webpack_require__(266)('div'), 'a', { get: function get() {
       return 7;
     } }).a != 7;
@@ -18616,7 +18616,7 @@ module.exports = !__webpack_require__(57) && !__webpack_require__(69)(function (
 "use strict";
 
 
-var isObject = __webpack_require__(81),
+var isObject = __webpack_require__(82),
     document = __webpack_require__(46).document
 // in old IE typeof document.createElement is 'object'
 ,
@@ -18632,7 +18632,7 @@ module.exports = function (it) {
 "use strict";
 
 
-var has = __webpack_require__(58),
+var has = __webpack_require__(59),
     toIObject = __webpack_require__(48),
     arrayIndexOf = __webpack_require__(554)(false),
     IE_PROTO = __webpack_require__(164)('IE_PROTO');
@@ -18698,9 +18698,9 @@ module.exports = { "default": __webpack_require__(556), __esModule: true };
 var LIBRARY = __webpack_require__(168),
     $export = __webpack_require__(45),
     redefine = __webpack_require__(272),
-    hide = __webpack_require__(68),
-    has = __webpack_require__(58),
-    Iterators = __webpack_require__(71),
+    hide = __webpack_require__(69),
+    has = __webpack_require__(59),
+    Iterators = __webpack_require__(72),
     $iterCreate = __webpack_require__(561),
     setToStringTag = __webpack_require__(170),
     getPrototypeOf = __webpack_require__(273),
@@ -18787,7 +18787,7 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 "use strict";
 
 
-module.exports = __webpack_require__(68);
+module.exports = __webpack_require__(69);
 
 /***/ }),
 /* 273 */
@@ -18797,7 +18797,7 @@ module.exports = __webpack_require__(68);
 
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-var has = __webpack_require__(58),
+var has = __webpack_require__(59),
     toObject = __webpack_require__(101),
     IE_PROTO = __webpack_require__(164)('IE_PROTO'),
     ObjectProto = Object.prototype;
@@ -18832,10 +18832,10 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 "use strict";
 
 
-var castPath = __webpack_require__(59),
+var castPath = __webpack_require__(60),
     isArguments = __webpack_require__(107),
     isArray = __webpack_require__(13),
-    isIndex = __webpack_require__(85),
+    isIndex = __webpack_require__(86),
     isLength = __webpack_require__(179),
     toKey = __webpack_require__(50);
 
@@ -19059,7 +19059,7 @@ module.exports = overRest;
 "use strict";
 
 
-var getNative = __webpack_require__(61);
+var getNative = __webpack_require__(62);
 
 var defineProperty = function () {
   try {
@@ -19503,8 +19503,8 @@ module.exports = arrayFilter;
 var baseTimes = __webpack_require__(294),
     isArguments = __webpack_require__(107),
     isArray = __webpack_require__(13),
-    isBuffer = __webpack_require__(86),
-    isIndex = __webpack_require__(85),
+    isBuffer = __webpack_require__(87),
+    isIndex = __webpack_require__(86),
     isTypedArray = __webpack_require__(120);
 
 /** Used for built-in method references. */
@@ -19845,7 +19845,7 @@ module.exports = stubArray;
 "use strict";
 
 
-var getNative = __webpack_require__(61),
+var getNative = __webpack_require__(62),
     root = __webpack_require__(24);
 
 /* Built-in method references that are verified to be native. */
@@ -19860,7 +19860,7 @@ module.exports = Set;
 "use strict";
 
 
-var getNative = __webpack_require__(61),
+var getNative = __webpack_require__(62),
     root = __webpack_require__(24);
 
 /* Built-in method references that are verified to be native. */
@@ -19993,7 +19993,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof2 = __webpack_require__(70);
+var _typeof2 = __webpack_require__(71);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -20498,7 +20498,7 @@ module.exports = some;
 
 var classof = __webpack_require__(321),
     ITERATOR = __webpack_require__(31)('iterator'),
-    Iterators = __webpack_require__(71);
+    Iterators = __webpack_require__(72);
 module.exports = __webpack_require__(23).getIteratorMethod = function (it) {
   if (it != undefined) return it[ITERATOR] || it['@@iterator'] || Iterators[classof(it)];
 };
@@ -20969,7 +20969,7 @@ module.exports = setWrapToString;
 "use strict";
 
 
-var copyObject = __webpack_require__(75),
+var copyObject = __webpack_require__(76),
     keys = __webpack_require__(29);
 
 /**
@@ -21280,7 +21280,7 @@ module.exports = compact;
 "use strict";
 
 
-var baseEach = __webpack_require__(74),
+var baseEach = __webpack_require__(75),
     isArrayLike = __webpack_require__(36);
 
 /**
@@ -21354,7 +21354,7 @@ module.exports = func;
 
 
 var convert = __webpack_require__(17),
-    func = convert('includes', __webpack_require__(62));
+    func = convert('includes', __webpack_require__(63));
 
 func.placeholder = __webpack_require__(15);
 module.exports = func;
@@ -21370,7 +21370,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _toConsumableArray2 = __webpack_require__(63);
+var _toConsumableArray2 = __webpack_require__(64);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
@@ -22985,7 +22985,7 @@ exports.default = function get(object, property, receiver) {
 // most Object methods by ES6 should accept primitives
 var $export = __webpack_require__(45),
     core = __webpack_require__(23),
-    fails = __webpack_require__(69);
+    fails = __webpack_require__(70);
 module.exports = function (KEY, exec) {
   var fn = (core.Object || {})[KEY] || Object[KEY],
       exp = {};
@@ -23003,7 +23003,7 @@ module.exports = function (KEY, exec) {
 
 
 var arrayReduce = __webpack_require__(130),
-    baseEach = __webpack_require__(74),
+    baseEach = __webpack_require__(75),
     baseIteratee = __webpack_require__(33),
     baseReduce = __webpack_require__(786),
     isArray = __webpack_require__(13);
@@ -23173,7 +23173,7 @@ var _Icon = __webpack_require__(22);
 
 var _Icon2 = _interopRequireDefault(_Icon);
 
-var _Image = __webpack_require__(76);
+var _Image = __webpack_require__(77);
 
 var _Image2 = _interopRequireDefault(_Image);
 
@@ -23967,7 +23967,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _toConsumableArray2 = __webpack_require__(63);
+var _toConsumableArray2 = __webpack_require__(64);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
@@ -24436,7 +24436,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _toConsumableArray2 = __webpack_require__(63);
+var _toConsumableArray2 = __webpack_require__(64);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
@@ -25854,7 +25854,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _lib = __webpack_require__(3);
 
-var _Image = __webpack_require__(76);
+var _Image = __webpack_require__(77);
 
 var _Image2 = _interopRequireDefault(_Image);
 
@@ -27893,7 +27893,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _lib = __webpack_require__(3);
 
-var _Image = __webpack_require__(76);
+var _Image = __webpack_require__(77);
 
 var _Image2 = _interopRequireDefault(_Image);
 
@@ -29295,7 +29295,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _lib = __webpack_require__(3);
 
-var _Image = __webpack_require__(76);
+var _Image = __webpack_require__(77);
 
 var _Image2 = _interopRequireDefault(_Image);
 
@@ -29968,7 +29968,7 @@ module.exports = ReactChildren;
 
 
 
-var _prodInvariant = __webpack_require__(65);
+var _prodInvariant = __webpack_require__(66);
 
 var invariant = __webpack_require__(6);
 
@@ -30087,7 +30087,7 @@ module.exports = PooledClass;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _prodInvariant = __webpack_require__(65);
+var _prodInvariant = __webpack_require__(66);
 
 var ReactCurrentOwner = __webpack_require__(34);
 var REACT_ELEMENT_TYPE = __webpack_require__(235);
@@ -30510,7 +30510,7 @@ module.exports = ReactDOMFactories;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _prodInvariant = __webpack_require__(65);
+var _prodInvariant = __webpack_require__(66);
 
 var ReactPropTypeLocationNames = __webpack_require__(442);
 var ReactPropTypesSecret = __webpack_require__(443);
@@ -31300,7 +31300,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _assign = __webpack_require__(16);
 
-var emptyObject = __webpack_require__(91);
+var emptyObject = __webpack_require__(92);
 var _invariant = __webpack_require__(6);
 
 if (process.env.NODE_ENV !== 'production') {
@@ -32036,7 +32036,7 @@ module.exports = factory;
  */
 
 
-var _prodInvariant = __webpack_require__(65);
+var _prodInvariant = __webpack_require__(66);
 
 var ReactElement = __webpack_require__(54);
 
@@ -32086,7 +32086,7 @@ module.exports = onlyChild;
 var ReactDOMComponentTree = __webpack_require__(18);
 var ReactDefaultInjection = __webpack_require__(452);
 var ReactMount = __webpack_require__(263);
-var ReactReconciler = __webpack_require__(66);
+var ReactReconciler = __webpack_require__(67);
 var ReactUpdates = __webpack_require__(35);
 var ReactVersion = __webpack_require__(530);
 
@@ -32370,7 +32370,7 @@ module.exports = ARIADOMPropertyConfig;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var EventPropagators = __webpack_require__(77);
+var EventPropagators = __webpack_require__(78);
 var ExecutionEnvironment = __webpack_require__(19);
 var FallbackCompositionState = __webpack_require__(455);
 var SyntheticCompositionEvent = __webpack_require__(456);
@@ -32942,8 +32942,8 @@ module.exports = SyntheticInputEvent;
 
 
 
-var EventPluginHub = __webpack_require__(78);
-var EventPropagators = __webpack_require__(77);
+var EventPluginHub = __webpack_require__(79);
+var EventPropagators = __webpack_require__(78);
 var ExecutionEnvironment = __webpack_require__(19);
 var ReactDOMComponentTree = __webpack_require__(18);
 var ReactUpdates = __webpack_require__(35);
@@ -34003,9 +34003,9 @@ module.exports = DefaultEventPluginOrder;
 
 
 
-var EventPropagators = __webpack_require__(77);
+var EventPropagators = __webpack_require__(78);
 var ReactDOMComponentTree = __webpack_require__(18);
-var SyntheticMouseEvent = __webpack_require__(94);
+var SyntheticMouseEvent = __webpack_require__(95);
 
 var eventTypes = {
   mouseEnter: {
@@ -34382,7 +34382,7 @@ module.exports = ReactComponentBrowserEnvironment;
 
 var _prodInvariant = __webpack_require__(12);
 
-var DOMLazyTree = __webpack_require__(67);
+var DOMLazyTree = __webpack_require__(68);
 var ExecutionEnvironment = __webpack_require__(19);
 
 var createNodesFromMarkup = __webpack_require__(471);
@@ -34805,13 +34805,13 @@ var _prodInvariant = __webpack_require__(12),
 
 var AutoFocusUtils = __webpack_require__(476);
 var CSSPropertyOperations = __webpack_require__(477);
-var DOMLazyTree = __webpack_require__(67);
+var DOMLazyTree = __webpack_require__(68);
 var DOMNamespaces = __webpack_require__(149);
 var DOMProperty = __webpack_require__(44);
 var DOMPropertyOperations = __webpack_require__(252);
-var EventPluginHub = __webpack_require__(78);
-var EventPluginRegistry = __webpack_require__(92);
-var ReactBrowserEventEmitter = __webpack_require__(97);
+var EventPluginHub = __webpack_require__(79);
+var EventPluginRegistry = __webpack_require__(93);
+var ReactBrowserEventEmitter = __webpack_require__(98);
 var ReactDOMComponentFlags = __webpack_require__(240);
 var ReactDOMComponentTree = __webpack_require__(18);
 var ReactDOMInput = __webpack_require__(487);
@@ -34823,7 +34823,7 @@ var ReactMultiChild = __webpack_require__(490);
 var ReactServerRenderingTransaction = __webpack_require__(499);
 
 var emptyFunction = __webpack_require__(25);
-var escapeTextContentForBrowser = __webpack_require__(96);
+var escapeTextContentForBrowser = __webpack_require__(97);
 var invariant = __webpack_require__(6);
 var isEventSupported = __webpack_require__(146);
 var shallowEqual = __webpack_require__(153);
@@ -36348,7 +36348,7 @@ module.exports = memoizeStringOnly;
 
 
 
-var escapeTextContentForBrowser = __webpack_require__(96);
+var escapeTextContentForBrowser = __webpack_require__(97);
 
 /**
  * Escapes attribute value to prevent scripting attacks.
@@ -36379,7 +36379,7 @@ module.exports = quoteAttributeValueForBrowser;
 
 
 
-var EventPluginHub = __webpack_require__(78);
+var EventPluginHub = __webpack_require__(79);
 
 function runEventQueueInBatch(events) {
   EventPluginHub.enqueueEvents(events);
@@ -36817,7 +36817,7 @@ module.exports = ReactDOMInput;
 
 var _assign = __webpack_require__(16);
 
-var React = __webpack_require__(64);
+var React = __webpack_require__(65);
 var ReactDOMComponentTree = __webpack_require__(18);
 var ReactDOMSelect = __webpack_require__(254);
 
@@ -37112,11 +37112,11 @@ module.exports = ReactDOMTextarea;
 var _prodInvariant = __webpack_require__(12);
 
 var ReactComponentEnvironment = __webpack_require__(152);
-var ReactInstanceMap = __webpack_require__(80);
+var ReactInstanceMap = __webpack_require__(81);
 var ReactInstrumentation = __webpack_require__(28);
 
 var ReactCurrentOwner = __webpack_require__(34);
-var ReactReconciler = __webpack_require__(66);
+var ReactReconciler = __webpack_require__(67);
 var ReactChildReconciler = __webpack_require__(491);
 
 var emptyFunction = __webpack_require__(25);
@@ -37561,7 +37561,7 @@ module.exports = ReactMultiChild;
 
 
 
-var ReactReconciler = __webpack_require__(66);
+var ReactReconciler = __webpack_require__(67);
 
 var instantiateReactComponent = __webpack_require__(255);
 var KeyEscapeUtils = __webpack_require__(155);
@@ -37725,20 +37725,20 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 var _prodInvariant = __webpack_require__(12),
     _assign = __webpack_require__(16);
 
-var React = __webpack_require__(64);
+var React = __webpack_require__(65);
 var ReactComponentEnvironment = __webpack_require__(152);
 var ReactCurrentOwner = __webpack_require__(34);
 var ReactErrorUtils = __webpack_require__(144);
-var ReactInstanceMap = __webpack_require__(80);
+var ReactInstanceMap = __webpack_require__(81);
 var ReactInstrumentation = __webpack_require__(28);
 var ReactNodeTypes = __webpack_require__(256);
-var ReactReconciler = __webpack_require__(66);
+var ReactReconciler = __webpack_require__(67);
 
 if (process.env.NODE_ENV !== 'production') {
   var checkReactTypeSpec = __webpack_require__(493);
 }
 
-var emptyObject = __webpack_require__(91);
+var emptyObject = __webpack_require__(92);
 var invariant = __webpack_require__(6);
 var shallowEqual = __webpack_require__(153);
 var shouldUpdateReactComponent = __webpack_require__(154);
@@ -38938,7 +38938,7 @@ module.exports = flattenChildren;
 var _assign = __webpack_require__(16);
 
 var PooledClass = __webpack_require__(55);
-var Transaction = __webpack_require__(93);
+var Transaction = __webpack_require__(94);
 var ReactInstrumentation = __webpack_require__(28);
 var ReactServerUpdateQueue = __webpack_require__(500);
 
@@ -39177,7 +39177,7 @@ module.exports = ReactServerUpdateQueue;
 
 var _assign = __webpack_require__(16);
 
-var DOMLazyTree = __webpack_require__(67);
+var DOMLazyTree = __webpack_require__(68);
 var ReactDOMComponentTree = __webpack_require__(18);
 
 var ReactDOMEmptyComponent = function ReactDOMEmptyComponent(instantiate) {
@@ -39386,10 +39386,10 @@ var _prodInvariant = __webpack_require__(12),
     _assign = __webpack_require__(16);
 
 var DOMChildrenOperations = __webpack_require__(148);
-var DOMLazyTree = __webpack_require__(67);
+var DOMLazyTree = __webpack_require__(68);
 var ReactDOMComponentTree = __webpack_require__(18);
 
-var escapeTextContentForBrowser = __webpack_require__(96);
+var escapeTextContentForBrowser = __webpack_require__(97);
 var invariant = __webpack_require__(6);
 var validateDOMNesting = __webpack_require__(157);
 
@@ -39553,7 +39553,7 @@ module.exports = ReactDOMTextComponent;
 var _assign = __webpack_require__(16);
 
 var ReactUpdates = __webpack_require__(35);
-var Transaction = __webpack_require__(93);
+var Transaction = __webpack_require__(94);
 
 var emptyFunction = __webpack_require__(25);
 
@@ -39828,11 +39828,11 @@ module.exports = getUnboundedScrollPosition;
 
 
 var DOMProperty = __webpack_require__(44);
-var EventPluginHub = __webpack_require__(78);
+var EventPluginHub = __webpack_require__(79);
 var EventPluginUtils = __webpack_require__(143);
 var ReactComponentEnvironment = __webpack_require__(152);
 var ReactEmptyComponent = __webpack_require__(257);
-var ReactBrowserEventEmitter = __webpack_require__(97);
+var ReactBrowserEventEmitter = __webpack_require__(98);
 var ReactHostComponent = __webpack_require__(258);
 var ReactUpdates = __webpack_require__(35);
 
@@ -39870,10 +39870,10 @@ var _assign = __webpack_require__(16);
 
 var CallbackQueue = __webpack_require__(244);
 var PooledClass = __webpack_require__(55);
-var ReactBrowserEventEmitter = __webpack_require__(97);
+var ReactBrowserEventEmitter = __webpack_require__(98);
 var ReactInputSelection = __webpack_require__(261);
 var ReactInstrumentation = __webpack_require__(28);
-var Transaction = __webpack_require__(93);
+var Transaction = __webpack_require__(94);
 var ReactUpdateQueue = __webpack_require__(156);
 
 /**
@@ -40761,7 +40761,7 @@ module.exports = SVGDOMPropertyConfig;
 
 
 
-var EventPropagators = __webpack_require__(77);
+var EventPropagators = __webpack_require__(78);
 var ExecutionEnvironment = __webpack_require__(19);
 var ReactDOMComponentTree = __webpack_require__(18);
 var ReactInputSelection = __webpack_require__(261);
@@ -40958,18 +40958,18 @@ module.exports = SelectEventPlugin;
 var _prodInvariant = __webpack_require__(12);
 
 var EventListener = __webpack_require__(260);
-var EventPropagators = __webpack_require__(77);
+var EventPropagators = __webpack_require__(78);
 var ReactDOMComponentTree = __webpack_require__(18);
 var SyntheticAnimationEvent = __webpack_require__(517);
 var SyntheticClipboardEvent = __webpack_require__(518);
 var SyntheticEvent = __webpack_require__(37);
 var SyntheticFocusEvent = __webpack_require__(519);
 var SyntheticKeyboardEvent = __webpack_require__(520);
-var SyntheticMouseEvent = __webpack_require__(94);
+var SyntheticMouseEvent = __webpack_require__(95);
 var SyntheticDragEvent = __webpack_require__(522);
 var SyntheticTouchEvent = __webpack_require__(523);
 var SyntheticTransitionEvent = __webpack_require__(524);
-var SyntheticUIEvent = __webpack_require__(79);
+var SyntheticUIEvent = __webpack_require__(80);
 var SyntheticWheelEvent = __webpack_require__(525);
 
 var emptyFunction = __webpack_require__(25);
@@ -41273,7 +41273,7 @@ module.exports = SyntheticClipboardEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(79);
+var SyntheticUIEvent = __webpack_require__(80);
 
 /**
  * @interface FocusEvent
@@ -41314,7 +41314,7 @@ module.exports = SyntheticFocusEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(79);
+var SyntheticUIEvent = __webpack_require__(80);
 
 var getEventCharCode = __webpack_require__(158);
 var getEventKey = __webpack_require__(521);
@@ -41520,7 +41520,7 @@ module.exports = getEventKey;
 
 
 
-var SyntheticMouseEvent = __webpack_require__(94);
+var SyntheticMouseEvent = __webpack_require__(95);
 
 /**
  * @interface DragEvent
@@ -41561,7 +41561,7 @@ module.exports = SyntheticDragEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(79);
+var SyntheticUIEvent = __webpack_require__(80);
 
 var getEventModifierState = __webpack_require__(147);
 
@@ -41655,7 +41655,7 @@ module.exports = SyntheticTransitionEvent;
 
 
 
-var SyntheticMouseEvent = __webpack_require__(94);
+var SyntheticMouseEvent = __webpack_require__(95);
 
 /**
  * @interface WheelEvent
@@ -41901,7 +41901,7 @@ var _prodInvariant = __webpack_require__(12);
 
 var ReactCurrentOwner = __webpack_require__(34);
 var ReactDOMComponentTree = __webpack_require__(18);
-var ReactInstanceMap = __webpack_require__(80);
+var ReactInstanceMap = __webpack_require__(81);
 
 var getHostComponentFromComposite = __webpack_require__(264);
 var invariant = __webpack_require__(6);
@@ -41985,7 +41985,7 @@ module.exports = ReactMount.renderSubtreeIntoContainer;
 
 
 var DOMProperty = __webpack_require__(44);
-var EventPluginRegistry = __webpack_require__(92);
+var EventPluginRegistry = __webpack_require__(93);
 var ReactComponentTreeHook = __webpack_require__(26);
 
 var warning = __webpack_require__(7);
@@ -42548,7 +42548,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(98);
+var _semanticUiReact = __webpack_require__(56);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42650,7 +42650,7 @@ var _inherits2 = __webpack_require__(11);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _has2 = __webpack_require__(72);
+var _has2 = __webpack_require__(73);
 
 var _has3 = _interopRequireDefault(_has2);
 
@@ -42841,7 +42841,7 @@ module.exports = function (it) {
 
 // 19.1.2.1 Object.assign(target, source, ...)
 
-var getKeys = __webpack_require__(83),
+var getKeys = __webpack_require__(84),
     gOPS = __webpack_require__(167),
     pIE = __webpack_require__(100),
     toObject = __webpack_require__(101),
@@ -42849,7 +42849,7 @@ var getKeys = __webpack_require__(83),
     $assign = Object.assign;
 
 // should work with symbols and should have deterministic property order (V8 bug)
-module.exports = !$assign || __webpack_require__(69)(function () {
+module.exports = !$assign || __webpack_require__(70)(function () {
   var A = {},
       B = {},
       S = Symbol(),
@@ -42946,7 +42946,7 @@ module.exports = function defineProperty(it, key, desc) {
 
 var $export = __webpack_require__(45);
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__webpack_require__(57), 'Object', { defineProperty: __webpack_require__(47).f });
+$export($export.S + $export.F * !__webpack_require__(58), 'Object', { defineProperty: __webpack_require__(47).f });
 
 /***/ }),
 /* 558 */
@@ -43000,12 +43000,12 @@ module.exports = function (TO_STRING) {
 
 
 var create = __webpack_require__(169),
-    descriptor = __webpack_require__(82),
+    descriptor = __webpack_require__(83),
     setToStringTag = __webpack_require__(170),
     IteratorPrototype = {};
 
 // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-__webpack_require__(68)(IteratorPrototype, __webpack_require__(31)('iterator'), function () {
+__webpack_require__(69)(IteratorPrototype, __webpack_require__(31)('iterator'), function () {
   return this;
 });
 
@@ -43022,10 +43022,10 @@ module.exports = function (Constructor, NAME, next) {
 
 
 var dP = __webpack_require__(47),
-    anObject = __webpack_require__(56),
-    getKeys = __webpack_require__(83);
+    anObject = __webpack_require__(57),
+    getKeys = __webpack_require__(84);
 
-module.exports = __webpack_require__(57) ? Object.defineProperties : function defineProperties(O, Properties) {
+module.exports = __webpack_require__(58) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
   var keys = getKeys(Properties),
       length = keys.length,
@@ -43054,7 +43054,7 @@ module.exports = __webpack_require__(46).document && document.documentElement;
 
 var addToUnscopables = __webpack_require__(565),
     step = __webpack_require__(566),
-    Iterators = __webpack_require__(71),
+    Iterators = __webpack_require__(72),
     toIObject = __webpack_require__(48);
 
 // 22.1.3.4 Array.prototype.entries()
@@ -43139,12 +43139,12 @@ module.exports = __webpack_require__(23).Symbol;
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var global = __webpack_require__(46),
-    has = __webpack_require__(58),
-    DESCRIPTORS = __webpack_require__(57),
+    has = __webpack_require__(59),
+    DESCRIPTORS = __webpack_require__(58),
     $export = __webpack_require__(45),
     redefine = __webpack_require__(272),
     META = __webpack_require__(570).KEY,
-    $fails = __webpack_require__(69),
+    $fails = __webpack_require__(70),
     shared = __webpack_require__(165),
     setToStringTag = __webpack_require__(170),
     uid = __webpack_require__(99),
@@ -43154,15 +43154,15 @@ var global = __webpack_require__(46),
     keyOf = __webpack_require__(571),
     enumKeys = __webpack_require__(572),
     isArray = __webpack_require__(573),
-    anObject = __webpack_require__(56),
+    anObject = __webpack_require__(57),
     toIObject = __webpack_require__(48),
     toPrimitive = __webpack_require__(160),
-    createDesc = __webpack_require__(82),
+    createDesc = __webpack_require__(83),
     _create = __webpack_require__(169),
     gOPNExt = __webpack_require__(574),
     $GOPD = __webpack_require__(174),
     $DP = __webpack_require__(47),
-    $keys = __webpack_require__(83),
+    $keys = __webpack_require__(84),
     gOPD = $GOPD.f,
     dP = $DP.f,
     gOPN = gOPNExt.f,
@@ -43370,7 +43370,7 @@ $JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
 });
 
 // 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
-$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(68)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
+$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(69)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
 // 19.4.3.5 Symbol.prototype[@@toStringTag]
 setToStringTag($Symbol, 'Symbol');
 // 20.2.1.9 Math[@@toStringTag]
@@ -43388,14 +43388,14 @@ setToStringTag(global.JSON, 'JSON', true);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var META = __webpack_require__(99)('meta'),
-    isObject = __webpack_require__(81),
-    has = __webpack_require__(58),
+    isObject = __webpack_require__(82),
+    has = __webpack_require__(59),
     setDesc = __webpack_require__(47).f,
     id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
 };
-var FREEZE = !__webpack_require__(69)(function () {
+var FREEZE = !__webpack_require__(70)(function () {
   return isExtensible(Object.preventExtensions({}));
 });
 var setMeta = function setMeta(it) {
@@ -43448,7 +43448,7 @@ var meta = module.exports = {
 "use strict";
 
 
-var getKeys = __webpack_require__(83),
+var getKeys = __webpack_require__(84),
     toIObject = __webpack_require__(48);
 module.exports = function (object, el) {
   var O = toIObject(object),
@@ -43469,7 +43469,7 @@ module.exports = function (object, el) {
 
 
 // all enumerable object keys, includes symbols
-var getKeys = __webpack_require__(83),
+var getKeys = __webpack_require__(84),
     gOPS = __webpack_require__(167),
     pIE = __webpack_require__(100);
 module.exports = function (it) {
@@ -43591,8 +43591,8 @@ $export($export.S, 'Object', { setPrototypeOf: __webpack_require__(581).set });
 
 // Works with __proto__ only. Old v8 can't work with null proto objects.
 /* eslint-disable no-proto */
-var isObject = __webpack_require__(81),
-    anObject = __webpack_require__(56);
+var isObject = __webpack_require__(82),
+    anObject = __webpack_require__(57);
 var check = function check(O, proto) {
   anObject(O);
   if (!isObject(proto) && proto !== null) throw TypeError(proto + ": can't set as prototype!");
@@ -43713,7 +43713,7 @@ module.exports = g;
 "use strict";
 
 
-var _Symbol = __webpack_require__(73);
+var _Symbol = __webpack_require__(74);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -44547,7 +44547,7 @@ module.exports = baseIsArguments;
 
 
 var apply = __webpack_require__(108),
-    castPath = __webpack_require__(59),
+    castPath = __webpack_require__(60),
     last = __webpack_require__(279),
     parent = __webpack_require__(280),
     toKey = __webpack_require__(50);
@@ -45291,7 +45291,7 @@ var _intersection2 = __webpack_require__(651);
 
 var _intersection3 = _interopRequireDefault(_intersection2);
 
-var _has2 = __webpack_require__(72);
+var _has2 = __webpack_require__(73);
 
 var _has3 = _interopRequireDefault(_has2);
 
@@ -45645,7 +45645,7 @@ module.exports = strictIndexOf;
 "use strict";
 
 
-var _Symbol = __webpack_require__(73),
+var _Symbol = __webpack_require__(74),
     isArguments = __webpack_require__(107),
     isArray = __webpack_require__(13);
 
@@ -45672,7 +45672,7 @@ module.exports = isFlattenable;
 "use strict";
 
 
-var baseEach = __webpack_require__(74);
+var baseEach = __webpack_require__(75);
 
 /**
  * The base implementation of `_.filter` without support for iteratee shorthands.
@@ -46162,7 +46162,7 @@ var Stack = __webpack_require__(186),
     equalObjects = __webpack_require__(642),
     getTag = __webpack_require__(189),
     isArray = __webpack_require__(13),
-    isBuffer = __webpack_require__(86),
+    isBuffer = __webpack_require__(87),
     isTypedArray = __webpack_require__(120);
 
 /** Used to compose bitmasks for value comparisons. */
@@ -46245,9 +46245,9 @@ module.exports = baseIsEqualDeep;
 "use strict";
 
 
-var _Symbol = __webpack_require__(73),
+var _Symbol = __webpack_require__(74),
     Uint8Array = __webpack_require__(298),
-    eq = __webpack_require__(84),
+    eq = __webpack_require__(85),
     equalArrays = __webpack_require__(296),
     mapToArray = __webpack_require__(299),
     setToArray = __webpack_require__(121);
@@ -46452,7 +46452,7 @@ module.exports = equalObjects;
 "use strict";
 
 
-var getNative = __webpack_require__(61),
+var getNative = __webpack_require__(62),
     root = __webpack_require__(24);
 
 /* Built-in method references that are verified to be native. */
@@ -46467,7 +46467,7 @@ module.exports = DataView;
 "use strict";
 
 
-var getNative = __webpack_require__(61),
+var getNative = __webpack_require__(62),
     root = __webpack_require__(24);
 
 /* Built-in method references that are verified to be native. */
@@ -46796,7 +46796,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.useWidthProp = exports.useVerticalAlignProp = exports.useTextAlignProp = exports.useOnlyProp = exports.useKeyOrValueAndKey = exports.useValueAndKey = exports.useKeyOnly = undefined;
 
-var _typeof2 = __webpack_require__(70);
+var _typeof2 = __webpack_require__(71);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -47576,7 +47576,7 @@ var _extends2 = __webpack_require__(2);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _typeof2 = __webpack_require__(70);
+var _typeof2 = __webpack_require__(71);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -47954,7 +47954,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.partitionHTMLInputProps = exports.htmlInputProps = exports.htmlInputEvents = exports.htmlInputAttrs = undefined;
 
-var _includes2 = __webpack_require__(62);
+var _includes2 = __webpack_require__(63);
 
 var _includes3 = _interopRequireDefault(_includes2);
 
@@ -48384,7 +48384,7 @@ var _isEqual2 = __webpack_require__(195);
 
 var _isEqual3 = _interopRequireDefault(_isEqual2);
 
-var _has2 = __webpack_require__(72);
+var _has2 = __webpack_require__(73);
 
 var _has3 = _interopRequireDefault(_has2);
 
@@ -48425,13 +48425,13 @@ var objectDiff = exports.objectDiff = function objectDiff(source, target) {
 "use strict";
 
 
-var arrayEach = __webpack_require__(88),
-    baseCreate = __webpack_require__(89),
+var arrayEach = __webpack_require__(89),
+    baseCreate = __webpack_require__(90),
     baseForOwn = __webpack_require__(183),
     baseIteratee = __webpack_require__(33),
     getPrototype = __webpack_require__(123),
     isArray = __webpack_require__(13),
-    isBuffer = __webpack_require__(86),
+    isBuffer = __webpack_require__(87),
     isFunction = __webpack_require__(49),
     isObject = __webpack_require__(27),
     isTypedArray = __webpack_require__(120);
@@ -48584,7 +48584,7 @@ module.exports = createFind;
 "use strict";
 
 
-var baseEach = __webpack_require__(74);
+var baseEach = __webpack_require__(75);
 
 /**
  * The base implementation of `_.some` without support for iteratee shorthands.
@@ -48619,7 +48619,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.deprecate = exports.collectionShorthand = exports.itemShorthand = exports.contentShorthand = exports.onlyProp = exports.demand = exports.givenProps = exports.some = exports.every = exports.disallow = exports.suggest = exports.as = undefined;
 
-var _toConsumableArray2 = __webpack_require__(63);
+var _toConsumableArray2 = __webpack_require__(64);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
@@ -49078,7 +49078,7 @@ $export($export.S + $export.F * !__webpack_require__(680)(function (iter) {
 
 
 // call something on iterator step with safe closing on error
-var anObject = __webpack_require__(56);
+var anObject = __webpack_require__(57);
 module.exports = function (iterator, fn, value, entries) {
   try {
     return entries ? fn(anObject(value)[0], value[1]) : fn(value);
@@ -49098,7 +49098,7 @@ module.exports = function (iterator, fn, value, entries) {
 
 
 // check on default Array iterator
-var Iterators = __webpack_require__(71),
+var Iterators = __webpack_require__(72),
     ITERATOR = __webpack_require__(31)('iterator'),
     ArrayProto = Array.prototype;
 
@@ -49114,7 +49114,7 @@ module.exports = function (it) {
 
 
 var $defineProperty = __webpack_require__(47),
-    createDesc = __webpack_require__(82);
+    createDesc = __webpack_require__(83);
 
 module.exports = function (object, index, value) {
   if (index in object) $defineProperty.f(object, index, createDesc(0, value));else object[index] = value;
@@ -50085,7 +50085,7 @@ module.exports = {
   'assign': __webpack_require__(332),
   'clone': __webpack_require__(698),
   'curry': __webpack_require__(336),
-  'forEach': __webpack_require__(88),
+  'forEach': __webpack_require__(89),
   'isArray': __webpack_require__(13),
   'isFunction': __webpack_require__(49),
   'iteratee': __webpack_require__(716),
@@ -50508,7 +50508,7 @@ module.exports = insertWrapDetails;
 "use strict";
 
 
-var arrayEach = __webpack_require__(88),
+var arrayEach = __webpack_require__(89),
     arrayIncludes = __webpack_require__(112);
 
 /** Used to compose bitmasks for function metadata. */
@@ -50553,7 +50553,7 @@ module.exports = updateWrapDetails;
 
 
 var copyArray = __webpack_require__(127),
-    isIndex = __webpack_require__(85);
+    isIndex = __webpack_require__(86);
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeMin = Math.min;
@@ -50779,7 +50779,7 @@ module.exports = clone;
 "use strict";
 
 
-var copyObject = __webpack_require__(75),
+var copyObject = __webpack_require__(76),
     keysIn = __webpack_require__(333);
 
 /**
@@ -50805,7 +50805,7 @@ module.exports = baseAssignIn;
 
 
 var isObject = __webpack_require__(27),
-    isPrototype = __webpack_require__(87),
+    isPrototype = __webpack_require__(88),
     nativeKeysIn = __webpack_require__(701);
 
 /** Used for built-in method references. */
@@ -50919,7 +50919,7 @@ module.exports = cloneBuffer;
 "use strict";
 
 
-var copyObject = __webpack_require__(75),
+var copyObject = __webpack_require__(76),
     getSymbols = __webpack_require__(188);
 
 /**
@@ -50943,7 +50943,7 @@ module.exports = copySymbols;
 "use strict";
 
 
-var copyObject = __webpack_require__(75),
+var copyObject = __webpack_require__(76),
     getSymbolsIn = __webpack_require__(334);
 
 /**
@@ -51244,7 +51244,7 @@ module.exports = addSetEntry;
 "use strict";
 
 
-var _Symbol = __webpack_require__(73);
+var _Symbol = __webpack_require__(74);
 
 /** Used to convert symbols to primitives and strings. */
 var symbolProto = _Symbol ? _Symbol.prototype : undefined,
@@ -51294,9 +51294,9 @@ module.exports = cloneTypedArray;
 "use strict";
 
 
-var baseCreate = __webpack_require__(89),
+var baseCreate = __webpack_require__(90),
     getPrototype = __webpack_require__(123),
-    isPrototype = __webpack_require__(87);
+    isPrototype = __webpack_require__(88);
 
 /**
  * Initializes an object clone.
@@ -51453,7 +51453,7 @@ module.exports = flatten;
 var arrayMap = __webpack_require__(40),
     copyArray = __webpack_require__(127),
     isArray = __webpack_require__(13),
-    isSymbol = __webpack_require__(60),
+    isSymbol = __webpack_require__(61),
     stringToPath = __webpack_require__(277),
     toKey = __webpack_require__(50),
     toString = __webpack_require__(39);
@@ -51739,7 +51739,7 @@ module.exports = basePick;
 
 var baseGet = __webpack_require__(109),
     baseSet = __webpack_require__(730),
-    castPath = __webpack_require__(59);
+    castPath = __webpack_require__(60);
 
 /**
  * The base implementation of  `_.pickBy` without support for iteratee shorthands.
@@ -51776,8 +51776,8 @@ module.exports = basePickBy;
 
 
 var assignValue = __webpack_require__(129),
-    castPath = __webpack_require__(59),
-    isIndex = __webpack_require__(85),
+    castPath = __webpack_require__(60),
+    isIndex = __webpack_require__(86),
     isObject = __webpack_require__(27),
     toKey = __webpack_require__(50);
 
@@ -52130,7 +52130,7 @@ module.exports = compareMultiple;
 "use strict";
 
 
-var isSymbol = __webpack_require__(60);
+var isSymbol = __webpack_require__(61);
 
 /**
  * Compares values to sort them in ascending order.
@@ -52264,7 +52264,7 @@ module.exports = min;
 "use strict";
 
 
-var isSymbol = __webpack_require__(60);
+var isSymbol = __webpack_require__(61);
 
 /**
  * The base implementation of methods like `_.max` and `_.min` which accepts a
@@ -52588,7 +52588,7 @@ module.exports = func;
 
 
 var convert = __webpack_require__(17),
-    func = convert('has', __webpack_require__(72));
+    func = convert('has', __webpack_require__(73));
 
 func.placeholder = __webpack_require__(15);
 module.exports = func;
@@ -52601,7 +52601,7 @@ module.exports = func;
 
 
 var convert = __webpack_require__(17),
-    func = convert('eq', __webpack_require__(84));
+    func = convert('eq', __webpack_require__(85));
 
 func.placeholder = __webpack_require__(15);
 module.exports = func;
@@ -52657,7 +52657,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ALL_ICONS_IN_ALL_CONTEXTS = exports.COMPONENT_CONTEXT_SPECIFIC_ICONS = exports.ICONS_AND_ALIASES = exports.ICON_ALIASES = exports.ICONS = exports.NETWORKS_AND_WEBSITE_ICONS = exports.PAYMENT_OPTIONS_ICONS = exports.CURRENCY_ICONS = exports.TEXT_EDITOR_ICONS = exports.TABLES_ICONS = exports.MAP_LOCATIONS_TRANSPORTATION_ICONS = exports.AUDIO_ICONS = exports.RATING_ICONS = exports.TECHNOLOGIES_ICONS = exports.FILE_SYSTEM_ICONS = exports.COMPUTER_ICONS = exports.MOBILE_ICONS = exports.POINTERS_ICONS = exports.MEDIA_ICONS = exports.ITEM_SELECTION_ICONS = exports.SHAPES_ICONS = exports.LITERAL_OBJECTS_ICONS = exports.VIEW_ADJUSTMENT_ICONS = exports.ACCESSIBILITY_ICONS = exports.GENDER_SEXUALITY_ICONS = exports.USERS_ICONS = exports.MESSAGES_ICONS = exports.USER_ACTIONS_ICONS = exports.WEB_CONTENT_ICONS = exports.WIDTHS = exports.VISIBILITY = exports.VERTICAL_ALIGNMENTS = exports.TEXT_ALIGNMENTS = exports.SIZES = exports.FLOATS = exports.COLORS = undefined;
 
-var _toConsumableArray2 = __webpack_require__(63);
+var _toConsumableArray2 = __webpack_require__(64);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
@@ -53806,7 +53806,7 @@ exports.default = Modal;
 "use strict";
 
 
-var castPath = __webpack_require__(59),
+var castPath = __webpack_require__(60),
     last = __webpack_require__(279),
     parent = __webpack_require__(280),
     toKey = __webpack_require__(50);
@@ -54233,7 +54233,7 @@ module.exports = __webpack_require__(770);
 
 var classof = __webpack_require__(321),
     ITERATOR = __webpack_require__(31)('iterator'),
-    Iterators = __webpack_require__(71);
+    Iterators = __webpack_require__(72);
 module.exports = __webpack_require__(23).isIterable = function (it) {
   var O = Object(it);
   return O[ITERATOR] !== undefined || '@@iterator' in O || Iterators.hasOwnProperty(classof(O));
@@ -54266,7 +54266,7 @@ module.exports = __webpack_require__(773);
 "use strict";
 
 
-var anObject = __webpack_require__(56),
+var anObject = __webpack_require__(57),
     get = __webpack_require__(320);
 module.exports = __webpack_require__(23).getIterator = function (it) {
   var iterFn = get(it);
@@ -54422,7 +54422,7 @@ var _get5 = __webpack_require__(53);
 
 var _get6 = _interopRequireDefault(_get5);
 
-var _includes2 = __webpack_require__(62);
+var _includes2 = __webpack_require__(63);
 
 var _includes3 = _interopRequireDefault(_includes2);
 
@@ -54434,7 +54434,7 @@ var _invoke2 = __webpack_require__(21);
 
 var _invoke3 = _interopRequireDefault(_invoke2);
 
-var _has2 = __webpack_require__(72);
+var _has2 = __webpack_require__(73);
 
 var _has3 = _interopRequireDefault(_has2);
 
@@ -55863,7 +55863,7 @@ module.exports = arrayEvery;
 "use strict";
 
 
-var baseEach = __webpack_require__(74);
+var baseEach = __webpack_require__(75);
 
 /**
  * The base implementation of `_.every` without support for iteratee shorthands.
@@ -56362,7 +56362,7 @@ var _invoke2 = __webpack_require__(21);
 
 var _invoke3 = _interopRequireDefault(_invoke2);
 
-var _includes2 = __webpack_require__(62);
+var _includes2 = __webpack_require__(63);
 
 var _includes3 = _interopRequireDefault(_includes2);
 
@@ -57132,7 +57132,7 @@ var _inherits2 = __webpack_require__(11);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _includes2 = __webpack_require__(62);
+var _includes2 = __webpack_require__(63);
 
 var _includes3 = _interopRequireDefault(_includes2);
 
@@ -57440,7 +57440,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _toConsumableArray2 = __webpack_require__(63);
+var _toConsumableArray2 = __webpack_require__(64);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
@@ -58785,7 +58785,7 @@ var _Icon = __webpack_require__(22);
 
 var _Icon2 = _interopRequireDefault(_Icon);
 
-var _Image = __webpack_require__(76);
+var _Image = __webpack_require__(77);
 
 var _Image2 = _interopRequireDefault(_Image);
 
@@ -59535,7 +59535,7 @@ var _extends2 = __webpack_require__(2);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _toConsumableArray2 = __webpack_require__(63);
+var _toConsumableArray2 = __webpack_require__(64);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
@@ -59571,7 +59571,7 @@ var _each2 = __webpack_require__(191);
 
 var _each3 = _interopRequireDefault(_each2);
 
-var _has2 = __webpack_require__(72);
+var _has2 = __webpack_require__(73);
 
 var _has3 = _interopRequireDefault(_has2);
 
@@ -59579,7 +59579,7 @@ var _without2 = __webpack_require__(14);
 
 var _without3 = _interopRequireDefault(_without2);
 
-var _includes2 = __webpack_require__(62);
+var _includes2 = __webpack_require__(63);
 
 var _includes3 = _interopRequireDefault(_includes2);
 
@@ -60102,7 +60102,7 @@ var _isNumber2 = __webpack_require__(312);
 
 var _isNumber3 = _interopRequireDefault(_isNumber2);
 
-var _includes2 = __webpack_require__(62);
+var _includes2 = __webpack_require__(63);
 
 var _includes3 = _interopRequireDefault(_includes2);
 
@@ -60504,10 +60504,10 @@ process.env.NODE_ENV !== "production" ? Popup.propTypes = {
 
 
 var assignValue = __webpack_require__(129),
-    copyObject = __webpack_require__(75),
+    copyObject = __webpack_require__(76),
     createAssigner = __webpack_require__(839),
     isArrayLike = __webpack_require__(36),
-    isPrototype = __webpack_require__(87),
+    isPrototype = __webpack_require__(88),
     keys = __webpack_require__(29);
 
 /** Used for built-in method references. */
@@ -62994,7 +62994,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(98);
+var _semanticUiReact = __webpack_require__(56);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -63051,7 +63051,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(98);
+var _semanticUiReact = __webpack_require__(56);
 
 var _canvas = __webpack_require__(867);
 
@@ -63073,7 +63073,12 @@ var SidebarLeftPush = exports.SidebarLeftPush = function (_React$Component) {
     function SidebarLeftPush(props) {
         _classCallCheck(this, SidebarLeftPush);
 
-        return _possibleConstructorReturn(this, (SidebarLeftPush.__proto__ || Object.getPrototypeOf(SidebarLeftPush)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (SidebarLeftPush.__proto__ || Object.getPrototypeOf(SidebarLeftPush)).call(this, props));
+
+        _this.state = {
+            textareaValue: ""
+        };
+        return _this;
     }
 
     _createClass(SidebarLeftPush, [{
@@ -63090,7 +63095,7 @@ var SidebarLeftPush = exports.SidebarLeftPush = function (_React$Component) {
         key: "render",
         value: function render() {
             var functionContents = new _functionContents.FunctionContents();
-            var sidebarContents = new _sidebarContents.SidebarContens();
+            var sidebarContents = new _sidebarContents.SidebarContens(this.state.textareaValue);
             var content = this.getContent(this.props.mode_type, functionContents);
             var sidebarContent = this.getSidebarContents(this.props.mode_type, sidebarContents);
 
@@ -63108,7 +63113,7 @@ var SidebarLeftPush = exports.SidebarLeftPush = function (_React$Component) {
                     { as: _semanticUiReact.Segment },
                     _react2.default.createElement(
                         _semanticUiReact.Sidebar,
-                        { as: _semanticUiReact.Menu, animation: "push", width: "thin", visible: this.props.visible, icon: "labeled", vertical: true, inverted: true },
+                        { as: _semanticUiReact.Menu, animation: "push", width: "very wide", visible: this.props.visible, icon: "labeled", vertical: true, inverted: true },
                         sidebarContent
                     ),
                     _react2.default.createElement(
@@ -65031,24 +65036,89 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(98);
+var _semanticUiReact = __webpack_require__(56);
 
 var _modeType = __webpack_require__(232);
+
+var _nodeTable = __webpack_require__(871);
+
+var _edgeTable = __webpack_require__(872);
+
+var _structureTable = __webpack_require__(873);
+
+var _KCFTextArea = __webpack_require__(874);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var SidebarContens = exports.SidebarContens = function () {
-    function SidebarContens() {
+    function SidebarContens(textareaValue) {
         _classCallCheck(this, SidebarContens);
+
+        this.contents = undefined;
+        this.textAreaValue = textareaValue;
     }
 
     _createClass(SidebarContens, [{
         key: "getContents",
         value: function getContents(currentModeType) {
             if (currentModeType === _modeType.modeType.NODE) {
-                return _react2.default.createElement(
+                this.contents = new _nodeTable.nodeTable();
+                return this.contents.getContents();
+            } else if (currentModeType === _modeType.modeType.EDGE) {
+                this.contents = new _edgeTable.edgeTable();
+                return this.contents.getContents();
+            } else if (currentModeType === _modeType.modeType.STRUCTURE) {
+                this.contents = new _structureTable.structureTable();
+                return this.contents.getContents();
+            } else if (currentModeType === _modeType.modeType.DRAW_KCF) {
+                return _react2.default.createElement(_KCFTextArea.KCFTextArea, { value: this.textAreaValue });
+            } else if (currentModeType === _modeType.modeType.KCF_TEXT_OUT) {
+                return _react2.default.createElement(_KCFTextArea.KCFTextArea, { value: this.textAreaValue });
+            }
+        }
+    }]);
+
+    return SidebarContens;
+}();
+
+/***/ }),
+/* 871 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.nodeTable = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(56);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var nodeTable = exports.nodeTable = function () {
+    function nodeTable() {
+        _classCallCheck(this, nodeTable);
+    }
+
+    _createClass(nodeTable, [{
+        key: "getContents",
+        value: function getContents() {
+            return _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
                     _semanticUiReact.Table,
                     { definition: true },
                     _react2.default.createElement(
@@ -65061,12 +65131,54 @@ var SidebarContens = exports.SidebarContens = function () {
                             _react2.default.createElement(
                                 _semanticUiReact.Table.HeaderCell,
                                 null,
-                                "White(Generic)"
+                                "White",
+                                _react2.default.createElement("br", null),
+                                "(Generic)"
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.HeaderCell,
                                 null,
                                 "Blue"
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.HeaderCell,
+                                null,
+                                "Green"
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.HeaderCell,
+                                null,
+                                "Yellow"
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.HeaderCell,
+                                null,
+                                "Orange"
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.HeaderCell,
+                                null,
+                                "Pink"
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.HeaderCell,
+                                null,
+                                "Purple"
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.HeaderCell,
+                                null,
+                                "Light Blue"
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.HeaderCell,
+                                null,
+                                "Brown"
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.HeaderCell,
+                                null,
+                                "Red"
                             )
                         )
                     ),
@@ -65079,17 +65191,523 @@ var SidebarContens = exports.SidebarContens = function () {
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
                                 null,
-                                "reset rating"
+                                "Filled Circle"
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
                                 null,
-                                "None"
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Hexose.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Hexose"
+                                )
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
                                 null,
-                                "Resets rating to default value"
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Glc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Glc"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Man.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Man"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Gal.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Gal"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Gul.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Gul"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Alt.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Alt"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/All.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "All"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Tal.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Tal"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Ido.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Ido"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null)
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Row,
+                            null,
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                "Filled Square"
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/HexNAc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "HexNAc"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/GlcNAc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "GlcNAc"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/ManNAc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "ManNAc"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/GalNAc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "GalNAc"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/GulNAc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "GulNAc"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/AltNAc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "AltNAc"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/AllNAc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "AllNAc"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/TalNAc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "TalNAc"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/IdoNAc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "IdoNAc"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null)
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Row,
+                            null,
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                "Crossed Square"
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Hexosamine.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Hexosamine"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/GlcN.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "GlcN"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/MAnN.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "ManN"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/GalN.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "GalN"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/GulN.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "GulN"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/AltN.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "AltN"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/AllN.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "AllN"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/TalN.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "TalN"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/IdoN.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "IdoN"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null)
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Row,
+                            null,
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                "Divided Diamond"
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Hexuronate.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Hexuronate"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/GlcA.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "GlcA"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/ManA.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "ManA"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/GalA.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "GalA"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/GulA.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "GulA"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/AltA.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "AltA"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/AllA.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "AllA"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/TalA.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "TalA"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/IdoA.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "IdoA"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null)
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Row,
+                            null,
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                "Filled Triangle"
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Deoxyhexose.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Deoxyhexose"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Qui.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Qui"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Rha.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Rha"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/6dGul.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "6dGul"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/6dAlt.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "6dAlt"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/6dTal.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "6dTal"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Fuc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Fuc"
+                                )
                             )
                         ),
                         _react2.default.createElement(
@@ -65098,55 +65716,1469 @@ var SidebarContens = exports.SidebarContens = function () {
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
                                 null,
-                                "set rating"
+                                "Divided Triangle"
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
                                 null,
-                                "rating (integer)"
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/DeoxyhexNAc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "DeoxyhexNAc"
+                                )
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
                                 null,
-                                "Sets the current star rating to specified value"
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/QuiNAc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "QuiNAc"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/RhaNAc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "RhaNAc"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/6dAltNAc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "6dAltNAc"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/6dTalNAc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "6dTalNAc"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/FucNAc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "FucNAc"
+                                )
                             )
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Row,
+                            null,
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                "Flat Rectangle"
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Di-deoxyhexose.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Di-deoxyhexose"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Oli.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Oli"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Tyv.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Tyv"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Abe.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Abe"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Par.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Par"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Dig.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Dig"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Col.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Col"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null)
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Row,
+                            null,
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                "Filled Star"
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Pentose.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Pentose"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Ara.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Ara"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Lyx.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Lyx"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Xyl.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Xyl"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Rib.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Rib"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null)
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Row,
+                            null,
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                "Filled Diamond"
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Deoxynonulosonate.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Deoxynonulosonate"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Kdn.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Kdn"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Neu5Ac.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Neu5Ac"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Neu5Gc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Neu5Gc"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Neu.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Neu"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Sia.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Sia"
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Row,
+                            null,
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                "Flat Diamond"
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Di-deoxynonulosonate.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Di-deoxynonulosonate"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Pse.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Pse"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Leg.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Leg"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Aci.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Aci"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/4eLeg.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "4eLeg"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null)
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Row,
+                            null,
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                "Flat Hexagon"
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Unknown.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Unknown"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Bac.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Bac"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/LDmanHep.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "LDmanHep"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Kdo.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Kdo"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Dha.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Dha"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/DDmanHep.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "DDmanHep"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/MurNAc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "MurNAc"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/MurNGc.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "MurNGc"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Mur.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Mur"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null)
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Row,
+                            null,
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                "Pentagon"
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Assigned.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Assigned"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Api.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Api"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Fru.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Fru"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Tag.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Tag"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Sor.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Sor"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Table.Cell,
+                                null,
+                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Psi.jpg", size: "mini" }),
+                                _react2.default.createElement("br", null),
+                                _react2.default.createElement(
+                                    "p",
+                                    null,
+                                    "Psi"
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                            _react2.default.createElement(_semanticUiReact.Table.Cell, null)
                         )
                     )
-                );
-            } else if (currentModeType === _modeType.modeType.EDGE) {
-                return _react2.default.createElement(
-                    _semanticUiReact.Menu.Item,
-                    { name: "gamepad" },
-                    _react2.default.createElement(_semanticUiReact.Icon, { name: "gamepad" }),
-                    "Games"
-                );
-            } else if (currentModeType === _modeType.modeType.STRUCTURE) {
-                return _react2.default.createElement(
-                    _semanticUiReact.Menu.Item,
-                    { name: "home" },
-                    _react2.default.createElement(_semanticUiReact.Icon, { name: "home" }),
-                    "Home"
-                );
-            } else if (currentModeType === _modeType.modeType.DRAW_KCF) {
-                return _react2.default.createElement(
-                    _semanticUiReact.Menu.Item,
-                    { name: "gamepad" },
-                    _react2.default.createElement(_semanticUiReact.Icon, { name: "gamepad" }),
-                    "Games"
-                );
-            } else if (currentModeType === _modeType.modeType.KCF_TEXT_OUT) {
-                return _react2.default.createElement(
-                    _semanticUiReact.Menu.Item,
-                    { name: "home" },
-                    _react2.default.createElement(_semanticUiReact.Icon, { name: "home" }),
-                    "Home"
-                );
-            }
+                )
+            );
         }
     }]);
 
-    return SidebarContens;
+    return nodeTable;
 }();
+
+/***/ }),
+/* 872 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.edgeTable = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(56);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var edgeTable = exports.edgeTable = function () {
+    function edgeTable() {
+        _classCallCheck(this, edgeTable);
+    }
+
+    _createClass(edgeTable, [{
+        key: "getContents",
+        value: function getContents() {
+            return _react2.default.createElement(
+                _semanticUiReact.Table,
+                { definition: true },
+                _react2.default.createElement(
+                    _semanticUiReact.Table.Header,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.HeaderCell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.HeaderCell,
+                            null,
+                            "a1-"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.HeaderCell,
+                            null,
+                            "b1-"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.HeaderCell,
+                            null,
+                            "a2-"
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Table.Body,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "-1"
+                        ),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "a2-1"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "-2"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "a1-2"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "b1-2"
+                        ),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null)
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "-3"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "a1-3"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "b1-3"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "a2-3"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "-4"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "a1-4"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "b1-4"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "a2-4"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "-5"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "a1-5"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "b1-5"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "a2-5"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "-6"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "a1-6"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "b1-6"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "a2-6"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "-7"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "a1-7"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "b1-7"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "a2-7"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "-8"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "a1-8"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "b1-8"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "a2-8"
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return edgeTable;
+}();
+
+/***/ }),
+/* 873 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.structureTable = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(56);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var structureTable = exports.structureTable = function () {
+    function structureTable() {
+        _classCallCheck(this, structureTable);
+    }
+
+    _createClass(structureTable, [{
+        key: "getContents",
+        value: function getContents() {
+            return _react2.default.createElement(
+                _semanticUiReact.Table,
+                { definition: true },
+                _react2.default.createElement(
+                    _semanticUiReact.Table.Header,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.HeaderCell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.HeaderCell,
+                            null,
+                            "N-glycan"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.HeaderCell,
+                            null,
+                            "O-glycan"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.HeaderCell,
+                            null,
+                            "Glycosphingolipids"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.HeaderCell,
+                            null,
+                            "GAGs"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.HeaderCell,
+                            null,
+                            "Motifs"
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Table.Body,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "N-glycan_core"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "O-glycan_core_1"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "GSL_core_arthro_type"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Hyaluronic_Acid"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "3'sulfo_Lewis_X"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "N-glycan_fucosylated_core"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "O-glycan_core_2"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "GSL_core_gala_type"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Chondroitin_4_sulfate"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Blood_Group_A_Antigen"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "N-glycan_bisecting_core"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "O-glycan_core_3"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "GSL_core_ganglio_type"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Chondroitin_6_sulfate"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Blood_Group_B_Antigen"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "N-glycan_bisecting_fucosylated_core"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "O-glycan_core_4"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "GSL_core_globo_type"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Chondroitin_2,6_sulfate"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Blood_Group_H_Antigen"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "high-mannose"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "O-glycan_core_5"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "GSL_core_isoglobo_type"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Chondroitin_4,6_sulfate"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Cad_Antigen"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "hybrid"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "O-glycan_core_6"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "GSL_core_lact_type"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Dematan_sulfate"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "GD1a"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "complex"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "O-glycan_core_7"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "GSL_core_mollu_type"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Karatan_sulfate"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "GD1b"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "O-glycan_core_8"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "GSL_core_muco_type"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Heparin"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "GD2"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "GSL_core_neolacto_type"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Heparansan_sulfate"
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "GD3"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "GM1a"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "GM1b"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "GM2"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "GM3"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "LacDiNAc"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Lactosamin"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Lewis_A"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Lewis_B"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Lewis_C"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Lewis_D"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Lewis_X"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Lewis_Y"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "P_Antigen"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Pk_Antigen"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Poly_Lactosamine"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Sialy_Lewis_A"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Table.Row,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(_semanticUiReact.Table.Cell, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Table.Cell,
+                            null,
+                            "Sialy_Lewis_X"
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return structureTable;
+}();
+
+/***/ }),
+/* 874 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.KCFTextArea = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(56);
+
+var _modeType = __webpack_require__(232);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var KCFTextArea = exports.KCFTextArea = function (_React$Component) {
+    _inherits(KCFTextArea, _React$Component);
+
+    function KCFTextArea(props) {
+        _classCallCheck(this, KCFTextArea);
+
+        var _this = _possibleConstructorReturn(this, (KCFTextArea.__proto__ || Object.getPrototypeOf(KCFTextArea)).call(this, props));
+
+        _this.state = {
+            textareraValue: "Initial Text"
+        };
+        return _this;
+    }
+
+    _createClass(KCFTextArea, [{
+        key: "render",
+        value: function render() {
+            var _this2 = this;
+
+            return _react2.default.createElement(
+                _semanticUiReact.Form,
+                null,
+                _react2.default.createElement(_semanticUiReact.TextArea, { value: this.state.textareaValue, onChange: function onChange(e) {
+                        return _this2.setState({ textareaValue: e.target.value });
+                    }, rows: 31 })
+            );
+        }
+    }]);
+
+    return KCFTextArea;
+}(_react2.default.Component);
 
 /***/ })
 /******/ ]);

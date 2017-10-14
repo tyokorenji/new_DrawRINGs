@@ -17,7 +17,7 @@ export class ExplainTextarea extends React.Component {
         };
         return (
             <Form { ...defSize }>
-                <TextArea value = {this.props.explainText } { ...defSize } autoHeight/>
+                <TextArea value = {this.props.explainText} { ...defSize }  autoHeight/>
             </Form>
         );
     }
