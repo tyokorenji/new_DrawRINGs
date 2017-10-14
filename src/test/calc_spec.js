@@ -2,7 +2,7 @@
 "use strict";
 
 import * as assert from "power-assert";
-import { add, substract } from "../js/calc";
+import { add, substract } from "../js/test/calc";
 
 describe("add関数テスト", () => {
     it("1 + 2は3である", () => {

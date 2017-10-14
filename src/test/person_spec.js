@@ -1,7 +1,7 @@
 //@flow
 /* global describe, it */
 import * as assert from "power-assert";
-import { Person } from "../js/person";
+import { Person } from "../js/test/person";
 
 describe("Person クラステスト", () => {
     it("greetingde規定の挨拶を返す。", () => {

@@ -1,20 +1,21 @@
 "use strict";
 
 import React from "react";
-import NodeImg from "../../image/Node.png";
-import EdgeImg from "../../image/Edge.png";
-import StructureImag from "../../image/structure.png";
-import ClearImg from "../../image/clear.png";
-import DrawKcfImg from "../../image/draw_KCF.png";
-import KcfTextOutImg from "../../image/kcf_text_out.png";
-import UndoImg from "../../image/undo.png";
-import RedoImg from  "../../image/redo.png";
+import NodeImg from "../../../image/Node.png";
+import EdgeImg from "../../../image/Edge.png";
+import StructureImag from "../../../image/structure.png";
+import ClearImg from "../../../image/clear.png";
+import DrawKcfImg from "../../../image/draw_KCF.png";
+import KcfTextOutImg from "../../../image/kcf_text_out.png";
+import UndoImg from "../../../image/undo.png";
+import RedoImg from "../../../image/redo.png";
 
 import { ImageWrap } from "./imageWrap";
 import { ExplainTextarea } from "./explainTextarea";
 import { SidebarLeftPush } from "./sideBar";
 
-import  { modeType } from "./modeType";
+import { modeType } from "./modeType";
+import { liaise } from "../script/main";
 
 export class InterFace extends React.Component {
     constructor(props) {

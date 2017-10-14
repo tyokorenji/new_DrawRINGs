@@ -3,8 +3,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { Header } from "./header";
-import { InterFace } from "./interFace";
+import { Header } from "./react/header";
+import { InterFace } from "./react/interFace";
 
 ReactDOM.render(
     <Header/>,
