@@ -67196,7 +67196,8 @@ exports.liaise = undefined;
 
 var _liaiseUI = __webpack_require__(876);
 
-var liaise = exports.liaise = (0, _liaiseUI.LiaiseUI)();
+var liaise = exports.liaise = new _liaiseUI.LiaiseUI();
+console.log(liaise.hasTextAreaValue());
 
 /***/ }),
 /* 876 */
@@ -67209,13 +67210,32 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var LiaiseUI = exports.LiaiseUI = function LiaiseUI() {
-    _classCallCheck(this, LiaiseUI);
+var LiaiseUI = function () {
+    function LiaiseUI() {
+        _classCallCheck(this, LiaiseUI);
 
-    this.textArea = "";
-};
+        this.textArea = "initial ";
+    }
+
+    _createClass(LiaiseUI, [{
+        key: "hasTextAreaValue",
+        value: function hasTextAreaValue() {
+            if (this.textArea != "") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }]);
+
+    return LiaiseUI;
+}();
+
+exports.LiaiseUI = LiaiseUI;
 
 /***/ })
 /******/ ]);

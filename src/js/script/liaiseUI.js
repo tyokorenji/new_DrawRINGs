@@ -1,7 +1,20 @@
 "use strict";
 
-export class LiaiseUI {
-    constructor(){
-        this.textArea = "";
+
+class LiaiseUI {
+    constructor() {
+        this.textArea = "initial ";
+    }
+
+    hasTextAreaValue() {
+        if (this.textArea != "") {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
+
+export { LiaiseUI };
+

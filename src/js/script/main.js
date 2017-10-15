@@ -2,4 +2,5 @@
 
 import { LiaiseUI } from "./liaiseUI";
 
-export let liaise = LiaiseUI();
+export let liaise = new LiaiseUI();
+console.log(liaise.hasTextAreaValue());
