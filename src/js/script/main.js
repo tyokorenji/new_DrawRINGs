@@ -1,6 +1,7 @@
+//@flow
 "use strict";
 
-import { LiaiseUI } from "./liaiseUI";
+import { LiaiseUI } from "./class/liaiseUI";
 
-export let liaise = new LiaiseUI();
-console.log(liaise.hasTextAreaValue());
+export let liaise: LiaiseUI = new LiaiseUI();
+// console.log(liaise.hasTextAreaValue());

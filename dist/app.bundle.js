@@ -67197,7 +67197,7 @@ exports.liaise = undefined;
 var _liaiseUI = __webpack_require__(876);
 
 var liaise = exports.liaise = new _liaiseUI.LiaiseUI();
-console.log(liaise.hasTextAreaValue());
+// console.log(liaise.hasTextAreaValue());
 
 /***/ }),
 /* 876 */

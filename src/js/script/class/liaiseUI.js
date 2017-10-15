@@ -1,7 +1,9 @@
+//@flow
 "use strict";
 
-
 class LiaiseUI {
+    textArea: string;
+
     constructor() {
         this.textArea = "initial ";
     }
