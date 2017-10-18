@@ -1,9 +1,11 @@
 //@flow
 "use strict";
 
-class Bracket {
-    constructor(){
+import createjs from "createjs-easeljs";
 
+class Bracket extends createjs.Container{
+    constructor(){
+        super();
     }
 }
 

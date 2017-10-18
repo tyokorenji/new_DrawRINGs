@@ -4,8 +4,15 @@
 import { Node } from "./Node";
 
 class Modification extends Node {
-    constructor(){
+    name: string;  //名前
+
+    constructor(name: string){
         super();
+        this.name = name;
+    }
+
+    getName(): string {
+        return this.name;
     }
 
 }
