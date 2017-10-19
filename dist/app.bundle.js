@@ -63195,8 +63195,8 @@ var Canvas = exports.Canvas = function (_React$Component) {
         key: "componentDidMount",
         value: function componentDidMount() {
             var canvas = _reactDom2.default.findDOMNode(this.refs.canvas);
-            canvas.width = 10000;
-            canvas.height = 10000;
+            canvas.width = 5000;
+            canvas.height = 5000;
             this.stage = new _createjsEaseljs2.default.Stage(canvas);
             var rect = new _createjsEaseljs2.default.Graphics();
             rect.beginFill("red");
@@ -63212,8 +63212,8 @@ var Canvas = exports.Canvas = function (_React$Component) {
         key: "render",
         value: function render() {
             var defStyle = {
-                width: "10000px",
-                height: "10000px",
+                width: "5000px",
+                height: "5000px",
                 border: "1px solid gray",
                 overflow: "scroll"
             };

@@ -11,8 +11,8 @@ export class Canvas extends React.Component {
 
     componentDidMount(){
         const canvas = ReactDOM.findDOMNode(this.refs.canvas);
-        canvas.width = 10000;
-        canvas.height = 10000;
+        canvas.width = 5000;
+        canvas.height = 5000;
         this.stage = new createjs.Stage(canvas);
         let rect = new createjs.Graphics();
         rect.beginFill("red");
@@ -27,8 +27,8 @@ export class Canvas extends React.Component {
 
     render() {
         const defStyle = {
-            width: "10000px",
-            height: "10000px",
+            width: "5000px",
+            height: "5000px",
             border: "1px solid gray",
             overflow: "scroll"
         };
