@@ -11,10 +11,14 @@ export class Canvas extends React.Component {
 
     componentDidMount(){
         const canvas = ReactDOM.findDOMNode(this.refs.canvas);
+        canvas.width = 10000;
+        canvas.height = 10000;
         this.stage = new createjs.Stage(canvas);
         let rect = new createjs.Graphics();
         rect.beginFill("red");
-        rect.drawRect(10, 10, 10, 10);
+        console.log(canvas.width);
+        console.log(canvas.height);
+        rect.drawRect(10, 10, 20, 20);
         const shape = new createjs.Shape(rect);
 
         this.stage.addChild(shape);
