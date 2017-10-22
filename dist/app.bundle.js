@@ -66221,7 +66221,7 @@ var NodeImage = exports.NodeImage = function (_React$Component) {
 
             if (this.props.selected) {
                 imageProps.style = {
-                    "backgroundColor": "rgba(255, 0, 0, 1.0)",
+                    "backgroundColor": "rgba(255, 0, 0,1.0)",
                     "opacity": "0.5",
                     "border": "5px solid"
                 };
