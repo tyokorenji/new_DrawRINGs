@@ -21,7 +21,9 @@ export class NodeTable extends React.Component {
         let currentState = this.state;
         currentState.currentMode = nodeModeSearch(e.target.id);
         this.setState(currentState);
+        liaise.nodeSelect = currentState.currentMode;
         console.log(e.target.id);
+        // console.log(liaise.nodeSelect.iterator);
     }
 
 

@@ -1,95 +1,204 @@
+//@flow
 "use strict";
 
 import { nodeModeType } from "./nodeModeType";
 
-export function nodeModeSearch(target) {
-    if (target === "Hexose") return nodeModeType.HEXOSE;
-    else if (target === "Glc") return nodeModeType.GLC;
-    else if (target === "Glc") return nodeModeType.GLC;
-    else if (target === "Man") return nodeModeType.MAN;
-    else if (target === "Gal") return nodeModeType.GAL;
-    else if (target === "Gul") return nodeModeType.GUL;
-    else if (target === "Alt") return nodeModeType.ALT;
-    else if (target === "All") return nodeModeType.ALL;
-    else if (target === "Tal") return nodeModeType.TAL;
-    else if (target === "Ido") return nodeModeType.IDO;
-    else if (target === "HexNAc") return nodeModeType.HEXNAC;
-    else if (target === "GlcNAc") return nodeModeType.GLCNAC;
-    else if (target === "ManNAc") return nodeModeType.MANNAC;
-    else if (target === "GalNAc") return nodeModeType.GALNAC;
-    else if (target === "GulNAc") return nodeModeType.GULNAC;
-    else if (target === "AltNAc") return nodeModeType.ALTNAC;
-    else if (target === "AllNAc") return nodeModeType.ALLNAC;
-    else if (target === "TalNAc") return nodeModeType.TALNAC;
-    else if (target === "IdoNAc") return nodeModeType.IDONAC;
-    else if (target === "Hexosamine") return nodeModeType.HEXOSAMINE;
-    else if (target === "GlcN") return nodeModeType.GLCN;
-    else if (target === "ManN") return nodeModeType.MANN;
-    else if (target === "GalN") return nodeModeType.GALN;
-    else if (target === "GulN") return nodeModeType.GULN;
-    else if (target === "AltN") return nodeModeType.ALTN;
-    else if (target === "AllN") return nodeModeType.ALLN;
-    else if (target === "TalN") return nodeModeType.TALN;
-    else if (target === "IdoN") return nodeModeType.IDON;
-    else if (target === "Hexuronate") return nodeModeType.HEXURONATE;
-    else if (target === "GlcA") return nodeModeType.GLCA;
-    else if (target === "ManA") return nodeModeType.MANA;
-    else if (target === "GalA") return nodeModeType.GALA;
-    else if (target === "GulA") return nodeModeType.GULA;
-    else if (target === "AltA") return nodeModeType.ALTA;
-    else if (target === "AllA") return nodeModeType.ALLA;
-    else if (target === "TalA") return nodeModeType.TALA;
-    else if (target === "IdoA") return nodeModeType.IDOA;
-    else if (target === "Deoxyhexose") return nodeModeType.DEOXYHEXOSE;
-    else if (target === "Qui") return nodeModeType.QUI;
-    else if (target === "Rha") return nodeModeType.RHA;
-    else if (target === "6dGul") return nodeModeType.D6GUL;
-    else if (target === "6dAlt") return nodeModeType.D6ALT;
-    else if (target === "6dTal") return nodeModeType.D6TAL;
-    else if (target === "Fuc") return nodeModeType.FUC;
-    else if (target === "DeoxyhexNAc") return nodeModeType.DEOXYHEXNAC;
-    else if (target === "QuiNAc") return nodeModeType.QUINAC;
-    else if (target === "RhaNAc") return nodeModeType.RHANAC;
-    else if (target === "6dAltNAc") return nodeModeType.D6ALTNAC;
-    else if (target === "6dTalNAc") return nodeModeType.D6TALNAC;
-    else if (target === "FucNAc") return nodeModeType.FUCNAC;
-    else if (target === "Di-deoxyhexose") return nodeModeType.DI_DEOXYHEXOSE;
-    else if (target === "Oli") return nodeModeType.OIL;
-    else if (target === "Tyv") return nodeModeType.TYV;
-    else if (target === "Abe") return nodeModeType.ABE;
-    else if (target === "Par") return nodeModeType.PAR;
-    else if (target === "Dig") return nodeModeType.DIG;
-    else if (target === "Col") return nodeModeType.COL;
-    else if (target === "Pentose") return nodeModeType.PENTOSE;
-    else if (target === "Ara") return nodeModeType.ARA;
-    else if (target === "Lyx") return nodeModeType.LYX;
-    else if (target === "Xyl") return nodeModeType.XYL;
-    else if (target === "Rib") return nodeModeType.RIB;
-    else if (target === "Deoxynonulosonate") return nodeModeType.DEOXYNONULOSONATE;
-    else if (target === "Kdn") return nodeModeType.KDN;
-    else if (target === "Neu5Ac") return nodeModeType.NEU5AC;
-    else if (target === "Neu5Gc") return nodeModeType.NEU5GC;
-    else if (target === "Neu") return nodeModeType.NEU;
-    else if (target === "Sia") return nodeModeType.SIA;
-    else if (target === "Di-deoxynonulosonate") return nodeModeType.DI_DEOXYNONULOSONATE;
-    else if (target === "Pse") return nodeModeType.PSE;
-    else if (target === "Leg") return nodeModeType.LEG;
-    else if (target === "Aci") return nodeModeType.ACI;
-    else if (target === "4eLeg") return nodeModeType.E4LEG;
-    else if (target === "Unknown") return nodeModeType.UNKNOWN;
-    else if (target === "Bac") return nodeModeType.BAC;
-    else if (target === "LDmanHep") return nodeModeType.LDMANHEP;
-    else if (target === "Kdo") return nodeModeType.KDO;
-    else if (target === "Dha") return nodeModeType.DHA;
-    else if (target === "DDmanHep") return nodeModeType.DDMANHEP;
-    else if (target === "MurNAc") return nodeModeType.MURNAC;
-    else if (target === "MurNGc") return nodeModeType.MURNGC;
-    else if (target === "Mur") return nodeModeType.MUR;
-    else if (target === "Assigned") return nodeModeType.ASSIGNED;
-    else if (target === "Api") return nodeModeType.API;
-    else if (target === "Fru") return nodeModeType.FRU;
-    else if (target === "Tag") return nodeModeType.TAG;
-    else if (target === "Sor") return nodeModeType.SOR;
-    else if (target === "Psi") return nodeModeType.PSI;
-    else return nodeModeType.NOT_SELECTED;
+export function nodeModeSearch(target: string) {
+    switch (target) {
+        case "Hexose": return nodeModeType.HEXOSE;
+        case "Glc": return nodeModeType.GLC;
+        case "Man": return nodeModeType.MAN;
+        case "Gal": return nodeModeType.GAL;
+        case "Gul": return nodeModeType.GUL;
+        case "Alt": return nodeModeType.ALT;
+        case "All": return nodeModeType.ALL;
+        case "Tal": return nodeModeType.TAL;
+        case "Ido": return nodeModeType.IDO;
+        case "HexNAc": return nodeModeType.HEXNAC;
+        case "GlcNAc": return nodeModeType.GLCNAC;
+        case "ManNAc": return nodeModeType.MANNAC;
+        case "GalNAc": return nodeModeType.GALNAC;
+        case "GulNAc": return nodeModeType.GULNAC;
+        case "AltNAc": return nodeModeType.ALTNAC;
+        case "AllNAc": return nodeModeType.ALLNAC;
+        case "TalNAc": return nodeModeType.TALNAC;
+        case "IdoNAc": return nodeModeType.IDONAC;
+        case "Hexosamine": return nodeModeType.HEXOSAMINE;
+        case "GlcN": return nodeModeType.GLCN;
+        case "ManN": return nodeModeType.MANN;
+        case "GalN": return nodeModeType.GALN;
+        case "GulN": return nodeModeType.GULN;
+        case "AltN": return nodeModeType.ALTN;
+        case "AllN": return nodeModeType.ALLN;
+        case "TalN": return nodeModeType.TALN;
+        case "IdoN": return nodeModeType.IDON;
+        case "Hexuronate": return nodeModeType.HEXURONATE;
+        case "GlcA": return nodeModeType.GLCA;
+        case "ManA": return nodeModeType.MANA;
+        case "GalA": return nodeModeType.GALA;
+        case "GulA": return nodeModeType.GULA;
+        case "AltA": return nodeModeType.ALTA;
+        case "AllA": return nodeModeType.ALLA;
+        case "TalA": return nodeModeType.TALA;
+        case "IdoA": return nodeModeType.IDOA;
+        case "Deoxyhexose": return nodeModeType.DEOXYHEXOSE;
+        case "Qui": return nodeModeType.QUI;
+        case "Rha": return nodeModeType.RHA;
+        case "6dGul": return nodeModeType.D6GUL;
+        case "6dAlt": return nodeModeType.D6ALT;
+        case "6dTal": return nodeModeType.D6TAL;
+        case "Fuc": return nodeModeType.FUC;
+        case "DeoxyhexNAc": return nodeModeType.DEOXYHEXNAC;
+        case "QuiNAc": return nodeModeType.QUINAC;
+        case "RhaNAc": return nodeModeType.RHANAC;
+        case "6dAltNAc": return nodeModeType.D6ALTNAC;
+        case "6dTalNAc": return nodeModeType.D6TALNAC;
+        case "FucNAc": return nodeModeType.FUCNAC;
+        case "Di-deoxyhexose": return nodeModeType.DI_DEOXYHEXOSE;
+        case "Oli": return nodeModeType.OLI;
+        case "Tyv": return nodeModeType.TYV;
+        case "Abe": return nodeModeType.ABE;
+        case "Par": return nodeModeType.PAR;
+        case "Dig": return nodeModeType.DIG;
+        case "Col": return nodeModeType.COL;
+        case "Pentose": return nodeModeType.PENTOSE;
+        case "Ara": return nodeModeType.ARA;
+        case "Lyx": return nodeModeType.LYX;
+        case "Xyl": return nodeModeType.XYL;
+        case "Rib": return nodeModeType.RIB;
+        case "Deoxynonulosonate": return nodeModeType.DEOXYNONULOSONATE;
+        case "Kdn": return nodeModeType.KDN;
+        case "Neu5Ac": return nodeModeType.NEU5AC;
+        case "Neu5Gc": return nodeModeType.NEU5GC;
+        case "Neu": return nodeModeType.NEU;
+        case "Sia": return nodeModeType.SIA;
+        case "Di-deoxynonulosonate": return nodeModeType.DI_DEOXYNONULOSONATE;
+        case "Pse": return nodeModeType.PSE;
+        case "Leg": return nodeModeType.LEG;
+        case "Aci": return nodeModeType.ACI;
+        case "4eLeg": return nodeModeType.E4LEG;
+        case "Unknown": return nodeModeType.UNKNOWN;
+        case "Bac": return nodeModeType.BAC;
+        case "LDmanHep": return nodeModeType.LDMANHEP;
+        case "Kdo": return nodeModeType.KDO;
+        case "Dha": return nodeModeType.DHA;
+        case "DDmanHep": return nodeModeType.DDMANHEP;
+        case "MurNAc": return nodeModeType.MURNAC;
+        case "MurNGc": return nodeModeType.MURNGC;
+        case "Mur": return nodeModeType.MUR;
+        case "Assigned": return nodeModeType.ASSIGNED;
+        case "Api": return nodeModeType.API;
+        case "Fru": return nodeModeType.FRU;
+        case "Tag": return nodeModeType.TAG;
+        case "Sor": return nodeModeType.SOR;
+        case "Psi": return nodeModeType.PSI;
+        default: return nodeModeType.NOT_SELECTED;
+    }
+}
+
+export function nodeType(target: Symbol) {
+    switch (target) {
+        case  nodeModeType.HEXOSE:
+        case nodeModeType.GLC:
+        case nodeModeType.MAN:
+        case nodeModeType.GAL:
+        case nodeModeType.GUL:
+        case nodeModeType.ALT:
+        case nodeModeType.ALL:
+        case nodeModeType.TAL:
+        case nodeModeType.IDO:
+            return nodeModeType.HEXOSE;
+        case  nodeModeType.HEXNAC:
+        case nodeModeType.GLCNAC:
+        case nodeModeType.MANNAC:
+        case nodeModeType.GALNAC:
+        case nodeModeType.GULNAC:
+        case nodeModeType.ALTNAC:
+        case nodeModeType.ALLNAC:
+        case nodeModeType.TALNAC:
+        case nodeModeType.IDONAC:
+            return nodeModeType.HEXNAC;
+        case  nodeModeType.HEXOSAMINE:
+        case nodeModeType.GLCN:
+        case nodeModeType.MANN:
+        case nodeModeType.GALN:
+        case nodeModeType.GULN:
+        case nodeModeType.ALTN:
+        case nodeModeType.ALLN:
+        case nodeModeType.TALN:
+        case nodeModeType.IDON:
+            return nodeModeType.HEXOSAMINE;
+        case  nodeModeType.HEXURONATE:
+        case nodeModeType.GLCA:
+        case nodeModeType.MANA:
+        case nodeModeType.GALA:
+        case nodeModeType.GULA:
+        case nodeModeType.ALTA:
+        case nodeModeType.ALLA:
+        case nodeModeType.TALA:
+        case nodeModeType.IDOA:
+            return nodeModeType.HEXURONATE;
+        case  nodeModeType.DEOXYHEXOSE:
+        case nodeModeType.QUI:
+        case nodeModeType.RHA:
+        case nodeModeType.D6GUL:
+        case nodeModeType.D6ALT:
+        case nodeModeType.D6TAL:
+        case nodeModeType.FUC:
+            return nodeModeType.DEOXYHEXOSE;
+        case  nodeModeType.DEOXYHEXNAC:
+        case nodeModeType.QUINAC:
+        case nodeModeType.RHANAC:
+        case nodeModeType.D6ALTNAC:
+        case nodeModeType.D6TALNAC:
+        case nodeModeType.FUCNAC:
+            return nodeModeType.DEOXYHEXOSE;
+        case  nodeModeType.DI_DEOXYHEXOSE:
+        case nodeModeType.OLI:
+        case nodeModeType.TYV:
+        case nodeModeType.ABE:
+        case nodeModeType.PAR:
+        case nodeModeType.DIG:
+        case nodeModeType.COL:
+            return nodeModeType.DI_DEOXYHEXOSE;
+        case  nodeModeType.PENTOSE:
+        case nodeModeType.ARA:
+        case nodeModeType.LYX:
+        case nodeModeType.XYL:
+        case nodeModeType.RIB:
+            return nodeModeType.PENTOSE;
+        case  nodeModeType.DEOXYNONULOSONATE:
+        case nodeModeType.KDN:
+        case nodeModeType.NEU5AC:
+        case nodeModeType.NEU5GC:
+        case nodeModeType.NEU:
+        case nodeModeType.SIA:
+            return nodeModeType.DEOXYNONULOSONATE;
+        case  nodeModeType.DI_DEOXYNONULOSONATE:
+        case nodeModeType.PSE:
+        case nodeModeType.LEG:
+        case nodeModeType.ACI:
+        case nodeModeType.E4LEG:
+            return nodeModeType.DI_DEOXYNONULOSONATE;
+        case  nodeModeType.UNKNOWN:
+        case nodeModeType.BAC:
+        case nodeModeType.LDMANHEP:
+        case nodeModeType.KDO:
+        case nodeModeType.DHA:
+        case nodeModeType.DDMANHEP:
+        case nodeModeType.MURNAC:
+        case nodeModeType.MURNGC:
+        case nodeModeType.MUR:
+            return nodeModeType.UNKNOWN;
+        case  nodeModeType.ASSIGNED:
+        case nodeModeType.API:
+        case nodeModeType.FRU:
+        case nodeModeType.TAG:
+        case nodeModeType.SOR:
+        case nodeModeType.PSI:
+            return nodeModeType.ASSIGNED;
+        default:
+            return nodeModeType.NOT_SELECTED;
+    }
+
 }

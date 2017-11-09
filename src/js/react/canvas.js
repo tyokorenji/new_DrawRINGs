@@ -4,6 +4,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import createjs from "createjs-easeljs";
 import { liaise } from "../script/main";
+import { canvasClickEvent } from "../script/canvasClickEvent";
+import { modeType } from "./modeType";
 
 export class Canvas extends React.Component {
     constructor(props) {
@@ -14,6 +16,8 @@ export class Canvas extends React.Component {
         const canvas = ReactDOM.findDOMNode(this.refs.canvas);
         canvas.width = 5000;
         canvas.height = 5000;
+        canvas.addEventListener("click", canvasClickEvent, false);
+        // canvas.modeType = modeType;
         this.stage = new createjs.Stage(canvas);
         liaise.stage = this.stage;
         let rect = new createjs.Graphics();

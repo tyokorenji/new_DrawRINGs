@@ -15,9 +15,9 @@ class Glycan extends createjs.Container {
         super();
         this.rootNode = new Sugar("undefined");
         this.amino = "";
-        this.parentGlycan = new Glycan();
-        this.parentSugars = [];
-        this.childGlycans = [];
+        // this.parentGlycan = new Glycan();
+        // this.parentSugars = [];
+        // this.childGlycans = [];
     }
 
     getRootNode(): Sugar {

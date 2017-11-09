@@ -52,7 +52,7 @@ export const nodeModeType = {
     D6TALNAC: Symbol(),
     FUCNAC: Symbol(),
     DI_DEOXYHEXOSE: Symbol(),
-    OIL: Symbol(),
+    OLI: Symbol(),
     TYV: Symbol(),
     ABE: Symbol(),
     PAR: Symbol(),

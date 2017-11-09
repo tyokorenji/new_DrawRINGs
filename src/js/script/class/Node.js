@@ -2,8 +2,8 @@
 "use strict";
 
 import { VisibleElement } from "./VisibleElement";
-import { Sugar } from "./Sugar";
-import { Modification } from "./Modification";
+// import { Sugar } from "./Sugar";
+// import { Modification } from "./Modification";
 import { Edge } from "./Edge";
 
 class Node extends VisibleElement {
