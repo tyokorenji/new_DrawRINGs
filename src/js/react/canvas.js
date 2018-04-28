@@ -3,6 +3,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import createjs from "createjs-easeljs";
+import { liaise } from "../script/main";
+import { canvasClickEvent } from "../script/canvasClickEvent";
+import { modeType } from "./modeType";
 
 export class Canvas extends React.Component {
     constructor(props) {
@@ -11,20 +14,24 @@ export class Canvas extends React.Component {
 
     componentDidMount(){
         const canvas = ReactDOM.findDOMNode(this.refs.canvas);
+        canvas.width = 5000;
+        canvas.height = 5000;
+        canvas.addEventListener("click", canvasClickEvent, false);
+        // canvas.modeType = modeType;
         this.stage = new createjs.Stage(canvas);
-        let rect = new createjs.Graphics();
-        rect.beginFill("red");
-        rect.drawRect(10, 10, 10, 10);
-        const shape = new createjs.Shape(rect);
-
-        this.stage.addChild(shape);
-        this.stage.update();
+        liaise.stage = this.stage;
+        // let rect = new createjs.Graphics();
+        // rect.beginFill("red");
+        // rect.drawRect(10, 10, 20, 20);
+        // const shape = new createjs.Shape(rect);
+        // liaise.stage.addChild(shape);
+        // liaise.stage.update();
     }
 
     render() {
         const defStyle = {
-            width: "10000px",
-            height: "10000px",
+            width: "5000px",
+            height: "5000px",
             border: "1px solid gray",
             overflow: "scroll"
         };

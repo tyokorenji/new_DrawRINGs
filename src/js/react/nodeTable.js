@@ -2,13 +2,35 @@
 
 import React from "react";
 import { Table, Image } from "semantic-ui-react";
+import { liaise } from "../script/main";
+import { nodeModeSearch } from "./nodeModeSearch";
+import { NodeImage } from "./nodeImage";
+import { nodeModeType } from "./nodeModeType";
 
-export class nodeTable {
-    constructor() {
 
+export class NodeTable extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentMode: liaise.nodeSelect
+        };
     }
 
-    getContents(){
+
+    onClickEvent(e) {
+        let currentState = this.state;
+        currentState.currentMode = nodeModeSearch(e.target.id);
+        this.setState(currentState);
+        liaise.nodeSelect = currentState.currentMode;
+        console.log(e.target.id);
+    }
+
+
+
+    render(){
+        const defImageStyle = {
+            style: {}
+        };
         return (
             <div>
                 <Table definition>
@@ -31,127 +53,103 @@ export class nodeTable {
                     <Table.Body>
                         <Table.Row>
                             <Table.Cell>Filled Circle</Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Hexose.jpg' size='mini'/><br/><p>Hexose</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Glc.jpg' size='mini'/><br/><p>Glc</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Man.jpg' size='mini'/><br/><p>Man</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Gal.jpg' size='mini'/><br/><p>Gal</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Gul.jpg' size='mini'/><br/><p>Gul</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Alt.jpg' size='mini'/><br/><p>Alt</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/All.jpg' size='mini'/><br/><p>All</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Tal.jpg' size='mini'/><br/><p>Tal</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Ido.jpg' size='mini'/><br/><p>Ido</p></Table.Cell>
+                            <Table.Cell id = { "Hexose" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Hexose.jpg' id = { "Hexose" } selected = { this.state.currentMode === nodeModeType.HEXOSE } defStyle = { defImageStyle }/></Table.Cell>
+                            <Table.Cell id = { "Glc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Glc.jpg'  id = { "Glc" } selected = { this.state.currentMode === nodeModeType.GLC } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Man" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Man.jpg'  id = { "Man" } selected = { this.state.currentMode === nodeModeType.MAN } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Gal" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Gal.jpg'  id = { "Gal" } selected = { this.state.currentMode === nodeModeType.GAL } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Gul" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Gul.jpg'  id = { "Gul" } selected = { this.state.currentMode === nodeModeType.GUL } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Alt" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Alt.jpg'  id = { "Alt" } selected = { this.state.currentMode === nodeModeType.ALT } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "All" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/All.jpg'  id = { "All" } selected = { this.state.currentMode === nodeModeType.ALL } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Tal" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Tal.jpg'  id = { "Tal" } selected = { this.state.currentMode === nodeModeType.TAL } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Ido" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Ido.jpg'  id = { "Ido" } selected = { this.state.currentMode === nodeModeType.IDO } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
                         </Table.Row>
                         <Table.Row>
                             <Table.Cell>Filled Square</Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/HexNAc.jpg' size='mini'/><br/><p>HexNAc</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/GlcNAc.jpg' size='mini'/><br/><p>GlcNAc</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/ManNAc.jpg' size='mini'/><br/><p>ManNAc</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/GalNAc.jpg' size='mini'/><br/><p>GalNAc</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/GulNAc.jpg' size='mini'/><br/><p>GulNAc</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/AltNAc.jpg' size='mini'/><br/><p>AltNAc</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/AllNAc.jpg' size='mini'/><br/><p>AllNAc</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/TalNAc.jpg' size='mini'/><br/><p>TalNAc</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/IdoNAc.jpg' size='mini'/><br/><p>IdoNAc</p>
-                            </Table.Cell>
+                            <Table.Cell id = { "HexNAc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/HexNAc.jpg'  id = { "HexNAc" } selected = { this.state.currentMode === nodeModeType.HEXNAC } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "GlcNAc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/GlcNAc.jpg'  id = { "GlcNAc" } selected = { this.state.currentMode === nodeModeType.GLCNAC } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "ManNAc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/ManNAc.jpg'  id = { "ManNAc" } selected = { this.state.currentMode === nodeModeType.MANNAC } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "GalNAc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/GalNAc.jpg'  id = { "GalNAc" } selected = { this.state.currentMode === nodeModeType.GALNAC } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "GulNAc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/GulNAc.jpg'  id = { "GulNAc" } selected = { this.state.currentMode === nodeModeType.GULNAC } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "AltNAc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/AltNAc.jpg'  id = { "AltNAc" } selected = { this.state.currentMode === nodeModeType.ALTNAC } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "AllNAc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/AllNAc.jpg'  id = { "AllNAc" } selected = { this.state.currentMode === nodeModeType.ALLNAC } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "TalNAc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/TalNAc.jpg'  id = { "TalNAc" } selected = { this.state.currentMode === nodeModeType.TALNAC } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "IdoNAc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/IdoNAc.jpg'  id = { "IdoNAc" } selected = { this.state.currentMode === nodeModeType.IDONAC } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
                         </Table.Row>
                         <Table.Row>
                             <Table.Cell>Crossed Square</Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Hexosamine.jpg' size='mini'/><br/><p>Hexosamine</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/GlcN.jpg' size='mini'/><br/><p>GlcN</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/MAnN.jpg' size='mini'/><br/><p>ManN</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/GalN.jpg' size='mini'/><br/><p>GalN</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/GulN.jpg' size='mini'/><br/><p>GulN</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/AltN.jpg' size='mini'/><br/><p>AltN</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/AllN.jpg' size='mini'/><br/><p>AllN</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/TalN.jpg' size='mini'/><br/><p>TalN</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/IdoN.jpg' size='mini'/><br/><p>IdoN</p></Table.Cell>
+                            <Table.Cell id = { "Hexosamine" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Hexosamine.jpg'  id = { "Hexosamine" } selected = { this.state.currentMode === nodeModeType.HEXOSAMINE } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "GlcN" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/GlcN.jpg'  id = { "GlcN" } selected = { this.state.currentMode === nodeModeType.GLCN } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "ManN" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/MAnN.jpg'  id = { "ManN" } selected = { this.state.currentMode === nodeModeType.MANN } defStyle = { defImageStyle }  /></Table.Cell>
+                            <Table.Cell id = { "GalN" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/GalN.jpg'  id = { "GalN" } selected = { this.state.currentMode === nodeModeType.GALN } defStyle = { defImageStyle }  /></Table.Cell>
+                            <Table.Cell id = { "GulN" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/GulN.jpg'  id = { "GulN" } selected = { this.state.currentMode === nodeModeType.GULN } defStyle = { defImageStyle }  /></Table.Cell>
+                            <Table.Cell id = { "AltN" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/AltN.jpg'  id = { "AltN" } selected = { this.state.currentMode === nodeModeType.ALTN } defStyle = { defImageStyle }  /></Table.Cell>
+                            <Table.Cell id = { "AllN" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/AllN.jpg'  id = { "AllN" } selected = { this.state.currentMode === nodeModeType.ALLN } defStyle = { defImageStyle }  /></Table.Cell>
+                            <Table.Cell id = { "TalN" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/TalN.jpg'  id = { "TalN" } selected = { this.state.currentMode === nodeModeType.TALN } defStyle = { defImageStyle }  /></Table.Cell>
+                            <Table.Cell id = { "IdoN" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/IdoN.jpg'  id = { "IdoN" } selected = { this.state.currentMode === nodeModeType.IDON } defStyle = { defImageStyle }  /></Table.Cell>
                             <Table.Cell></Table.Cell>
                         </Table.Row>
                         <Table.Row>
                             <Table.Cell>Divided Diamond</Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Hexuronate.jpg' size='mini'/><br/><p>Hexuronate</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/GlcA.jpg' size='mini'/><br/><p>GlcA</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/ManA.jpg' size='mini'/><br/><p>ManA</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/GalA.jpg' size='mini'/><br/><p>GalA</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/GulA.jpg' size='mini'/><br/><p>GulA</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/AltA.jpg' size='mini'/><br/><p>AltA</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/AllA.jpg' size='mini'/><br/><p>AllA</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/TalA.jpg' size='mini'/><br/><p>TalA</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/IdoA.jpg' size='mini'/><br/><p>IdoA</p></Table.Cell>
+                            <Table.Cell id = { "Hexuronate" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Hexuronate.jpg'  id = { "Hexuronate" } selected = { this.state.currentMode === nodeModeType.HEXURONATE } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "GlcA" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/GlcA.jpg'  id = { "GlcA" } selected = { this.state.currentMode === nodeModeType.GLCA } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "ManA" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/ManA.jpg'  id = { "ManA" } selected = { this.state.currentMode === nodeModeType.MANA } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "GalA" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/GalA.jpg'  id = { "GalA" } selected = { this.state.currentMode === nodeModeType.GALA } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "GulA" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/GulA.jpg'  id = { "GulA" } selected = { this.state.currentMode === nodeModeType.GULA } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "AltA" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/AltA.jpg'  id = { "AltA" } selected = { this.state.currentMode === nodeModeType.ALTA } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "AllA" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/AllA.jpg'  id = { "AllA" } selected = { this.state.currentMode === nodeModeType.ALLA } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "TalA" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/TalA.jpg'  id = { "TalA" } selected = { this.state.currentMode === nodeModeType.TALA } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "IdoA" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/IdoA.jpg'  id = { "IdoA" } selected = { this.state.currentMode === nodeModeType.IDOA } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
                         </Table.Row>
                         <Table.Row>
                             <Table.Cell>Filled Triangle</Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Deoxyhexose.jpg' size='mini'/><br/><p>
-                                Deoxyhexose</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Qui.jpg' size='mini'/><br/><p>Qui</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Rha.jpg' size='mini'/><br/><p>Rha</p></Table.Cell>
+                            <Table.Cell id = { "Deoxyhexose" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Deoxyhexose.jpg'  id = { "Deoxyhexose" } selected = { this.state.currentMode === nodeModeType.DEOXYHEXOSE } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Qui" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Qui.jpg'  id = { "Qui" } selected = { this.state.currentMode === nodeModeType.QUI } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Rha" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Rha.jpg'  id = { "Rha" } selected = { this.state.currentMode === nodeModeType.RHA } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/6dGul.jpg' size='mini'/><br/><p>6dGul</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/6dAlt.jpg' size='mini'/><br/><p>6dAlt</p>
-                            </Table.Cell>
+                            <Table.Cell id = { "6dGul" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/6dGul.jpg'  id = { "6dGul" } selected = { this.state.currentMode === nodeModeType.D6GUL } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "6dAlt" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/6dAlt.jpg'  id = { "6dAlt" } selected = { this.state.currentMode === nodeModeType.D6ALT } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/6dTal.jpg' size='mini'/><br/><p>6dTal</p>
-                            </Table.Cell>
+                            <Table.Cell id = { "6dTal" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/6dTal.jpg'  id = { "6dTal" } selected = { this.state.currentMode === nodeModeType.D6TAL } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Fuc.jpg' size='mini'/><br/><p>Fuc</p></Table.Cell>
+                            <Table.Cell id = { "Fuc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Fuc.jpg'  id = { "Fuc" } selected = { this.state.currentMode === nodeModeType.FUC } defStyle = { defImageStyle } /></Table.Cell>
                         </Table.Row>
                         <Table.Row>
                             <Table.Cell>Divided Triangle</Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/DeoxyhexNAc.jpg' size='mini'/><br/><p>
-                                DeoxyhexNAc</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/QuiNAc.jpg' size='mini'/><br/><p>QuiNAc</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/RhaNAc.jpg' size='mini'/><br/><p>RhaNAc</p>
-                            </Table.Cell>
+                            <Table.Cell id = { "DeoxyhexNAc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/DeoxyhexNAc.jpg'  id = { "DeoxyhexNAc" } selected = { this.state.currentMode === nodeModeType.DEOXYHEXNAC } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "QuiNAc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/QuiNAc.jpg'  id = { "QuiNAc" } selected = { this.state.currentMode === nodeModeType.QUINAC } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "RhaNAc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/RhaNAc.jpg'  id = { "RhaNAc" } selected = { this.state.currentMode === nodeModeType.RHANAC } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
                             <Table.Cell></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/6dAltNAc.jpg' size='mini'/><br/><p>6dAltNAc</p>
-                            </Table.Cell>
+                            <Table.Cell id = { "6dAltNAc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/6dAltNAc.jpg'  id = { "6dAltNAc" } selected = { this.state.currentMode === nodeModeType.D6ALTNAC } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/6dTalNAc.jpg' size='mini'/><br/><p>6dTalNAc</p>
-                            </Table.Cell>
+                            <Table.Cell id = { "6dTalNAc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/6dTalNAc.jpg'  id = { "6dTalNAc" } selected = { this.state.currentMode === nodeModeType.D6TALNAC } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/FucNAc.jpg' size='mini'/><br/><p>FucNAc</p>
-                            </Table.Cell>
+                            <Table.Cell id = { "FucNAc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/FucNAc.jpg'  id = { "FucNAc" } selected = { this.state.currentMode === nodeModeType.FUCNAC } defStyle = { defImageStyle } /></Table.Cell>
                         </Table.Row>
                         <Table.Row>
                             <Table.Cell>Flat Rectangle</Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Di-deoxyhexose.jpg' size='mini'/><br/><p>
-                                Di-deoxyhexose</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Oli.jpg' size='mini'/><br/><p>Oli</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Tyv.jpg' size='mini'/><br/><p>Tyv</p></Table.Cell>
+                            <Table.Cell id = { "Di-deoxyhexose" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Di-deoxyhexose.jpg'  id = { "Di-deoxyhexose" } selected = { this.state.currentMode === nodeModeType.DI_DEOXYHEXOSE } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Oli" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Oli.jpg'  id = { "Oli" } selected = { this.state.currentMode === nodeModeType.OLI } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Tyv" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Tyv.jpg'  id = { "Tyv" } selected = { this.state.currentMode === nodeModeType.TYV } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Abe.jpg' size='mini'/><br/><p>Abe</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Par.jpg' size='mini'/><br/><p>Par</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Dig.jpg' size='mini'/><br/><p>Dig</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Col.jpg' size='mini'/><br/><p>Col</p></Table.Cell>
+                            <Table.Cell id = { "Abe" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Abe.jpg'  id = { "Abe" } selected = { this.state.currentMode === nodeModeType.ABE } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Par" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Par.jpg'  id = { "Par" } selected = { this.state.currentMode === nodeModeType.PAR } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Dig" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Dig.jpg'  id = { "Dig" } selected = { this.state.currentMode === nodeModeType.DIG } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Col" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Col.jpg'  id = { "Col" } selected = { this.state.currentMode === nodeModeType.COL } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
                             <Table.Cell></Table.Cell>
                         </Table.Row>
                         <Table.Row>
                             <Table.Cell>Filled Star</Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Pentose.jpg' size='mini'/><br/><p>Pentose</p>
-                            </Table.Cell>
+                            <Table.Cell id = { "Pentose" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Pentose.jpg'  id = { "Pentose" } selected = { this.state.currentMode === nodeModeType.PENTOSE } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Ara.jpg' size='mini'/><br/><p>Ara</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Lyx.jpg' size='mini'/><br/><p>Lyx</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Xyl.jpg' size='mini'/><br/><p>Xyl</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Rib.jpg' size='mini'/><br/><p>Rib</p></Table.Cell>
+                            <Table.Cell id = { "Ara" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Ara.jpg'  id = { "Ara" } selected = { this.state.currentMode === nodeModeType.ARA } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Lyx" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Lyx.jpg'  id = { "Lyx" } selected = { this.state.currentMode === nodeModeType.LYX } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Xyl" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Xyl.jpg'  id = { "Xyl" } selected = { this.state.currentMode === nodeModeType.XYL } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Rib" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Rib.jpg'  id = { "Rib" } selected = { this.state.currentMode === nodeModeType.RIB } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
                             <Table.Cell></Table.Cell>
                             <Table.Cell></Table.Cell>
@@ -159,62 +157,51 @@ export class nodeTable {
                         </Table.Row>
                         <Table.Row>
                             <Table.Cell>Filled Diamond</Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Deoxynonulosonate.jpg' size='mini'/><br/><p>
-                                Deoxynonulosonate</p></Table.Cell>
+                            <Table.Cell id = { "Deoxynonulosonate" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Deoxynonulosonate.jpg'  id = { "Deoxynonulosonate" } selected = { this.state.currentMode === nodeModeType.DEOXYNONULOSONATE } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Kdn.jpg' size='mini'/><br/><p>Kdn</p></Table.Cell>
-                            <Table.Cell></Table.Cell>
+                            <Table.Cell id = { "Kdn" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Kdn.jpg'  id = { "Kdn" } selected = { this.state.currentMode === nodeModeType.KDN } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
                             <Table.Cell></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Neu5Ac.jpg' size='mini'/><br/><p>Neu5Ac</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Neu5Gc.jpg' size='mini'/><br/><p>Neu5Gc</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Neu.jpg' size='mini'/><br/><p>Neu</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Sia.jpg' size='mini'/><br/><p>Sia</p></Table.Cell>
+                            <Table.Cell></Table.Cell>
+                            <Table.Cell id = { "Neu5Ac" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Neu5Ac.jpg'  id = { "Neu5Ac" } selected = { this.state.currentMode === nodeModeType.NEU5AC } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Neu5Gc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Neu5Gc.jpg'  id = { "Neu5Gc" } selected = { this.state.currentMode === nodeModeType.NEU5GC } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Neu" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Neu.jpg'  id = { "Neu" } selected = { this.state.currentMode === nodeModeType.NEU } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Sia" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Sia.jpg'  id = { "Sia" } selected = { this.state.currentMode === nodeModeType.SIA } defStyle = { defImageStyle } /></Table.Cell>
                         </Table.Row>
                         <Table.Row>
                             <Table.Cell>Flat Diamond</Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Di-deoxynonulosonate.jpg' size='mini'/><br/><p>
-                                Di-deoxynonulosonate</p></Table.Cell>
+                            <Table.Cell id = { "Di-deoxynonulosonate" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Di-deoxynonulosonate.jpg'  id = { "Di-deoxynonulosonate" }  selected = { this.state.currentMode === nodeModeType.DI_DEOXYNONULOSONATE } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Pse.jpg' size='mini'/><br/><p>Pse</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Leg.jpg' size='mini'/><br/><p>Leg</p></Table.Cell>
+                            <Table.Cell id = { "Pse" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Pse.jpg'  id = { "Pse" } selected = { this.state.currentMode === nodeModeType.PSE } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Leg" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Leg.jpg'  id = { "Leg" } selected = { this.state.currentMode === nodeModeType.LEG } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Aci.jpg' size='mini'/><br/><p>Aci</p></Table.Cell>
+                            <Table.Cell id = { "Aci" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Aci.jpg'  id = { "Aci" } selected = { this.state.currentMode === nodeModeType.ACI } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/4eLeg.jpg' size='mini'/><br/><p>4eLeg</p>
-                            </Table.Cell>
+                            <Table.Cell id = { "4eLeg" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/4eLeg.jpg'  id = { "4eLeg" } selected = { this.state.currentMode === nodeModeType.E4LEG } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
                             <Table.Cell></Table.Cell>
                         </Table.Row>
                         <Table.Row>
                             <Table.Cell>Flat Hexagon</Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Unknown.jpg' size='mini'/><br/><p>Unknown</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Bac.jpg' size='mini'/><br/><p>Bac</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/LDmanHep.jpg' size='mini'/><br/><p>LDmanHep</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Kdo.jpg' size='mini'/><br/><p>Kdo</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Dha.jpg' size='mini'/><br/><p>Dha</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/DDmanHep.jpg' size='mini'/><br/><p>DDmanHep</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/MurNAc.jpg' size='mini'/><br/><p>MurNAc</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/MurNGc.jpg' size='mini'/><br/><p>MurNGc</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Mur.jpg' size='mini'/><br/><p>Mur</p></Table.Cell>
+                            <Table.Cell id = { "Unknown" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Unknown.jpg'  id = { "Unknown" } selected = { this.state.currentMode === nodeModeType.UNKNOWN } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Bac" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Bac.jpg'  id = { "Bac" } selected = { this.state.currentMode === nodeModeType.BAC } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "LDmanHep" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/LDmanHep.jpg'  id = { "LDmanHep" }  selected = { this.state.currentMode === nodeModeType.LDMANHEP } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Kdo" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Kdo.jpg'  id = { "Kdo" } selected = { this.state.currentMode === nodeModeType.KDO } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Dha" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Dha.jpg'  id = { "Dha" } selected = { this.state.currentMode === nodeModeType.DHA } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "DDmanHep" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/DDmanHep.jpg'  id = { "DDmanHep" } selected = { this.state.currentMode === nodeModeType.DDMANHEP } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "MurNAc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/MurNAc.jpg'  id = { "MurNAc" } selected = { this.state.currentMode === nodeModeType.MURNAC } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "MurNGc" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/MurNGc.jpg'  id = { "MurNGc" } selected = { this.state.currentMode === nodeModeType.MURNGC } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Mur" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Mur.jpg'  id = { "Mur" } selected = { this.state.currentMode === nodeModeType.MUR } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
                         </Table.Row>
                         <Table.Row>
                             <Table.Cell>Pentagon</Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Assigned.jpg' size='mini'/><br/><p>Assigned</p>
-                            </Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Api.jpg' size='mini'/><br/><p>Api</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Fru.jpg' size='mini'/><br/><p>Fru</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Tag.jpg' size='mini'/><br/><p>Tag</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Sor.jpg' size='mini'/><br/><p>Sor</p></Table.Cell>
-                            <Table.Cell><Image src='../image/symbol/Psi.jpg' size='mini'/><br/><p>Psi</p></Table.Cell>
+                            <Table.Cell id = { "Assigned" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Assigned.jpg'  id = { "Assigned" } selected = { this.state.currentMode === nodeModeType.ASSIGNED } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Api" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Api.jpg'  id = { "Api" } selected = { this.state.currentMode === nodeModeType.API } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Fru" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Fru.jpg'  id = { "Fru" } selected = { this.state.currentMode === nodeModeType.FRU } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Tag" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Tag.jpg'  id = { "Tag" } selected = { this.state.currentMode === nodeModeType.TAG } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Sor" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Sor.jpg'  id = { "Sor" } selected = { this.state.currentMode === nodeModeType.SOR } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Psi" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Psi.jpg'  id = { "Psi" } selected = { this.state.currentMode === nodeModeType.PSI } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
                             <Table.Cell></Table.Cell>
                             <Table.Cell></Table.Cell>

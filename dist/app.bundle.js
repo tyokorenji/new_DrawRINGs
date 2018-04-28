@@ -2988,11 +2988,15 @@ module.exports = ReactDOMComponentTree;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.liaise = undefined;
+exports.monosachrrides = exports.glycans = exports.liaise = undefined;
 
 var _liaiseUI = __webpack_require__(880);
 
-var liaise = exports.liaise = new _liaiseUI.LiaiseUI();
+var _Glycan = __webpack_require__(442);
+
+var liaise = exports.liaise = new _liaiseUI.LiaiseUI(); //UIのの状態を納めるクラス変数。Reactとのつなげ役
+var glycans = exports.glycans = []; //canvas上に描画された糖鎖構造を納める配列
+var monosachrrides = exports.monosachrrides = []; //canvas上にある単糖を納める配列
 // console.log(liaise.hasTextAreaValue());
 
 /***/ }),
@@ -3098,7 +3102,107 @@ function map(collection, iteratee) {
 module.exports = map;
 
 /***/ }),
-/* 23 */,
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var nodeModeType = exports.nodeModeType = {
+    NOT_SELECTED: Symbol(),
+    HEXOSE: Symbol(),
+    GLC: Symbol(),
+    MAN: Symbol(),
+    GAL: Symbol(),
+    GUL: Symbol(),
+    ALT: Symbol(),
+    ALL: Symbol(),
+    TAL: Symbol(),
+    IDO: Symbol(),
+    HEXNAC: Symbol(),
+    GLCNAC: Symbol(),
+    MANNAC: Symbol(),
+    GALNAC: Symbol(),
+    GULNAC: Symbol(),
+    ALTNAC: Symbol(),
+    ALLNAC: Symbol(),
+    TALNAC: Symbol(),
+    IDONAC: Symbol(),
+    HEXOSAMINE: Symbol(),
+    GLCN: Symbol(),
+    MANN: Symbol(),
+    GALN: Symbol(),
+    GULN: Symbol(),
+    ALTN: Symbol(),
+    ALLN: Symbol(),
+    TALN: Symbol(),
+    IDON: Symbol(),
+    HEXURONATE: Symbol(),
+    GLCA: Symbol(),
+    MANA: Symbol(),
+    GALA: Symbol(),
+    GULA: Symbol(),
+    ALTA: Symbol(),
+    ALLA: Symbol(),
+    TALA: Symbol(),
+    IDOA: Symbol(),
+    DEOXYHEXOSE: Symbol(),
+    QUI: Symbol(),
+    RHA: Symbol(),
+    D6GUL: Symbol(),
+    D6ALT: Symbol(),
+    D6TAL: Symbol(),
+    FUC: Symbol(),
+    DEOXYHEXNAC: Symbol(),
+    QUINAC: Symbol(),
+    RHANAC: Symbol(),
+    D6ALTNAC: Symbol(),
+    D6TALNAC: Symbol(),
+    FUCNAC: Symbol(),
+    DI_DEOXYHEXOSE: Symbol(),
+    OLI: Symbol(),
+    TYV: Symbol(),
+    ABE: Symbol(),
+    PAR: Symbol(),
+    DIG: Symbol(),
+    COL: Symbol(),
+    PENTOSE: Symbol(),
+    ARA: Symbol(),
+    LYX: Symbol(),
+    XYL: Symbol(),
+    RIB: Symbol(),
+    DEOXYNONULOSONATE: Symbol(),
+    KDN: Symbol(),
+    NEU5AC: Symbol(),
+    NEU5GC: Symbol(),
+    NEU: Symbol(),
+    SIA: Symbol(),
+    DI_DEOXYNONULOSONATE: Symbol(),
+    PSE: Symbol(),
+    LEG: Symbol(),
+    ACI: Symbol(),
+    E4LEG: Symbol(),
+    UNKNOWN: Symbol(),
+    BAC: Symbol(),
+    LDMANHEP: Symbol(),
+    KDO: Symbol(),
+    DHA: Symbol(),
+    DDMANHEP: Symbol(),
+    MURNAC: Symbol(),
+    MURNGC: Symbol(),
+    MUR: Symbol(),
+    ASSIGNED: Symbol(),
+    API: Symbol(),
+    FRU: Symbol(),
+    TAG: Symbol(),
+    SOR: Symbol(),
+    PSI: Symbol()
+};
+
+/***/ }),
 /* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3151,7 +3255,165 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _Icon2.default;
 
 /***/ }),
-/* 26 */,
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Sugar = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Node2 = __webpack_require__(881);
+
+var _Edge = __webpack_require__(444);
+
+var _createjsEaseljs = __webpack_require__(19);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+var _getColor = __webpack_require__(29);
+
+var _searchRIng = __webpack_require__(882);
+
+var _SNFGGlycanTable = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Sugar = function (_Node) {
+    _inherits(Sugar, _Node);
+
+    //ringのcreatejs.Text
+
+    //フラノースかピラノースか("pyranose p" or "furanose f" or "undefined")
+    //アノマーの位置（"alpha α a" or "beta β b" or "open o" or "undefined"）
+    function Sugar(name) {
+        _classCallCheck(this, Sugar);
+
+        var _this = _possibleConstructorReturn(this, (Sugar.__proto__ || Object.getPrototypeOf(Sugar)).call(this));
+
+        _this.name = name;
+        _this.anomeric = "undefined";
+        _this.isomer = "undefined";
+        _this.ring = "undefined";
+        _this.isomerShape;
+        _this.ringShape;
+        return _this;
+    } //isomerのcreatejs.Text
+    //構造異性体("L" or "D" or "undefined")
+    //単糖の名前
+
+
+    _createClass(Sugar, [{
+        key: "getName",
+        value: function getName() {
+            return this.name;
+        }
+    }, {
+        key: "getAnomeric",
+        value: function getAnomeric() {
+            return this.anomeric;
+        }
+    }, {
+        key: "setAnomeric",
+        value: function setAnomeric(anomeric) {
+            this.anomeric = anomeric;
+            return;
+        }
+    }, {
+        key: "getIsomer",
+        value: function getIsomer() {
+            return this.isomer;
+        }
+    }, {
+        key: "setIsomer",
+        value: function setIsomer(isomer) {
+            this.isomer = isomer;
+            return;
+        }
+    }, {
+        key: "getRing",
+        value: function getRing() {
+            return this.ring;
+        }
+    }, {
+        key: "setRing",
+        value: function setRing(ring) {
+            this.ring = ring;
+            return;
+        }
+    }, {
+        key: "createIsomerShape",
+        value: function createIsomerShape() {
+            if (this.isomer === _SNFGGlycanTable.SNFGSymbolGlycan[this.name].isomer) return;
+            var shape = new _createjsEaseljs2.default.Text(this.isomer, "bold 10px serif", (0, _getColor.getColor)("black"));
+            shape.textAlign = "right"; //水平方向(x軸)の位置
+            shape.textBaseline = "middle"; //垂直方向(y軸)の位置
+            shape.scaleX = 1.5;
+            shape.scaleY = 1.5;
+            this.isomerShape = shape;
+            // return shape;
+        }
+    }, {
+        key: "changeIsomerShape",
+        value: function changeIsomerShape(isomer) {
+            this.isomerShape.text = isomer;
+        }
+
+        //ringの文字の描画
+
+    }, {
+        key: "createRingShape",
+        value: function createRingShape() {
+            var ringText = (0, _searchRIng.searchRing)(this.ring);
+            var SNFGRingText = (0, _searchRIng.searchRing)(_SNFGGlycanTable.SNFGSymbolGlycan[this.name].ring);
+            if (ringText === SNFGRingText) return;
+            // if (ringText === "undefined") {
+            //     return;
+            // }
+            var shape = new _createjsEaseljs2.default.Text(ringText, "italic bold 12px serif", (0, _getColor.getColor)("black"));
+            shape.textAlign = "left;"; //水平方向(x軸)の位置
+            shape.textBaseline = "middle"; //垂直方向(y軸)の位置
+            shape.scaleX = 1.5;
+            shape.scaleY = 1.5;
+            this.ringShape = shape;
+            // return shape;
+        }
+    }, {
+        key: "changeRingSape",
+        value: function changeRingSape(ring) {
+            this.ringShape.text = ring;
+        }
+    }, {
+        key: "highLight",
+        value: function highLight() {
+            this.alpha = 0.5;
+            this.graphics._stroke.style = (0, _getColor.getColor)("red");
+        }
+    }, {
+        key: "offLight",
+        value: function offLight() {
+            this.alpha = 1.0;
+            this.graphics._stroke.style = (0, _getColor.getColor)("black");
+        }
+    }]);
+
+    return Sugar;
+}(_Node2.Node);
+
+exports.Sugar = Sugar;
+
+/***/ }),
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3181,7 +3443,44 @@ var root = freeGlobal || freeSelf || Function('return this')();
 module.exports = root;
 
 /***/ }),
-/* 29 */,
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.getColor = getColor;
+function getColor(color) {
+    switch (color) {
+        case "white":
+            return "rgb(255, 255, 255)";
+        case "blue":
+            return "rgb(0, 144, 188)";
+        case "green":
+            return "rgb(0, 166, 81)";
+        case "yellow":
+            return "rgb(255, 212, 0)";
+        case "orange":
+            return "rgb(244, 121, 32)";
+        case "pink":
+            return "rgb(246, 158, 161)";
+        case "purple":
+            return "rgb(165, 67, 153)";
+        case "light_blue":
+            return "rgb(143, 204, 233)";
+        case "brown":
+            return "rgb(161, 122, 77)";
+        case "red":
+            return "rgb(237, 28, 36)";
+        case "black":
+            return "rgb(0, 0, 0)";
+    }
+}
+
+/***/ }),
 /* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3653,8 +3952,566 @@ function isObject(value) {
 module.exports = isObject;
 
 /***/ }),
-/* 33 */,
-/* 34 */,
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var SNFGSymbolGlycan = exports.SNFGSymbolGlycan = {
+    "4eLeg": {
+        shortName: "4-Epilegionaminic acid",
+        systematicNmae: "5,7-Diamino-3,5,7,9-tetradeoxy-D-glycero-D-talo-non-2-ulopyranosonic acid",
+        isomer: "DD",
+        ring: "pyranose"
+    },
+    "6dAlt": {
+        shortName: "6-Deoxy-L-altrose",
+        systematicNmae: "6-Deoxy-L-altropyranose",
+        isomer: "L",
+        ring: "pyranose"
+    },
+    "6dAltNAc": {
+        shortName: "N-Acetyl-6-deoxy-L-altrosamine",
+        systematicNmae: "2-Acetamido-2,6-dideoxy-L-altropyranose",
+        isomer: "L",
+        ring: "pyranose"
+
+    },
+    "6dGul": {
+        shortName: "6-Deoxy-D-gulose",
+        systematicNmae: "6-Deoxy-D-gulopyranose",
+        isomer: "D",
+        ring: "pyranose"
+
+    },
+    "6dTal": {
+        shortName: "6-Deoxy-D-talose",
+        systematicNmae: "6-Deoxy-D-talopyranose",
+        isomer: "D",
+        ring: "pyranose"
+
+    },
+    "6dTalNAc": {
+        shortName: "N-Acetyl-6-deoxy-D-talosamine",
+        systematicNmae: "2-Acetamido-2,6-dideoxy-D-talopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Abe": {
+        shortName: "Abequose",
+        systematicNmae: "3,6-Dideoxy-D-xylo-hexopyranose",
+        isomer: "D",
+        ring: "pyranose"
+
+    },
+    "Aci": {
+        shortName: "Acinetaminic acid",
+        systematicNmae: "5,7-Diamino-3,5,7,9-tetradeoxy-L-glycero-L-altro-non-2-ulopyranosonic acid",
+        isomer: "LL",
+        ring: "pyranose"
+
+    },
+    "All": {
+        shortName: "D-Allose",
+        systematicNmae: "D-Allopyranose",
+        isomer: "D",
+        ring: "pyranose"
+
+    },
+    "AllA": {
+        shortName: "D-Alluronic acid",
+        systematicNmae: "D-Allopyranuronic acid",
+        isomer: "D",
+        ring: "pyranose"
+
+    },
+    "AllN": {
+        shortName: "D-Allosamine",
+        systematicNmae: "2-Amino-2-deoxy-D-allopyranose",
+        isomer: "D",
+        ring: "pyranose"
+
+    },
+    "AllNAc": {
+        shortName: "N-Acetyl-D-allosamine",
+        systematicNmae: "2-Acetamido-2-deoxy-D-allopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Alt": {
+        shortName: "L-Altrose",
+        systematicNmae: "L-Altropyranose",
+        isomer: "L",
+        ring: "pyranose"
+    },
+    "AltA": {
+        shortName: "L-Altruronic acid",
+        systematicNmae: "L-Altropyranuronic acid",
+        isomer: "L",
+        ring: "pyranose"
+    },
+    "AltN": {
+        shortName: "L-Altrosamine",
+        systematicNmae: "2-Amino-2-deoxy-L-altropyranose",
+        isomer: "L",
+        ring: "pyranose"
+    },
+    "AltNAc": {
+        shortName: "N-Acetyl-L-altrosamine",
+        systematicNmae: "2-Acetamido-2-deoxy-L-altropyranose",
+        isomer: "L",
+        ring: "pyranose"
+    },
+    "Api": {
+        shortName: "L-Apiose",
+        systematicNmae: "3-C-(Hydroxymethyl)-L-erythro-tetrofuranose",
+        isomer: "L",
+        ring: "furanose"
+    },
+    "Ara": {
+        shortName: "L-Arabinose",
+        systematicNmae: "L-Arabinopyranose",
+        isomer: "L",
+        ring: "pyranose"
+    },
+    "Bac": {
+        shortName: "Bacillosamine",
+        systematicNmae: "2,4-Diamino-2,4,6-trideoxy-D-glucopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Col": {
+        shortName: "Colitose",
+        systematicNmae: "3,6-Dideoxy-L-xylo-hexopyranose",
+        isomer: "L",
+        ring: "pyranose"
+    },
+    "DDmanHep": {
+        shortName: "D-glycero-D-manno-Heptose",
+        systematicNmae: "D-glycero-D-manno-Heptopyranose",
+        isomer: "DD",
+        ring: "pyranose"
+    },
+    "Dha": {
+        shortName: "3-Deoxy-D-lyxo-heptulosaric acid",
+        systematicNmae: "3-Deoxy-D-lyxo-hept-2-ulopyranosaric acid",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Dig": {
+        shortName: "D-Digitoxose",
+        systematicNmae: "2,6-Dideoxy-D-ribo-hexopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Fru": {
+        shortName: "D-Fructose",
+        systematicNmae: "D-arabino-Hex-2-ulopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Fuc": {
+        shortName: "L-Fucose",
+        systematicNmae: "6-Deoxy-L-galactopyranose",
+        isomer: "L",
+        ring: "pyranose"
+    },
+    "FucNAc": {
+        shortName: "N-Acetyl-L-fucosamine",
+        systematicNmae: "2-Acetamido-2,6-dideoxy-L-galactopyranose",
+        isomer: "L",
+        ring: "pyranose"
+    },
+    "Gal": {
+        shortName: "D-Galactose",
+        systematicNmae: "D-Galactopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "GalA": {
+        shortName: "D-Galacturonic acid",
+        systematicNmae: "D-Galactopyranuronic acid",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "GalN": {
+        shortName: "D-Galactosamine",
+        systematicNmae: "2-Amino-2-deoxy-D-galactopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "GalNAc": {
+        shortName: "N-Acetyl-D-galactosamine",
+        systematicNmae: "2-Acetamido-2-deoxy-D-galactopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Glc": {
+        shortName: "D-Glucose",
+        systematicNmae: "D-Glucopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "GlcA": {
+        shortName: "D-Glucuronic acid",
+        systematicNmae: "D-Glucopyranuronic acid",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "GlcN": {
+        shortName: "D-Glucosamine",
+        systematicNmae: "2-Amino-2-deoxy-D-glucopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "GlcNAc": {
+        shortName: "N-Acetyl-D-glucosamine",
+        systematicNmae: "2-Acetamido-2-deoxy-D-glucopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Gul": {
+        shortName: "D-Gulose",
+        systematicNmae: "D-Gulopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "GulA": {
+        shortName: "D-Guluronic acid",
+        systematicNmae: "D-Gulopyranuronic acid",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "GulN": {
+        shortName: "D-Gulosamine",
+        systematicNmae: "2-Amino-2-deoxy-D-gulopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "GulNAc": {
+        shortName: "N-Acetyl-D-gulosamine",
+        systematicNmae: "2-Acetamido-2-deoxy-D-gulopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Ido": {
+        shortName: "L-Idose",
+        systematicNmae: "L-Idopyranose",
+        isomer: "L",
+        ring: "pyranose"
+    },
+    "IdoA": {
+        shortName: "L-Iduronic acid",
+        systematicNmae: "L-Idopyranuronic acid",
+        isomer: "L",
+        ring: "pyranose"
+    },
+    "IdoN": {
+        shortName: "L-Idosamine",
+        systematicNmae: "2-Amino-2-deoxy-L-idopyranose",
+        isomer: "L",
+        ring: "pyranose"
+    },
+    "IdoNAc": {
+        shortName: "N-Acetyl-L-idosamine",
+        systematicNmae: "2-Acetamido-2-deoxy-L-idopyranose",
+        isomer: "L",
+        ring: "pyranose"
+    },
+    "Kdn": {
+        shortName: "3-Deoxy-D-glycero-D-galacto-nonulosonic acid",
+        systematicNmae: "3-Deoxy-D-glycero-D-galacto-non-2-ulopyranosonic acid",
+        isomer: "DD",
+        ring: "pyranose"
+    },
+    "Kdo": {
+        shortName: "3-Deoxy-D-manno-octulosonic acid",
+        systematicNmae: "3-Deoxy-D-manno-oct-2-ulopyranosonic acid",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Leg": {
+        shortName: "Legionaminic acid",
+        systematicNmae: "5,7-Diamino-3,5,7,9-tetradeoxy-D-glycero-D-galacto-non-2-ulopyranosonic acid",
+        isomer: "DD",
+        ring: "pyranose"
+    },
+    "LDmanHep": {
+        shortName: "L-glycero-D-manno-Heptose",
+        systematicNmae: "L-glycero-D-manno-Heptopyranose",
+        isomer: "LD",
+        ring: "pyranose"
+    },
+    "Lyx": {
+        shortName: "D-Lyxose",
+        systematicNmae: "D-Lyxopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Man": {
+        shortName: "D-Mannose",
+        systematicNmae: "D-Mannopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "ManA": {
+        shortName: "D-Mannuronic acid",
+        systematicNmae: "D-Mannopyranuronic acid",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "ManN": {
+        shortName: "D-Mannosamine",
+        systematicNmae: "2-Amino-2-deoxy-D-mannopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "ManNAc": {
+        shortName: "N-Acetyl-D-mannosamine",
+        systematicNmae: "2-Acetamido-2-deoxy-D-mannopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Mur": {
+        shortName: "Muramic acid",
+        systematicNmae: "2-Amino-3-O-[(R)-1-carboxyethyl]-2-deoxy-D-glucopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "MurNAc": {
+        shortName: "N-Acetylmuramic acid",
+        systematicNmae: "2-Acetamido-3-O-[(R)-1-carboxyethyl]-2-deoxy-D-glucopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "MurNGc": {
+        shortName: "N-Glycolylmuramic acid",
+        systematicNmae: "3-O-[(R)-1-Carboxyethyl]-2-deoxy-2-glycolamido-D-glucopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Neu": {
+        shortName: "Neuraminic acid",
+        systematicNmae: "5-Amino-3,5-dideoxy-D-glycero-D-galacto-non-2-ulopyranosonic acid",
+        isomer: "DD",
+        ring: "pyranose"
+    },
+    "Neu5Ac": {
+        shortName: "N-Acetylneuraminic acid",
+        systematicNmae: "5-Acetamido-3,5-dideoxy-D-glycero-D-galacto-non-2-ulopyranosonic acid",
+        isomer: "DD",
+        ring: "pyranose"
+    },
+    "Neu5Gc": {
+        shortName: "N-Glycolylneuraminic acid",
+        systematicNmae: "3,5-Dideoxy-5-glycolamido-D-glycero-D-galacto-non-2-ulopyranosonic acid",
+        isomer: "DD",
+        ring: "pyranose"
+    },
+    "Oli": {
+        shortName: "Olivose",
+        systematicNmae: "2,6-Dideoxy-D-arabino-hexopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Par": {
+        shortName: "Paratose",
+        systematicNmae: "3,6-Dideoxy-D-ribo-hexopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Pse": {
+        shortName: "Pseudaminic acid",
+        systematicNmae: "5,7-Diamino-3,5,7,9-tetradeoxy-L-glycero-L-manno-non-2-ulopyranosonic acid",
+        isomer: "LL",
+        ring: "pyranose"
+    },
+    "Psi": {
+        shortName: "D-Psicose",
+        systematicNmae: "D-ribo-Hex-2-ulopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Qui": {
+        shortName: "D-Quinovose",
+        systematicNmae: "6-Deoxy-D-glucopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "QuiNAc": {
+        shortName: "N-Acetyl-D-quinovosamine",
+        systematicNmae: "2-Acetamido-2,6-dideoxy-D-glucopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Rha": {
+        shortName: "L-Rhamnose",
+        systematicNmae: "6-Deoxy-L-mannopyranose",
+        isomer: "L",
+        ring: "pyranose"
+    },
+    "RhaNAc": {
+        shortName: "N-Acetyl-L-rhamnosamine",
+        systematicNmae: "2-Acetamido-2,6-dideoxy-L-mannopyranose",
+        isomer: "L",
+        ring: "pyranose"
+    },
+    "Rib": {
+        shortName: "D-Ribose",
+        systematicNmae: "D-Ribopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Sia": {
+        shortName: "Sialic acid",
+        systematicNmae: "Sialic acid residue of unspecified type",
+        isomer: "D",
+        ring: "undefined"
+    },
+    "Sor": {
+        shortName: "L-Sorbose",
+        systematicNmae: "L-xylo-Hex-2-ulopyranose",
+        isomer: "L",
+        ring: "pyranose"
+    },
+    "Tag": {
+        shortName: "D-Tagatose",
+        systematicNmae: "D-lyxo-Hex-2-ulopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Tal": {
+        shortName: "D-Talose",
+        systematicNmae: "D-Talopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "TalA": {
+        shortName: "D-Taluronic acid",
+        systematicNmae: "D-Talopyranuronic acid",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "TalN": {
+        shortName: "D-Talosamine",
+        systematicNmae: "2-Amino-2-deoxy-D-talopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "TalNAc": {
+        shortName: "N-Acetyl-D-talosamine",
+        systematicNmae: "2-Acetamido-2-deoxy-D-talopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Tyv": {
+        shortName: "Tyvelose",
+        systematicNmae: "3,6-Dideoxy-D-arabino-hexopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Xyl": {
+        shortName: "D-Xylose",
+        systematicNmae: "D-Xylopyranose",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Hexose": {
+        shortName: "D-Hexose",
+        systematicNmae: "undefined",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "HexNAc": {
+        shortName: "N-Acetyl-D-Hexose",
+        systematicNmae: "undefined",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Hexosamine": {
+        shortName: "D-Hexosamine",
+        systematicNmae: "undefined",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Hexuronate": {
+        shortName: "D-Hexonic Acid",
+        systematicNmae: "undefined",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Deoxyhexose": {
+        shortName: "D-Deoxyhexoseo",
+        systematicNmae: "undefined",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "DeoxyhexNAc": {
+        shortName: "D-DeoxyhexNAc",
+        systematicNmae: "undefined",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Di-deoxyhexose": {
+        shortName: "D-Di-deoxyhexose",
+        systematicNmae: "undefined",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Pentose": {
+        shortName: "D-Pentose",
+        systematicNmae: "undefined",
+        isomer: "D",
+        ring: "pyranose"
+    },
+    "Deoxynonulosonate": {
+        shortName: "Deoxynonulosonate",
+        systematicNmae: "undefined",
+        isomer: "undefined",
+        ring: "undefined"
+    },
+    "Di-deoxynonulosonate": {
+        shortName: "Di-deoxynonulosonate",
+        systematicNmae: "undefined",
+        isomer: "undefined",
+        ring: "undefined"
+    },
+    "Unknown": {
+        shortName: "Unknown",
+        systematicNmae: "undefined",
+        isomer: "undefined",
+        ring: "undefined"
+    },
+    "Assigned": {
+        shortName: "Assigned",
+        systematicNmae: "undefined",
+        isomer: "undefined",
+        ring: "undefined"
+    }
+};
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var getRelativeCoordinate = exports.getRelativeCoordinate = function getRelativeCoordinate(event) {
+    var rect = event.target.getBoundingClientRect();
+    var mouseX = event.clientX - rect.left;
+    var mouseY = event.clientY - rect.top;
+    return [mouseX, mouseY];
+};
+
+/***/ }),
 /* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31395,11 +32252,548 @@ exports.default = StatisticValue;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 442 */,
-/* 443 */,
-/* 444 */,
-/* 445 */,
-/* 446 */,
+/* 442 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Glycan = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _createjsEaseljs = __webpack_require__(19);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+var _Sugar = __webpack_require__(26);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Glycan = function (_createjs$Container) {
+    _inherits(Glycan, _createjs$Container);
+
+    //糖鎖が就職するタンパク質の結合アミノ酸部位
+    // parentGlycan: Glycan;
+    // parentSugars: Array<Sugar>;
+    // childGlycans: Array<Glycan>;
+
+    function Glycan() {
+        _classCallCheck(this, Glycan);
+
+        var _this = _possibleConstructorReturn(this, (Glycan.__proto__ || Object.getPrototypeOf(Glycan)).call(this));
+
+        _this.rootNode = new _Sugar.Sugar("undefined");
+        _this.amino = "";
+        // this.parentGlycan = new Glycan();
+        // this.parentSugars = [];
+        // this.childGlycans = [];
+        return _this;
+    } //その糖鎖構造のルート単糖
+
+
+    _createClass(Glycan, [{
+        key: "getRootNode",
+        value: function getRootNode() {
+            return this.rootNode;
+        }
+    }, {
+        key: "setRootNode",
+        value: function setRootNode(sugar) {
+            this.rootNode = sugar;
+            return;
+        }
+    }, {
+        key: "getAmino",
+        value: function getAmino() {
+            return this.amino;
+        }
+    }, {
+        key: "setAmino",
+        value: function setAmino(amino) {
+            this.amino = amino;
+            return;
+        }
+
+        // hasParentGlycan(): boolean {
+        //     if (this.parentSugars.length != 0) return true;
+        //     else return false;
+        // }
+        //
+        // getParentGlycan(): Glycan {
+        //     return this.parentGlycan;
+        // }
+        //
+        // setParentGlycan(glycan: Glycan) {
+        //     this.parentGlycan = glycan;
+        //     return;
+        // }
+        //
+        // getParentSugars(): Array<Sugar> {
+        //     return this.parentSugars;
+        // }
+        //
+        // setParentSugars(sugar: Sugar) {
+        //     this.parentSugars.push(sugar);
+        //     return;
+        // }
+        //
+        // hasChildGlycans(): boolean {
+        //     if (this.childGlycans.length != 0) return true;
+        //     else return false;
+        // }
+        //
+        // getChildGlycans(): Array<Glycan> {
+        //     return this.childGlycans;
+        // }
+        //
+        // setChildGlycans(glycan: Glycan) {
+        //     this.childGlycans.push(glycan);
+        //     return;
+        // }
+
+
+    }]);
+
+    return Glycan;
+}(_createjsEaseljs2.default.Container);
+
+exports.Glycan = Glycan;
+
+/***/ }),
+/* 443 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.VisibleElement = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _createjsEaseljs = __webpack_require__(19);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var VisibleElement = function (_cleatejs$Container) {
+    _inherits(VisibleElement, _cleatejs$Container);
+
+    //オブジェクトのy座標
+    function VisibleElement() {
+        _classCallCheck(this, VisibleElement);
+
+        var _this = _possibleConstructorReturn(this, (VisibleElement.__proto__ || Object.getPrototypeOf(VisibleElement)).call(this));
+
+        _this.xCoord = 0;
+        _this.yCoord = 0;
+        return _this;
+    } //オブジェクトのx座標
+
+
+    _createClass(VisibleElement, [{
+        key: "getXCoord",
+        value: function getXCoord() {
+            return this.xCoord;
+        }
+    }, {
+        key: "setXCoord",
+        value: function setXCoord(xCoord) {
+            this.xCoord = xCoord;
+            return;
+        }
+    }, {
+        key: "getYCoord",
+        value: function getYCoord() {
+            return this.yCoord;
+        }
+    }, {
+        key: "setYCoord",
+        value: function setYCoord(yCoord) {
+            this.yCoord = yCoord;
+            return;
+        }
+    }]);
+
+    return VisibleElement;
+}(_createjsEaseljs2.default.Container);
+
+exports.VisibleElement = VisibleElement;
+
+/***/ }),
+/* 444 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Edge = undefined;
+
+var _VisibleElement2 = __webpack_require__(443);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Edge = function (_VisibleElement) {
+    _inherits(Edge, _VisibleElement);
+
+    function Edge() {
+        _classCallCheck(this, Edge);
+
+        return _possibleConstructorReturn(this, (Edge.__proto__ || Object.getPrototypeOf(Edge)).call(this));
+    }
+
+    return Edge;
+}(_VisibleElement2.VisibleElement);
+
+exports.Edge = Edge;
+
+/***/ }),
+/* 445 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.nodeModeSearch = nodeModeSearch;
+exports.nodeType = nodeType;
+
+var _nodeModeType = __webpack_require__(23);
+
+function nodeModeSearch(target) {
+    switch (target) {
+        case "Hexose":
+            return _nodeModeType.nodeModeType.HEXOSE;
+        case "Glc":
+            return _nodeModeType.nodeModeType.GLC;
+        case "Man":
+            return _nodeModeType.nodeModeType.MAN;
+        case "Gal":
+            return _nodeModeType.nodeModeType.GAL;
+        case "Gul":
+            return _nodeModeType.nodeModeType.GUL;
+        case "Alt":
+            return _nodeModeType.nodeModeType.ALT;
+        case "All":
+            return _nodeModeType.nodeModeType.ALL;
+        case "Tal":
+            return _nodeModeType.nodeModeType.TAL;
+        case "Ido":
+            return _nodeModeType.nodeModeType.IDO;
+        case "HexNAc":
+            return _nodeModeType.nodeModeType.HEXNAC;
+        case "GlcNAc":
+            return _nodeModeType.nodeModeType.GLCNAC;
+        case "ManNAc":
+            return _nodeModeType.nodeModeType.MANNAC;
+        case "GalNAc":
+            return _nodeModeType.nodeModeType.GALNAC;
+        case "GulNAc":
+            return _nodeModeType.nodeModeType.GULNAC;
+        case "AltNAc":
+            return _nodeModeType.nodeModeType.ALTNAC;
+        case "AllNAc":
+            return _nodeModeType.nodeModeType.ALLNAC;
+        case "TalNAc":
+            return _nodeModeType.nodeModeType.TALNAC;
+        case "IdoNAc":
+            return _nodeModeType.nodeModeType.IDONAC;
+        case "Hexosamine":
+            return _nodeModeType.nodeModeType.HEXOSAMINE;
+        case "GlcN":
+            return _nodeModeType.nodeModeType.GLCN;
+        case "ManN":
+            return _nodeModeType.nodeModeType.MANN;
+        case "GalN":
+            return _nodeModeType.nodeModeType.GALN;
+        case "GulN":
+            return _nodeModeType.nodeModeType.GULN;
+        case "AltN":
+            return _nodeModeType.nodeModeType.ALTN;
+        case "AllN":
+            return _nodeModeType.nodeModeType.ALLN;
+        case "TalN":
+            return _nodeModeType.nodeModeType.TALN;
+        case "IdoN":
+            return _nodeModeType.nodeModeType.IDON;
+        case "Hexuronate":
+            return _nodeModeType.nodeModeType.HEXURONATE;
+        case "GlcA":
+            return _nodeModeType.nodeModeType.GLCA;
+        case "ManA":
+            return _nodeModeType.nodeModeType.MANA;
+        case "GalA":
+            return _nodeModeType.nodeModeType.GALA;
+        case "GulA":
+            return _nodeModeType.nodeModeType.GULA;
+        case "AltA":
+            return _nodeModeType.nodeModeType.ALTA;
+        case "AllA":
+            return _nodeModeType.nodeModeType.ALLA;
+        case "TalA":
+            return _nodeModeType.nodeModeType.TALA;
+        case "IdoA":
+            return _nodeModeType.nodeModeType.IDOA;
+        case "Deoxyhexose":
+            return _nodeModeType.nodeModeType.DEOXYHEXOSE;
+        case "Qui":
+            return _nodeModeType.nodeModeType.QUI;
+        case "Rha":
+            return _nodeModeType.nodeModeType.RHA;
+        case "6dGul":
+            return _nodeModeType.nodeModeType.D6GUL;
+        case "6dAlt":
+            return _nodeModeType.nodeModeType.D6ALT;
+        case "6dTal":
+            return _nodeModeType.nodeModeType.D6TAL;
+        case "Fuc":
+            return _nodeModeType.nodeModeType.FUC;
+        case "DeoxyhexNAc":
+            return _nodeModeType.nodeModeType.DEOXYHEXNAC;
+        case "QuiNAc":
+            return _nodeModeType.nodeModeType.QUINAC;
+        case "RhaNAc":
+            return _nodeModeType.nodeModeType.RHANAC;
+        case "6dAltNAc":
+            return _nodeModeType.nodeModeType.D6ALTNAC;
+        case "6dTalNAc":
+            return _nodeModeType.nodeModeType.D6TALNAC;
+        case "FucNAc":
+            return _nodeModeType.nodeModeType.FUCNAC;
+        case "Di-deoxyhexose":
+            return _nodeModeType.nodeModeType.DI_DEOXYHEXOSE;
+        case "Oli":
+            return _nodeModeType.nodeModeType.OLI;
+        case "Tyv":
+            return _nodeModeType.nodeModeType.TYV;
+        case "Abe":
+            return _nodeModeType.nodeModeType.ABE;
+        case "Par":
+            return _nodeModeType.nodeModeType.PAR;
+        case "Dig":
+            return _nodeModeType.nodeModeType.DIG;
+        case "Col":
+            return _nodeModeType.nodeModeType.COL;
+        case "Pentose":
+            return _nodeModeType.nodeModeType.PENTOSE;
+        case "Ara":
+            return _nodeModeType.nodeModeType.ARA;
+        case "Lyx":
+            return _nodeModeType.nodeModeType.LYX;
+        case "Xyl":
+            return _nodeModeType.nodeModeType.XYL;
+        case "Rib":
+            return _nodeModeType.nodeModeType.RIB;
+        case "Deoxynonulosonate":
+            return _nodeModeType.nodeModeType.DEOXYNONULOSONATE;
+        case "Kdn":
+            return _nodeModeType.nodeModeType.KDN;
+        case "Neu5Ac":
+            return _nodeModeType.nodeModeType.NEU5AC;
+        case "Neu5Gc":
+            return _nodeModeType.nodeModeType.NEU5GC;
+        case "Neu":
+            return _nodeModeType.nodeModeType.NEU;
+        case "Sia":
+            return _nodeModeType.nodeModeType.SIA;
+        case "Di-deoxynonulosonate":
+            return _nodeModeType.nodeModeType.DI_DEOXYNONULOSONATE;
+        case "Pse":
+            return _nodeModeType.nodeModeType.PSE;
+        case "Leg":
+            return _nodeModeType.nodeModeType.LEG;
+        case "Aci":
+            return _nodeModeType.nodeModeType.ACI;
+        case "4eLeg":
+            return _nodeModeType.nodeModeType.E4LEG;
+        case "Unknown":
+            return _nodeModeType.nodeModeType.UNKNOWN;
+        case "Bac":
+            return _nodeModeType.nodeModeType.BAC;
+        case "LDmanHep":
+            return _nodeModeType.nodeModeType.LDMANHEP;
+        case "Kdo":
+            return _nodeModeType.nodeModeType.KDO;
+        case "Dha":
+            return _nodeModeType.nodeModeType.DHA;
+        case "DDmanHep":
+            return _nodeModeType.nodeModeType.DDMANHEP;
+        case "MurNAc":
+            return _nodeModeType.nodeModeType.MURNAC;
+        case "MurNGc":
+            return _nodeModeType.nodeModeType.MURNGC;
+        case "Mur":
+            return _nodeModeType.nodeModeType.MUR;
+        case "Assigned":
+            return _nodeModeType.nodeModeType.ASSIGNED;
+        case "Api":
+            return _nodeModeType.nodeModeType.API;
+        case "Fru":
+            return _nodeModeType.nodeModeType.FRU;
+        case "Tag":
+            return _nodeModeType.nodeModeType.TAG;
+        case "Sor":
+            return _nodeModeType.nodeModeType.SOR;
+        case "Psi":
+            return _nodeModeType.nodeModeType.PSI;
+        default:
+            return _nodeModeType.nodeModeType.NOT_SELECTED;
+    }
+}
+
+function nodeType(target) {
+    switch (target) {
+        case _nodeModeType.nodeModeType.HEXOSE:
+        case _nodeModeType.nodeModeType.GLC:
+        case _nodeModeType.nodeModeType.MAN:
+        case _nodeModeType.nodeModeType.GAL:
+        case _nodeModeType.nodeModeType.GUL:
+        case _nodeModeType.nodeModeType.ALT:
+        case _nodeModeType.nodeModeType.ALL:
+        case _nodeModeType.nodeModeType.TAL:
+        case _nodeModeType.nodeModeType.IDO:
+            return _nodeModeType.nodeModeType.HEXOSE;
+        case _nodeModeType.nodeModeType.HEXNAC:
+        case _nodeModeType.nodeModeType.GLCNAC:
+        case _nodeModeType.nodeModeType.MANNAC:
+        case _nodeModeType.nodeModeType.GALNAC:
+        case _nodeModeType.nodeModeType.GULNAC:
+        case _nodeModeType.nodeModeType.ALTNAC:
+        case _nodeModeType.nodeModeType.ALLNAC:
+        case _nodeModeType.nodeModeType.TALNAC:
+        case _nodeModeType.nodeModeType.IDONAC:
+            return _nodeModeType.nodeModeType.HEXNAC;
+        case _nodeModeType.nodeModeType.HEXOSAMINE:
+        case _nodeModeType.nodeModeType.GLCN:
+        case _nodeModeType.nodeModeType.MANN:
+        case _nodeModeType.nodeModeType.GALN:
+        case _nodeModeType.nodeModeType.GULN:
+        case _nodeModeType.nodeModeType.ALTN:
+        case _nodeModeType.nodeModeType.ALLN:
+        case _nodeModeType.nodeModeType.TALN:
+        case _nodeModeType.nodeModeType.IDON:
+            return _nodeModeType.nodeModeType.HEXOSAMINE;
+        case _nodeModeType.nodeModeType.HEXURONATE:
+        case _nodeModeType.nodeModeType.GLCA:
+        case _nodeModeType.nodeModeType.MANA:
+        case _nodeModeType.nodeModeType.GALA:
+        case _nodeModeType.nodeModeType.GULA:
+        case _nodeModeType.nodeModeType.ALTA:
+        case _nodeModeType.nodeModeType.ALLA:
+        case _nodeModeType.nodeModeType.TALA:
+        case _nodeModeType.nodeModeType.IDOA:
+            return _nodeModeType.nodeModeType.HEXURONATE;
+        case _nodeModeType.nodeModeType.DEOXYHEXOSE:
+        case _nodeModeType.nodeModeType.QUI:
+        case _nodeModeType.nodeModeType.RHA:
+        case _nodeModeType.nodeModeType.D6GUL:
+        case _nodeModeType.nodeModeType.D6ALT:
+        case _nodeModeType.nodeModeType.D6TAL:
+        case _nodeModeType.nodeModeType.FUC:
+            return _nodeModeType.nodeModeType.DEOXYHEXOSE;
+        case _nodeModeType.nodeModeType.DEOXYHEXNAC:
+        case _nodeModeType.nodeModeType.QUINAC:
+        case _nodeModeType.nodeModeType.RHANAC:
+        case _nodeModeType.nodeModeType.D6ALTNAC:
+        case _nodeModeType.nodeModeType.D6TALNAC:
+        case _nodeModeType.nodeModeType.FUCNAC:
+            return _nodeModeType.nodeModeType.DEOXYHEXNAC;
+        case _nodeModeType.nodeModeType.DI_DEOXYHEXOSE:
+        case _nodeModeType.nodeModeType.OLI:
+        case _nodeModeType.nodeModeType.TYV:
+        case _nodeModeType.nodeModeType.ABE:
+        case _nodeModeType.nodeModeType.PAR:
+        case _nodeModeType.nodeModeType.DIG:
+        case _nodeModeType.nodeModeType.COL:
+            return _nodeModeType.nodeModeType.DI_DEOXYHEXOSE;
+        case _nodeModeType.nodeModeType.PENTOSE:
+        case _nodeModeType.nodeModeType.ARA:
+        case _nodeModeType.nodeModeType.LYX:
+        case _nodeModeType.nodeModeType.XYL:
+        case _nodeModeType.nodeModeType.RIB:
+            return _nodeModeType.nodeModeType.PENTOSE;
+        case _nodeModeType.nodeModeType.DEOXYNONULOSONATE:
+        case _nodeModeType.nodeModeType.KDN:
+        case _nodeModeType.nodeModeType.NEU5AC:
+        case _nodeModeType.nodeModeType.NEU5GC:
+        case _nodeModeType.nodeModeType.NEU:
+        case _nodeModeType.nodeModeType.SIA:
+            return _nodeModeType.nodeModeType.DEOXYNONULOSONATE;
+        case _nodeModeType.nodeModeType.DI_DEOXYNONULOSONATE:
+        case _nodeModeType.nodeModeType.PSE:
+        case _nodeModeType.nodeModeType.LEG:
+        case _nodeModeType.nodeModeType.ACI:
+        case _nodeModeType.nodeModeType.E4LEG:
+            return _nodeModeType.nodeModeType.DI_DEOXYNONULOSONATE;
+        case _nodeModeType.nodeModeType.UNKNOWN:
+        case _nodeModeType.nodeModeType.BAC:
+        case _nodeModeType.nodeModeType.LDMANHEP:
+        case _nodeModeType.nodeModeType.KDO:
+        case _nodeModeType.nodeModeType.DHA:
+        case _nodeModeType.nodeModeType.DDMANHEP:
+        case _nodeModeType.nodeModeType.MURNAC:
+        case _nodeModeType.nodeModeType.MURNGC:
+        case _nodeModeType.nodeModeType.MUR:
+            return _nodeModeType.nodeModeType.UNKNOWN;
+        case _nodeModeType.nodeModeType.ASSIGNED:
+        case _nodeModeType.nodeModeType.API:
+        case _nodeModeType.nodeModeType.FRU:
+        case _nodeModeType.nodeModeType.TAG:
+        case _nodeModeType.nodeModeType.SOR:
+        case _nodeModeType.nodeModeType.PSI:
+            return _nodeModeType.nodeModeType.ASSIGNED;
+        default:
+            return _nodeModeType.nodeModeType.NOT_SELECTED;
+    }
+}
+
+/***/ }),
+/* 446 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.createError = undefined;
+
+var _Sugar = __webpack_require__(26);
+
+var createError = exports.createError = function createError() {
+    return new _Sugar.Sugar("undefined");
+};
+
+/***/ }),
 /* 447 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -44094,6 +45488,7 @@ var InterFace = exports.InterFace = function (_React$Component) {
                 currentState.sideBarVisible = false;
             }
             this.setState(currentState);
+            _main.liaise.modeType = currentState.current_mode_type;
         }
     }, {
         key: "mouseOverEvent",
@@ -64871,6 +66266,12 @@ var _createjsEaseljs = __webpack_require__(19);
 
 var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
 
+var _main = __webpack_require__(20);
+
+var _canvasClickEvent = __webpack_require__(883);
+
+var _modeType = __webpack_require__(62);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -64892,21 +66293,25 @@ var Canvas = exports.Canvas = function (_React$Component) {
         key: "componentDidMount",
         value: function componentDidMount() {
             var canvas = _reactDom2.default.findDOMNode(this.refs.canvas);
+            canvas.width = 5000;
+            canvas.height = 5000;
+            canvas.addEventListener("click", _canvasClickEvent.canvasClickEvent, false);
+            // canvas.modeType = modeType;
             this.stage = new _createjsEaseljs2.default.Stage(canvas);
-            var rect = new _createjsEaseljs2.default.Graphics();
-            rect.beginFill("red");
-            rect.drawRect(10, 10, 10, 10);
-            var shape = new _createjsEaseljs2.default.Shape(rect);
-
-            this.stage.addChild(shape);
-            this.stage.update();
+            _main.liaise.stage = this.stage;
+            // let rect = new createjs.Graphics();
+            // rect.beginFill("red");
+            // rect.drawRect(10, 10, 20, 20);
+            // const shape = new createjs.Shape(rect);
+            // liaise.stage.addChild(shape);
+            // liaise.stage.update();
         }
     }, {
         key: "render",
         value: function render() {
             var defStyle = {
-                width: "10000px",
-                height: "10000px",
+                width: "5000px",
+                height: "5000px",
                 border: "1px solid gray",
                 overflow: "scroll"
             };
@@ -64928,8 +66333,19 @@ var Canvas = exports.Canvas = function (_React$Component) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.LiaiseUI = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _createjsEaseljs = __webpack_require__(19);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+var _nodeModeType = __webpack_require__(23);
+
+var _modeType = __webpack_require__(62);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -64938,6 +66354,9 @@ var LiaiseUI = function () {
         _classCallCheck(this, LiaiseUI);
 
         this.textArea = "initial ";
+        this.stage = new _createjsEaseljs2.default.Stage();
+        this.nodeSelect = _nodeModeType.nodeModeType.NOT_SELECTED;
+        this.modeType = _modeType.modeType.NOT_SELECTED;
     }
 
     _createClass(LiaiseUI, [{
@@ -64957,24 +66376,1596 @@ var LiaiseUI = function () {
 exports.LiaiseUI = LiaiseUI;
 
 /***/ }),
-/* 881 */,
-/* 882 */,
-/* 883 */,
-/* 884 */,
-/* 885 */,
-/* 886 */,
-/* 887 */,
-/* 888 */,
-/* 889 */,
-/* 890 */,
-/* 891 */,
-/* 892 */,
-/* 893 */,
-/* 894 */,
-/* 895 */,
-/* 896 */,
-/* 897 */,
-/* 898 */,
+/* 881 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Node = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _VisibleElement2 = __webpack_require__(443);
+
+var _Edge = __webpack_require__(444);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// import { Sugar } from "./Sugar";
+// import { Modification } from "./Modification";
+
+
+var Node = function (_VisibleElement) {
+    _inherits(Node, _VisibleElement);
+
+    //親の単糖との結合
+
+    //子供のリスト。単糖
+    //親のリスト。単糖
+    function Node() {
+        _classCallCheck(this, Node);
+
+        var _this = _possibleConstructorReturn(this, (Node.__proto__ || Object.getPrototypeOf(Node)).call(this));
+
+        _this.parentSugars = [];
+        _this.childNodes = [];
+        _this.childSugars = [];
+        _this.childModifications = [];
+        _this.parentBond = new _Edge.Edge();
+        return _this;
+    } //子供のリスト。修飾
+    //子供のリスト。単糖と修飾
+
+
+    _createClass(Node, [{
+        key: "hasParentSugar",
+        value: function hasParentSugar() {
+            if (this.parentSugar.length != 0) return true;else return false;
+        }
+    }, {
+        key: "getParentSugars",
+        value: function getParentSugars() {
+            return this.parentSugars;
+        }
+    }, {
+        key: "setParentSugars",
+        value: function setParentSugars(sugar) {
+            this.parentSugars.push(sugar);
+            return;
+        }
+    }, {
+        key: "hasChildNodes",
+        value: function hasChildNodes() {
+            if (this.parentNodes.length != 0) return true;else return false;
+        }
+    }, {
+        key: "getChildNodes",
+        value: function getChildNodes() {
+            return this.childNodes;
+        }
+    }, {
+        key: "setChildNodes",
+        value: function setChildNodes(node) {
+            this.childNodes.push(node);
+            return;
+        }
+    }, {
+        key: "hasChildSugars",
+        value: function hasChildSugars() {
+            if (this.childSugars.length != 0) return true;else return false;
+        }
+    }, {
+        key: "getChildSugars",
+        value: function getChildSugars() {
+            return this.childSugars;
+        }
+    }, {
+        key: "setChildSugars",
+        value: function setChildSugars(sugar) {
+            this.childSugars.push(sugar);
+            return;
+        }
+    }, {
+        key: "hasChildModifications",
+        value: function hasChildModifications() {
+            if (this.childModifications.length != 0) return true;else return false;
+        }
+    }, {
+        key: "getChildModifications",
+        value: function getChildModifications() {
+            return this.childModifications;
+        }
+    }, {
+        key: "setChildModifications",
+        value: function setChildModifications(modification) {
+            this.childModifications.push(modification);
+            return;
+        }
+    }, {
+        key: "getParentBond",
+        value: function getParentBond() {
+            return this.parentBond;
+        }
+    }, {
+        key: "setParentBond",
+        value: function setParentBond(edge) {
+            this.ParentBond.push(edge);
+            return;
+        }
+    }]);
+
+    return Node;
+}(_VisibleElement2.VisibleElement);
+
+exports.Node = Node;
+
+/***/ }),
+/* 882 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.searchRing = searchRing;
+function searchRing(ring) {
+    var resultrRing = void 0;
+    switch (ring) {
+        case "pyranose":
+        case "p":
+        case "P":
+        case "PYRANOSE":
+            resultrRing = "p";
+            break;
+        case "furanose":
+        case "FURANOSE":
+        case "f":
+        case "F":
+            resultrRing = "f";
+            break;
+        default:
+            resultrRing = "undefined";
+            break;
+    }
+    return resultrRing;
+}
+
+/***/ }),
+/* 883 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.canvasClickEvent = canvasClickEvent;
+
+var _modeType = __webpack_require__(62);
+
+var _main = __webpack_require__(20);
+
+var _nodeModeSearch = __webpack_require__(445);
+
+var _createNodeShape = __webpack_require__(884);
+
+var _nodeClickEvents = __webpack_require__(898);
+
+var _Glycan = __webpack_require__(442);
+
+var _Sugar = __webpack_require__(26);
+
+function canvasClickEvent() {
+    //DrawGlycanの機能
+    if (_main.liaise.modeType === _modeType.modeType.NODE) {
+        var shapeType = (0, _nodeModeSearch.nodeType)(_main.liaise.nodeSelect);
+        var sugar = (0, _createNodeShape.createNodeShape)(shapeType, event);
+        switch (sugar.name) {
+            case "undefined":
+                alert("ERROR!!!");
+                return;
+            default:
+                break;
+        }
+        sugar.addEventListener("click", _nodeClickEvents.nodeClickEvents, false);
+        if (_main.glycans.length == 0) {
+            var glycan = new _Glycan.Glycan();
+            glycan.setRootNode(sugar);
+            _main.glycans.push(glycan);
+        }
+        return;
+    }
+    //Bind Glycanの機能
+    else if (_main.liaise.modeType === _modeType.modeType.EDGE) {
+            return;
+        } else if (_main.liaise.modeType === _modeType.modeType.STRUCTURE) {
+            return;
+        } else if (_main.liaise.modeType === _modeType.modeType.CLEAR) {
+            return;
+        } else if (_main.liaise.modeType === _modeType.modeType.DRAW_KCF) {
+            return;
+        } else if (_main.liaise.modeType === _modeType.modeType.KCF_TEXT_OUT) {
+            return;
+        } else if (_main.liaise.modeType === _modeType.modeType.UNDO) {
+            return;
+        } else if (_main.liaise.modeType === _modeType.modeType.REDO) {
+            return;
+        } else if (_main.liaise.modeType === _modeType.modeType.NOT_SELECTED) {
+            return;
+        }
+}
+
+/***/ }),
+/* 884 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.createNodeShape = undefined;
+
+var _nodeModeType = __webpack_require__(23);
+
+var _createHexose = __webpack_require__(885);
+
+var _createError = __webpack_require__(446);
+
+var _createHexNAc = __webpack_require__(886);
+
+var _createHexosamine = __webpack_require__(887);
+
+var _createHexuronate = __webpack_require__(888);
+
+var _createDeoxyHexose = __webpack_require__(889);
+
+var _createDeoxyHexNAc = __webpack_require__(890);
+
+var _createDi_DeoxyHexose = __webpack_require__(891);
+
+var _createPentose = __webpack_require__(892);
+
+var _createDeoxynonulosonate = __webpack_require__(893);
+
+var _createDi_Deoxynonulosonate = __webpack_require__(894);
+
+var _createUnknown = __webpack_require__(895);
+
+var _createAssigned = __webpack_require__(896);
+
+var _createUndefSNFG = __webpack_require__(897);
+
+var createNodeShape = exports.createNodeShape = function createNodeShape(shapeType, event) {
+    var symbolSize = 15;
+    switch (shapeType) {
+        case _nodeModeType.nodeModeType.HEXOSE:
+            return (0, _createHexose.createHexose)(event, symbolSize);
+        case _nodeModeType.nodeModeType.HEXNAC:
+            return (0, _createHexNAc.createHexNAc)(event, symbolSize);
+        case _nodeModeType.nodeModeType.HEXOSAMINE:
+            return (0, _createHexosamine.createHexosamine)(event, symbolSize);
+        case _nodeModeType.nodeModeType.HEXURONATE:
+            return (0, _createHexuronate.createHexuronate)(event, symbolSize);
+        case _nodeModeType.nodeModeType.DEOXYHEXOSE:
+            return (0, _createDeoxyHexose.createDeoxyHexose)(event, symbolSize);
+        case _nodeModeType.nodeModeType.DEOXYHEXNAC:
+            return (0, _createDeoxyHexNAc.createDeoxyHexNAc)(event, symbolSize);
+        case _nodeModeType.nodeModeType.DI_DEOXYHEXOSE:
+            return (0, _createDi_DeoxyHexose.createDi_DeoxyHexose)(event, symbolSize);
+        case _nodeModeType.nodeModeType.PENTOSE:
+            return (0, _createPentose.createPentose)(event, symbolSize);
+        case _nodeModeType.nodeModeType.DEOXYNONULOSONATE:
+            return (0, _createDeoxynonulosonate.createDeoxynonulosonate)(event, symbolSize);
+        case _nodeModeType.nodeModeType.DI_DEOXYNONULOSONATE:
+            return (0, _createDi_Deoxynonulosonate.createDi_Deoxynonulosonate)(event, symbolSize);
+        case _nodeModeType.nodeModeType.UNKNOWN:
+            return (0, _createUnknown.createUnknown)(event, symbolSize);
+        case _nodeModeType.nodeModeType.ASSIGNED:
+            return (0, _createAssigned.createAssigned)(event, symbolSize);
+        case _nodeModeType.nodeModeType.NOT_SELECTED:
+            //未定義
+            return (0, _createUndefSNFG.createUndefSNFG)(event);
+        default:
+            return (0, _createError.createError)();
+    }
+};
+
+/***/ }),
+/* 885 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.createHexose = undefined;
+
+var _getColor = __webpack_require__(29);
+
+var _getRelativeCoordinate = __webpack_require__(34);
+
+var _nodeModeType = __webpack_require__(23);
+
+var _main = __webpack_require__(20);
+
+var _Sugar = __webpack_require__(26);
+
+var _createjsEaseljs = __webpack_require__(19);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+var _createError = __webpack_require__(446);
+
+var _SNFGGlycanTable = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var createHexose = exports.createHexose = function createHexose(event, symbolSize) {
+    var shape = new _createjsEaseljs2.default.Shape();
+    var nodeName = "undefined";
+    switch (_main.liaise.nodeSelect) {
+        case _nodeModeType.nodeModeType.HEXOSE:
+            shape.graphics.beginFill((0, _getColor.getColor)("white"));
+            nodeName = "Hexose";
+            break;
+        case _nodeModeType.nodeModeType.GLC:
+            shape.graphics.beginFill((0, _getColor.getColor)("blue"));
+            nodeName = "Glc";
+            break;
+        case _nodeModeType.nodeModeType.MAN:
+            shape.graphics.beginFill((0, _getColor.getColor)("green"));
+            nodeName = "Man";
+            break;
+        case _nodeModeType.nodeModeType.GAL:
+            shape.graphics.beginFill((0, _getColor.getColor)("yellow"));
+            nodeName = "Gal";
+            break;
+        case _nodeModeType.nodeModeType.GUL:
+            shape.graphics.beginFill((0, _getColor.getColor)("orange"));
+            nodeName = "Gul";
+            break;
+        case _nodeModeType.nodeModeType.ALT:
+            shape.graphics.beginFill((0, _getColor.getColor)("pink"));
+            nodeName = "Alt";
+            break;
+        case _nodeModeType.nodeModeType.ALL:
+            shape.graphics.beginFill((0, _getColor.getColor)("purple"));
+            nodeName = "All";
+            break;
+        case _nodeModeType.nodeModeType.TAL:
+            shape.graphics.beginFill((0, _getColor.getColor)("light_blue"));
+            nodeName = "Tal";
+            break;
+        case _nodeModeType.nodeModeType.IDO:
+            shape.graphics.beginFill((0, _getColor.getColor)("brown"));
+            nodeName = "Ido";
+            break;
+        default:
+            return (0, _createError.createError)();
+    }
+    var isomer = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].isomer;
+    var ring = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].ring;
+    shape.graphics.beginStroke((0, _getColor.getColor)("black"));
+    shape.graphics.setStrokeStyle(2);
+    shape.graphics.drawCircle(0, 0, symbolSize);
+    var coordinate = (0, _getRelativeCoordinate.getRelativeCoordinate)(event);
+    var sugar = new _Sugar.Sugar(nodeName);
+    sugar.setIsomer(isomer);
+    sugar.setRing(ring);
+    sugar.createIsomerShape();
+    sugar.createRingShape();
+    _main.liaise.stage.addChild(sugar);
+    sugar.addChild(shape);
+    // switch (sugar.isomerShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.isomerShape);
+    //         break;
+    // }
+    // switch (sugar.ringShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.ringShape);
+    //         break;
+    // }
+    sugar.x = coordinate[0];
+    sugar.y = coordinate[1];
+    sugar.xCoord = coordinate[0];
+    sugar.yCoord = coordinate[1];
+    _main.liaise.stage.update();
+    return sugar;
+};
+
+/***/ }),
+/* 886 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+"use stric";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.createHexNAc = undefined;
+
+var _Sugar = __webpack_require__(26);
+
+var _nodeModeType = __webpack_require__(23);
+
+var _getColor = __webpack_require__(29);
+
+var _main = __webpack_require__(20);
+
+var _createjsEaseljs = __webpack_require__(19);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+var _getRelativeCoordinate = __webpack_require__(34);
+
+var _SNFGGlycanTable = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var createHexNAc = exports.createHexNAc = function createHexNAc(event, symbolSize) {
+    var shape = new _createjsEaseljs2.default.Shape();
+    var nodeName = "undefined";
+    switch (_main.liaise.nodeSelect) {
+        case _nodeModeType.nodeModeType.HEXNAC:
+            shape.graphics.beginFill((0, _getColor.getColor)("white"));
+            nodeName = "HexNAc";
+            break;
+        case _nodeModeType.nodeModeType.GLCNAC:
+            shape.graphics.beginFill((0, _getColor.getColor)("blue"));
+            nodeName = "GlcNAc";
+            break;
+        case _nodeModeType.nodeModeType.MANNAC:
+            shape.graphics.beginFill((0, _getColor.getColor)("green"));
+            nodeName = "ManNAc";
+            break;
+        case _nodeModeType.nodeModeType.GALNAC:
+            shape.graphics.beginFill((0, _getColor.getColor)("yellow"));
+            nodeName = "GalNAc";
+            break;
+        case _nodeModeType.nodeModeType.GULNAC:
+            shape.graphics.beginFill((0, _getColor.getColor)("orange"));
+            nodeName = "GulNAc";
+            break;
+        case _nodeModeType.nodeModeType.ALTNAC:
+            shape.graphics.beginFill((0, _getColor.getColor)("pink"));
+            nodeName = "AltNAc";
+            break;
+        case _nodeModeType.nodeModeType.ALLNAC:
+            shape.graphics.beginFill((0, _getColor.getColor)("purple"));
+            nodeName = "AllNAc";
+            break;
+        case _nodeModeType.nodeModeType.TALNAC:
+            shape.graphics.beginFill((0, _getColor.getColor)("light_blue"));
+            nodeName = "TalNAc";
+            break;
+        case _nodeModeType.nodeModeType.IDONAC:
+            shape.graphics.beginFill((0, _getColor.getColor)("brown"));
+            nodeName = "IdoNAc";
+            break;
+    }
+    var isomer = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].isomer;
+    var ring = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].ring;
+    shape.graphics.beginStroke((0, _getColor.getColor)("black"));
+    shape.graphics.setStrokeStyle(2);
+    shape.graphics.drawRect(-2 * symbolSize / 2, -2 * symbolSize / 2, 2 * symbolSize, 2 * symbolSize);
+    var coordinate = (0, _getRelativeCoordinate.getRelativeCoordinate)(event);
+    var sugar = new _Sugar.Sugar(nodeName);
+    sugar.setIsomer(isomer);
+    sugar.setRing(ring);
+    sugar.createIsomerShape();
+    sugar.createRingShape();
+    _main.liaise.stage.addChild(sugar);
+    sugar.addChild(shape);
+    // switch (sugar.isomerShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.isomerShape);
+    //         break;
+    // }
+    // switch (sugar.ringShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.ringShape);
+    //         break;
+    // }
+    sugar.x = coordinate[0];
+    sugar.y = coordinate[1];
+    sugar.xCoord = coordinate[0];
+    sugar.yCoord = coordinate[1];
+    _main.liaise.stage.update();
+    return sugar;
+};
+
+/***/ }),
+/* 887 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+"use stric";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.createHexosamine = undefined;
+
+var _Sugar = __webpack_require__(26);
+
+var _nodeModeType = __webpack_require__(23);
+
+var _getColor = __webpack_require__(29);
+
+var _main = __webpack_require__(20);
+
+var _createjsEaseljs = __webpack_require__(19);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+var _getRelativeCoordinate = __webpack_require__(34);
+
+var _SNFGGlycanTable = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var createHexosamine = exports.createHexosamine = function createHexosamine(event, symbolSize) {
+    var shape = new _createjsEaseljs2.default.Shape();
+    var nodeName = "undefined";
+    shape.graphics.beginStroke((0, _getColor.getColor)("black"));
+    shape.graphics.setStrokeStyle(2);
+    switch (_main.liaise.nodeSelect) {
+        case _nodeModeType.nodeModeType.HEXOSAMINE:
+            shape.graphics.beginFill((0, _getColor.getColor)("white"));
+            nodeName = "Hexosamine";
+            break;
+        case _nodeModeType.nodeModeType.GLCN:
+            shape.graphics.beginFill((0, _getColor.getColor)("blue"));
+            nodeName = "GlcN";
+            break;
+        case _nodeModeType.nodeModeType.MANN:
+            shape.graphics.beginFill((0, _getColor.getColor)("green"));
+            nodeName = "ManN";
+            break;
+        case _nodeModeType.nodeModeType.GALN:
+            shape.graphics.beginFill((0, _getColor.getColor)("yellow"));
+            nodeName = "GalN";
+            break;
+        case _nodeModeType.nodeModeType.GULN:
+            shape.graphics.beginFill((0, _getColor.getColor)("orange"));
+            nodeName = "GulN";
+            break;
+        case _nodeModeType.nodeModeType.ALTN:
+            shape.graphics.beginFill((0, _getColor.getColor)("pink"));
+            nodeName = "AltN";
+            break;
+        case _nodeModeType.nodeModeType.ALLN:
+            shape.graphics.beginFill((0, _getColor.getColor)("purple"));
+            nodeName = "AllN";
+            break;
+        case _nodeModeType.nodeModeType.TALN:
+            shape.graphics.beginFill((0, _getColor.getColor)("light_blue"));
+            nodeName = "TalN";
+            break;
+        case _nodeModeType.nodeModeType.IDON:
+            shape.graphics.beginFill((0, _getColor.getColor)("brown"));
+            nodeName = "IdoN";
+            break;
+    }
+    var isomer = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].isomer;
+    var ring = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].ring;
+    shape.graphics.moveTo(-symbolSize, -symbolSize).lineTo(symbolSize, -symbolSize).lineTo(symbolSize, symbolSize).closePath().endFill().beginFill((0, _getColor.getColor)("white")).moveTo(-symbolSize, -symbolSize).lineTo(-symbolSize, symbolSize).lineTo(symbolSize, symbolSize).closePath().endFill();
+    var coordinate = (0, _getRelativeCoordinate.getRelativeCoordinate)(event);
+    var sugar = new _Sugar.Sugar(nodeName);
+    sugar.setIsomer(isomer);
+    sugar.setRing(ring);
+    sugar.createIsomerShape();
+    sugar.createRingShape();
+    _main.liaise.stage.addChild(sugar);
+    sugar.addChild(shape);
+    // switch (sugar.isomerShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.isomerShape);
+    //         break;
+    // }
+    // switch (sugar.ringShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.ringShape);
+    //         break;
+    // }
+    sugar.x = coordinate[0];
+    sugar.y = coordinate[1];
+    sugar.xCoord = coordinate[0];
+    sugar.yCoord = coordinate[1];
+    _main.liaise.stage.update();
+    return sugar;
+};
+
+/***/ }),
+/* 888 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+"use stric";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.createHexuronate = undefined;
+
+var _Sugar = __webpack_require__(26);
+
+var _nodeModeType = __webpack_require__(23);
+
+var _getColor = __webpack_require__(29);
+
+var _main = __webpack_require__(20);
+
+var _createjsEaseljs = __webpack_require__(19);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+var _getRelativeCoordinate = __webpack_require__(34);
+
+var _SNFGGlycanTable = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var createHexuronate = exports.createHexuronate = function createHexuronate(event, symbolSize) {
+    var shape = new _createjsEaseljs2.default.Shape();
+    var nodeName = "undefined";
+    shape.graphics.beginStroke((0, _getColor.getColor)("black"));
+    shape.graphics.setStrokeStyle(2);
+    switch (_main.liaise.nodeSelect) {
+        case _nodeModeType.nodeModeType.HEXURONATE:
+            shape.graphics.beginFill((0, _getColor.getColor)("white"));
+            nodeName = "Hexuronate";
+            break;
+        case _nodeModeType.nodeModeType.GLCA:
+            shape.graphics.beginFill((0, _getColor.getColor)("blue"));
+            nodeName = "GlcA";
+            break;
+        case _nodeModeType.nodeModeType.MANA:
+            shape.graphics.beginFill((0, _getColor.getColor)("green"));
+            nodeName = "ManA";
+            break;
+        case _nodeModeType.nodeModeType.GALA:
+            shape.graphics.beginFill((0, _getColor.getColor)("yellow"));
+            nodeName = "GalA";
+            break;
+        case _nodeModeType.nodeModeType.GULA:
+            shape.graphics.beginFill((0, _getColor.getColor)("orange"));
+            nodeName = "GulA";
+            break;
+        case _nodeModeType.nodeModeType.ALTA:
+            shape.graphics.beginFill((0, _getColor.getColor)("white"));
+            nodeName = "AltA";
+            break;
+        case _nodeModeType.nodeModeType.ALLA:
+            shape.graphics.beginFill((0, _getColor.getColor)("purple"));
+            nodeName = "AllA";
+            break;
+        case _nodeModeType.nodeModeType.TALA:
+            shape.graphics.beginFill((0, _getColor.getColor)("light_blue"));
+            nodeName = "TalA";
+            break;
+        case _nodeModeType.nodeModeType.IDOA:
+            shape.graphics.beginFill((0, _getColor.getColor)("white"));
+            nodeName = "IdoA";
+            break;
+    }
+    var isomer = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].isomer;
+    var ring = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].ring;
+    shape.graphics.moveTo(-15, -15).lineTo(15, -15).lineTo(15, 15).closePath().endFill();
+    switch (_main.liaise.nodeSelect) {
+        case _nodeModeType.nodeModeType.IDOA:
+            shape.graphics.beginFill((0, _getColor.getColor)("brown"));
+            break;
+        case _nodeModeType.nodeModeType.ALTA:
+            shape.graphics.beginFill((0, _getColor.getColor)("pink"));
+            break;
+        default:
+            shape.graphics.beginFill((0, _getColor.getColor)("white"));
+            break;
+    }
+    shape.graphics.moveTo(-15, -15).lineTo(-15, 15).lineTo(15, 15).closePath().endFill();
+    shape.rotation = 315;
+    var coordinate = (0, _getRelativeCoordinate.getRelativeCoordinate)(event);
+    var sugar = new _Sugar.Sugar(nodeName);
+    sugar.setIsomer(isomer);
+    sugar.setRing(ring);
+    sugar.createIsomerShape();
+    sugar.createRingShape();
+    _main.liaise.stage.addChild(sugar);
+    sugar.addChild(shape);
+    // switch (sugar.isomerShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.isomerShape);
+    //         break;
+    // }
+    // switch (sugar.ringShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.ringShape);
+    //         break;
+    // }
+    sugar.x = coordinate[0];
+    sugar.y = coordinate[1];
+    sugar.xCoord = coordinate[0];
+    sugar.yCoord = coordinate[1];
+    _main.liaise.stage.update();
+    return sugar;
+};
+
+/***/ }),
+/* 889 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+"use stric";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.createDeoxyHexose = undefined;
+
+var _Sugar = __webpack_require__(26);
+
+var _nodeModeType = __webpack_require__(23);
+
+var _getColor = __webpack_require__(29);
+
+var _main = __webpack_require__(20);
+
+var _createjsEaseljs = __webpack_require__(19);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+var _getRelativeCoordinate = __webpack_require__(34);
+
+var _SNFGGlycanTable = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var createDeoxyHexose = exports.createDeoxyHexose = function createDeoxyHexose(event, symbolSize) {
+    var shape = new _createjsEaseljs2.default.Shape();
+    var nodeName = "undefined";
+    shape.graphics.beginStroke((0, _getColor.getColor)("black"));
+    shape.graphics.setStrokeStyle(2);
+    switch (_main.liaise.nodeSelect) {
+        case _nodeModeType.nodeModeType.DEOXYHEXOSE:
+            shape.graphics.beginFill((0, _getColor.getColor)("white"));
+            nodeName = "Deoxyhexose";
+            break;
+        case _nodeModeType.nodeModeType.QUI:
+            shape.graphics.beginFill((0, _getColor.getColor)("blue"));
+            nodeName = "Qui";
+            break;
+        case _nodeModeType.nodeModeType.RHA:
+            shape.graphics.beginFill((0, _getColor.getColor)("green"));
+            nodeName = "Rha";
+            break;
+        case _nodeModeType.nodeModeType.D6GUL:
+            shape.graphics.beginFill((0, _getColor.getColor)("orange"));
+            nodeName = "6dGul";
+            break;
+        case _nodeModeType.nodeModeType.D6ALT:
+            shape.graphics.beginFill((0, _getColor.getColor)("pink"));
+            nodeName = "6dAlt";
+            break;
+        case _nodeModeType.nodeModeType.D6TAL:
+            shape.graphics.beginFill((0, _getColor.getColor)("light_blue"));
+            nodeName = "6dTal";
+            break;
+        case _nodeModeType.nodeModeType.FUC:
+            shape.graphics.beginFill((0, _getColor.getColor)("red"));
+            nodeName = "Fuc";
+            break;
+    }
+    var isomer = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].isomer;
+    var ring = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].ring;
+    // let length = 30;
+    shape.graphics.moveTo(2 * symbolSize / Math.sqrt(3), 0).lineTo(-2 * symbolSize / (2 * Math.sqrt(3)), 2 * symbolSize / 2).lineTo(-2 * symbolSize / (2 * Math.sqrt(3)), -2 * symbolSize / 2).closePath().endFill();
+    shape.rotation = 270;
+    var coordinate = (0, _getRelativeCoordinate.getRelativeCoordinate)(event);
+    var sugar = new _Sugar.Sugar(nodeName);
+    sugar.setIsomer(isomer);
+    sugar.setRing(ring);
+    sugar.createIsomerShape();
+    sugar.createRingShape();
+    _main.liaise.stage.addChild(sugar);
+    sugar.addChild(shape);
+    // switch (sugar.isomerShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.isomerShape);
+    //         break;
+    // }
+    // switch (sugar.ringShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.ringShape);
+    //         break;
+    // }
+    sugar.x = coordinate[0];
+    sugar.y = coordinate[1];
+    sugar.xCoord = coordinate[0];
+    sugar.yCoord = coordinate[1];
+    _main.liaise.stage.update();
+    return sugar;
+};
+
+/***/ }),
+/* 890 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+"use stric";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.createDeoxyHexNAc = undefined;
+
+var _Sugar = __webpack_require__(26);
+
+var _nodeModeType = __webpack_require__(23);
+
+var _getColor = __webpack_require__(29);
+
+var _main = __webpack_require__(20);
+
+var _createjsEaseljs = __webpack_require__(19);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+var _getRelativeCoordinate = __webpack_require__(34);
+
+var _SNFGGlycanTable = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var createDeoxyHexNAc = exports.createDeoxyHexNAc = function createDeoxyHexNAc(event, symbolSize) {
+    var shape = new _createjsEaseljs2.default.Shape();
+    var nodeName = "undefined";
+    shape.graphics.beginStroke((0, _getColor.getColor)("black"));
+    shape.graphics.setStrokeStyle(2);
+
+    switch (_main.liaise.nodeSelect) {
+        case _nodeModeType.nodeModeType.DEOXYHEXNAC:
+            shape.graphics.beginFill((0, _getColor.getColor)("white"));
+            nodeName = "DeoxyhexNAc";
+            break;
+        case _nodeModeType.nodeModeType.QUINAC:
+            shape.graphics.beginFill((0, _getColor.getColor)("blue"));
+            nodeName = "QuiNAc";
+            break;
+        case _nodeModeType.nodeModeType.RHANAC:
+            shape.graphics.beginFill((0, _getColor.getColor)("green"));
+            nodeName = "RhaNAc";
+            break;
+        case _nodeModeType.nodeModeType.D6ALTNAC:
+            shape.graphics.beginFill((0, _getColor.getColor)("pink"));
+            nodeName = "6dAltNAc";
+            break;
+        case _nodeModeType.nodeModeType.D6TALNAC:
+            shape.graphics.beginFill((0, _getColor.getColor)("light_blue"));
+            nodeName = "6dTalNAc";
+            break;
+        case _nodeModeType.nodeModeType.FUCNAC:
+            shape.graphics.beginFill((0, _getColor.getColor)("red"));
+            nodeName = "FucNAc";
+            break;
+    }
+    var isomer = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].isomer;
+    var ring = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].ring;
+    // let 2 * symbolSize = 30;
+    shape.graphics.moveTo(2 * symbolSize / Math.sqrt(3), 0) // (x, y) = ( a/√3, 0 )
+    .lineTo(-2 * symbolSize / (2 * Math.sqrt(3)), 2 * symbolSize / 2) // (x, y) = ( -a/(2 * √3), a/2 )
+    .lineTo(-2 * symbolSize / (2 * Math.sqrt(3)), 0).closePath().endFill().beginFill((0, _getColor.getColor)("white")).moveTo(2 * symbolSize / Math.sqrt(3), 0).lineTo(-2 * symbolSize / (2 * Math.sqrt(3)), -2 * symbolSize / 2) // (x, y) = ( -a/(2 * √3), -a/2 )
+    .lineTo(-2 * symbolSize / (2 * Math.sqrt(3)), 0).closePath().endFill();
+    shape.rotation = 270;
+    var coordinate = (0, _getRelativeCoordinate.getRelativeCoordinate)(event);
+    var sugar = new _Sugar.Sugar(nodeName);
+    sugar.setIsomer(isomer);
+    sugar.setRing(ring);
+    sugar.createIsomerShape();
+    sugar.createRingShape();
+    _main.liaise.stage.addChild(sugar);
+    sugar.addChild(shape);
+    // switch (sugar.isomerShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.isomerShape);
+    //         break;
+    // }
+    // switch (sugar.ringShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.ringShape);
+    //         break;
+    // }
+    sugar.x = coordinate[0];
+    sugar.y = coordinate[1];
+    sugar.xCoord = coordinate[0];
+    sugar.yCoord = coordinate[1];
+    _main.liaise.stage.update();
+    return sugar;
+};
+
+/***/ }),
+/* 891 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+"use stric";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.createDi_DeoxyHexose = undefined;
+
+var _Sugar = __webpack_require__(26);
+
+var _nodeModeType = __webpack_require__(23);
+
+var _getColor = __webpack_require__(29);
+
+var _main = __webpack_require__(20);
+
+var _createjsEaseljs = __webpack_require__(19);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+var _getRelativeCoordinate = __webpack_require__(34);
+
+var _SNFGGlycanTable = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var createDi_DeoxyHexose = exports.createDi_DeoxyHexose = function createDi_DeoxyHexose(event, symbolSize) {
+    var shape = new _createjsEaseljs2.default.Shape();
+    var nodeName = "undefined";
+    switch (_main.liaise.nodeSelect) {
+        case _nodeModeType.nodeModeType.DI_DEOXYHEXOSE:
+            shape.graphics.beginFill((0, _getColor.getColor)("white"));
+            nodeName = "Di-deoxyhexose";
+            break;
+        case _nodeModeType.nodeModeType.OLI:
+            shape.graphics.beginFill((0, _getColor.getColor)("blue"));
+            nodeName = "Oli";
+            break;
+        case _nodeModeType.nodeModeType.TYV:
+            shape.graphics.beginFill((0, _getColor.getColor)("green"));
+            nodeName = "Tyv";
+            break;
+        case _nodeModeType.nodeModeType.ABE:
+            shape.graphics.beginFill((0, _getColor.getColor)("orange"));
+            nodeName = "Abe";
+            break;
+        case _nodeModeType.nodeModeType.PAR:
+            shape.graphics.beginFill((0, _getColor.getColor)("pink"));
+            nodeName = "Par";
+            break;
+        case _nodeModeType.nodeModeType.DIG:
+            shape.graphics.beginFill((0, _getColor.getColor)("purple"));
+            nodeName = "Dig";
+            break;
+        case _nodeModeType.nodeModeType.COL:
+            shape.graphics.beginFill((0, _getColor.getColor)("light_blue"));
+            nodeName = "Col";
+            break;
+    }
+    var isomer = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].isomer;
+    var ring = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].ring;
+    shape.graphics.beginStroke((0, _getColor.getColor)("black"));
+    shape.graphics.setStrokeStyle(2);
+    shape.graphics.drawRect(-symbolSize * 2 / 2, -symbolSize * 2 * 2 / 3 / 2, symbolSize * 2, symbolSize * 2 * 2 / 3);
+    var coordinate = (0, _getRelativeCoordinate.getRelativeCoordinate)(event);
+    var sugar = new _Sugar.Sugar(nodeName);
+    sugar.setIsomer(isomer);
+    sugar.setRing(ring);
+    sugar.createIsomerShape();
+    sugar.createRingShape();
+    _main.liaise.stage.addChild(sugar);
+    sugar.addChild(shape);
+    // switch (sugar.isomerShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.isomerShape);
+    //         break;
+    // }
+    // switch (sugar.ringShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.ringShape);
+    //         break;
+    // }
+    sugar.x = coordinate[0];
+    sugar.y = coordinate[1];
+    sugar.xCoord = coordinate[0];
+    sugar.yCoord = coordinate[1];
+    _main.liaise.stage.update();
+    return sugar;
+};
+
+/***/ }),
+/* 892 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+"use stric";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.createPentose = undefined;
+
+var _Sugar = __webpack_require__(26);
+
+var _nodeModeType = __webpack_require__(23);
+
+var _getColor = __webpack_require__(29);
+
+var _main = __webpack_require__(20);
+
+var _createjsEaseljs = __webpack_require__(19);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+var _getRelativeCoordinate = __webpack_require__(34);
+
+var _SNFGGlycanTable = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var createPentose = exports.createPentose = function createPentose(event, symbolSize) {
+    var shape = new _createjsEaseljs2.default.Shape();
+    var nodeName = "undefined";
+    switch (_main.liaise.nodeSelect) {
+        case _nodeModeType.nodeModeType.PENTOSE:
+            shape.graphics.beginFill((0, _getColor.getColor)("white"));
+            nodeName = "Pentose";
+            break;
+        case _nodeModeType.nodeModeType.ARA:
+            shape.graphics.beginFill((0, _getColor.getColor)("green"));
+            nodeName = "Ara";
+            break;
+        case _nodeModeType.nodeModeType.LYX:
+            shape.graphics.beginFill((0, _getColor.getColor)("yellow"));
+            nodeName = "Lyx";
+            break;
+        case _nodeModeType.nodeModeType.XYL:
+            shape.graphics.beginFill((0, _getColor.getColor)("orange"));
+            nodeName = "Xyl";
+            break;
+        case _nodeModeType.nodeModeType.RIB:
+            shape.graphics.beginFill((0, _getColor.getColor)("pink"));
+            nodeName = "Rib";
+            break;
+    }
+    var isomer = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].isomer;
+    var ring = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].ring;
+    shape.graphics.beginStroke((0, _getColor.getColor)("black"));
+    shape.graphics.setStrokeStyle(2);
+    shape.graphics.drawPolyStar(0, 0, symbolSize, 5, 0.6, -90);
+    var coordinate = (0, _getRelativeCoordinate.getRelativeCoordinate)(event);
+    var sugar = new _Sugar.Sugar(nodeName);
+    sugar.setIsomer(isomer);
+    sugar.setRing(ring);
+    sugar.createIsomerShape();
+    sugar.createRingShape();
+    _main.liaise.stage.addChild(sugar);
+    sugar.addChild(shape);
+    // switch (sugar.isomerShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.isomerShape);
+    //         break;
+    // }
+    // switch (sugar.ringShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.ringShape);
+    //         break;
+    // }
+    sugar.x = coordinate[0];
+    sugar.y = coordinate[1];
+    sugar.xCoord = coordinate[0];
+    sugar.yCoord = coordinate[1];
+    _main.liaise.stage.update();
+    return sugar;
+};
+
+/***/ }),
+/* 893 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.createDeoxynonulosonate = undefined;
+
+var _getRelativeCoordinate = __webpack_require__(34);
+
+var _Sugar = __webpack_require__(26);
+
+var _nodeModeType = __webpack_require__(23);
+
+var _getColor = __webpack_require__(29);
+
+var _main = __webpack_require__(20);
+
+var _createjsEaseljs = __webpack_require__(19);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+var _SNFGGlycanTable = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+"use stric";
+var createDeoxynonulosonate = exports.createDeoxynonulosonate = function createDeoxynonulosonate(event, symbolSize) {
+    var shape = new _createjsEaseljs2.default.Shape();
+    var nodeName = "undefined";
+    switch (_main.liaise.nodeSelect) {
+        case _nodeModeType.nodeModeType.DEOXYNONULOSONATE:
+            shape.graphics.beginFill((0, _getColor.getColor)("white"));
+            nodeName = "Deoxynonulosonate";
+            break;
+        case _nodeModeType.nodeModeType.KDN:
+            shape.graphics.beginFill((0, _getColor.getColor)("green"));
+            nodeName = "Kdn";
+            break;
+        case _nodeModeType.nodeModeType.NEU5AC:
+            shape.graphics.beginFill((0, _getColor.getColor)("purple"));
+            nodeName = "Neu5Ac";
+            break;
+        case _nodeModeType.nodeModeType.NEU5GC:
+            shape.graphics.beginFill((0, _getColor.getColor)("light_blue"));
+            nodeName = "Neu5Gc";
+            break;
+        case _nodeModeType.nodeModeType.NEU:
+            shape.graphics.beginFill((0, _getColor.getColor)("brown"));
+            nodeName = "Neu";
+            break;
+        case _nodeModeType.nodeModeType.SIA:
+            shape.graphics.beginFill((0, _getColor.getColor)("red"));
+            nodeName = "Sia";
+            break;
+    }
+    var isomer = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].isomer;
+    var ring = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].ring;
+    shape.graphics.beginStroke((0, _getColor.getColor)("black"));
+    shape.graphics.setStrokeStyle(2);
+    shape.graphics.drawRect(-2 * symbolSize / 2, -2 * symbolSize / 2, 2 * symbolSize, 2 * symbolSize);
+    shape.rotation = 45;
+    var coordinate = (0, _getRelativeCoordinate.getRelativeCoordinate)(event);
+    var sugar = new _Sugar.Sugar(nodeName);
+    sugar.setIsomer(isomer);
+    sugar.setRing(ring);
+    sugar.createIsomerShape();
+    sugar.createRingShape();
+    _main.liaise.stage.addChild(sugar);
+    sugar.addChild(shape);
+    // switch (sugar.isomerShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.isomerShape);
+    //         break;
+    // }
+    // switch (sugar.ringShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.ringShape);
+    //         break;
+    // }
+    sugar.x = coordinate[0];
+    sugar.y = coordinate[1];
+    sugar.xCoord = coordinate[0];
+    sugar.yCoord = coordinate[1];
+    _main.liaise.stage.update();
+    return sugar;
+};
+
+/***/ }),
+/* 894 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+"use stric";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.createDi_Deoxynonulosonate = undefined;
+
+var _Sugar = __webpack_require__(26);
+
+var _nodeModeType = __webpack_require__(23);
+
+var _getColor = __webpack_require__(29);
+
+var _main = __webpack_require__(20);
+
+var _createjsEaseljs = __webpack_require__(19);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+var _getRelativeCoordinate = __webpack_require__(34);
+
+var _SNFGGlycanTable = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var createDi_Deoxynonulosonate = exports.createDi_Deoxynonulosonate = function createDi_Deoxynonulosonate(event, symbolSize) {
+    var shape = new _createjsEaseljs2.default.Shape();
+    var nodeName = "undefined";
+    switch (_main.liaise.nodeSelect) {
+        case _nodeModeType.nodeModeType.DI_DEOXYNONULOSONATE:
+            shape.graphics.beginFill((0, _getColor.getColor)("white"));
+            nodeName = "Di-deoxynonulosonate";
+            break;
+        case _nodeModeType.nodeModeType.PSE:
+            shape.graphics.beginFill((0, _getColor.getColor)("green"));
+            nodeName = "Pse";
+            break;
+        case _nodeModeType.nodeModeType.LEG:
+            shape.graphics.beginFill((0, _getColor.getColor)("yellow"));
+            nodeName = "Leg";
+            break;
+        case _nodeModeType.nodeModeType.ACI:
+            shape.graphics.beginFill((0, _getColor.getColor)("pink"));
+            nodeName = "Aci";
+            break;
+        case _nodeModeType.nodeModeType.E4LEG:
+            shape.graphics.beginFill((0, _getColor.getColor)("light_blue"));
+            nodeName = "4eLeg";
+            break;
+    }
+    var isomer = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].isomer;
+    var ring = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].ring;
+    shape.graphics.beginStroke((0, _getColor.getColor)("black"));
+    shape.graphics.setStrokeStyle(2);
+    // let scale = 20;
+    shape.graphics.moveTo(0, -1 * symbolSize * 2 * 2 / 3 / 2).lineTo(-1 * symbolSize * 2 * 2 / 3 / 2 * Math.sqrt(3), 0).lineTo(0, symbolSize * 2 * 2 / 3 / 2).lineTo(symbolSize * 2 * 2 / 3 / 2 * Math.sqrt(3), 0).closePath().endFill();
+    var coordinate = (0, _getRelativeCoordinate.getRelativeCoordinate)(event);
+    var sugar = new _Sugar.Sugar(nodeName);
+    sugar.setIsomer(isomer);
+    sugar.setRing(ring);
+    sugar.createIsomerShape();
+    sugar.createRingShape();
+    _main.liaise.stage.addChild(sugar);
+    sugar.addChild(shape);
+    // switch (sugar.isomerShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.isomerShape);
+    //         break;
+    // }
+    // switch (sugar.ringShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.ringShape);
+    //         break;
+    // }
+    sugar.x = coordinate[0];
+    sugar.y = coordinate[1];
+    sugar.xCoord = coordinate[0];
+    sugar.yCoord = coordinate[1];
+    _main.liaise.stage.update();
+    return sugar;
+};
+
+/***/ }),
+/* 895 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+"use stric";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.createUnknown = undefined;
+
+var _Sugar = __webpack_require__(26);
+
+var _nodeModeType = __webpack_require__(23);
+
+var _getColor = __webpack_require__(29);
+
+var _main = __webpack_require__(20);
+
+var _createjsEaseljs = __webpack_require__(19);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+var _getRelativeCoordinate = __webpack_require__(34);
+
+var _SNFGGlycanTable = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var createUnknown = exports.createUnknown = function createUnknown(event, symbolSize) {
+    var shape = new _createjsEaseljs2.default.Shape();
+    var nodeName = "undefined";
+    switch (_main.liaise.nodeSelect) {
+        case _nodeModeType.nodeModeType.UNKNOWN:
+            shape.graphics.beginFill((0, _getColor.getColor)("white"));
+            nodeName = "Unknown";
+            break;
+        case _nodeModeType.nodeModeType.BAC:
+            shape.graphics.beginFill((0, _getColor.getColor)("blue"));
+            nodeName = "Bac";
+            break;
+        case _nodeModeType.nodeModeType.LDMANHEP:
+            shape.graphics.beginFill((0, _getColor.getColor)("green"));
+            nodeName = "LDmanHep";
+            break;
+        case _nodeModeType.nodeModeType.KDO:
+            shape.graphics.beginFill((0, _getColor.getColor)("yellow"));
+            nodeName = "Kdo";
+            break;
+        case _nodeModeType.nodeModeType.DHA:
+            shape.graphics.beginFill((0, _getColor.getColor)("orange"));
+            nodeName = "Dha";
+            break;
+        case _nodeModeType.nodeModeType.DDMANHEP:
+            shape.graphics.beginFill((0, _getColor.getColor)("pink"));
+            nodeName = "DDmanHep";
+            break;
+        case _nodeModeType.nodeModeType.MURNAC:
+            shape.graphics.beginFill((0, _getColor.getColor)("purple"));
+            nodeName = "MurNAc";
+            break;
+        case _nodeModeType.nodeModeType.MURNGC:
+            shape.graphics.beginFill((0, _getColor.getColor)("light_blue"));
+            nodeName = "MurNGc";
+            break;
+        case _nodeModeType.nodeModeType.MUR:
+            shape.graphics.beginFill((0, _getColor.getColor)("brown"));
+            nodeName = "Mur";
+            break;
+    }
+    var isomer = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].isomer;
+    var ring = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].ring;
+    shape.graphics.beginStroke((0, _getColor.getColor)("black"));
+    shape.graphics.setStrokeStyle(2);
+    shape.graphics.moveTo(-1 * symbolSize, 0).lineTo(-1 * 1 / 2 * symbolSize, -1 * symbolSize).lineTo(1 / 2 * symbolSize, -1 * symbolSize).lineTo(symbolSize, 0).lineTo(1 / 2 * symbolSize, symbolSize).lineTo(-1 * 1 / 2 * symbolSize, symbolSize).closePath().endFill();
+    var coordinate = (0, _getRelativeCoordinate.getRelativeCoordinate)(event);
+    var sugar = new _Sugar.Sugar(nodeName);
+    sugar.setIsomer(isomer);
+    sugar.setRing(ring);
+    sugar.createIsomerShape();
+    sugar.createRingShape();
+    _main.liaise.stage.addChild(sugar);
+    sugar.addChild(shape);
+    // switch (sugar.isomerShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.isomerShape);
+    //         break;
+    // }
+    // switch (sugar.ringShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.ringShape);
+    //         break;
+    // }
+    sugar.x = coordinate[0];
+    sugar.y = coordinate[1];
+    sugar.xCoord = coordinate[0];
+    sugar.yCoord = coordinate[1];
+    _main.liaise.stage.update();
+    return sugar;
+};
+
+/***/ }),
+/* 896 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+"use stric";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.createAssigned = undefined;
+
+var _Sugar = __webpack_require__(26);
+
+var _nodeModeType = __webpack_require__(23);
+
+var _getColor = __webpack_require__(29);
+
+var _main = __webpack_require__(20);
+
+var _createjsEaseljs = __webpack_require__(19);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+var _getRelativeCoordinate = __webpack_require__(34);
+
+var _SNFGGlycanTable = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var createAssigned = exports.createAssigned = function createAssigned(event, symbolSize) {
+    var shape = new _createjsEaseljs2.default.Shape();
+    var nodeName = "undefined";
+    switch (_main.liaise.nodeSelect) {
+        case _nodeModeType.nodeModeType.ASSIGNED:
+            shape.graphics.beginFill((0, _getColor.getColor)("white"));
+            nodeName = "Assigned";
+            break;
+        case _nodeModeType.nodeModeType.API:
+            shape.graphics.beginFill((0, _getColor.getColor)("blue"));
+            nodeName = "Api";
+            break;
+        case _nodeModeType.nodeModeType.FRU:
+            shape.graphics.beginFill((0, _getColor.getColor)("green"));
+            nodeName = "Fru";
+            break;
+        case _nodeModeType.nodeModeType.TAG:
+            shape.graphics.beginFill((0, _getColor.getColor)("yellow"));
+            nodeName = "Tag";
+            break;
+        case _nodeModeType.nodeModeType.SOR:
+            shape.graphics.beginFill((0, _getColor.getColor)("orange"));
+            nodeName = "Sor";
+            break;
+        case _nodeModeType.nodeModeType.PSI:
+            shape.graphics.beginFill((0, _getColor.getColor)("pink"));
+            nodeName = "Psi";
+            break;
+    }
+    var isomer = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].isomer;
+    var ring = _SNFGGlycanTable.SNFGSymbolGlycan[nodeName].ring;
+    shape.graphics.beginStroke((0, _getColor.getColor)("black"));
+    shape.graphics.setStrokeStyle(2);
+    shape.graphics.drawPolyStar(0, 0, symbolSize, 5, 0, -90);
+    var coordinate = (0, _getRelativeCoordinate.getRelativeCoordinate)(event);
+    var sugar = new _Sugar.Sugar(nodeName);
+    sugar.setIsomer(isomer);
+    sugar.setRing(ring);
+    sugar.createIsomerShape();
+    sugar.createRingShape();
+    _main.liaise.stage.addChild(sugar);
+    sugar.addChild(shape);
+    // switch (sugar.isomerShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.isomerShape);
+    //         break;
+    // }
+    // switch (sugar.ringShape.text) {
+    //     case "undefined":
+    //         break;
+    //     default:
+    //         sugar.addChild(sugar.ringShape);
+    //         break;
+    // }
+    sugar.x = coordinate[0];
+    sugar.y = coordinate[1];
+    sugar.xCoord = coordinate[0];
+    sugar.yCoord = coordinate[1];
+    _main.liaise.stage.update();
+    return sugar;
+};
+
+/***/ }),
+/* 897 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+"use stric";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createUndefSNFG = undefined;
+
+var _Sugar = __webpack_require__(26);
+
+var _nodeModeType = __webpack_require__(23);
+
+var _getColor = __webpack_require__(29);
+
+var _main = __webpack_require__(20);
+
+var _createjsEaseljs = __webpack_require__(19);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+var _getRelativeCoordinate = __webpack_require__(34);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var createUndefSNFG = exports.createUndefSNFG = function createUndefSNFG(event) {};
+
+/***/ }),
+/* 898 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+//flow
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.nodeClickEvents = nodeClickEvents;
+
+var _modeType = __webpack_require__(62);
+
+var _main = __webpack_require__(20);
+
+function nodeClickEvents() {
+    //Bind Glycanの機能
+    if (_main.liaise.modeType === _modeType.modeType.EDGE) {
+        console.log(event.target);
+        event.highLight();
+        return;
+    }
+}
+
+/***/ }),
 /* 899 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -65149,8 +68140,11 @@ var SidebarContens = exports.SidebarContens = function () {
         key: "getContents",
         value: function getContents(currentModeType) {
             if (currentModeType === _modeType.modeType.NODE) {
-                this.contents = new _nodeTable.nodeTable();
-                return this.contents.getContents();
+                // this.contents = new nodeTable();
+                return (
+                    // this.contents.getContents()
+                    _react2.default.createElement(_nodeTable.NodeTable, null)
+                );
             } else if (currentModeType === _modeType.modeType.EDGE) {
                 this.contents = new _edgeTable.edgeTable();
                 return this.contents.getContents();
@@ -65178,7 +68172,7 @@ var SidebarContens = exports.SidebarContens = function () {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.nodeTable = undefined;
+exports.NodeTable = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -65188,18 +68182,53 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(45);
 
+var _main = __webpack_require__(20);
+
+var _nodeModeSearch = __webpack_require__(445);
+
+var _nodeImage = __webpack_require__(902);
+
+var _nodeModeType = __webpack_require__(23);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var nodeTable = exports.nodeTable = function () {
-    function nodeTable() {
-        _classCallCheck(this, nodeTable);
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NodeTable = exports.NodeTable = function (_React$Component) {
+    _inherits(NodeTable, _React$Component);
+
+    function NodeTable(props) {
+        _classCallCheck(this, NodeTable);
+
+        var _this = _possibleConstructorReturn(this, (NodeTable.__proto__ || Object.getPrototypeOf(NodeTable)).call(this, props));
+
+        _this.state = {
+            currentMode: _main.liaise.nodeSelect
+        };
+        return _this;
     }
 
-    _createClass(nodeTable, [{
-        key: "getContents",
-        value: function getContents() {
+    _createClass(NodeTable, [{
+        key: "onClickEvent",
+        value: function onClickEvent(e) {
+            var currentState = this.state;
+            currentState.currentMode = (0, _nodeModeSearch.nodeModeSearch)(e.target.id);
+            this.setState(currentState);
+            _main.liaise.nodeSelect = currentState.currentMode;
+            console.log(e.target.id);
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var _this2 = this;
+
+            var defImageStyle = {
+                style: {}
+            };
             return _react2.default.createElement(
                 "div",
                 null,
@@ -65280,102 +68309,66 @@ var nodeTable = exports.nodeTable = function () {
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Hexose.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Hexose"
-                                )
+                                { id: "Hexose", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Hexose.jpg", id: "Hexose", selected: this.state.currentMode === _nodeModeType.nodeModeType.HEXOSE, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Glc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Glc"
-                                )
+                                { id: "Glc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Glc.jpg", id: "Glc", selected: this.state.currentMode === _nodeModeType.nodeModeType.GLC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Man.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Man"
-                                )
+                                { id: "Man", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Man.jpg", id: "Man", selected: this.state.currentMode === _nodeModeType.nodeModeType.MAN, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Gal.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Gal"
-                                )
+                                { id: "Gal", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Gal.jpg", id: "Gal", selected: this.state.currentMode === _nodeModeType.nodeModeType.GAL, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Gul.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Gul"
-                                )
+                                { id: "Gul", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Gul.jpg", id: "Gul", selected: this.state.currentMode === _nodeModeType.nodeModeType.GUL, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Alt.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Alt"
-                                )
+                                { id: "Alt", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Alt.jpg", id: "Alt", selected: this.state.currentMode === _nodeModeType.nodeModeType.ALT, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/All.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "All"
-                                )
+                                { id: "All", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/All.jpg", id: "All", selected: this.state.currentMode === _nodeModeType.nodeModeType.ALL, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Tal.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Tal"
-                                )
+                                { id: "Tal", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Tal.jpg", id: "Tal", selected: this.state.currentMode === _nodeModeType.nodeModeType.TAL, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Ido.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Ido"
-                                )
+                                { id: "Ido", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Ido.jpg", id: "Ido", selected: this.state.currentMode === _nodeModeType.nodeModeType.IDO, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null)
                         ),
@@ -65389,102 +68382,66 @@ var nodeTable = exports.nodeTable = function () {
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/HexNAc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "HexNAc"
-                                )
+                                { id: "HexNAc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/HexNAc.jpg", id: "HexNAc", selected: this.state.currentMode === _nodeModeType.nodeModeType.HEXNAC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/GlcNAc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "GlcNAc"
-                                )
+                                { id: "GlcNAc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/GlcNAc.jpg", id: "GlcNAc", selected: this.state.currentMode === _nodeModeType.nodeModeType.GLCNAC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/ManNAc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "ManNAc"
-                                )
+                                { id: "ManNAc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/ManNAc.jpg", id: "ManNAc", selected: this.state.currentMode === _nodeModeType.nodeModeType.MANNAC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/GalNAc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "GalNAc"
-                                )
+                                { id: "GalNAc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/GalNAc.jpg", id: "GalNAc", selected: this.state.currentMode === _nodeModeType.nodeModeType.GALNAC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/GulNAc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "GulNAc"
-                                )
+                                { id: "GulNAc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/GulNAc.jpg", id: "GulNAc", selected: this.state.currentMode === _nodeModeType.nodeModeType.GULNAC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/AltNAc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "AltNAc"
-                                )
+                                { id: "AltNAc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/AltNAc.jpg", id: "AltNAc", selected: this.state.currentMode === _nodeModeType.nodeModeType.ALTNAC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/AllNAc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "AllNAc"
-                                )
+                                { id: "AllNAc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/AllNAc.jpg", id: "AllNAc", selected: this.state.currentMode === _nodeModeType.nodeModeType.ALLNAC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/TalNAc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "TalNAc"
-                                )
+                                { id: "TalNAc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/TalNAc.jpg", id: "TalNAc", selected: this.state.currentMode === _nodeModeType.nodeModeType.TALNAC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/IdoNAc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "IdoNAc"
-                                )
+                                { id: "IdoNAc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/IdoNAc.jpg", id: "IdoNAc", selected: this.state.currentMode === _nodeModeType.nodeModeType.IDONAC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null)
                         ),
@@ -65498,102 +68455,66 @@ var nodeTable = exports.nodeTable = function () {
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Hexosamine.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Hexosamine"
-                                )
+                                { id: "Hexosamine", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Hexosamine.jpg", id: "Hexosamine", selected: this.state.currentMode === _nodeModeType.nodeModeType.HEXOSAMINE, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/GlcN.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "GlcN"
-                                )
+                                { id: "GlcN", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/GlcN.jpg", id: "GlcN", selected: this.state.currentMode === _nodeModeType.nodeModeType.GLCN, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/MAnN.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "ManN"
-                                )
+                                { id: "ManN", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/MAnN.jpg", id: "ManN", selected: this.state.currentMode === _nodeModeType.nodeModeType.MANN, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/GalN.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "GalN"
-                                )
+                                { id: "GalN", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/GalN.jpg", id: "GalN", selected: this.state.currentMode === _nodeModeType.nodeModeType.GALN, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/GulN.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "GulN"
-                                )
+                                { id: "GulN", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/GulN.jpg", id: "GulN", selected: this.state.currentMode === _nodeModeType.nodeModeType.GULN, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/AltN.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "AltN"
-                                )
+                                { id: "AltN", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/AltN.jpg", id: "AltN", selected: this.state.currentMode === _nodeModeType.nodeModeType.ALTN, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/AllN.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "AllN"
-                                )
+                                { id: "AllN", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/AllN.jpg", id: "AllN", selected: this.state.currentMode === _nodeModeType.nodeModeType.ALLN, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/TalN.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "TalN"
-                                )
+                                { id: "TalN", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/TalN.jpg", id: "TalN", selected: this.state.currentMode === _nodeModeType.nodeModeType.TALN, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/IdoN.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "IdoN"
-                                )
+                                { id: "IdoN", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/IdoN.jpg", id: "IdoN", selected: this.state.currentMode === _nodeModeType.nodeModeType.IDON, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null)
                         ),
@@ -65607,102 +68528,66 @@ var nodeTable = exports.nodeTable = function () {
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Hexuronate.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Hexuronate"
-                                )
+                                { id: "Hexuronate", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Hexuronate.jpg", id: "Hexuronate", selected: this.state.currentMode === _nodeModeType.nodeModeType.HEXURONATE, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/GlcA.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "GlcA"
-                                )
+                                { id: "GlcA", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/GlcA.jpg", id: "GlcA", selected: this.state.currentMode === _nodeModeType.nodeModeType.GLCA, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/ManA.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "ManA"
-                                )
+                                { id: "ManA", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/ManA.jpg", id: "ManA", selected: this.state.currentMode === _nodeModeType.nodeModeType.MANA, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/GalA.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "GalA"
-                                )
+                                { id: "GalA", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/GalA.jpg", id: "GalA", selected: this.state.currentMode === _nodeModeType.nodeModeType.GALA, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/GulA.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "GulA"
-                                )
+                                { id: "GulA", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/GulA.jpg", id: "GulA", selected: this.state.currentMode === _nodeModeType.nodeModeType.GULA, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/AltA.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "AltA"
-                                )
+                                { id: "AltA", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/AltA.jpg", id: "AltA", selected: this.state.currentMode === _nodeModeType.nodeModeType.ALTA, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/AllA.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "AllA"
-                                )
+                                { id: "AllA", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/AllA.jpg", id: "AllA", selected: this.state.currentMode === _nodeModeType.nodeModeType.ALLA, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/TalA.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "TalA"
-                                )
+                                { id: "TalA", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/TalA.jpg", id: "TalA", selected: this.state.currentMode === _nodeModeType.nodeModeType.TALA, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/IdoA.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "IdoA"
-                                )
+                                { id: "IdoA", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/IdoA.jpg", id: "IdoA", selected: this.state.currentMode === _nodeModeType.nodeModeType.IDOA, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null)
                         ),
@@ -65716,83 +68601,55 @@ var nodeTable = exports.nodeTable = function () {
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Deoxyhexose.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Deoxyhexose"
-                                )
+                                { id: "Deoxyhexose", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Deoxyhexose.jpg", id: "Deoxyhexose", selected: this.state.currentMode === _nodeModeType.nodeModeType.DEOXYHEXOSE, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Qui.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Qui"
-                                )
+                                { id: "Qui", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Qui.jpg", id: "Qui", selected: this.state.currentMode === _nodeModeType.nodeModeType.QUI, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Rha.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Rha"
-                                )
+                                { id: "Rha", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Rha.jpg", id: "Rha", selected: this.state.currentMode === _nodeModeType.nodeModeType.RHA, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/6dGul.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "6dGul"
-                                )
+                                { id: "6dGul", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/6dGul.jpg", id: "6dGul", selected: this.state.currentMode === _nodeModeType.nodeModeType.D6GUL, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/6dAlt.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "6dAlt"
-                                )
+                                { id: "6dAlt", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/6dAlt.jpg", id: "6dAlt", selected: this.state.currentMode === _nodeModeType.nodeModeType.D6ALT, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/6dTal.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "6dTal"
-                                )
+                                { id: "6dTal", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/6dTal.jpg", id: "6dTal", selected: this.state.currentMode === _nodeModeType.nodeModeType.D6TAL, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Fuc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Fuc"
-                                )
+                                { id: "Fuc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Fuc.jpg", id: "Fuc", selected: this.state.currentMode === _nodeModeType.nodeModeType.FUC, defStyle: defImageStyle })
                             )
                         ),
                         _react2.default.createElement(
@@ -65805,73 +68662,49 @@ var nodeTable = exports.nodeTable = function () {
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/DeoxyhexNAc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "DeoxyhexNAc"
-                                )
+                                { id: "DeoxyhexNAc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/DeoxyhexNAc.jpg", id: "DeoxyhexNAc", selected: this.state.currentMode === _nodeModeType.nodeModeType.DEOXYHEXNAC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/QuiNAc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "QuiNAc"
-                                )
+                                { id: "QuiNAc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/QuiNAc.jpg", id: "QuiNAc", selected: this.state.currentMode === _nodeModeType.nodeModeType.QUINAC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/RhaNAc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "RhaNAc"
-                                )
+                                { id: "RhaNAc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/RhaNAc.jpg", id: "RhaNAc", selected: this.state.currentMode === _nodeModeType.nodeModeType.RHANAC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/6dAltNAc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "6dAltNAc"
-                                )
+                                { id: "6dAltNAc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/6dAltNAc.jpg", id: "6dAltNAc", selected: this.state.currentMode === _nodeModeType.nodeModeType.D6ALTNAC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/6dTalNAc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "6dTalNAc"
-                                )
+                                { id: "6dTalNAc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/6dTalNAc.jpg", id: "6dTalNAc", selected: this.state.currentMode === _nodeModeType.nodeModeType.D6TALNAC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/FucNAc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "FucNAc"
-                                )
+                                { id: "FucNAc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/FucNAc.jpg", id: "FucNAc", selected: this.state.currentMode === _nodeModeType.nodeModeType.FUCNAC, defStyle: defImageStyle })
                             )
                         ),
                         _react2.default.createElement(
@@ -65884,81 +68717,53 @@ var nodeTable = exports.nodeTable = function () {
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Di-deoxyhexose.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Di-deoxyhexose"
-                                )
+                                { id: "Di-deoxyhexose", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Di-deoxyhexose.jpg", id: "Di-deoxyhexose", selected: this.state.currentMode === _nodeModeType.nodeModeType.DI_DEOXYHEXOSE, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Oli.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Oli"
-                                )
+                                { id: "Oli", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Oli.jpg", id: "Oli", selected: this.state.currentMode === _nodeModeType.nodeModeType.OLI, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Tyv.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Tyv"
-                                )
+                                { id: "Tyv", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Tyv.jpg", id: "Tyv", selected: this.state.currentMode === _nodeModeType.nodeModeType.TYV, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Abe.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Abe"
-                                )
+                                { id: "Abe", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Abe.jpg", id: "Abe", selected: this.state.currentMode === _nodeModeType.nodeModeType.ABE, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Par.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Par"
-                                )
+                                { id: "Par", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Par.jpg", id: "Par", selected: this.state.currentMode === _nodeModeType.nodeModeType.PAR, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Dig.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Dig"
-                                )
+                                { id: "Dig", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Dig.jpg", id: "Dig", selected: this.state.currentMode === _nodeModeType.nodeModeType.DIG, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Col.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Col"
-                                )
+                                { id: "Col", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Col.jpg", id: "Col", selected: this.state.currentMode === _nodeModeType.nodeModeType.COL, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null)
@@ -65973,59 +68778,39 @@ var nodeTable = exports.nodeTable = function () {
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Pentose.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Pentose"
-                                )
+                                { id: "Pentose", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Pentose.jpg", id: "Pentose", selected: this.state.currentMode === _nodeModeType.nodeModeType.PENTOSE, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Ara.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Ara"
-                                )
+                                { id: "Ara", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Ara.jpg", id: "Ara", selected: this.state.currentMode === _nodeModeType.nodeModeType.ARA, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Lyx.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Lyx"
-                                )
+                                { id: "Lyx", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Lyx.jpg", id: "Lyx", selected: this.state.currentMode === _nodeModeType.nodeModeType.LYX, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Xyl.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Xyl"
-                                )
+                                { id: "Xyl", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Xyl.jpg", id: "Xyl", selected: this.state.currentMode === _nodeModeType.nodeModeType.XYL, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Rib.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Rib"
-                                )
+                                { id: "Rib", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Rib.jpg", id: "Rib", selected: this.state.currentMode === _nodeModeType.nodeModeType.RIB, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
@@ -66042,73 +68827,49 @@ var nodeTable = exports.nodeTable = function () {
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Deoxynonulosonate.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Deoxynonulosonate"
-                                )
+                                { id: "Deoxynonulosonate", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Deoxynonulosonate.jpg", id: "Deoxynonulosonate", selected: this.state.currentMode === _nodeModeType.nodeModeType.DEOXYNONULOSONATE, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Kdn.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Kdn"
-                                )
+                                { id: "Kdn", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Kdn.jpg", id: "Kdn", selected: this.state.currentMode === _nodeModeType.nodeModeType.KDN, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Neu5Ac.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Neu5Ac"
-                                )
+                                { id: "Neu5Ac", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Neu5Ac.jpg", id: "Neu5Ac", selected: this.state.currentMode === _nodeModeType.nodeModeType.NEU5AC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Neu5Gc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Neu5Gc"
-                                )
+                                { id: "Neu5Gc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Neu5Gc.jpg", id: "Neu5Gc", selected: this.state.currentMode === _nodeModeType.nodeModeType.NEU5GC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Neu.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Neu"
-                                )
+                                { id: "Neu", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Neu.jpg", id: "Neu", selected: this.state.currentMode === _nodeModeType.nodeModeType.NEU, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Sia.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Sia"
-                                )
+                                { id: "Sia", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Sia.jpg", id: "Sia", selected: this.state.currentMode === _nodeModeType.nodeModeType.SIA, defStyle: defImageStyle })
                             )
                         ),
                         _react2.default.createElement(
@@ -66121,61 +68882,41 @@ var nodeTable = exports.nodeTable = function () {
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Di-deoxynonulosonate.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Di-deoxynonulosonate"
-                                )
+                                { id: "Di-deoxynonulosonate", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Di-deoxynonulosonate.jpg", id: "Di-deoxynonulosonate", selected: this.state.currentMode === _nodeModeType.nodeModeType.DI_DEOXYNONULOSONATE, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Pse.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Pse"
-                                )
+                                { id: "Pse", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Pse.jpg", id: "Pse", selected: this.state.currentMode === _nodeModeType.nodeModeType.PSE, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Leg.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Leg"
-                                )
+                                { id: "Leg", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Leg.jpg", id: "Leg", selected: this.state.currentMode === _nodeModeType.nodeModeType.LEG, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Aci.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Aci"
-                                )
+                                { id: "Aci", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Aci.jpg", id: "Aci", selected: this.state.currentMode === _nodeModeType.nodeModeType.ACI, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/4eLeg.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "4eLeg"
-                                )
+                                { id: "4eLeg", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/4eLeg.jpg", id: "4eLeg", selected: this.state.currentMode === _nodeModeType.nodeModeType.E4LEG, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null)
@@ -66190,102 +68931,66 @@ var nodeTable = exports.nodeTable = function () {
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Unknown.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Unknown"
-                                )
+                                { id: "Unknown", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Unknown.jpg", id: "Unknown", selected: this.state.currentMode === _nodeModeType.nodeModeType.UNKNOWN, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Bac.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Bac"
-                                )
+                                { id: "Bac", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Bac.jpg", id: "Bac", selected: this.state.currentMode === _nodeModeType.nodeModeType.BAC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/LDmanHep.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "LDmanHep"
-                                )
+                                { id: "LDmanHep", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/LDmanHep.jpg", id: "LDmanHep", selected: this.state.currentMode === _nodeModeType.nodeModeType.LDMANHEP, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Kdo.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Kdo"
-                                )
+                                { id: "Kdo", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Kdo.jpg", id: "Kdo", selected: this.state.currentMode === _nodeModeType.nodeModeType.KDO, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Dha.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Dha"
-                                )
+                                { id: "Dha", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Dha.jpg", id: "Dha", selected: this.state.currentMode === _nodeModeType.nodeModeType.DHA, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/DDmanHep.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "DDmanHep"
-                                )
+                                { id: "DDmanHep", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/DDmanHep.jpg", id: "DDmanHep", selected: this.state.currentMode === _nodeModeType.nodeModeType.DDMANHEP, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/MurNAc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "MurNAc"
-                                )
+                                { id: "MurNAc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/MurNAc.jpg", id: "MurNAc", selected: this.state.currentMode === _nodeModeType.nodeModeType.MURNAC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/MurNGc.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "MurNGc"
-                                )
+                                { id: "MurNGc", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/MurNGc.jpg", id: "MurNGc", selected: this.state.currentMode === _nodeModeType.nodeModeType.MURNGC, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Mur.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Mur"
-                                )
+                                { id: "Mur", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Mur.jpg", id: "Mur", selected: this.state.currentMode === _nodeModeType.nodeModeType.MUR, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null)
                         ),
@@ -66299,69 +69004,45 @@ var nodeTable = exports.nodeTable = function () {
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Assigned.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Assigned"
-                                )
+                                { id: "Assigned", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Assigned.jpg", id: "Assigned", selected: this.state.currentMode === _nodeModeType.nodeModeType.ASSIGNED, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Api.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Api"
-                                )
+                                { id: "Api", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Api.jpg", id: "Api", selected: this.state.currentMode === _nodeModeType.nodeModeType.API, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Fru.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Fru"
-                                )
+                                { id: "Fru", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Fru.jpg", id: "Fru", selected: this.state.currentMode === _nodeModeType.nodeModeType.FRU, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Tag.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Tag"
-                                )
+                                { id: "Tag", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Tag.jpg", id: "Tag", selected: this.state.currentMode === _nodeModeType.nodeModeType.TAG, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Sor.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Sor"
-                                )
+                                { id: "Sor", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Sor.jpg", id: "Sor", selected: this.state.currentMode === _nodeModeType.nodeModeType.SOR, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(
                                 _semanticUiReact.Table.Cell,
-                                null,
-                                _react2.default.createElement(_semanticUiReact.Image, { src: "../image/symbol/Psi.jpg", size: "mini" }),
-                                _react2.default.createElement("br", null),
-                                _react2.default.createElement(
-                                    "p",
-                                    null,
-                                    "Psi"
-                                )
+                                { id: "Psi", onClick: function onClick(event) {
+                                        return _this2.onClickEvent(event);
+                                    } },
+                                _react2.default.createElement(_nodeImage.NodeImage, { image: "../image/symbol/Psi.jpg", id: "Psi", selected: this.state.currentMode === _nodeModeType.nodeModeType.PSI, defStyle: defImageStyle })
                             ),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
                             _react2.default.createElement(_semanticUiReact.Table.Cell, null),
@@ -66374,11 +69055,84 @@ var nodeTable = exports.nodeTable = function () {
         }
     }]);
 
-    return nodeTable;
-}();
+    return NodeTable;
+}(_react2.default.Component);
 
 /***/ }),
-/* 902 */,
+/* 902 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.NodeImage = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(45);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NodeImage = exports.NodeImage = function (_React$Component) {
+    _inherits(NodeImage, _React$Component);
+
+    function NodeImage(props) {
+        _classCallCheck(this, NodeImage);
+
+        var _this = _possibleConstructorReturn(this, (NodeImage.__proto__ || Object.getPrototypeOf(NodeImage)).call(this, props));
+
+        _this.state = {};
+        return _this;
+    }
+
+    _createClass(NodeImage, [{
+        key: "render",
+        value: function render() {
+            var imageProps = this.props.defStyle;
+
+            if (this.props.selected) {
+                imageProps.style = {
+                    "backgroundColor": "rgba(255, 0, 0,1.0)",
+                    "opacity": "0.5",
+                    "border": "5px solid"
+                };
+            } else {
+                imageProps.style = {};
+            }
+
+            return _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(_semanticUiReact.Image, _extends({ src: this.props.image, size: "mini", id: this.props.id }, imageProps)),
+                _react2.default.createElement("br", null),
+                _react2.default.createElement(
+                    "p",
+                    { id: this.props.id },
+                    this.props.id
+                )
+            );
+        }
+    }]);
+
+    return NodeImage;
+}(_react2.default.Component);
+
+/***/ }),
 /* 903 */
 /***/ (function(module, exports, __webpack_require__) {
 

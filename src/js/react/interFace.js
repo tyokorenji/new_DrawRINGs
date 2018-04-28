@@ -63,6 +63,7 @@ export class InterFace extends React.Component {
             currentState.sideBarVisible = false;
         }
         this.setState(currentState);
+        liaise.modeType = currentState.current_mode_type;
     }
 
     mouseOverEvent(e) {

@@ -2,7 +2,7 @@
 import React from "react";
 import { Menu, Icon, Table, Image, TextArea, Form } from "semantic-ui-react";
 import { modeType } from "./modeType";
-import { nodeTable } from "./nodeTable";
+import { NodeTable } from "./nodeTable";
 import { edgeTable } from "./edgeTable";
 import { structureTable } from "./structureTable";
 import { KCFTextArea } from "./KCFTextArea";
@@ -15,9 +15,10 @@ export class SidebarContens {
 
     getContents(currentModeType){
         if (currentModeType === modeType.NODE) {
-            this.contents = new nodeTable();
+            // this.contents = new nodeTable();
             return (
-                this.contents.getContents()
+                // this.contents.getContents()
+                <NodeTable/>
             );
         }
         else if (currentModeType === modeType.EDGE) {
