@@ -98,7 +98,7 @@ export function nodeModeSearch(target: string) {
 
 export function nodeType(target: Symbol) {
     switch (target) {
-        case  nodeModeType.HEXOSE:
+        case nodeModeType.HEXOSE:
         case nodeModeType.GLC:
         case nodeModeType.MAN:
         case nodeModeType.GAL:
@@ -152,7 +152,7 @@ export function nodeType(target: Symbol) {
         case nodeModeType.D6ALTNAC:
         case nodeModeType.D6TALNAC:
         case nodeModeType.FUCNAC:
-            return nodeModeType.DEOXYHEXOSE;
+            return nodeModeType.DEOXYHEXNAC;
         case  nodeModeType.DI_DEOXYHEXOSE:
         case nodeModeType.OLI:
         case nodeModeType.TYV:

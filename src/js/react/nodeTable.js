@@ -23,7 +23,6 @@ export class NodeTable extends React.Component {
         this.setState(currentState);
         liaise.nodeSelect = currentState.currentMode;
         console.log(e.target.id);
-        // console.log(liaise.nodeSelect.iterator);
     }
 
 
@@ -133,7 +132,7 @@ export class NodeTable extends React.Component {
                         <Table.Row>
                             <Table.Cell>Flat Rectangle</Table.Cell>
                             <Table.Cell id = { "Di-deoxyhexose" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Di-deoxyhexose.jpg'  id = { "Di-deoxyhexose" } selected = { this.state.currentMode === nodeModeType.DI_DEOXYHEXOSE } defStyle = { defImageStyle } /></Table.Cell>
-                            <Table.Cell id = { "Oli" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Oli.jpg'  id = { "Oli" } selected = { this.state.currentMode === nodeModeType.OIL } defStyle = { defImageStyle } /></Table.Cell>
+                            <Table.Cell id = { "Oli" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Oli.jpg'  id = { "Oli" } selected = { this.state.currentMode === nodeModeType.OLI } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell id = { "Tyv" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Tyv.jpg'  id = { "Tyv" } selected = { this.state.currentMode === nodeModeType.TYV } defStyle = { defImageStyle } /></Table.Cell>
                             <Table.Cell></Table.Cell>
                             <Table.Cell id = { "Abe" } onClick = { (event) => this.onClickEvent(event) } ><NodeImage image='../image/symbol/Abe.jpg'  id = { "Abe" } selected = { this.state.currentMode === nodeModeType.ABE } defStyle = { defImageStyle } /></Table.Cell>

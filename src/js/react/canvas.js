@@ -20,12 +20,12 @@ export class Canvas extends React.Component {
         // canvas.modeType = modeType;
         this.stage = new createjs.Stage(canvas);
         liaise.stage = this.stage;
-        let rect = new createjs.Graphics();
-        rect.beginFill("red");
-        rect.drawRect(10, 10, 20, 20);
-        const shape = new createjs.Shape(rect);
-        liaise.stage.addChild(shape);
-        liaise.stage.update();
+        // let rect = new createjs.Graphics();
+        // rect.beginFill("red");
+        // rect.drawRect(10, 10, 20, 20);
+        // const shape = new createjs.Shape(rect);
+        // liaise.stage.addChild(shape);
+        // liaise.stage.update();
     }
 
     render() {

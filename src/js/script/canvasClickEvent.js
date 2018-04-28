@@ -2,22 +2,28 @@
 "use strict";
 
 import { modeType } from "../react/modeType";
-import { nodeModeType } from "../react/nodeModeType";
-import { liaise, glycans } from "./main";
+import { liaise, glycans, monosachrrides } from "./main";
 import { nodeType } from "../react/nodeModeSearch";
-import { createjs } from "createjs-easeljs";
-import { createNodeShape } from "./createNodeShape";
+import { createNodeShape } from "./createSugar/createNodeShape";
+import { nodeClickEvents } from "./nodeClickEvents";
 import { Glycan } from "./class/Glycan";
 import { Sugar } from "./class/Sugar";
 
 
 
 export function canvasClickEvent() {
-
-    console.log("a");
+    //DrawGlycanの機能
     if (liaise.modeType === modeType.NODE) {
         let shapeType: Symbol = nodeType(liaise.nodeSelect);
         let sugar: Sugar = createNodeShape(shapeType, event);
+        switch (sugar.name) {
+            case "undefined":
+                alert("ERROR!!!");
+                return;
+            default:
+                break;
+        }
+        sugar.addEventListener("click", nodeClickEvents, false);
         if (glycans.length == 0) {
             let glycan: Glycan = new Glycan();
             glycan.setRootNode(sugar);
@@ -25,7 +31,7 @@ export function canvasClickEvent() {
         }
         return;
     }
-
+    //Bind Glycanの機能
     else if (liaise.modeType === modeType.EDGE) {
         return;
     }
