@@ -9,7 +9,7 @@ import createjs from "createjs-easeljs";
 import { getRelativeCoordinate } from "../getRelativeCoordinate";
 import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
 
-export let createPentose = (event: Event): Sugar => {
+export let createPentose = (event: Event, symbolSize: number): Sugar => {
     let shape: createjs.Shape = new createjs.Shape();
     let nodeName: string = "undefined";
     switch (liaise.nodeSelect) {
@@ -38,7 +38,7 @@ export let createPentose = (event: Event): Sugar => {
     let ring = SNFGSymbolGlycan[nodeName].ring;
     shape.graphics.beginStroke(getColor("black"));
     shape.graphics.setStrokeStyle(2);
-    shape.graphics.drawPolyStar(0, 0, 15, 5, 0.6, -90);
+    shape.graphics.drawPolyStar(0, 0, symbolSize, 5, 0.6, -90);
     let coordinate: Array<number> = getRelativeCoordinate(event);
     let sugar: Sugar = new Sugar(nodeName);
     sugar.setIsomer(isomer);

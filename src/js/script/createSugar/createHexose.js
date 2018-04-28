@@ -11,7 +11,7 @@ import { createError } from "./createError";
 import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
 
 
-export let createHexose = (event: Event): Sugar => {
+export let createHexose = (event: Event, symbolSize: number): Sugar => {
     let shape = new createjs.Shape();
     let nodeName: string = "undefined";
     switch (liaise.nodeSelect){
@@ -58,7 +58,7 @@ export let createHexose = (event: Event): Sugar => {
     let ring = SNFGSymbolGlycan[nodeName].ring;
     shape.graphics.beginStroke(getColor("black"));
     shape.graphics.setStrokeStyle(2);
-    shape.graphics.drawCircle(0, 0, 15);
+    shape.graphics.drawCircle(0, 0, symbolSize);
     let coordinate: Array<number> = getRelativeCoordinate(event);
     let sugar: Sugar = new Sugar(nodeName);
     sugar.setIsomer(isomer);

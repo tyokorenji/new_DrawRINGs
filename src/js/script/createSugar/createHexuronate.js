@@ -9,7 +9,7 @@ import createjs from "createjs-easeljs";
 import { getRelativeCoordinate } from "../getRelativeCoordinate";
 import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
 
-export let createHexuronate = (event: Event): Sugar => {
+export let createHexuronate = (event: Event, symbolSize: number): Sugar => {
     let shape: createjs.Shape = new createjs.Shape();
     let nodeName: string = "undefined";
     shape.graphics.beginStroke(getColor("black"));

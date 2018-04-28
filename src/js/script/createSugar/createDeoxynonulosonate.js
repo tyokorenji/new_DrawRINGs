@@ -10,7 +10,7 @@ import { liaise } from "../main";
 import createjs from "createjs-easeljs";
 import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
 
-export let createDeoxynonulosonate = (event: Event): Sugar => {
+export let createDeoxynonulosonate = (event: Event, symbolSize: number): Sugar => {
     let shape: createjs.Shape = new createjs.Shape();
     let nodeName: string = "undefined";
     switch (liaise.nodeSelect) {
@@ -43,7 +43,7 @@ export let createDeoxynonulosonate = (event: Event): Sugar => {
     let ring = SNFGSymbolGlycan[nodeName].ring;
     shape.graphics.beginStroke(getColor("black"));
     shape.graphics.setStrokeStyle(2);
-    shape.graphics.drawRect(-30 / 2, -30 / 2, 30, 30);
+    shape.graphics.drawRect(-2 * symbolSize / 2, -2 * symbolSize / 2, 2 * symbolSize, 2 * symbolSize);
     shape.rotation = 45;
     let coordinate: Array<number> = getRelativeCoordinate(event);
     let sugar: Sugar = new Sugar(nodeName);

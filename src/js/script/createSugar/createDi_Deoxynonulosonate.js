@@ -9,7 +9,7 @@ import createjs from "createjs-easeljs";
 import { getRelativeCoordinate } from "../getRelativeCoordinate";
 import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
 
-export let createDi_Deoxynonulosonate = (event: Event): Sugar => {
+export let createDi_Deoxynonulosonate = (event: Event, symbolSize: number): Sugar => {
     let shape: createjs.Shape = new createjs.Shape();
     let nodeName = "undefined";
     switch (liaise.nodeSelect) {
@@ -38,11 +38,11 @@ export let createDi_Deoxynonulosonate = (event: Event): Sugar => {
     let ring = SNFGSymbolGlycan[nodeName].ring;
     shape.graphics.beginStroke(getColor("black"));
     shape.graphics.setStrokeStyle(2);
-    let scale = 20;
-    shape.graphics.moveTo(0, -1 * scale / 2)
-        .lineTo(-1 * scale  / 2 * Math.sqrt(3), 0)
-        .lineTo(0, scale / 2)
-        .lineTo(scale / 2 * Math.sqrt(3), 0)
+    // let scale = 20;
+    shape.graphics.moveTo(0, -1 *  symbolSize * 2 *2 /3 / 2)
+        .lineTo(-1 *  symbolSize * 2 *2 /3  / 2 * Math.sqrt(3), 0)
+        .lineTo(0,  symbolSize * 2 *2 /3 / 2)
+        .lineTo( symbolSize * 2 *2 /3 / 2 * Math.sqrt(3), 0)
         .closePath()
         .endFill();
     let coordinate: Array<number> = getRelativeCoordinate(event);

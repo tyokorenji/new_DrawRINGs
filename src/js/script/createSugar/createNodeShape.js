@@ -21,25 +21,25 @@ export let createNodeShape = (shapeType: Symbol, event: Event): Function => {
     let symbolSize: number = 15;
     switch (shapeType) {
         case nodeModeType.HEXOSE:
-            return createHexose(event);
+            return createHexose(event, symbolSize);
         case nodeModeType.HEXNAC:
-            return createHexNAc(event);
+            return createHexNAc(event, symbolSize);
         case nodeModeType.HEXOSAMINE:
-            return createHexosamine(event);
+            return createHexosamine(event, symbolSize);
         case nodeModeType.HEXURONATE:
-            return createHexuronate(event);
+            return createHexuronate(event, symbolSize);
         case nodeModeType.DEOXYHEXOSE:
-            return createDeoxyHexose(event);
+            return createDeoxyHexose(event, symbolSize);
         case nodeModeType.DEOXYHEXNAC:
-            return createDeoxyHexNAc(event);
+            return createDeoxyHexNAc(event, symbolSize);
         case nodeModeType.DI_DEOXYHEXOSE:
-            return createDi_DeoxyHexose(event);
+            return createDi_DeoxyHexose(event, symbolSize);
         case nodeModeType.PENTOSE:
-            return createPentose(event);
+            return createPentose(event, symbolSize);
         case nodeModeType.DEOXYNONULOSONATE:
-            return createDeoxynonulosonate(event);
+            return createDeoxynonulosonate(event, symbolSize);
         case nodeModeType.DI_DEOXYNONULOSONATE:
-            return createDi_Deoxynonulosonate(event);
+            return createDi_Deoxynonulosonate(event, symbolSize);
         case nodeModeType.UNKNOWN:
             return createUnknown(event, symbolSize);
         case nodeModeType.ASSIGNED:

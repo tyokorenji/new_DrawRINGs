@@ -9,7 +9,7 @@ import createjs from "createjs-easeljs";
 import { getRelativeCoordinate } from "../getRelativeCoordinate";
 import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
 
-export let createDeoxyHexose = (event: Event): Sugar => {
+export let createDeoxyHexose = (event: Event, symbolSize: number): Sugar => {
     let shape: createjs.Shape = new createjs.Shape();
     let nodeName: string = "undefined";
     shape.graphics.beginStroke(getColor("black"));
@@ -46,10 +46,10 @@ export let createDeoxyHexose = (event: Event): Sugar => {
     }
     let isomer = SNFGSymbolGlycan[nodeName].isomer;
     let ring = SNFGSymbolGlycan[nodeName].ring;
-    let length = 30;
-    shape.graphics.moveTo(length / Math.sqrt(3), 0)
-        .lineTo(-length / (2 * Math.sqrt(3)), length / 2)
-        .lineTo(-length / (2 * Math.sqrt(3)), -length / 2)
+    // let length = 30;
+    shape.graphics.moveTo(2 * symbolSize / Math.sqrt(3), 0)
+        .lineTo(-2 * symbolSize / (2 * Math.sqrt(3)), 2 * symbolSize / 2)
+        .lineTo(-2 * symbolSize / (2 * Math.sqrt(3)), -2 * symbolSize / 2)
         .closePath()
         .endFill();
     shape.rotation = 270;
