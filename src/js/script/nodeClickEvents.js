@@ -7,7 +7,7 @@ import {liaise} from "./main";
 export function nodeClickEvents() {
     //Bind Glycanの機能
     if (liaise.modeType === modeType.EDGE) {
-        console.log(event.target);
+        console.log(event.currentTarget);
         event.highLight();
         return;
     }

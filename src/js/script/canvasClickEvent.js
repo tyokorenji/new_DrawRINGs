@@ -23,7 +23,7 @@ export function canvasClickEvent() {
             default:
                 break;
         }
-        sugar.addEventListener("click", nodeClickEvents, false);
+        // sugar.addEventListener("click", nodeClickEvents, false);
         if (glycans.length == 0) {
             let glycan: Glycan = new Glycan();
             glycan.setRootNode(sugar);

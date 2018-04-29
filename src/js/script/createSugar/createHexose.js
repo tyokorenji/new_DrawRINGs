@@ -9,6 +9,7 @@ import { Sugar } from "../class/Sugar";
 import createjs from "createjs-easeljs";
 import { createError } from "./createError";
 import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
+import { nodeClickEvents } from "../nodeClickEvents";
 
 
 export let createHexose = (event: Event, symbolSize: number): Sugar => {
@@ -60,6 +61,7 @@ export let createHexose = (event: Event, symbolSize: number): Sugar => {
     shape.graphics.setStrokeStyle(2);
     shape.graphics.drawCircle(0, 0, symbolSize);
     let coordinate: Array<number> = getRelativeCoordinate(event);
+    shape.addEventListener("click", nodeClickEvents, false);
     let sugar: Sugar = new Sugar(nodeName);
     sugar.setIsomer(isomer);
     sugar.setRing(ring);

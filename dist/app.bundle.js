@@ -66577,7 +66577,7 @@ function canvasClickEvent() {
             default:
                 break;
         }
-        sugar.addEventListener("click", _nodeClickEvents.nodeClickEvents, false);
+        // sugar.addEventListener("click", nodeClickEvents, false);
         if (_main.glycans.length == 0) {
             var glycan = new _Glycan.Glycan();
             glycan.setRootNode(sugar);
@@ -66712,6 +66712,8 @@ var _createError = __webpack_require__(446);
 
 var _SNFGGlycanTable = __webpack_require__(33);
 
+var _nodeClickEvents = __webpack_require__(898);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var createHexose = exports.createHexose = function createHexose(event, symbolSize) {
@@ -66763,6 +66765,7 @@ var createHexose = exports.createHexose = function createHexose(event, symbolSiz
     shape.graphics.setStrokeStyle(2);
     shape.graphics.drawCircle(0, 0, symbolSize);
     var coordinate = (0, _getRelativeCoordinate.getRelativeCoordinate)(event);
+    shape.addEventListener("click", _nodeClickEvents.nodeClickEvents, false);
     var sugar = new _Sugar.Sugar(nodeName);
     sugar.setIsomer(isomer);
     sugar.setRing(ring);
@@ -67959,7 +67962,7 @@ var _main = __webpack_require__(20);
 function nodeClickEvents() {
     //Bind Glycanの機能
     if (_main.liaise.modeType === _modeType.modeType.EDGE) {
-        console.log(event.target);
+        console.log(event.currentTarget);
         event.highLight();
         return;
     }
