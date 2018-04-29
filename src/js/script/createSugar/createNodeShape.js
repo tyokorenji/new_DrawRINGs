@@ -17,7 +17,7 @@ import { createUnknown } from "./createUnknown";
 import { createAssigned } from "./createAssigned";
 import { createUndefSNFG } from "./createUndefSNFG";
 
-export let createNodeShape = (shapeType: Symbol, event: Event): Function => {
+export let createNodeShape: Function = (shapeType: Symbol, event: Event): Function => {
     let symbolSize: number = 15;
     switch (shapeType) {
         case nodeModeType.HEXOSE:
