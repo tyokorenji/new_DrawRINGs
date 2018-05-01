@@ -1357,6 +1357,8 @@ var _searchRIng = __webpack_require__(883);
 
 var _SNFGGlycanTable = __webpack_require__(33);
 
+var _main = __webpack_require__(19);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1464,22 +1466,46 @@ var Sugar = function (_Node) {
             this.ringShape = shape;
             // return shape;
         }
+
+        //ringの変更時、ringShapeの内容を変更する
+
     }, {
         key: "changeRingSape",
         value: function changeRingSape(ring) {
             this.ringShape.text = ring;
         }
+
+        //nodeShpaのハイライト
+
     }, {
         key: "highLight",
         value: function highLight() {
-            this.alpha = 0.5;
-            this.graphics._stroke.style = (0, _getColor.getColor)("red");
+            this.children[0].alpha = 0.5;
+            this.children[0].graphics._stroke.style = (0, _getColor.getColor)("red");
+            _main.liaise.stage.update();
         }
+
+        //nodeShpaのオフライト
+
     }, {
         key: "offLight",
         value: function offLight() {
-            this.alpha = 1.0;
-            this.graphics._stroke.style = (0, _getColor.getColor)("black");
+            this.children[0].alpha = 1.0;
+            this.children[0].graphics._stroke.style = (0, _getColor.getColor)("black");
+            _main.liaise.stage.update();
+        }
+
+        //nodeがハイライトされているかを判別
+
+    }, {
+        key: "checkHighLight",
+        value: function checkHighLight() {
+            switch (this.children[0].alpha) {
+                case 0.5:
+                    return true;
+                default:
+                    return false;
+            }
         }
     }]);
 
@@ -9672,7 +9698,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Edge = undefined;
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _VisibleElement2 = __webpack_require__(444);
+
+var _Sugar = __webpack_require__(20);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -9686,8 +9716,40 @@ var Edge = function (_VisibleElement) {
     function Edge() {
         _classCallCheck(this, Edge);
 
-        return _possibleConstructorReturn(this, (Edge.__proto__ || Object.getPrototypeOf(Edge)).call(this));
+        var _this = _possibleConstructorReturn(this, (Edge.__proto__ || Object.getPrototypeOf(Edge)).call(this));
+
+        _this.linkageType = "undefined";
+        _this.parentSugar;
+        _this.childSugar;
+        _this.childAnomeric = "undefined";
+        return _this;
     }
+
+    _createClass(Edge, [{
+        key: "setLinkageType",
+        value: function setLinkageType(linkage) {
+            this.linkageType = linkage;
+            return;
+        }
+    }, {
+        key: "setParentSugar",
+        value: function setParentSugar(sugar) {
+            this.parentSugar = sugar;
+            return;
+        }
+    }, {
+        key: "setChildSugar",
+        value: function setChildSugar(sugar) {
+            this.childSugar = sugar;
+            return;
+        }
+    }, {
+        key: "setChildAnomeric",
+        value: function setChildAnomeric(anomeric) {
+            this.childAnomeric = anomeric;
+            return;
+        }
+    }]);
 
     return Edge;
 }(_VisibleElement2.VisibleElement);
@@ -32328,7 +32390,7 @@ var Node = function (_VisibleElement) {
         _this.childNodes = [];
         _this.childSugars = [];
         _this.childModifications = [];
-        _this.parentBond = new _Edge.Edge();
+        _this.parentBond = [];
         return _this;
     } //子供のリスト。修飾
     //子供のリスト。単糖と修飾
@@ -32406,7 +32468,7 @@ var Node = function (_VisibleElement) {
     }, {
         key: "setParentBond",
         value: function setParentBond(edge) {
-            this.ParentBond.push(edge);
+            this.parentBond.push(edge);
             return;
         }
     }]);
@@ -32941,12 +33003,32 @@ var _modeType = __webpack_require__(62);
 
 var _main = __webpack_require__(19);
 
-function nodeClickEvents() {
-    //Bind Glycanの機能
-    if (_main.liaise.modeType === _modeType.modeType.EDGE) {
-        console.log(event.currentTarget);
-        event.highLight();
-        return;
+var _createBind = __webpack_require__(887);
+
+function nodeClickEvents(event) {
+    switch (_main.liaise.modeType) {
+        //Bind Glycanの機能
+        case _modeType.modeType.EDGE:
+            if (_main.liaise.nodeClick) {
+                if (event.currentTarget.checkHighLight()) {
+                    console.log("Glc二回目");
+                    event.currentTarget.offLight();
+                    _main.liaise.changeNodeClick();
+                    _main.liaise.removeSelectedNode();
+                } else {
+                    (0, _createBind.createEdge)(event.currentTarget);
+                    _main.liaise.selectedNode.offLight();
+                    _main.liaise.changeNodeClick();
+                    _main.liaise.removeSelectedNode();
+                }
+            } else {
+                event.currentTarget.highLight();
+                _main.liaise.changeNodeClick();
+                _main.liaise.setSelectedNode(event.currentTarget);
+            }
+            break;
+        default:
+            return;
     }
 }
 
@@ -66502,6 +66584,10 @@ var _nodeModeType = __webpack_require__(24);
 
 var _modeType = __webpack_require__(62);
 
+var _Sugar = __webpack_require__(20);
+
+var _Node = __webpack_require__(443);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -66514,6 +66600,8 @@ var LiaiseUI = function () {
         this.stage = new _createjsEaseljs2.default.Stage();
         this.nodeSelect = _nodeModeType.nodeModeType.NOT_SELECTED;
         this.modeType = _modeType.modeType.NOT_SELECTED;
+        this.nodeClick = false;
+        this.selectedNode;
     }
 
     _createClass(LiaiseUI, [{
@@ -66524,6 +66612,41 @@ var LiaiseUI = function () {
             } else {
                 return false;
             }
+        }
+    }, {
+        key: "changeNodeClick",
+        value: function changeNodeClick() {
+            if (this.nodeClick) this.nodeClick = false;else this.nodeClick = true;
+            return;
+        }
+    }, {
+        key: "setSelectedNode",
+        value: function setSelectedNode(sugar) {
+            this.selectedNode = sugar;
+            return;
+        }
+    }, {
+        key: "removeSelectedNode",
+        value: function removeSelectedNode() {
+            this.selectedNode = new _Sugar.Sugar("undefined");
+            return;
+        }
+    }, {
+        key: "removeStage",
+        value: function removeStage(node) {
+            this.stage.removeChild(node);
+            return;
+        }
+    }, {
+        key: "addStage",
+        value: function addStage(node) {
+            this.stage.addChild(node);
+            return;
+        }
+    }, {
+        key: "stageUpdate",
+        value: function stageUpdate() {
+            this.stage.update();
         }
     }]);
 
@@ -66603,7 +66726,7 @@ function canvasClickEvent() {
             default:
                 break;
         }
-        // sugar.addEventListener("click", nodeClickEvents, false);
+        sugar.addEventListener("click", _nodeClickEvents.nodeClickEvents, false);
         if (_main.glycans.length == 0) {
             var glycan = new _Glycan.Glycan();
             glycan.setRootNode(sugar);
@@ -66791,14 +66914,14 @@ var createHexose = exports.createHexose = function createHexose(event, symbolSiz
     shape.graphics.setStrokeStyle(2);
     shape.graphics.drawCircle(0, 0, symbolSize);
     var coordinate = (0, _getRelativeCoordinate.getRelativeCoordinate)(event);
-    shape.addEventListener("click", _nodeClickEvents.nodeClickEvents, false);
     var sugar = new _Sugar.Sugar(nodeName);
     sugar.setIsomer(isomer);
     sugar.setRing(ring);
-    sugar.createIsomerShape();
-    sugar.createRingShape();
+    // sugar.createIsomerShape();
+    // sugar.createRingShape();
     _main.liaise.stage.addChild(sugar);
     sugar.addChild(shape);
+    // shape.addEventListener("click", nodeClickEvents, false);
     // switch (sugar.isomerShape.text) {
     //     case "undefined":
     //         break;
@@ -66822,11 +66945,149 @@ var createHexose = exports.createHexose = function createHexose(event, symbolSiz
 };
 
 /***/ }),
-/* 887 */,
-/* 888 */,
-/* 889 */,
-/* 890 */,
-/* 891 */,
+/* 887 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.createEdge = createEdge;
+
+var _main = __webpack_require__(19);
+
+var _drawEdge = __webpack_require__(888);
+
+var _updateStage = __webpack_require__(890);
+
+var _culcParentChild = __webpack_require__(891);
+
+var _Sugar = __webpack_require__(20);
+
+var _Edge = __webpack_require__(99);
+
+function createEdge(target) {
+    console.log(_main.liaise.selectedNode);
+    console.log(target);
+    var edge = (0, _drawEdge.drawEdge)(_main.liaise.selectedNode.xCoord, _main.liaise.selectedNode.yCoord, target.xCoord, target.yCoord);
+    var parentChild = (0, _culcParentChild.culcParentChild)(_main.liaise.selectedNode, target);
+    var parentSugar = parentChild[0];
+    var childSugar = parentChild[1];
+    childSugar.setParentSugars(parentSugar);
+    childSugar.setParentBond(edge);
+    parentSugar.setChildSugars(childSugar);
+    parentSugar.setChildNodes(childSugar);
+    (0, _updateStage.stageUpdate)(parentSugar, childSugar, edge);
+    return;
+};
+
+/***/ }),
+/* 888 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.drawEdge = drawEdge;
+
+var _createjsEaseljs = __webpack_require__(21);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+var _getColor = __webpack_require__(27);
+
+var _graphicsData = __webpack_require__(889);
+
+var _Edge = __webpack_require__(99);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function drawEdge(x1, y1, x2, y2) {
+    var line = new _createjsEaseljs2.default.Shape();
+    line.graphics.beginStroke((0, _getColor.getColor)("black"));
+    line.graphics.setStrokeStyle(_graphicsData.basicData.edgeSize);
+    line.graphics.moveTo(x1, y1).lineTo(x2, y2);
+    var edge = new _Edge.Edge();
+    edge.addChild(line);
+
+    return edge;
+}
+
+/***/ }),
+/* 889 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var basicData = exports.basicData = {
+    "sybolSize": 15,
+    "edgeSize": 1.5
+};
+
+/***/ }),
+/* 890 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.stageUpdate = stageUpdate;
+
+var _Sugar = __webpack_require__(20);
+
+var _Edge = __webpack_require__(99);
+
+var _main = __webpack_require__(19);
+
+function stageUpdate(parentSugar, childSugar, edge) {
+    _main.liaise.removeStage(parentSugar);
+    _main.liaise.removeStage(childSugar);
+    _main.liaise.addStage(edge);
+    _main.liaise.addStage(parentSugar);
+    _main.liaise.addStage(childSugar);
+    _main.liaise.stageUpdate();
+    return;
+};
+
+/***/ }),
+/* 891 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.culcParentChild = culcParentChild;
+
+var _Sugar = __webpack_require__(20);
+
+function culcParentChild(sugar1, sugar2) {
+    var parentChild = [];
+    if (sugar1.xCoord < sugar2.xCoord) {
+        parentChild.push(sugar2);
+        parentChild.push(sugar1);
+    } else {
+        parentChild.push(sugar1);
+        parentChild.push(sugar2);
+    }
+    return parentChild;
+}
+
+/***/ }),
 /* 892 */
 /***/ (function(module, exports, __webpack_require__) {
 

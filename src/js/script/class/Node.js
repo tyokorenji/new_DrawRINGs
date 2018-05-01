@@ -11,7 +11,7 @@ class Node extends VisibleElement {
     childNodes: Array<Node>;  //子供のリスト。単糖と修飾
     childSugars: Array<Sugar>;  //子供のリスト。単糖
     childModifications: Array<Modification>;  //子供のリスト。修飾
-    parentBond: Edge;  //親の単糖との結合
+    parentBond: Array<Sugar>;  //親の単糖との結合
 
     constructor(){
         super();
@@ -19,7 +19,7 @@ class Node extends VisibleElement {
         this.childNodes = [];
         this.childSugars = [];
         this.childModifications = [];
-        this.parentBond = new Edge();
+        this.parentBond = [];
     }
 
     hasParentSugar(): boolean{
@@ -78,12 +78,12 @@ class Node extends VisibleElement {
         return;
     }
 
-    getParentBond(): Edge {
+    getParentBond(): Array<Sugar> {
         return this.parentBond;
     }
 
     setParentBond(edge: Edge) {
-        this.ParentBond.push(edge);
+        this.parentBond.push(edge);
         return;
     }
 }

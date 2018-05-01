@@ -6,6 +6,7 @@ import createjs from "createjs-easeljs";
 import { getColor } from "../getColor";
 import { searchRing } from "../searchRIng";
 import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
+import { liaise } from "../main";
 
 class Sugar extends Node{
     name: string;  //単糖の名前
@@ -88,18 +89,33 @@ class Sugar extends Node{
         // return shape;
     }
 
+    //ringの変更時、ringShapeの内容を変更する
     changeRingSape(ring: string) {
         this.ringShape.text = ring;
     }
 
+    //nodeShpaのハイライト
     highLight() {
-        this.alpha = 0.5;
-        this.graphics._stroke.style = getColor("red");
+        this.children[0].alpha = 0.5;
+        this.children[0].graphics._stroke.style = getColor("red");
+        liaise.stage.update();
     }
 
+    //nodeShpaのオフライト
     offLight() {
-        this.alpha = 1.0;
-        this.graphics._stroke.style = getColor("black");
+        this.children[0].alpha = 1.0;
+        this.children[0].graphics._stroke.style  = getColor("black");
+        liaise.stage.update();
+    }
+
+    //nodeがハイライトされているかを判別
+    checkHighLight(): boolean {
+        switch (this.children[0].alpha) {
+            case 0.5:
+                return true;
+            default:
+                return false;
+        }
     }
 
 }

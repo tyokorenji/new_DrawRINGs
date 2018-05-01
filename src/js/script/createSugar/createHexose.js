@@ -61,14 +61,14 @@ export let createHexose = (event: Event, symbolSize: number): Sugar => {
     shape.graphics.setStrokeStyle(2);
     shape.graphics.drawCircle(0, 0, symbolSize);
     let coordinate: Array<number> = getRelativeCoordinate(event);
-    shape.addEventListener("click", nodeClickEvents, false);
     let sugar: Sugar = new Sugar(nodeName);
     sugar.setIsomer(isomer);
     sugar.setRing(ring);
-    sugar.createIsomerShape();
-    sugar.createRingShape();
+    // sugar.createIsomerShape();
+    // sugar.createRingShape();
     liaise.stage.addChild(sugar);
     sugar.addChild(shape);
+    // shape.addEventListener("click", nodeClickEvents, false);
     // switch (sugar.isomerShape.text) {
     //     case "undefined":
     //         break;

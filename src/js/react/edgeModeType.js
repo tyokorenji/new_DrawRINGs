@@ -1,0 +1,25 @@
+"use strict";
+
+export const edgeModeType = {
+    NOT_SELECTED:Symbol(),
+    A1_2:Symbol(),
+    A1_4:Symbol(),
+    A1_5:Symbol(),
+    A1_6:Symbol(),
+    A1_7:Symbol(),
+    A1_8:Symbol(),
+    B1_2:Symbol(),
+    B1_3:Symbol(),
+    B1_4:Symbol(),
+    B1_5:Symbol(),
+    B1_6:Symbol(),
+    B1_7:Symbol(),
+    B1_8:Symbol(),
+    A2_1:Symbol(),
+    A2_3:Symbol(),
+    A2_4:Symbol(),
+    A2_5:Symbol(),
+    A2_6:Symbol(),
+    A2_7:Symbol(),
+    A2_8:Symbol(),
+};
