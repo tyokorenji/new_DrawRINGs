@@ -14,6 +14,7 @@ class LiaiseUI {
     modeType: Symbol;
     nodeClick: boolean;
     selectedNode: Sugar;
+    selectedLinkage: string;
 
 
     constructor() {
