@@ -6,7 +6,7 @@ var dist = path.resolve(__dirname, "dist");
 var UgilifyJSPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
-    enty: {
+    entry: {
         app:path.joinrc, fileName
     },
     output: {

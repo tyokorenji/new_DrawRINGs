@@ -14,7 +14,7 @@ class LiaiseUI {
     modeType: Symbol;
     nodeClick: boolean;
     selectedNode: Sugar;
-    selectedLinkage: string;
+    linkageSelect: Symbol;
 
 
     constructor() {
@@ -23,7 +23,7 @@ class LiaiseUI {
         this.nodeSelect = nodeModeType.NOT_SELECTED;
         this.modeType = modeType.NOT_SELECTED;
         this.nodeClick = false;
-        this.selectedNode;
+        this.linkageSelect;
     }
 
     hasTextAreaValue() {

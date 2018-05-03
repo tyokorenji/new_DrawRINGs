@@ -3,7 +3,7 @@ import React from "react";
 import { Menu, Icon, Table, Image, TextArea, Form } from "semantic-ui-react";
 import { modeType } from "./modeType";
 import { NodeTable } from "./nodeTable";
-import { edgeTable } from "./edgeTable";
+import { EdgeTable } from "./edgeTable";
 import { structureTable } from "./structureTable";
 import { KCFTextArea } from "./KCFTextArea";
 export class SidebarContens {
@@ -22,9 +22,11 @@ export class SidebarContens {
             );
         }
         else if (currentModeType === modeType.EDGE) {
-            this.contents = new edgeTable();
+            console.log("Edge");
+            // this.contents = new edgeTable();
             return (
-                this.contents.getContents()
+                <EdgeTable/>
+                // this.contents.getContents()
             );
         }
         else if (currentModeType === modeType.STRUCTURE) {

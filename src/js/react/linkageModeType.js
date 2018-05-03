@@ -1,9 +1,10 @@
 "use strict";
 
-export const edgeModeType = {
+export const linkageModeType = {
     NOT_SELECTED:Symbol(),
     A1_2:Symbol(),
     A1_4:Symbol(),
+    A1_3:Symbol(),
     A1_5:Symbol(),
     A1_6:Symbol(),
     A1_7:Symbol(),
