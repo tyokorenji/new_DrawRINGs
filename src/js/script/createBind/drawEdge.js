@@ -2,7 +2,7 @@
 "use strict";
 
 import createjs from "createjs-easeljs";
-import { getColor} from "../getColor";
+import { getColor} from "../data/getColor";
 import { basicData } from "../data/graphicsData";
 import { Edge } from "../class/Edge";
 

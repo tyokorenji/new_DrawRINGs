@@ -1,7 +1,7 @@
 //@flow
 "use strict";
 
-import { getColor } from "../getColor";
+import { getColor } from "../data/getColor";
 import { getRelativeCoordinate } from "../getRelativeCoordinate";
 import { nodeModeType } from "../../react/nodeModeType";
 import { liaise } from "../main";

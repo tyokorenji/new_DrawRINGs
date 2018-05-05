@@ -7,6 +7,7 @@ import { stageUpdate } from "./updateStage";
 import { culcParentChild } from "../culcParentChild";
 import { Sugar } from "../class/Sugar";
 import { Edge } from "../class/Edge";
+import { edgeClickEvent } from "../edgeClickEvent";
 
 export function createEdge(target: Sugar) {
     console.log(liaise.selectedNode);
@@ -19,6 +20,9 @@ export function createEdge(target: Sugar) {
     childSugar.setParentBond(edge);
     parentSugar.setChildSugars(childSugar);
     parentSugar.setChildNodes(childSugar);
+    edge.setParentSugar(parentSugar);
+    edge.setChildSugar(childSugar);
     stageUpdate(parentSugar, childSugar, edge);
+    edge.addEventListener("click", edgeClickEvent, false);
     return;
 };

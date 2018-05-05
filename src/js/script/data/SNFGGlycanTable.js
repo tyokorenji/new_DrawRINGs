@@ -1,7 +1,7 @@
 //@flow
 "use strict";
 
-export let SNFGSymbolGlycan: Object = {
+export const SNFGSymbolGlycan: Object = {
     "4eLeg": {
         shortName: "4-Epilegionaminic acid",
         systematicNmae: "5,7-Diamino-3,5,7,9-tetradeoxy-D-glycero-D-talo-non-2-ulopyranosonic acid",

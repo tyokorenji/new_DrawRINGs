@@ -3,7 +3,7 @@
 import { Node } from "./Node";
 import { Edge } from "./Edge";
 import createjs from "createjs-easeljs";
-import { getColor } from "../getColor";
+import { getColor } from "../data/getColor";
 import { searchRing } from "../searchRIng";
 import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
 import { liaise } from "../main";
