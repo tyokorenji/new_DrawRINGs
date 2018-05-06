@@ -4,6 +4,7 @@ import React from "react";
 import NodeImg from "../../../image/Node.png";
 import EdgeImg from "../../../image/Edge.png";
 import StructureImag from "../../../image/structure.png";
+import RepeatImg from "../../../image/repeat.png";
 import ClearImg from "../../../image/clear.png";
 import DrawKcfImg from "../../../image/draw_KCF.png";
 import KcfTextOutImg from "../../../image/kcf_text_out.png";
@@ -42,6 +43,10 @@ export class InterFace extends React.Component {
             currentState.current_mode_type = modeType.STRUCTURE;
             currentState.sideBarVisible = true;
         }
+        else if (targetId == "repeat") {
+            currentState.current_mode_type = modeType.REPEAT;
+            currentState.sideBarVisible = false;
+        }
         else if (targetId == "clear") {
             currentState.current_mode_type = modeType.CLEAR;
             currentState.sideBarVisible = false;
@@ -71,6 +76,7 @@ export class InterFace extends React.Component {
         if (e.target.id == "node") currentState.explainText = "Draw Glycan!!!";
         else if (e.target.id == "edge") currentState.explainText = "Bind Glycan!!!";
         else if (e.target.id == "structure") currentState.explainText = "Motif Structure!!!";
+        else if (e.target.id == "repeat") currentState.explainText = "Repeat Glycan!!!";
         else if (e.target.id == "clear") currentState.explainText = "Canvas Clear!!!";
         else if (e.target.id == "draeKCF") currentState.explainText = "Image to KCF!!!";
         else if (e.target.id == "KCFTextOut") currentState.explainText = "KCF to Image!!!";
@@ -124,6 +130,7 @@ export class InterFace extends React.Component {
                     <ImageWrap id = "node" content = "Draw Glycan" selected = { this.state.current_mode_type === modeType.NODE } image = { NodeImg } defStyle = { defImageStyle } />
                     <ImageWrap id = "edge" content = "Bind Glycan" selected = { this.state.current_mode_type === modeType.EDGE } image = {EdgeImg } defStyle = { defImageStyle } />
                     <ImageWrap id = "structure" content = "Motif Structure" selected = { this.state.current_mode_type === modeType.STRUCTURE } image = { StructureImag } defStyle = { defImageStyle } />
+                    <ImageWrap id = "repeat" content = "Repeat glycan" selected = { this.state.current_mode_type === modeType.REPEAT} image = { RepeatImg } defStyle = { defImageStyle } />
                     <ImageWrap id = "clear" content = "canvas clear" selected = { this.state.current_mode_type === modeType.CLEAR } image = { ClearImg } defStyle = { defImageStyle } />
                     <ImageWrap id = "drawKCF" content = "Image to KCF" selected = { this.state.current_mode_type === modeType.DRAW_KCF } image = { DrawKcfImg } defStyle = { defImageStyle } />
                     <ImageWrap id = "KCFTextOut" content = "KCF to Image" selected = { this.state.current_mode_type === modeType.KCF_TEXT_OUT } image = { KcfTextOutImg } defStyle = { defImageStyle } />

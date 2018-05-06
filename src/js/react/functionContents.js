@@ -29,6 +29,13 @@ export class FunctionContents{
                 </div>
             );
         }
+        else if (currentModeType === modeType.REPEAT) {
+            return (
+                <div>
+                    <p>this is Repeat!!!</p>
+                </div>
+            );
+        }
         else if (currentModeType === modeType.CLEAR) {
             return (
                 <div>
