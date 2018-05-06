@@ -45948,7 +45948,7 @@ module.exports = __webpack_require__.p + "506aaf9c5fc00bfe3d07b3eb8473d293.png";
 /* 557 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "d73f668e4e278b1ccefa99ccc7944784.png";
+module.exports = __webpack_require__.p + "74a1d1e7c002a215adc9342163b6c5c7.png";
 
 /***/ }),
 /* 558 */
@@ -46026,13 +46026,13 @@ var ImageWrap = exports.ImageWrap = function (_React$Component) {
 
             if (this.props.selected) {
                 imageProps.style = {
-                    "backgroundColor": "rgba(255, 0, 0, 1.0)",
+                    // "backgroundColor": "rgba(255, 0, 0, 1.0)",
                     "opacity": "0.5",
                     "border": "5px solid"
                 };
             } else {
                 imageProps.style = {
-                    "backgroundColor": "rgba(255, 0, 0, 1.0)"
+                    // "backgroundColor": "rgba(255, 0, 0, 1.0)"
                 };
             }
 
