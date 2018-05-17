@@ -1,9 +1,9 @@
 //@flow
 "use strict";
 
-import createjs from "createjs-easeljs";
+import { VisibleElement } from "./VisibleElement";
 
-class Bracket extends createjs.Container{
+class Bracket extends VisibleElement{
     constructor(){
         super();
     }

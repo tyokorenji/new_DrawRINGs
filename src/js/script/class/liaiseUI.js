@@ -56,7 +56,7 @@ class LiaiseUI {
         return;
     }
 
-    addStage(node: Node) {
+    addStage(node: Object) {
         this.stage.addChild(node);
         return;
     }

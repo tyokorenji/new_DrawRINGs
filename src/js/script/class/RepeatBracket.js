@@ -10,8 +10,6 @@ class RepeatBracket extends Bracket {
 
     constructor(){
         super();
-        this.endSugar = new Sugar("undefined");
-        this.startSugar = new Sugar("undefined");
     }
 
     getEndSugar(): Sugar {

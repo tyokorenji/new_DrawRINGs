@@ -3,7 +3,7 @@
 
 import { VisibleElement } from "./VisibleElement";
 import { Sugar } from "./Sugar";
-import createjs from "createjs-easeljs";
+import { RepeatBracket } from "./RepeatBracket";
 
 class Edge extends VisibleElement{
     linkageType: string;
@@ -12,8 +12,7 @@ class Edge extends VisibleElement{
     childAnomeric: string;
     childPosition: string;
     parentPosition: string;
-    // paerntLinkageShape: createjs.Text;
-    // childLinkageShape: createjs.Text;
+    repeatBracket: RepeatBracket;
 
     constructor(){
         super();
@@ -79,6 +78,18 @@ class Edge extends VisibleElement{
         if(parent[1] < child[1] ) return true;
         else { return false; }
     };
+
+    setRepeatBracket(repeatBracket: RepeatBracket) {
+        this.repeatBracket = repeatBracket;
+        return;
+    }
+
+    hasRepeatBracket(): boolean {
+        if (this.repeatBracket === {}) return false;
+        else {
+            return true;
+        }
+    }
 
 
 }
