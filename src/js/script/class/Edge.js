@@ -3,24 +3,16 @@
 
 import { VisibleElement } from "./VisibleElement";
 import { Sugar } from "./Sugar";
-import { RepeatBracket } from "./RepeatBracket";
 
 class Edge extends VisibleElement{
     linkageType: string;
     parentSugar: Sugar;
-    childSugar: Sugar;
-    childAnomeric: string;
-    childPosition: string;
-    parentPosition: string;
-    // repeatBracket: RepeatBracket;
+    parentPosition: string;  //親Nodeの結合位置(未定義の場合"undefined")
 
     constructor(){
         super();
         this.linkageType = "undefined";
         this.parentSugar;
-        this.childSugar;
-        this.childAnomeric = "undefined";
-        this.childPosition = "undefined";
         this.parentPosition = "undefined";
     }
 
@@ -28,26 +20,29 @@ class Edge extends VisibleElement{
         this.linkageType = linkage;
         return;
     }
+    getLinkageType(): string {
+        return this.linkageType;
+    }
+
     setParentSugar(sugar: Sugar) {
         this.parentSugar = sugar;
         return;
     }
-
-    setChildSugar(sugar: Sugar) {
-        this.childSugar = sugar;
-        return;
+    getParentSugar(): Sugar {
+        return this.parentSugar;
+    }
+    hasParentSugar(): boolean {
+        if (this.parentSugr === {}) return false;
+        else return true;
     }
 
-    setChildAnomeric(anomeric: string) {
-        this.childAnomeric = anomeric;
-        return;
+    hasParentPosition(): boolean {
+        if (this.parentPosition === "undefined") return false;
+        else return true;
     }
-
-    setChildPosition(childPosition: string) {
-        this.childPosition = childPosition;
-        return;
+    getParentPosition(): string {
+        return this.parentPosition;
     }
-
     setParentPositon(parentPosition: string) {
         this.parentPosition = parentPosition;
         return;
@@ -77,20 +72,7 @@ class Edge extends VisibleElement{
     whitchParentHighChildLow(parent: Array<number>, child: Array<number>): boolean {
         if(parent[1] < child[1] ) return true;
         else { return false; }
-    };
-
-    // setRepeatBracket(repeatBracket: RepeatBracket) {
-    //     this.repeatBracket = repeatBracket;
-    //     return;
-    // }
-    //
-    // hasRepeatBracket(): boolean {
-    //     if (this.repeatBracket === {}) return false;
-    //     else {
-    //         return true;
-    //     }
-    // }
-
+    }
 
 }
 

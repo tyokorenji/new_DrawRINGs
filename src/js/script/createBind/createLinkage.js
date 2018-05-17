@@ -5,8 +5,9 @@ import { linkageData } from "../data/linkageData";
 import createjs from "createjs-easeljs";
 import { getColor } from "../data/getColor";
 import { basicData } from "../data/graphicsData";
+import { Glycobond } from "../class/Glycobond";
 
-export function createLinkage(target: Object, linkage: string) {
+export function createLinkage(target: Glycobond, linkage: string) {
     console.log(target);
     target.setChildPosition(linkageData[linkage].childPosition);
     target.setParentPositon(linkageData[linkage].parentPosition);

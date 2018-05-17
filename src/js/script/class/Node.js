@@ -4,7 +4,7 @@
 import { VisibleElement } from "./VisibleElement";
 // import { Sugar } from "./Sugar";
 // import { Modification } from "./Modification";
-import { Edge } from "./Edge";
+import { Glycobond } from "./Glycobond";
 
 class Node extends VisibleElement {
     // parentSugars: Array<Sugar>;  //親のリスト。単糖
@@ -82,7 +82,7 @@ class Node extends VisibleElement {
         return this.parentBond;
     }
 
-    setParentBond(edge: Edge) {
+    setParentBond(edge: Glycobond) {
         this.parentBond.push(edge);
         return;
     }

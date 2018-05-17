@@ -2,43 +2,21 @@
 "use strict";
 
 import { Edge } from "./Edge";
+import { Sugar } from "./Sugar";
 
 class Glycobond extends Edge {
-    name: string;  //結合の名前("a1-2"など)
-    parentPosition: string;  //親Nodeの結合位置(未定義の場合"undefined")
     childPosition: string;  //子Nodeの結合位置(未定義の場合"undefined")
+    childSugar: Sugar;
+    childAnomeric: string;
 
     constructor(){
         super();
-        this.name = "undefined";
-        this.parentPosition = "undefined";
+        this.childAnomeric = "undefined";
         this.childPosition = "undefined";
     }
 
-    getName(): string {
-        return this.name;
-    }
-
-    setName(anomeric: string) {
-        this.name = anomeric + this.childPosition; + "-" + this.paretntPosition;
-    }
-
-    hasParentPosition(): boolean {
-        if (this.parentPosition == "undefined") return false;
-        else return true;
-    }
-
-    getParentPosition(): string {
-        return this.parentPosition;
-    }
-
-    setParentPosition(parentPosition: string) {
-        this.parentPoisition = parentPosition;
-        return;
-    }
-
-    hasChilsPosition(): boolean {
-        if (this.childtPosition == "undefined") return false;
+    hasChildPosition(): boolean {
+        if (this.childPosition === "undefined") return false;
         else return true;
     }
 
@@ -47,9 +25,38 @@ class Glycobond extends Edge {
     }
 
     setChildPosition(childPosition: string) {
-        this.chilsPosition = childPosition;
+        this.childPosition = childPosition;
         return;
     }
+
+    hasChildAnomeric(): boolean {
+        if (this.childAnomeric === "undefined") return false;
+        else return true;
+    }
+
+    setChildAnomeric(anomeric: string) {
+        this.childAnomeric = anomeric;
+        return;
+    }
+
+    getChildAnomeric(): string {
+        return this.childAnomeric;
+    }
+
+    hasChildSugar(): boolean {
+        if (this.childSugar === {}) return false;
+        else return true;
+    }
+    setChildSugar(sugar: Sugar) {
+        this.childSugar = sugar;
+        return;
+    }
+    getChildSugar(): Sugar {
+        return this.childSugar;
+    }
+
+
+
 }
 
 export { Glycobond };
