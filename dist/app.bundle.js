@@ -916,6 +916,8 @@ var _liaiseUI = __webpack_require__(886);
 
 var _Glycan = __webpack_require__(448);
 
+var _Sugar = __webpack_require__(14);
+
 var liaise = exports.liaise = new _liaiseUI.LiaiseUI(); //UIのの状態を納めるクラス変数。Reactとのつなげ役
 var glycans = exports.glycans = []; //canvas上に描画された糖鎖構造を納める配列
 var monosachrrides = exports.monosachrrides = []; //canvas上にある単糖を納める配列
@@ -923,77 +925,6 @@ var monosachrrides = exports.monosachrrides = []; //canvas上にある単糖を�
 
 /***/ }),
 /* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Checks if `value` is classified as an `Array` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an array, else `false`.
- * @example
- *
- * _.isArray([1, 2, 3]);
- * // => true
- *
- * _.isArray(document.body.children);
- * // => false
- *
- * _.isArray('abc');
- * // => false
- *
- * _.isArray(_.noop);
- * // => false
- */
-var isArray = Array.isArray;
-
-module.exports = isArray;
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var baseDifference = __webpack_require__(298),
-    baseRest = __webpack_require__(60),
-    isArrayLikeObject = __webpack_require__(126);
-
-/**
- * Creates an array excluding all given values using
- * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
- * for equality comparisons.
- *
- * **Note:** Unlike `_.pull`, this method returns a new array.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Array
- * @param {Array} array The array to inspect.
- * @param {...*} [values] The values to exclude.
- * @returns {Array} Returns the new array of filtered values.
- * @see _.difference, _.xor
- * @example
- *
- * _.without([2, 1, 2, 3], 1, 2);
- * // => [3]
- */
-var without = baseRest(function (array, values) {
-    return isArrayLikeObject(array) ? baseDifference(array, values) : [];
-});
-
-module.exports = without;
-
-/***/ }),
-/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1187,6 +1118,77 @@ var Sugar = function (_Node) {
 }(_Node2.Node);
 
 exports.Sugar = Sugar;
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Checks if `value` is classified as an `Array` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+ * @example
+ *
+ * _.isArray([1, 2, 3]);
+ * // => true
+ *
+ * _.isArray(document.body.children);
+ * // => false
+ *
+ * _.isArray('abc');
+ * // => false
+ *
+ * _.isArray(_.noop);
+ * // => false
+ */
+var isArray = Array.isArray;
+
+module.exports = isArray;
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var baseDifference = __webpack_require__(298),
+    baseRest = __webpack_require__(60),
+    isArrayLikeObject = __webpack_require__(126);
+
+/**
+ * Creates an array excluding all given values using
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * for equality comparisons.
+ *
+ * **Note:** Unlike `_.pull`, this method returns a new array.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Array
+ * @param {Array} array The array to inspect.
+ * @param {...*} [values] The values to exclude.
+ * @returns {Array} Returns the new array of filtered values.
+ * @see _.difference, _.xor
+ * @example
+ *
+ * _.without([2, 1, 2, 3], 1, 2);
+ * // => [3]
+ */
+var without = baseRest(function (array, values) {
+    return isArrayLikeObject(array) ? baseDifference(array, values) : [];
+});
+
+module.exports = without;
 
 /***/ }),
 /* 17 */
@@ -3284,7 +3286,7 @@ module.exports = ExecutionEnvironment;
 var arrayMap = __webpack_require__(49),
     baseIteratee = __webpack_require__(40),
     baseMap = __webpack_require__(353),
-    isArray = __webpack_require__(14);
+    isArray = __webpack_require__(15);
 
 /**
  * Creates an array of values by running each element in `collection` thru
@@ -4725,7 +4727,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 var baseMatches = __webpack_require__(651),
     baseMatchesProperty = __webpack_require__(664),
     identity = __webpack_require__(61),
-    isArray = __webpack_require__(14),
+    isArray = __webpack_require__(15),
     property = __webpack_require__(666);
 
 /**
@@ -8031,7 +8033,7 @@ module.exports = function (it, key) {
 "use strict";
 
 
-var isArray = __webpack_require__(14),
+var isArray = __webpack_require__(15),
     isKey = __webpack_require__(186),
     stringToPath = __webpack_require__(289),
     toString = __webpack_require__(48);
@@ -9714,7 +9716,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _VisibleElement2 = __webpack_require__(243);
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _RepeatBracket = __webpack_require__(150);
 
@@ -12182,7 +12184,7 @@ var _extends2 = __webpack_require__(2);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -12374,7 +12376,7 @@ var _extends2 = __webpack_require__(2);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -12735,7 +12737,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _Bracket2 = __webpack_require__(887);
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -14994,7 +14996,7 @@ exports.f = __webpack_require__(66) ? gOPD : function getOwnPropertyDescriptor(O
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var isArray = __webpack_require__(14),
+var isArray = __webpack_require__(15),
     isSymbol = __webpack_require__(69);
 
 /** Used to match property names within property paths. */
@@ -15086,7 +15088,7 @@ module.exports = Map;
 
 var _Symbol = __webpack_require__(82),
     arrayMap = __webpack_require__(49),
-    isArray = __webpack_require__(14),
+    isArray = __webpack_require__(15),
     isSymbol = __webpack_require__(69);
 
 /** Used as references for various `Number` constants. */
@@ -15522,7 +15524,7 @@ module.exports = getTag;
 var baseKeys = __webpack_require__(196),
     getTag = __webpack_require__(200),
     isArguments = __webpack_require__(116),
-    isArray = __webpack_require__(14),
+    isArray = __webpack_require__(15),
     isArrayLike = __webpack_require__(44),
     isBuffer = __webpack_require__(95),
     isPrototype = __webpack_require__(96),
@@ -15614,7 +15616,7 @@ module.exports = __webpack_require__(203);
 var arrayEach = __webpack_require__(97),
     baseEach = __webpack_require__(83),
     castFunction = __webpack_require__(320),
-    isArray = __webpack_require__(14);
+    isArray = __webpack_require__(15);
 
 /**
  * Iterates over elements of `collection` and invokes `iteratee` for each element.
@@ -15974,7 +15976,7 @@ var Stack = __webpack_require__(197),
     initCloneArray = __webpack_require__(723),
     initCloneByTag = __webpack_require__(724),
     initCloneObject = __webpack_require__(733),
-    isArray = __webpack_require__(14),
+    isArray = __webpack_require__(15),
     isBuffer = __webpack_require__(95),
     isObject = __webpack_require__(33),
     keys = __webpack_require__(36);
@@ -21741,7 +21743,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 var castPath = __webpack_require__(68),
     isArguments = __webpack_require__(116),
-    isArray = __webpack_require__(14),
+    isArray = __webpack_require__(15),
     isIndex = __webpack_require__(94),
     isLength = __webpack_require__(190),
     toKey = __webpack_require__(59);
@@ -22321,7 +22323,7 @@ module.exports = toFinite;
 var arrayFilter = __webpack_require__(304),
     baseFilter = __webpack_require__(643),
     baseIteratee = __webpack_require__(40),
-    isArray = __webpack_require__(14);
+    isArray = __webpack_require__(15);
 
 /**
  * Iterates over elements of `collection`, returning an array of all elements
@@ -22409,7 +22411,7 @@ module.exports = arrayFilter;
 
 var baseTimes = __webpack_require__(306),
     isArguments = __webpack_require__(116),
-    isArray = __webpack_require__(14),
+    isArray = __webpack_require__(15),
     isBuffer = __webpack_require__(95),
     isIndex = __webpack_require__(94),
     isTypedArray = __webpack_require__(129);
@@ -22694,7 +22696,7 @@ module.exports = getAllKeys;
 
 
 var arrayPush = __webpack_require__(193),
-    isArray = __webpack_require__(14);
+    isArray = __webpack_require__(15);
 
 /**
  * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
@@ -23065,7 +23067,7 @@ module.exports = isNumber;
 
 
 var baseGetTag = __webpack_require__(47),
-    isArray = __webpack_require__(14),
+    isArray = __webpack_require__(15),
     isObjectLike = __webpack_require__(39);
 
 /** `Object#toString` result references. */
@@ -23347,7 +23349,7 @@ module.exports = findIndex;
 var arraySome = __webpack_require__(309),
     baseIteratee = __webpack_require__(40),
     baseSome = __webpack_require__(690),
-    isArray = __webpack_require__(14),
+    isArray = __webpack_require__(15),
     isIterateeCall = __webpack_require__(133);
 
 /**
@@ -24591,7 +24593,7 @@ var _extends2 = __webpack_require__(2);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -25913,7 +25915,7 @@ var arrayReduce = __webpack_require__(139),
     baseEach = __webpack_require__(83),
     baseIteratee = __webpack_require__(40),
     baseReduce = __webpack_require__(804),
-    isArray = __webpack_require__(14);
+    isArray = __webpack_require__(15);
 
 /**
  * Reduces `collection` to a value which is the accumulated result of running
@@ -27477,7 +27479,7 @@ var _invoke2 = __webpack_require__(26);
 
 var _invoke3 = _interopRequireDefault(_invoke2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -28454,7 +28456,7 @@ var _extends2 = __webpack_require__(2);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -29073,7 +29075,7 @@ var _extends2 = __webpack_require__(2);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -29224,7 +29226,7 @@ var _extends2 = __webpack_require__(2);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -29592,7 +29594,7 @@ var _extends2 = __webpack_require__(2);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -31509,7 +31511,7 @@ var _extends2 = __webpack_require__(2);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -32253,7 +32255,7 @@ var _extends2 = __webpack_require__(2);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -32372,7 +32374,7 @@ var _extends2 = __webpack_require__(2);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -32758,7 +32760,7 @@ var _createjsEaseljs = __webpack_require__(20);
 
 var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33172,7 +33174,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createError = undefined;
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var createError = exports.createError = function createError() {
     return new _Sugar.Sugar("undefined");
@@ -49212,7 +49214,7 @@ module.exports = strictIndexOf;
 
 var _Symbol = __webpack_require__(82),
     isArguments = __webpack_require__(116),
-    isArray = __webpack_require__(14);
+    isArray = __webpack_require__(15);
 
 /** Built-in value references. */
 var spreadableSymbol = _Symbol ? _Symbol.isConcatSpreadable : undefined;
@@ -49726,7 +49728,7 @@ var Stack = __webpack_require__(197),
     equalByTag = __webpack_require__(659),
     equalObjects = __webpack_require__(660),
     getTag = __webpack_require__(200),
-    isArray = __webpack_require__(14),
+    isArray = __webpack_require__(15),
     isBuffer = __webpack_require__(95),
     isTypedArray = __webpack_require__(129);
 
@@ -51153,7 +51155,7 @@ var _isFunction2 = __webpack_require__(58);
 
 var _isFunction3 = _interopRequireDefault(_isFunction2);
 
-var _isArray2 = __webpack_require__(14);
+var _isArray2 = __webpack_require__(15);
 
 var _isArray3 = _interopRequireDefault(_isArray2);
 
@@ -51995,7 +51997,7 @@ var arrayEach = __webpack_require__(97),
     baseForOwn = __webpack_require__(194),
     baseIteratee = __webpack_require__(40),
     getPrototype = __webpack_require__(132),
-    isArray = __webpack_require__(14),
+    isArray = __webpack_require__(15),
     isBuffer = __webpack_require__(95),
     isFunction = __webpack_require__(58),
     isObject = __webpack_require__(33),
@@ -53651,7 +53653,7 @@ module.exports = {
   'clone': __webpack_require__(716),
   'curry': __webpack_require__(348),
   'forEach': __webpack_require__(97),
-  'isArray': __webpack_require__(14),
+  'isArray': __webpack_require__(15),
   'isFunction': __webpack_require__(58),
   'iteratee': __webpack_require__(734),
   'keys': __webpack_require__(196),
@@ -53834,7 +53836,7 @@ module.exports = realNames;
 var LazyWrapper = __webpack_require__(207),
     LodashWrapper = __webpack_require__(210),
     baseLodash = __webpack_require__(208),
-    isArray = __webpack_require__(14),
+    isArray = __webpack_require__(15),
     isObjectLike = __webpack_require__(39),
     wrapperClone = __webpack_require__(709);
 
@@ -55017,7 +55019,7 @@ module.exports = flatten;
 
 var arrayMap = __webpack_require__(49),
     copyArray = __webpack_require__(136),
-    isArray = __webpack_require__(14),
+    isArray = __webpack_require__(15),
     isSymbol = __webpack_require__(69),
     stringToPath = __webpack_require__(289),
     toKey = __webpack_require__(59),
@@ -55940,7 +55942,7 @@ var LodashWrapper = __webpack_require__(210),
     flatRest = __webpack_require__(140),
     getData = __webpack_require__(209),
     getFuncName = __webpack_require__(341),
-    isArray = __webpack_require__(14),
+    isArray = __webpack_require__(15),
     isLaziable = __webpack_require__(340);
 
 /** Error message constants. */
@@ -57939,7 +57941,7 @@ var _every2 = __webpack_require__(801);
 
 var _every3 = _interopRequireDefault(_every2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -59336,7 +59338,7 @@ __webpack_require__(375)('getOwnPropertyDescriptor', function () {
 var arrayEvery = __webpack_require__(802),
     baseEvery = __webpack_require__(803),
     baseIteratee = __webpack_require__(40),
-    isArray = __webpack_require__(14),
+    isArray = __webpack_require__(15),
     isIterateeCall = __webpack_require__(133);
 
 /**
@@ -60314,7 +60316,7 @@ var _extends2 = __webpack_require__(2);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -60471,7 +60473,7 @@ var _invoke2 = __webpack_require__(26);
 
 var _invoke3 = _interopRequireDefault(_invoke2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -61650,7 +61652,7 @@ var _isNil2 = __webpack_require__(37);
 
 var _isNil3 = _interopRequireDefault(_isNil2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -61876,7 +61878,7 @@ var _extends2 = __webpack_require__(2);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -62328,7 +62330,7 @@ var _extends2 = __webpack_require__(2);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -62860,7 +62862,7 @@ var _extends2 = __webpack_require__(2);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -63140,7 +63142,7 @@ var _has2 = __webpack_require__(81);
 
 var _has3 = _interopRequireDefault(_has2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -63671,7 +63673,7 @@ var _includes2 = __webpack_require__(71);
 
 var _includes3 = _interopRequireDefault(_includes2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -64284,7 +64286,7 @@ var _isUndefined2 = __webpack_require__(127);
 
 var _isUndefined3 = _interopRequireDefault(_isUndefined2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -64649,7 +64651,7 @@ var _invoke2 = __webpack_require__(26);
 
 var _invoke3 = _interopRequireDefault(_invoke2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -64930,7 +64932,7 @@ var _isEqual2 = __webpack_require__(206);
 
 var _isEqual3 = _interopRequireDefault(_isEqual2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -66366,7 +66368,7 @@ var _extends2 = __webpack_require__(2);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _without2 = __webpack_require__(15);
+var _without2 = __webpack_require__(16);
 
 var _without3 = _interopRequireDefault(_without2);
 
@@ -66816,7 +66818,7 @@ var _nodeModeType = __webpack_require__(25);
 
 var _modeType = __webpack_require__(45);
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _Node = __webpack_require__(447);
 
@@ -66978,7 +66980,7 @@ var _nodeClickEvents = __webpack_require__(451);
 
 var _Glycan = __webpack_require__(448);
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 function canvasClickEvent() {
     //DrawGlycanの機能
@@ -67035,7 +67037,7 @@ exports.createNodeShape = undefined;
 
 var _nodeModeType = __webpack_require__(25);
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _createHexose = __webpack_require__(891);
 
@@ -67139,7 +67141,7 @@ var _nodeModeType = __webpack_require__(25);
 
 var _main = __webpack_require__(13);
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _createjsEaseljs = __webpack_require__(20);
 
@@ -67246,7 +67248,7 @@ var _updateStage = __webpack_require__(894);
 
 var _culcParentChild = __webpack_require__(895);
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _Edge = __webpack_require__(99);
 
@@ -67317,7 +67319,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.stageUpdate = stageUpdate;
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _Edge = __webpack_require__(99);
 
@@ -67345,7 +67347,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.culcParentChild = culcParentChild;
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 function culcParentChild(sugar1, sugar2) {
     var parentChild = [];
@@ -67657,7 +67659,7 @@ var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
 
 var _RepeatBracket = __webpack_require__(150);
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _getColor = __webpack_require__(22);
 
@@ -67809,7 +67811,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createHexNAc = undefined;
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _nodeModeType = __webpack_require__(25);
 
@@ -67910,7 +67912,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createHexosamine = undefined;
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _nodeModeType = __webpack_require__(25);
 
@@ -68011,7 +68013,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createHexuronate = undefined;
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _nodeModeType = __webpack_require__(25);
 
@@ -68125,7 +68127,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createDeoxyHexose = undefined;
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _nodeModeType = __webpack_require__(25);
 
@@ -68220,7 +68222,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createDeoxyHexNAc = undefined;
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _nodeModeType = __webpack_require__(25);
 
@@ -68315,7 +68317,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createDi_DeoxyHexose = undefined;
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _nodeModeType = __webpack_require__(25);
 
@@ -68408,7 +68410,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createPentose = undefined;
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _nodeModeType = __webpack_require__(25);
 
@@ -68494,7 +68496,7 @@ exports.createDeoxynonulosonate = undefined;
 
 var _getRelativeCoordinate = __webpack_require__(30);
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _nodeModeType = __webpack_require__(25);
 
@@ -68583,7 +68585,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createDi_Deoxynonulosonate = undefined;
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _nodeModeType = __webpack_require__(25);
 
@@ -68669,7 +68671,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createUnknown = undefined;
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _nodeModeType = __webpack_require__(25);
 
@@ -68770,7 +68772,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createAssigned = undefined;
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _nodeModeType = __webpack_require__(25);
 
@@ -68859,7 +68861,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createUndefSNFG = undefined;
 
-var _Sugar = __webpack_require__(16);
+var _Sugar = __webpack_require__(14);
 
 var _nodeModeType = __webpack_require__(25);
 

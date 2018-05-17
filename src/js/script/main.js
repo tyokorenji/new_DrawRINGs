@@ -3,6 +3,7 @@
 
 import { LiaiseUI } from "./class/liaiseUI";
 import { Glycan } from "./class/Glycan";
+import { Sugar } from "./class/Sugar";
 
 
 export let liaise: LiaiseUI = new LiaiseUI();  //UIのの状態を納めるクラス変数。Reactとのつなげ役
