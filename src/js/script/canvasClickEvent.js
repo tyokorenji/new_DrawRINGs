@@ -25,11 +25,11 @@ export function canvasClickEvent() {
                 break;
         }
         sugar.addEventListener("click", nodeClickEvents, false);
-        if (glycans.length == 0) {
-            let glycan: Glycan = new Glycan();
-            glycan.setRootNode(sugar);
-            glycans.push(glycan);
-        }
+        let glycan: Glycan = new Glycan();
+        glycan.setRootNode(sugar);
+        glycans.push(glycan);
+        sugar.setGlycan(glycan);
+        console.log(sugar.getGlycan());
         return;
     }
     //Bind Glycanの機能

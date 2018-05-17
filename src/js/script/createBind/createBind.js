@@ -8,16 +8,36 @@ import { culcParentChild } from "../culcParentChild";
 import { Sugar } from "../class/Sugar";
 import { Edge } from "../class/Edge";
 import { edgeClickEvent } from "../edgeClickEvent";
+import { glycans } from "../main";
 
 export function createEdge(target: Sugar) {
-    console.log(liaise.selectedNode);
-    console.log(target);
+    if (target.xCoord > liaise.selectedNode.xCoord) {
+        for (let item of target.childSugars) {
+            if (item === liaise.selectedNode) return;
+        }
+    }
+    else {
+        for (let item of liaise.selectedNode.childSugars) {
+            if (item === target) return;
+        }
+    }
     let edge: Edge = drawEdge(liaise.selectedNode.xCoord, liaise.selectedNode.yCoord, target.xCoord, target.yCoord);
     let parentChild: Array<Sugar> = culcParentChild(liaise.selectedNode, target);
     let parentSugar = parentChild[0];
     let childSugar = parentChild[1];
     childSugar.setParentSugars(parentSugar);
     childSugar.setParentBond(edge);
+    for (let i = 0; i < glycans.length; i++) {
+        switch (childSugar.getGlycan()) {
+            case glycans[i]: {
+                glycans.splice(i, 1);
+                childSugar.setGlycan(parentSugar.getGlycan());
+                break;
+            }
+            default:
+                break;
+        }
+    }
     parentSugar.setChildSugars(childSugar);
     parentSugar.setChildNodes(childSugar);
     edge.setParentSugar(parentSugar);

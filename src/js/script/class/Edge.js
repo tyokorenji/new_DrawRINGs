@@ -12,7 +12,7 @@ class Edge extends VisibleElement{
     childAnomeric: string;
     childPosition: string;
     parentPosition: string;
-    repeatBracket: RepeatBracket;
+    // repeatBracket: RepeatBracket;
 
     constructor(){
         super();
@@ -79,17 +79,17 @@ class Edge extends VisibleElement{
         else { return false; }
     };
 
-    setRepeatBracket(repeatBracket: RepeatBracket) {
-        this.repeatBracket = repeatBracket;
-        return;
-    }
-
-    hasRepeatBracket(): boolean {
-        if (this.repeatBracket === {}) return false;
-        else {
-            return true;
-        }
-    }
+    // setRepeatBracket(repeatBracket: RepeatBracket) {
+    //     this.repeatBracket = repeatBracket;
+    //     return;
+    // }
+    //
+    // hasRepeatBracket(): boolean {
+    //     if (this.repeatBracket === {}) return false;
+    //     else {
+    //         return true;
+    //     }
+    // }
 
 
 }

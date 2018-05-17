@@ -42,6 +42,7 @@ export function nodeClickEvents(event: Object) {
                 else {
                     let repeatBracket: RepeatBracket = createRepeatBracket(liaise.selectedNode, event.currentTarget);
                     repeatBracket.addEventListener("click", repeatClickEvent, false);
+                    repeatBracket.startSugar.setRepeatBracket(repeatBracket);
                     liaise.addStage(repeatBracket);
                     liaise.stageUpdate();
                     liaise.selectedNode.offLight();

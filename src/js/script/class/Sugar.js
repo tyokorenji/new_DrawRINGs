@@ -7,6 +7,8 @@ import { getColor } from "../data/getColor";
 import { searchRing } from "../searchRIng";
 import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
 import { liaise } from "../main";
+import { Glycan } from "./Glycan";
+import { RepeatBracket } from "./RepeatBracket";
 
 class Sugar extends Node{
     name: string;  //単糖の名前
@@ -15,6 +17,8 @@ class Sugar extends Node{
     ring: string;  //フラノースかピラノースか("pyranose p" or "furanose f" or "undefined")
     isomerShape: createjs.Text;  //isomerのcreatejs.Text
     ringShape: createjs.Text;  //ringのcreatejs.Text
+    glycan: Glycan;  //Sugarが所属するGlycanオブジェクト
+    repeatBracket: RepeatBracket;  //繰り返しのstartNodeの時、Bracketを持つ
 
     constructor(name: string){
         super();
@@ -24,6 +28,7 @@ class Sugar extends Node{
         this.ring = "undefined";
         this.isomerShape;
         this.ringShape;
+        this.glycan;
     }
 
     getName(): string{
@@ -124,6 +129,24 @@ class Sugar extends Node{
         this.yCoord = y - (y % 10);
         this.x = x - (x % 10);
         this.y = y - (y % 10);
+    }
+
+    setGlycan(glycan: Glycan) {
+        this.glycan = glycan;
+        return;
+    }
+
+    getGlycan(): Glycan {
+        return this.glycan;
+    }
+
+    setRepeatBracket(repeatBracket: RepeatBracket) {
+        this.repeatBracket = repeatBracket;
+        return;
+    }
+
+    getRepeatBracket(): RepeatBracket {
+        return this.repeatBracket;
     }
 
 }

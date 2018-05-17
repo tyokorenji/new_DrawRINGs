@@ -7,11 +7,11 @@ import { VisibleElement } from "./VisibleElement";
 import { Edge } from "./Edge";
 
 class Node extends VisibleElement {
-    parentSugars: Array<Sugar>;  //親のリスト。単糖
+    // parentSugars: Array<Sugar>;  //親のリスト。単糖
     childNodes: Array<Node>;  //子供のリスト。単糖と修飾
-    childSugars: Array<Sugar>;  //子供のリスト。単糖
-    childModifications: Array<Modification>;  //子供のリスト。修飾
-    parentBond: Array<Sugar>;  //親の単糖との結合
+    // childSugars: Array<Sugar>;  //子供のリスト。単糖
+    // childModifications: Array<Modification>;  //子供のリスト。修飾
+    // parentBond: Array<Sugar>;  //親の単糖との結合
 
     constructor(){
         super();
