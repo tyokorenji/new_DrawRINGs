@@ -16,6 +16,7 @@ export function canvasClickEvent() {
     if (liaise.modeType === modeType.NODE) {
         let shapeType: Symbol = nodeType(liaise.nodeSelect);
         let sugar: Sugar = createNodeShape(shapeType, event);
+        liaise.stageUpdate();
         switch (sugar.name) {
             case "undefined":
                 alert("ERROR!!!");

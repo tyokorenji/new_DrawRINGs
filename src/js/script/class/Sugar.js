@@ -118,6 +118,14 @@ class Sugar extends Node{
         }
     }
 
+    //単糖の座標設定
+    setCoordinate(x: number, y: number) {
+        this.xCoord = x - (x % 10);
+        this.yCoord = y - (y % 10);
+        this.x = x - (x % 10);
+        this.y = y - (y % 10);
+    }
+
 }
 
 export { Sugar };

@@ -45,7 +45,6 @@ export let createDi_Deoxynonulosonate = (event: Event, symbolSize: number): Suga
         .lineTo( symbolSize * 2 *2 /3 / 2 * Math.sqrt(3), 0)
         .closePath()
         .endFill();
-    let coordinate: Array<number> = getRelativeCoordinate(event);
     let sugar: Sugar = new Sugar(nodeName);
     sugar.setIsomer(isomer);
     sugar.setRing(ring);
@@ -67,10 +66,5 @@ export let createDi_Deoxynonulosonate = (event: Event, symbolSize: number): Suga
     //         sugar.addChild(sugar.ringShape);
     //         break;
     // }
-    sugar.x = coordinate[0];
-    sugar.y = coordinate[1];
-    sugar.xCoord = coordinate[0];
-    sugar.yCoord = coordinate[1];
-    liaise.stage.update();
     return sugar;
 };

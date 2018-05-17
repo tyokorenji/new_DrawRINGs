@@ -1,10 +1,11 @@
 //@flow
 "use strict";
 
-import { Glycan } from "./Glycan";
+import { Bracket } from "./Bracket";
 import { Sugar } from "./Sugar";
+import { Glycan } from "./Glycan";
 
-class FragmentBracket extends Glycan {
+class FragmentBracket extends Bracket {
     parentSugars: Array<Sugar>;  //フラグメントがつく親単糖
     parentGlycans: Array<Glycan>;  //親となる糖鎖構造
     childGlycans: Array<Glycan>;  //フラグメントの糖鎖構造

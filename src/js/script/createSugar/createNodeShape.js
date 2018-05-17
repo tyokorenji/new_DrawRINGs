@@ -2,6 +2,7 @@
 "use strict";
 
 import { nodeModeType } from "../../react/nodeModeType";
+import { Sugar } from "../class/Sugar";
 import { createHexose } from "./createHexose";
 import { createError } from "./createError";
 import { createHexNAc } from "./createHexNAc";
@@ -16,38 +17,56 @@ import { createDi_Deoxynonulosonate } from "./createDi_Deoxynonulosonate";
 import { createUnknown } from "./createUnknown";
 import { createAssigned } from "./createAssigned";
 import { createUndefSNFG } from "./createUndefSNFG";
+import { getRelativeCoordinate } from "../getRelativeCoordinate";
 
 export let createNodeShape: Function = (shapeType: Symbol, event: Event): Function => {
     let symbolSize: number = 15;
+    let sugar: Sugar;
     switch (shapeType) {
         case nodeModeType.HEXOSE:
-            return createHexose(event, symbolSize);
+            sugar = createHexose(event, symbolSize);
+            break;
         case nodeModeType.HEXNAC:
-            return createHexNAc(event, symbolSize);
+            sugar = createHexNAc(event, symbolSize);
+            break;
         case nodeModeType.HEXOSAMINE:
-            return createHexosamine(event, symbolSize);
+            sugar = createHexosamine(event, symbolSize);
+            break;
         case nodeModeType.HEXURONATE:
-            return createHexuronate(event, symbolSize);
+            sugar =  createHexuronate(event, symbolSize);
+            break;
         case nodeModeType.DEOXYHEXOSE:
-            return createDeoxyHexose(event, symbolSize);
+            sugar =  createDeoxyHexose(event, symbolSize);
+            break;
         case nodeModeType.DEOXYHEXNAC:
-            return createDeoxyHexNAc(event, symbolSize);
+            sugar =  createDeoxyHexNAc(event, symbolSize);
+            break;
         case nodeModeType.DI_DEOXYHEXOSE:
-            return createDi_DeoxyHexose(event, symbolSize);
+            sugar =  createDi_DeoxyHexose(event, symbolSize);
+            break;
         case nodeModeType.PENTOSE:
-            return createPentose(event, symbolSize);
+            sugar =  createPentose(event, symbolSize);
+            break;
         case nodeModeType.DEOXYNONULOSONATE:
-            return createDeoxynonulosonate(event, symbolSize);
+            sugar =  createDeoxynonulosonate(event, symbolSize);
+            break;
         case nodeModeType.DI_DEOXYNONULOSONATE:
-            return createDi_Deoxynonulosonate(event, symbolSize);
+            sugar =  createDi_Deoxynonulosonate(event, symbolSize);
+            break;
         case nodeModeType.UNKNOWN:
-            return createUnknown(event, symbolSize);
+            sugar =  createUnknown(event, symbolSize);
+            break;
         case nodeModeType.ASSIGNED:
-            return createAssigned(event, symbolSize);
+            sugar =  createAssigned(event, symbolSize);
+            break;
         case nodeModeType.NOT_SELECTED:
             //未定義
-            return createUndefSNFG(event);
+            sugar =  createUndefSNFG(event);
+            break;
         default:
             return createError();
     }
+    let coordinate: Array<number> = getRelativeCoordinate(event);
+    sugar.setCoordinate(coordinate[0], coordinate[1]);
+    return sugar;
 };

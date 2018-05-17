@@ -62,7 +62,6 @@ export let createUnknown = (event: Event, symbolSize: number): Sugar => {
         .lineTo(-1 * 1 / 2 * symbolSize, symbolSize)
         .closePath()
         .endFill();
-    let coordinate: Array<number> = getRelativeCoordinate(event);
     let sugar: Sugar = new Sugar(nodeName);
     sugar.setIsomer(isomer);
     sugar.setRing(ring);
@@ -84,10 +83,5 @@ export let createUnknown = (event: Event, symbolSize: number): Sugar => {
     //         sugar.addChild(sugar.ringShape);
     //         break;
     // }
-    sugar.x = coordinate[0];
-    sugar.y = coordinate[1];
-    sugar.xCoord = coordinate[0];
-    sugar.yCoord = coordinate[1];
-    liaise.stage.update();
     return sugar;
 };

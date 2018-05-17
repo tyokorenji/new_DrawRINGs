@@ -43,7 +43,6 @@ export let createAssigned = (event: Event, symbolSize: number): Sugar => {
     shape.graphics.beginStroke(getColor("black"));
     shape.graphics.setStrokeStyle(2);
     shape.graphics.drawPolyStar(0, 0, symbolSize, 5, 0, -90);
-    let coordinate: Array<number> = getRelativeCoordinate(event);
     let sugar: Sugar = new Sugar(nodeName);
     sugar.setIsomer(isomer);
     sugar.setRing(ring);
@@ -65,11 +64,6 @@ export let createAssigned = (event: Event, symbolSize: number): Sugar => {
     //         sugar.addChild(sugar.ringShape);
     //         break;
     // }
-    sugar.x = coordinate[0];
-    sugar.y = coordinate[1];
-    sugar.xCoord = coordinate[0];
-    sugar.yCoord = coordinate[1];
-    liaise.stage.update();
     return sugar;
 
 };
