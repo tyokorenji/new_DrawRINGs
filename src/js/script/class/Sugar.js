@@ -9,6 +9,7 @@ import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
 import { liaise } from "../main";
 import { Glycan } from "./Glycan";
 import { RepeatBracket } from "./RepeatBracket";
+import { Cyclic } from "./Cyclic";
 
 class Sugar extends Node{
     name: string;  //単糖の名前
@@ -19,6 +20,7 @@ class Sugar extends Node{
     ringShape: createjs.Text;  //ringのcreatejs.Text
     glycan: Glycan;  //Sugarが所属するGlycanオブジェクト
     repeatBracket: RepeatBracket;  //繰り返しのstartNodeの時、Bracketを持つ
+    cyclic: Cyclic; //その糖鎖がCyclic構造を形成する単糖で、非還元末端側の場合
 
     constructor(name: string){
         super();
@@ -29,6 +31,7 @@ class Sugar extends Node{
         this.isomerShape;
         this.ringShape;
         this.glycan;
+        this.cyclic;
     }
 
     getName(): string{
@@ -148,6 +151,19 @@ class Sugar extends Node{
     getRepeatBracket(): RepeatBracket {
         return this.repeatBracket;
     }
+
+    setCyclic(cyclic: Cyclic) {
+        this.cyclic = cyclic;
+        return;
+    }
+    getCyclic(): Cyclic {
+        return this.cyclic;
+    }
+    hasCyclic(): boolean {
+        if (this.cyclic === new Cyclic()) return false;
+        else return true;
+    }
+
 
 }
 

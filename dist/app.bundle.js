@@ -934,6 +934,8 @@ var _Glycan = __webpack_require__(244);
 
 var _RepeatBracket = __webpack_require__(150);
 
+var _Cyclic = __webpack_require__(928);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -945,11 +947,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Sugar = function (_Node) {
     _inherits(Sugar, _Node);
 
-    //繰り返しのstartNodeの時、Bracketを持つ
+    //その糖鎖がCyclic構造を形成する単糖で、非還元末端側の場合
 
-    //ringのcreatejs.Text
-    //フラノースかピラノースか("pyranose p" or "furanose f" or "undefined")
-    //アノマーの位置（"alpha α a" or "beta β b" or "open o" or "undefined"）
+    //Sugarが所属するGlycanオブジェクト
+    //isomerのcreatejs.Text
+    //構造異性体("L" or "D" or "undefined")
+    //単糖の名前
     function Sugar(name) {
         _classCallCheck(this, Sugar);
 
@@ -962,11 +965,12 @@ var Sugar = function (_Node) {
         _this.isomerShape;
         _this.ringShape;
         _this.glycan;
+        _this.cyclic;
         return _this;
-    } //Sugarが所属するGlycanオブジェクト
-    //isomerのcreatejs.Text
-    //構造異性体("L" or "D" or "undefined")
-    //単糖の名前
+    } //繰り返しのstartNodeの時、Bracketを持つ
+    //ringのcreatejs.Text
+    //フラノースかピラノースか("pyranose p" or "furanose f" or "undefined")
+    //アノマーの位置（"alpha α a" or "beta β b" or "open o" or "undefined"）
 
 
     _createClass(Sugar, [{
@@ -1117,6 +1121,22 @@ var Sugar = function (_Node) {
         key: "getRepeatBracket",
         value: function getRepeatBracket() {
             return this.repeatBracket;
+        }
+    }, {
+        key: "setCyclic",
+        value: function setCyclic(cyclic) {
+            this.cyclic = cyclic;
+            return;
+        }
+    }, {
+        key: "getCyclic",
+        value: function getCyclic() {
+            return this.cyclic;
+        }
+    }, {
+        key: "hasCyclic",
+        value: function hasCyclic() {
+            if (this.cyclic === new _Cyclic.Cyclic()) return false;else return true;
         }
     }]);
 
@@ -67369,6 +67389,8 @@ var _edgeClickEvent = __webpack_require__(897);
 
 var _Glycobond = __webpack_require__(99);
 
+var _createCyclic = __webpack_require__(926);
+
 function createEdge(target) {
     if (target.xCoord > _main.liaise.selectedNode.xCoord) {
         var _iteratorNormalCompletion = true;
@@ -67422,28 +67444,34 @@ function createEdge(target) {
         }
     }
     var edge = (0, _drawEdge.drawEdge)(_main.liaise.selectedNode.xCoord, _main.liaise.selectedNode.yCoord, target.xCoord, target.yCoord);
-    var parentChild = (0, _culcParentChild.culcParentChild)(_main.liaise.selectedNode, target);
-    var parentSugar = parentChild[0];
-    var childSugar = parentChild[1];
-    childSugar.setParentSugars(parentSugar);
-    childSugar.setParentBond(edge);
-    for (var i = 0; i < _main.glycans.length; i++) {
-        switch (childSugar.getGlycan()) {
-            case _main.glycans[i]:
-                {
-                    _main.glycans.splice(i, 1);
-                    childSugar.setGlycan(parentSugar.getGlycan());
-                    break;
+    switch (_main.liaise.selectedNode.getGlycan()) {
+        case target.getGlycan():
+            (0, _createCyclic.createCyclic)(edge, _main.liaise.selectedNode, target);
+            break;
+        default:
+            var parentChild = (0, _culcParentChild.culcParentChild)(_main.liaise.selectedNode, target);
+            var parentSugar = parentChild[0];
+            var childSugar = parentChild[1];
+            childSugar.setParentSugars(parentSugar);
+            childSugar.setParentBond(edge);
+            for (var i = 0; i < _main.glycans.length; i++) {
+                switch (childSugar.getGlycan()) {
+                    case _main.glycans[i]:
+                        {
+                            _main.glycans.splice(i, 1);
+                            childSugar.setGlycan(parentSugar.getGlycan());
+                            break;
+                        }
+                    default:
+                        break;
                 }
-            default:
-                break;
-        }
+            }
+            parentSugar.setChildSugars(childSugar);
+            parentSugar.setChildNodes(childSugar);
+            edge.setParentSugar(parentSugar);
+            edge.setChildSugar(childSugar);
     }
-    parentSugar.setChildSugars(childSugar);
-    parentSugar.setChildNodes(childSugar);
-    edge.setParentSugar(parentSugar);
-    edge.setChildSugar(childSugar);
-    (0, _updateStage.stageUpdate)(parentSugar, childSugar, edge);
+    (0, _updateStage.stageUpdate)(_main.liaise.selectedNode, target, edge);
     edge.addEventListener("click", _edgeClickEvent.edgeClickEvent, false);
     return;
 };
@@ -71328,6 +71356,121 @@ var KCFTextArea = exports.KCFTextArea = function (_React$Component) {
 
     return KCFTextArea;
 }(_react2.default.Component);
+
+/***/ }),
+/* 926 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.createCyclic = undefined;
+
+var _Glycobond = __webpack_require__(99);
+
+var _Sugar = __webpack_require__(13);
+
+var _culcParentChild = __webpack_require__(896);
+
+var _Cyclic = __webpack_require__(928);
+
+var _main = __webpack_require__(14);
+
+var createCyclic = exports.createCyclic = function createCyclic(edge, sugar1, sugar2) {
+    var parentChild = (0, _culcParentChild.culcParentChild)(sugar1, sugar2);
+    var parentSugar = parentChild[1];
+    var childSugar = parentChild[0];
+
+    var cyclic = new _Cyclic.Cyclic();
+    cyclic.setReductionSugar(childSugar);
+    cyclic.setNonReductionSugar(parentSugar);
+    childSugar.setParentSugars(parentSugar);
+    childSugar.setParentBond(edge);
+    for (var i = 0; i < _main.glycans.length; i++) {
+        switch (parentSugar.getGlycan()) {
+            case _main.glycans[i]:
+                {
+                    _main.glycans.splice(i, 1);
+                    childSugar.setGlycan(parentSugar.getGlycan());
+                    break;
+                }
+            default:
+                break;
+        }
+    }
+    parentSugar.setChildSugars(childSugar);
+    parentSugar.setChildNodes(childSugar);
+    parentSugar.setCyclic(cyclic);
+    edge.setParentSugar(parentSugar);
+    edge.setChildSugar(childSugar);
+    console.log(parentSugar.hasCyclic());
+};
+
+/***/ }),
+/* 927 */,
+/* 928 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Cyclic = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Sugar = __webpack_require__(13);
+
+var _Glycan2 = __webpack_require__(244);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Cyclic = function (_Glycan) {
+    _inherits(Cyclic, _Glycan);
+
+    function Cyclic() {
+        _classCallCheck(this, Cyclic);
+
+        return _possibleConstructorReturn(this, (Cyclic.__proto__ || Object.getPrototypeOf(Cyclic)).call(this));
+    }
+
+    _createClass(Cyclic, [{
+        key: "setReductionSugar",
+        value: function setReductionSugar(sugar) {
+            this.reductionSugar = sugar;
+            return;
+        }
+    }, {
+        key: "getReductionSugar",
+        value: function getReductionSugar() {
+            return this.reductionSugar;
+        }
+    }, {
+        key: "setNonReductionSugar",
+        value: function setNonReductionSugar(sugar) {
+            this.nonReductionSugar = sugar;
+            return;
+        }
+    }, {
+        key: "getNonReductionSugar",
+        value: function getNonReductionSugar() {
+            return this.nonReductionSugar;
+        }
+    }]);
+
+    return Cyclic;
+}(_Glycan2.Glycan);
+
+exports.Cyclic = Cyclic;
 
 /***/ })
 /******/ ]);

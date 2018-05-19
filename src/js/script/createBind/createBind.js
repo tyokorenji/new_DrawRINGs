@@ -9,6 +9,7 @@ import { Sugar } from "../class/Sugar";
 import { edgeClickEvent } from "../edgeClickEvent";
 import { glycans } from "../main";
 import { Glycobond } from "../class/Glycobond";
+import { createCyclic } from "../createCyclic/createCyclic";
 
 export function createEdge(target: Sugar) {
     if (target.xCoord > liaise.selectedNode.xCoord) {
@@ -22,27 +23,33 @@ export function createEdge(target: Sugar) {
         }
     }
     let edge: Glycobond = drawEdge(liaise.selectedNode.xCoord, liaise.selectedNode.yCoord, target.xCoord, target.yCoord);
-    let parentChild: Array<Sugar> = culcParentChild(liaise.selectedNode, target);
-    let parentSugar = parentChild[0];
-    let childSugar = parentChild[1];
-    childSugar.setParentSugars(parentSugar);
-    childSugar.setParentBond(edge);
-    for (let i = 0; i < glycans.length; i++) {
-        switch (childSugar.getGlycan()) {
-            case glycans[i]: {
-                glycans.splice(i, 1);
-                childSugar.setGlycan(parentSugar.getGlycan());
-                break;
+    switch (liaise.selectedNode.getGlycan()) {
+        case target.getGlycan():
+            createCyclic(edge, liaise.selectedNode, target);
+            break;
+        default:
+            let parentChild: Array<Sugar> = culcParentChild(liaise.selectedNode, target);
+            let parentSugar: Sugar = parentChild[0];
+            let childSugar: Sugar = parentChild[1];
+            childSugar.setParentSugars(parentSugar);
+            childSugar.setParentBond(edge);
+            for (let i = 0; i < glycans.length; i++) {
+                switch (childSugar.getGlycan()) {
+                    case glycans[i]: {
+                        glycans.splice(i, 1);
+                        childSugar.setGlycan(parentSugar.getGlycan());
+                        break;
+                    }
+                    default:
+                        break;
+                }
             }
-            default:
-                break;
-        }
+            parentSugar.setChildSugars(childSugar);
+            parentSugar.setChildNodes(childSugar);
+            edge.setParentSugar(parentSugar);
+            edge.setChildSugar(childSugar);
     }
-    parentSugar.setChildSugars(childSugar);
-    parentSugar.setChildNodes(childSugar);
-    edge.setParentSugar(parentSugar);
-    edge.setChildSugar(childSugar);
-    stageUpdate(parentSugar, childSugar, edge);
+    stageUpdate(liaise.selectedNode, target, edge);
     edge.addEventListener("click", edgeClickEvent, false);
     return;
 };
