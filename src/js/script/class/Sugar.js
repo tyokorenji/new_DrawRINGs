@@ -21,6 +21,7 @@ class Sugar extends Node{
     glycan: Glycan;  //Sugarが所属するGlycanオブジェクト
     repeatBracket: RepeatBracket;  //繰り返しのstartNodeの時、Bracketを持つ
     cyclic: Cyclic; //その糖鎖がCyclic構造を形成する単糖で、非還元末端側の場合
+    layer: number;
 
     constructor(name: string){
         super();
@@ -32,6 +33,7 @@ class Sugar extends Node{
         this.ringShape;
         this.glycan;
         this.cyclic;
+        this.layer = 1;
     }
 
     getName(): string{
@@ -162,6 +164,14 @@ class Sugar extends Node{
     hasCyclic(): boolean {
         if (this.cyclic === new Cyclic()) return false;
         else return true;
+    }
+
+    setLayer(layer: number) {
+        this.layer = layer;
+        return;
+    }
+    getLayer(): number {
+        return this.layer;
     }
 
 

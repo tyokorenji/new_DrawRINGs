@@ -10,5 +10,6 @@ export let basicData: Object = {
     "repeatStrokeSize": 5,
     "repeatNumberX": 10,
     "repeatNumberY": -10,
-    "repeatNumberSize": 20
+    "repeatNumberSize": 20,
+    "cyclicEdge" : 150    //cyclic構造のEdgeの曲がり具合
 };
