@@ -4,6 +4,7 @@ export const modeType = {
     NODE: Symbol(),
     EDGE: Symbol(),
     REPEAT: Symbol(),
+    FRAGMENT: Symbol(),
     STRUCTURE: Symbol(),
     CLEAR: Symbol(),
     DRAW_KCF: Symbol(),

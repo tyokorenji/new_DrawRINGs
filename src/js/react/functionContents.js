@@ -36,6 +36,13 @@ export class FunctionContents{
                 </div>
             );
         }
+        else if (currentModeType === modeType.FRAGMENT) {
+            return (
+                <div>
+                    <p>this is Fragment!!!</p>
+                </div>
+            );
+        }
         else if (currentModeType === modeType.CLEAR) {
             return (
                 <div>
