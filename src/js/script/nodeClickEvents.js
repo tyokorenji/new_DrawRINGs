@@ -7,14 +7,14 @@ import { createEdge } from "./createBind/createBind";
 import { createRepeatBracket } from "./createRepeatBracket/createRepeatBeacket";
 import { RepeatBracket } from "./class/RepeatBracket";
 import { repeatClickEvent } from "./createRepeatBracket/repeatClickEvent";
+import { glycanClickEvent } from "./glycanClickEvent";
 
 export function nodeClickEvents(event: Object) {
     switch (liaise.modeType) {
         //Bind Glycanの機能
-        case modeType.EDGE:
+        case modeType.EDGE: {
             if (liaise.nodeClick) {
                 if (event.currentTarget.checkHighLight()) {
-                    console.log("Glc二回目");
                     event.currentTarget.offLight();
                     liaise.changeNodeClick();
                     liaise.removeSelectedNode();
@@ -32,7 +32,8 @@ export function nodeClickEvents(event: Object) {
                 liaise.setSelectedNode(event.currentTarget);
             }
             break;
-        case modeType.REPEAT:
+        }
+        case modeType.REPEAT: {
             if (liaise.nodeClick) {
                 if (event.currentTarget.checkHighLight()) {
                     event.currentTarget.offLight();
@@ -56,6 +57,11 @@ export function nodeClickEvents(event: Object) {
                 liaise.setSelectedNode(event.currentTarget);
             }
             break;
+        }
+        case modeType.FRAGMENT: {
+            glycanClickEvent(event.currentTarget);
+            break;
+        }
         default:
             return;
     }

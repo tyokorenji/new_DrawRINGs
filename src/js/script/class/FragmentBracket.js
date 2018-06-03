@@ -3,17 +3,18 @@
 
 import { Bracket } from "./Bracket";
 import { Sugar } from "./Sugar";
-import { Glycan } from "./Glycan";
+// import { Glycan } from "./Glycan";
+// import { Fragment } from "./Fragment";
 
 class FragmentBracket extends Bracket {
     parentSugars: Array<Sugar>;  //フラグメントがつく親単糖
-    parentGlycans: Array<Glycan>;  //親となる糖鎖構造
-    childGlycans: Array<Glycan>;  //フラグメントの糖鎖構造
+    parentGlycan: Object ; //親となる糖鎖構造
+    childGlycans: Array<Object>;  //フラグメントの糖鎖構造
 
     constructor(){
         super();
         this.parentSugars = [];
-        this.parentGlycans = [];
+        this.parentGlycan = {};
         this.childGlycans = [];
     }
 
@@ -26,23 +27,37 @@ class FragmentBracket extends Bracket {
         return;
     }
 
-    getParentGlycans(): Array<Glycan> {
-        return this.parentGlycans;
+    getParentGlycan(): Object {
+        return this.parentGlycan;
     }
 
-    setParentGlycans(glycan: Glycan) {
-        this.parentGlycans.push(glycan);
+    setParentGlycan(glycan: Object) {
+        this.parentGlycan = glycan;
         return;
     }
 
-    getChildGlycans(): Array<Glycan> {
+    getChildGlycans(): Array<Object> {
         return this.childGlycans;
     }
 
-    setChildGlycans(glycan: Glycan) {
+    setChildGlycans(glycan: Object) {
         this.childGlycans.push(glycan);
         return;
     }
+
+    hasChildGlycans(): boolean {
+        if(this.childGlycans.length === 0) return false;
+        else return true;
+    }
+    spliceChildGlycans(glycan: Object) {
+        for(let i = 0; i < this.childGlycans.length; i++) {
+            if(glycan === this.childGlycans[i]) {
+                this.childGlycans.splice(i, 1);
+            }
+        }
+        return;
+    }
+
 }
 
 

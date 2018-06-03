@@ -26,16 +26,16 @@ export let createRepeatBracket = (target1: Object, target2: Object) => {
     repeatBracket.setEndSugar(leftNode);
     rightBracket.graphics.beginStroke(getColor("black"));
     rightBracket.graphics.setStrokeStyle(basicData.repeatStrokeSize);
-    rightBracket.graphics.moveTo(rightNode.xCoord + basicData.sybolSize, rightNode.yCoord - basicData.sybolSize - basicData.repeatRange)
-        .lineTo(rightNode.xCoord + basicData.sybolSize + basicData.repeatRange, rightNode.yCoord - basicData.sybolSize - basicData.repeatRange)
-        .lineTo(rightNode.xCoord + basicData.sybolSize + basicData.repeatRange, rightNode.yCoord + basicData.sybolSize + basicData.repeatRange)
-        .lineTo(rightNode.xCoord + basicData.sybolSize, rightNode.yCoord + basicData.sybolSize + basicData.repeatRange);
+    rightBracket.graphics.moveTo(rightNode.xCoord + basicData.symbolSize, rightNode.yCoord - basicData.symbolSize - basicData.repeatRange)
+        .lineTo(rightNode.xCoord + basicData.symbolSize + basicData.repeatRange, rightNode.yCoord - basicData.symbolSize - basicData.repeatRange)
+        .lineTo(rightNode.xCoord + basicData.symbolSize + basicData.repeatRange, rightNode.yCoord + basicData.symbolSize + basicData.repeatRange)
+        .lineTo(rightNode.xCoord + basicData.symbolSize, rightNode.yCoord + basicData.symbolSize + basicData.repeatRange);
     leftBracket.graphics.beginStroke(getColor("black"));
     leftBracket.graphics.setStrokeStyle(basicData.repeatStrokeSize);
-    leftBracket.graphics.moveTo(leftNode.xCoord - basicData.sybolSize, leftNode.yCoord - basicData.sybolSize - basicData.repeatRange)
-        .lineTo(leftNode.xCoord - basicData.sybolSize - basicData.repeatRange, leftNode.yCoord - basicData.sybolSize - basicData.repeatRange)
-        .lineTo(leftNode.xCoord - basicData.sybolSize - basicData.repeatRange, leftNode.yCoord + basicData.sybolSize + basicData.repeatRange)
-        .lineTo(leftNode.xCoord - basicData.sybolSize, leftNode.yCoord + basicData.sybolSize + basicData.repeatRange);
+    leftBracket.graphics.moveTo(leftNode.xCoord - basicData.symbolSize, leftNode.yCoord - basicData.symbolSize - basicData.repeatRange)
+        .lineTo(leftNode.xCoord - basicData.symbolSize - basicData.repeatRange, leftNode.yCoord - basicData.symbolSize - basicData.repeatRange)
+        .lineTo(leftNode.xCoord - basicData.symbolSize - basicData.repeatRange, leftNode.yCoord + basicData.symbolSize + basicData.repeatRange)
+        .lineTo(leftNode.xCoord - basicData.symbolSize, leftNode.yCoord + basicData.symbolSize + basicData.repeatRange);
     repeatBracket.addChild(rightBracket);
     repeatBracket.addChild(leftBracket);
     return repeatBracket;

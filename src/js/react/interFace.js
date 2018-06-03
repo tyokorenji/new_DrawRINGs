@@ -35,42 +35,105 @@ export class InterFace extends React.Component {
         if (targetId == "node") {
             currentState.current_mode_type = modeType.NODE;
             currentState.sideBarVisible = true;
+            if(!liaise.isSelectedGlycanEmpty()) {
+                for (let selectedGlycan of liaise.getSelectedGlycan()) {
+                    selectedGlycan.offLight(selectedGlycan.getRootNode());
+                }
+                // liaise.getSelectedGlycan().offLight(liaise.getSelectedGlycan().getRootNode());
+                liaise.initSelectedGlycan();
+            }
         }
         else if (targetId == "edge") {
             currentState.current_mode_type = modeType.EDGE;
             currentState.sideBarVisible = true;
+            if(!liaise.isSelectedGlycanEmpty()) {
+                for (let selectedGlycan of liaise.getSelectedGlycan()) {
+                    selectedGlycan.offLight(selectedGlycan.getRootNode());
+                }
+                // liaise.getSelectedGlycan().offLight(liaise.getSelectedGlycan().getRootNode());}
+                liaise.initSelectedGlycan();
+            }
         }
         else if (targetId == "structure") {
             currentState.current_mode_type = modeType.STRUCTURE;
             currentState.sideBarVisible = true;
+            if(!liaise.isSelectedGlycanEmpty()) {
+                for (let selectedGlycan of liaise.getSelectedGlycan()) {
+                    selectedGlycan.offLight(selectedGlycan.getRootNode());
+                }
+                // liaise.getSelectedGlycan().offLight(liaise.getSelectedGlycan().getRootNode());}
+                liaise.initSelectedGlycan();
+            }
         }
         else if (targetId == "repeat") {
             currentState.current_mode_type = modeType.REPEAT;
             currentState.sideBarVisible = false;
+            if(!liaise.isSelectedGlycanEmpty()) {
+                for (let selectedGlycan of liaise.getSelectedGlycan()) {
+                    selectedGlycan.offLight(selectedGlycan.getRootNode());
+                }
+                // liaise.getSelectedGlycan().offLight(liaise.getSelectedGlycan().getRootNode());}
+                liaise.initSelectedGlycan();
+            }
         }
         else if (targetId == "fragment") {
             currentState.current_mode_type = modeType.FRAGMENT;
-            currentState.sideBarVisible = false;
+            currentState.sideBarVisible = true;
         }
         else if (targetId == "clear") {
             currentState.current_mode_type = modeType.CLEAR;
             currentState.sideBarVisible = false;
+            if(!liaise.isSelectedGlycanEmpty()) {
+                for (let selectedGlycan of liaise.getSelectedGlycan()) {
+                    selectedGlycan.offLight(selectedGlycan.getRootNode());
+                }
+                // liaise.getSelectedGlycan().offLight(liaise.getSelectedGlycan().getRootNode());}
+                liaise.initSelectedGlycan();
+            }
         }
         else if (targetId == "drawKCF") {
             currentState.current_mode_type = modeType.DRAW_KCF;
             currentState.sideBarVisible = true;
+            if(!liaise.isSelectedGlycanEmpty()) {
+                for (let selectedGlycan of liaise.getSelectedGlycan()) {
+                    selectedGlycan.offLight(selectedGlycan.getRootNode());
+                }
+                // liaise.getSelectedGlycan().offLight(liaise.getSelectedGlycan().getRootNode());}
+                liaise.initSelectedGlycan();
+            }
         }
         else if (targetId == "KCFTextOut") {
             currentState.current_mode_type = modeType.KCF_TEXT_OUT;
             currentState.sideBarVisible = true;
+            if(!liaise.isSelectedGlycanEmpty()) {
+                for (let selectedGlycan of liaise.getSelectedGlycan()) {
+                    selectedGlycan.offLight(selectedGlycan.getRootNode());
+                }
+                // liaise.getSelectedGlycan().offLight(liaise.getSelectedGlycan().getRootNode());}
+                liaise.initSelectedGlycan();
+            }
         }
         else if (targetId == "undo") {
             currentState.current_mode_type = modeType.UNDO;
             currentState.sideBarVisible = false;
+            if(!liaise.isSelectedGlycanEmpty()) {
+                for (let selectedGlycan of liaise.getSelectedGlycan()) {
+                    selectedGlycan.offLight(selectedGlycan.getRootNode());
+                }
+                // liaise.getSelectedGlycan().offLight(liaise.getSelectedGlycan().getRootNode());}
+                liaise.initSelectedGlycan();
+            }
         }
         else if (targetId == "redo") {
             currentState.current_mode_type = modeType.REDO;
             currentState.sideBarVisible = false;
+            if(!liaise.isSelectedGlycanEmpty()) {
+                for (let selectedGlycan of liaise.getSelectedGlycan()) {
+                    selectedGlycan.offLight(selectedGlycan.getRootNode());
+                }
+                // liaise.getSelectedGlycan().offLight(liaise.getSelectedGlycan().getRootNode());}
+                liaise.initSelectedGlycan();
+            }
         }
         this.setState(currentState);
         liaise.modeType = currentState.current_mode_type;

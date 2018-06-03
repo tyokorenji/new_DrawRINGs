@@ -1,7 +1,6 @@
 //@flow
 "use strict";
 import { Node } from "./Node";
-import { Edge } from "./Edge";
 import createjs from "createjs-easeljs";
 import { getColor } from "../data/getColor";
 import { searchRing } from "../searchRIng";
@@ -20,7 +19,7 @@ class Sugar extends Node{
     ringShape: createjs.Text;  //ringのcreatejs.Text
     glycan: Glycan;  //Sugarが所属するGlycanオブジェクト
     repeatBracket: RepeatBracket;  //繰り返しのstartNodeの時、Bracketを持つ
-    cyclic: Cyclic; //その糖鎖がCyclic構造を形成する単糖で、非還元末端側の場合
+    cyclic: Object; //その糖鎖がCyclic構造を形成する単糖で、非還元末端側の場合
     layer: number;
 
     constructor(name: string){
@@ -32,7 +31,7 @@ class Sugar extends Node{
         this.isomerShape;
         this.ringShape;
         this.glycan;
-        this.cyclic;
+        this.cyclic = {};
         this.layer = 1;
     }
 
@@ -130,10 +129,10 @@ class Sugar extends Node{
 
     //単糖の座標設定
     setCoordinate(x: number, y: number) {
-        this.xCoord = x - (x % 10);
-        this.yCoord = y - (y % 10);
-        this.x = x - (x % 10);
-        this.y = y - (y % 10);
+        this.xCoord = x;
+        this.yCoord = y;
+        this.x = x;
+        this.y = y;
     }
 
     setGlycan(glycan: Glycan) {
@@ -141,8 +140,30 @@ class Sugar extends Node{
         return;
     }
 
+    setChildGlycan(sugar: Sugar) {
+        sugar.setGlycan(this.glycan);
+        if (sugar.hasChildSugars()) {
+            for(let child: Sugar of sugar.getChildSugars()) {
+                if(!sugar.isCyclicEmpty()) {
+                    if(child === sugar.getCyclic().getReductionSugar()){
+                        continue;
+                    }
+                }
+                this.setChildGlycan(child);
+            }
+            return;
+        }
+        else {
+            return;
+        }
+    }
+
     getGlycan(): Glycan {
         return this.glycan;
+    }
+
+    initGlycan() {
+        this.glycan = new Glycan();
     }
 
     setRepeatBracket(repeatBracket: RepeatBracket) {
@@ -161,10 +182,10 @@ class Sugar extends Node{
     getCyclic(): Cyclic {
         return this.cyclic;
     }
-    hasCyclic(): boolean {
-        if (this.cyclic === new Cyclic()) return false;
-        else return true;
+    isCyclicEmpty(): boolean {
+        return !Object.keys(this.cyclic).length;
     }
+
 
     setLayer(layer: number) {
         this.layer = layer;

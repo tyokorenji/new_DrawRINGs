@@ -33,5 +33,4 @@ export let createCyclic = (edge: Glycobond, sugar1: Sugar, sugar2: Sugar) => {
     parentSugar.setCyclic(cyclic);
     edge.setParentSugar(parentSugar);
     edge.setChildSugar(childSugar);
-    console.log(parentSugar.hasCyclic());
 };

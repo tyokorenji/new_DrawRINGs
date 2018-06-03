@@ -29,6 +29,11 @@ export class SidebarContens {
                 // this.contents.getContents()
             );
         }
+        else if (currentModeType === modeType.FRAGMENT) {
+            return (
+                <NodeTable/>
+            );
+        }
         else if (currentModeType === modeType.STRUCTURE) {
             this.contents = new structureTable();
             return (

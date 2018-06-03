@@ -6,6 +6,7 @@ import createjs from "createjs-easeljs";
 import { getColor } from "../data/getColor";
 import { basicData } from "../data/graphicsData";
 import { Glycobond } from "../class/Glycobond";
+import { Fragment } from "../class/Fragment";
 
 export function createLinkage(target: Glycobond, linkage: string) {
     console.log(target);
@@ -19,8 +20,20 @@ export function createLinkage(target: Glycobond, linkage: string) {
     let childQuarterCoordinate = quarterCoordinates[1];
     let parentShape = new createjs.Text(target.parentPosition, basicData.linkageSize + "px serif", getColor("black"));
     let childShape = new createjs.Text(target.childAnomeric, basicData.linkageSize + "px serif", getColor("black"));
-    parentShape.x = parentQuarterCoordinate[0];
-    childShape.x = childQuarterCoordinate[0];
+    console.log(target);
+    if(target.getChildSugar().getGlycan() instanceof Fragment) {
+        parentShape.x = target.children[0].graphics._activeInstructions[1].x;
+        childShape.x = childQuarterCoordinate[0];
+    }
+    else if(target.checkYCoordinate()) {
+        parentShape.x = parentQuarterCoordinate[0] - basicData.linkageSize / 2.0;
+        childShape.x = childQuarterCoordinate[0];
+    }
+    else {
+        parentShape.x = parentQuarterCoordinate[0];
+        childShape.x = childQuarterCoordinate[0];
+    }
+
     if (target.whitchParentHighChildLow(parentQuarterCoordinate, childQuarterCoordinate)) {
         parentShape.y = parentQuarterCoordinate[1] - basicData.linkageYPosition;
         childShape.y = childQuarterCoordinate[1] - basicData.linkageYPosition;

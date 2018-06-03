@@ -11,7 +11,7 @@ class Node extends VisibleElement {
     childNodes: Array<Node>;  //子供のリスト。単糖と修飾
     // childSugars: Array<Sugar>;  //子供のリスト。単糖
     // childModifications: Array<Modification>;  //子供のリスト。修飾
-    // parentBond: Array<Sugar>;  //親の単糖との結合
+    parentBonds: Array<Object>;  //親の単糖との結合
 
     constructor(){
         super();
@@ -19,11 +19,11 @@ class Node extends VisibleElement {
         this.childNodes = [];
         this.childSugars = [];
         this.childModifications = [];
-        this.parentBond = [];
+        this.parentBonds = [];
     }
 
     hasParentSugar(): boolean{
-        if (this.parentSugar.length != 0) return true;
+        if (this.parentSugars.length != 0) return true;
         else return false;
     }
 
@@ -78,13 +78,22 @@ class Node extends VisibleElement {
         return;
     }
 
-    getParentBond(): Array<Sugar> {
-        return this.parentBond;
+    getParentBond(): Array<Glycobond> {
+        return this.parentBonds;
     }
 
     setParentBond(edge: Glycobond) {
-        this.parentBond.push(edge);
+        this.parentBonds.push(edge);
         return;
+    }
+    checkDrawingParentBond(parentSugar: Sugar): Object {
+        for (let parentBond: Glycobond of this.parentBonds) {
+            if(parentBond.getParentSugar() === parentSugar) {
+                return parentBond;
+            }
+            else return {};
+        }
+        return {};
     }
 }
 

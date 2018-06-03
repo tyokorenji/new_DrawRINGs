@@ -29,7 +29,7 @@ export let drawCyclicEdge = (target1: Sugar, target2: Sugar): Glycobond => {
         }
     }
     else {
-        if(target1.yCoord >= target2.yCoord) {
+        if(target1.yCoord > target2.yCoord) {
             line.graphics.quadraticCurveTo((target1.xCoord + target2.xCoord) / 2, (target1.yCoord + target2.yCoord) / 2 + basicData.cyclicEdge, target2.xCoord, target2.yCoord);
         }
         else {

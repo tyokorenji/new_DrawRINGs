@@ -6,6 +6,7 @@ import { nodeModeType } from "../../react/nodeModeType";
 import { modeType } from "../../react/modeType";
 import { Sugar } from "./Sugar";
 import { Node } from "./Node";
+import { Glycan } from "./Glycan";
 
 class LiaiseUI {
     textArea: string;
@@ -15,6 +16,7 @@ class LiaiseUI {
     nodeClick: boolean;
     selectedNode: Sugar;
     linkageSelect: Symbol;
+    selectedGlycan: Array<Object>;
 
 
     constructor() {
@@ -24,6 +26,7 @@ class LiaiseUI {
         this.modeType = modeType.NOT_SELECTED;
         this.nodeClick = false;
         this.linkageSelect;
+        this.selectedGlycan = [];
     }
 
     hasTextAreaValue() {
@@ -51,7 +54,7 @@ class LiaiseUI {
         return;
     }
 
-    removeStage(node: Node) {
+    removeStage(node: Object) {
         this.stage.removeChild(node);
         return;
     }
@@ -63,6 +66,21 @@ class LiaiseUI {
 
     stageUpdate() {
         this.stage.update();
+    }
+
+    isSelectedGlycanEmpty(): boolean {
+        if(this.selectedGlycan.length === 0) return true;
+        else return false;
+    }
+    getSelectedGlycan(): Array<Object> {
+        return this.selectedGlycan;
+    }
+    initSelectedGlycan() {
+        this.selectedGlycan = [];
+    }
+    setSelectedGlycan(glycan: Object) {
+        this.selectedGlycan.push(glycan);
+        return;
     }
 }
 

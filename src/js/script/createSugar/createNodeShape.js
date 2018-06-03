@@ -66,7 +66,7 @@ export let createNodeShape: Function = (shapeType: Symbol, event: Event): Functi
         default:
             return createError();
     }
-    let coordinate: Array<number> = getRelativeCoordinate(event);
-    sugar.setCoordinate(coordinate[0], coordinate[1]);
+    // let coordinate: Array<number> = getRelativeCoordinate(event);
+    // sugar.setCoordinate(coordinate[0], coordinate[1]);
     return sugar;
 };

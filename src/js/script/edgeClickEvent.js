@@ -6,9 +6,9 @@ import { liaise } from "./main";
 import { modeType } from "../react/modeType";
 import { searchSelectedLinkage } from "./createBind/searchSelectedEdge";
 
-export function edgeClickEvent(event: Event) {
+export function edgeClickEvent(event: Object) {
     switch(liaise.modeType) {
-        case modeType.EDGE:
+        case modeType.EDGE: {
             let linkage = searchSelectedLinkage();
             switch (linkage) {
                 case "undefined":
@@ -16,14 +16,12 @@ export function edgeClickEvent(event: Event) {
                 default:
                     createLinkage(event.currentTarget, linkage);
                     liaise.stageUpdate();
-
             }
             break;
-
-
-
-        default:
+        }
+        default: {
             return;
+        }
     }
 
 }
