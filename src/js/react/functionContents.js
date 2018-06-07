@@ -22,6 +22,13 @@ export class FunctionContents{
                 </div>
             );
         }
+        else if (currentModeType === modeType.ADD_MODIFICATION) {
+            return (
+                <div>
+                    <p>this is add modification!!!</p>
+                </div>
+            );
+        }
         else if (currentModeType === modeType.STRUCTURE) {
             return (
                 <div>
@@ -64,20 +71,20 @@ export class FunctionContents{
                 </div>
             );
         }
-        else if (currentModeType === modeType.UNDO) {
-            return (
-                <div>
-                    <p>this is undo!!!</p>
-                </div>
-            );
-        }
-        else if (currentModeType === modeType.REDO) {
-            return (
-                <div>
-                    <p>this is redo!!!</p>
-                </div>
-            );
-        }
+        // else if (currentModeType === modeType.UNDO) {
+        //     return (
+        //         <div>
+        //             <p>this is undo!!!</p>
+        //         </div>
+        //     );
+        // }
+        // else if (currentModeType === modeType.REDO) {
+        //     return (
+        //         <div>
+        //             <p>this is redo!!!</p>
+        //         </div>
+        //     );
+        // }
         else {
             return (
                 <div>
