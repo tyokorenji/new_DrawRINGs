@@ -14,7 +14,7 @@ export let basicData: Object = {
     "cyclicEdge" : 150,    //cyclic構造のEdgeの曲がり具合
     "fragmentBracketToParentGlycan": 10,
     "fragmentBracketStrokeSize": 5,
-    "symbolDistance": 35,
+    "symbolDistance": 45,
     "canvasSize": 5000,
     "fragmentEdgeDistance": 15
 };
