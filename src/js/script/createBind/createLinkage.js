@@ -18,7 +18,7 @@ export function createLinkage(target: Glycobond, linkage: string) {
     let quarterCoordinates = target.calcQuaterCoordinate(middleCoordinate);
     let parentQuarterCoordinate = quarterCoordinates[0];
     let childQuarterCoordinate = quarterCoordinates[1];
-    let parentShape = new createjs.Text(target.parentPosition, basicData.linkageSize + "px serif", getColor("black"));
+    let parentShape = new createjs.Text(target.getParentPosition(), basicData.linkageSize + "px serif", getColor("black"));
     let childShape = new createjs.Text(target.childAnomeric, basicData.linkageSize + "px serif", getColor("black"));
     console.log(target);
     if(target.getChildSugar().getGlycan() instanceof Fragment) {

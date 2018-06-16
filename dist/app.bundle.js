@@ -776,6 +776,8 @@ var _Cyclic = __webpack_require__(456);
 
 var _Modification = __webpack_require__(248);
 
+var _Bridge = __webpack_require__(941);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -787,10 +789,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Sugar = function (_Node) {
     _inherits(Sugar, _Node);
 
-    //繰り返しのstartNodeの時、Bracketを持つ
-    //ringのcreatejs.Text
-    //フラノースかピラノースか("pyranose p" or "furanose f" or "undefined")
-    //アノマーの位置（"alpha α a" or "beta β b" or "open o" or "undefined"）
+    //その糖鎖がCyclic構造を形成する単糖で、非還元末端側の場合
+    //Sugarが所属するGlycanオブジェクト
+    //isomerのcreatejs.Text
+    //構造異性体("L" or "D" or "undefined")
+    //単糖の名前
     function Sugar(name) {
         _classCallCheck(this, Sugar);
 
@@ -806,13 +809,13 @@ var Sugar = function (_Node) {
         _this.cyclic = {};
         _this.layer = 1;
         _this.childModifications = [];
+        _this.childBridges = [];
         _this.carbBone = NaN;
         return _this;
-    } //その糖鎖がCyclic構造を形成する単糖で、非還元末端側の場合
-    //Sugarが所属するGlycanオブジェクト
-    //isomerのcreatejs.Text
-    //構造異性体("L" or "D" or "undefined")
-    //単糖の名前
+    } //繰り返しのstartNodeの時、Bracketを持つ
+    //ringのcreatejs.Text
+    //フラノースかピラノースか("pyranose p" or "furanose f" or "undefined")
+    //アノマーの位置（"alpha α a" or "beta β b" or "open o" or "undefined"）
 
 
     _createClass(Sugar, [{
@@ -1046,6 +1049,27 @@ var Sugar = function (_Node) {
         key: "getChildModifications",
         value: function getChildModifications() {
             return this.childModifications;
+        }
+    }, {
+        key: "hasChildModificaiton",
+        value: function hasChildModificaiton() {
+            if (this.childModifications.length === 0) return false;else return true;
+        }
+    }, {
+        key: "setChildBridges",
+        value: function setChildBridges(bridge) {
+            this.childBridges.push(bridge);
+            return;
+        }
+    }, {
+        key: "getChildBridges",
+        value: function getChildBridges() {
+            return this.childBridges;
+        }
+    }, {
+        key: "hasChildBridges",
+        value: function hasChildBridges() {
+            if (this.childBridges.length === 0) return false;else return true;
         }
     }, {
         key: "setCarbBone",
@@ -19453,7 +19477,7 @@ var Modificationbond = function (_Edge) {
 
         var _this = _possibleConstructorReturn(this, (Modificationbond.__proto__ || Object.getPrototypeOf(Modificationbond)).call(this));
 
-        _this.parentPosition = NaN;
+        _this.parentSugarPosition = NaN;
         return _this;
     } //修飾の結合の名前
 
@@ -19461,17 +19485,17 @@ var Modificationbond = function (_Edge) {
     _createClass(Modificationbond, [{
         key: "hasParentPosition",
         value: function hasParentPosition() {
-            if (isNaN(this.parentPosition)) return false;else return true;
+            if (isNaN(this.parentSugarPosition)) return false;else return true;
         }
     }, {
-        key: "getParentPosition",
-        value: function getParentPosition() {
-            return this.parentPosition;
+        key: "getParentSugarPosition",
+        value: function getParentSugarPosition() {
+            return this.parentSugarPosition;
         }
     }, {
         key: "setParentPosition",
         value: function setParentPosition(parentPosition) {
-            this.parentPosition = parentPosition;
+            this.parentSugarPosition = parentPosition;
             return;
         }
     }]);
@@ -69328,7 +69352,7 @@ function createLinkage(target, linkage) {
     var quarterCoordinates = target.calcQuaterCoordinate(middleCoordinate);
     var parentQuarterCoordinate = quarterCoordinates[0];
     var childQuarterCoordinate = quarterCoordinates[1];
-    var parentShape = new _createjsEaseljs2.default.Text(target.parentPosition, _graphicsData.basicData.linkageSize + "px serif", (0, _getColor.getColor)("black"));
+    var parentShape = new _createjsEaseljs2.default.Text(target.getParentPosition(), _graphicsData.basicData.linkageSize + "px serif", (0, _getColor.getColor)("black"));
     var childShape = new _createjsEaseljs2.default.Text(target.childAnomeric, _graphicsData.basicData.linkageSize + "px serif", (0, _getColor.getColor)("black"));
     console.log(target);
     if (target.getChildSugar().getGlycan() instanceof _Fragment.Fragment) {
@@ -70233,15 +70257,28 @@ var _Modificationbond = __webpack_require__(249);
 
 var _modificationData = __webpack_require__(250);
 
+var _Bridge = __webpack_require__(941);
+
+var _BridgeBond = __webpack_require__(942);
+
+var _removeModificationBridge = __webpack_require__(943);
+
+var _addModificationBridge = __webpack_require__(944);
+
 var createModification = exports.createModification = function createModification(targetSugar) {
-    if (_main.liaise.bridge) {} else {
-        if (_main.liaise.selectedModification === _modificationData.modifiData.Undefined.TrivalName) {
-            alert("Please select modification!!");
-            return;
-        } else if (_main.liaise.selectedModifiactionPositions.length === 0) {
-            alert("Please select modification position!!");
+    //エラー表示
+    if (_main.liaise.selectedModification === _modificationData.modifiData.Undefined.TrivalName) {
+        alert("Please select modification!!");
+        return;
+    } else if (_main.liaise.selectedModifiactionPositions.length === 0) {
+        alert("Please select modification position!!");
+        return;
+    } else if (_main.liaise.bridge) {
+        if (_main.liaise.selectedModifiactionPositions.length <= 1) {
+            alert("Please select two items if you draw bridge structure!");
             return;
         }
+    } else {
         var _iteratorNormalCompletion = true;
         var _didIteratorError = false;
         var _iteratorError = undefined;
@@ -70269,21 +70306,60 @@ var createModification = exports.createModification = function createModificatio
                 }
             }
         }
+    }
 
-        var changeModifications = [];
-
+    var changeModifications = [];
+    var changeBridge = [];
+    //昇順ソート
+    (0, _removeModificationBridge.removeModificationBridge)(targetSugar);
+    _main.liaise.selectedModifiactionPositions.sort(function (a, b) {
+        if (a < b) return -1;
+        if (a > b) return 1;
+        return 0;
+    });
+    //targetSugarから同じ箇所にあるBridgeを削除する
+    if (targetSugar.hasChildBridges) {
         var _iteratorNormalCompletion2 = true;
         var _didIteratorError2 = false;
         var _iteratorError2 = undefined;
 
         try {
-            for (var _iterator2 = targetSugar.getChildModifications()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                var _item = _step2.value;
+            var _loop = function _loop() {
+                var item = _step2.value;
 
-                _main.liaise.removeStage(_item);
-                if (!_item.isChildCommaShapeEmpty()) {
-                    _main.liaise.removeStage(_item.getChildCommaShape());
+                console.log(targetSugar);
+                var _iteratorNormalCompletion3 = true;
+                var _didIteratorError3 = false;
+                var _iteratorError3 = undefined;
+
+                try {
+                    for (var _iterator3 = item.getBridgeBond().getParentSugarPosition()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                        var position = _step3.value;
+
+                        if (_main.liaise.selectedModifiactionPositions.indexOf(position) !== -1) {
+                            targetSugar.childBridges = targetSugar.getChildBridges().filter(function (value) {
+                                return value !== item;
+                            });
+                        }
+                    }
+                } catch (err) {
+                    _didIteratorError3 = true;
+                    _iteratorError3 = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                            _iterator3.return();
+                        }
+                    } finally {
+                        if (_didIteratorError3) {
+                            throw _iteratorError3;
+                        }
+                    }
                 }
+            };
+
+            for (var _iterator2 = targetSugar.getChildBridges()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                _loop();
             }
         } catch (err) {
             _didIteratorError2 = true;
@@ -70299,124 +70375,81 @@ var createModification = exports.createModification = function createModificatio
                 }
             }
         }
+    }
 
-        var _iteratorNormalCompletion3 = true;
-        var _didIteratorError3 = false;
-        var _iteratorError3 = undefined;
+    var _iteratorNormalCompletion4 = true;
+    var _didIteratorError4 = false;
+    var _iteratorError4 = undefined;
 
-        try {
-            for (var _iterator3 = _main.liaise.selectedModifiactionPositions[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                var _item2 = _step3.value;
+    try {
+        for (var _iterator4 = _main.liaise.selectedModifiactionPositions[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+            var _item3 = _step4.value;
+            var _iteratorNormalCompletion9 = true;
+            var _didIteratorError9 = false;
+            var _iteratorError9 = undefined;
 
-                var modification = new _Modification.Modification();
-                var modificationBind = new _Modificationbond.Modificationbond();
-                var flag = false;
-                var _iteratorNormalCompletion6 = true;
-                var _didIteratorError6 = false;
-                var _iteratorError6 = undefined;
+            try {
+                var _loop2 = function _loop2() {
+                    var item2 = _step9.value;
 
+                    switch (_item3) {
+                        //その単糖の同じ位置にすでに修飾がついていた場合
+                        case item2.getModificationBond().getParentSugarPosition():
+                            {
+                                targetSugar.childModifications = targetSugar.getChildModifications().filter(function (value) {
+                                    return value !== item2;
+                                });
+                            }
+                    }
+                };
+
+                for (var _iterator9 = targetSugar.getChildModifications()[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
+                    _loop2();
+                }
+            } catch (err) {
+                _didIteratorError9 = true;
+                _iteratorError9 = err;
+            } finally {
                 try {
-                    var _loop = function _loop() {
-                        var item2 = _step6.value;
-
-                        switch (_item2) {
-                            //その単糖の同じ位置にすでに修飾がついていた場合
-                            case item2.getModificationBond().getParentPosition():
-                                {
-                                    modification.setName(_main.liaise.selectedModification);
-                                    modificationBind.setParentPosition(_item2);
-                                    modification.setModificationBond(modificationBind);
-                                    changeModifications.push(modification);
-                                    targetSugar.childModifications = targetSugar.getChildModifications().filter(function (value) {
-                                        return value != item2;
-                                    });
-                                    flag = true;
-                                }
-                        }
-                    };
-
-                    for (var _iterator6 = targetSugar.getChildModifications()[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-                        _loop();
+                    if (!_iteratorNormalCompletion9 && _iterator9.return) {
+                        _iterator9.return();
                     }
-                    //単糖の同じ位置に修飾がついていなかった場合
-                } catch (err) {
-                    _didIteratorError6 = true;
-                    _iteratorError6 = err;
                 } finally {
-                    try {
-                        if (!_iteratorNormalCompletion6 && _iterator6.return) {
-                            _iterator6.return();
-                        }
-                    } finally {
-                        if (_didIteratorError6) {
-                            throw _iteratorError6;
-                        }
+                    if (_didIteratorError9) {
+                        throw _iteratorError9;
                     }
                 }
-
-                if (flag) {
-                    continue;
-                } else {
-                    modification.setName(_main.liaise.selectedModification);
-                    modificationBind.setParentPosition(_item2);
-                    modification.setModificationBond(modificationBind);
-                    changeModifications.push(modification);
-                }
-            }
-        } catch (err) {
-            _didIteratorError3 = true;
-            _iteratorError3 = err;
-        } finally {
-            try {
-                if (!_iteratorNormalCompletion3 && _iterator3.return) {
-                    _iterator3.return();
-                }
-            } finally {
-                if (_didIteratorError3) {
-                    throw _iteratorError3;
-                }
             }
         }
-
-        var _iteratorNormalCompletion4 = true;
-        var _didIteratorError4 = false;
-        var _iteratorError4 = undefined;
-
+    } catch (err) {
+        _didIteratorError4 = true;
+        _iteratorError4 = err;
+    } finally {
         try {
-            for (var _iterator4 = targetSugar.getChildModifications()[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-                var _item3 = _step4.value;
-
-                changeModifications.push(_item3);
+            if (!_iteratorNormalCompletion4 && _iterator4.return) {
+                _iterator4.return();
             }
-        } catch (err) {
-            _didIteratorError4 = true;
-            _iteratorError4 = err;
         } finally {
-            try {
-                if (!_iteratorNormalCompletion4 && _iterator4.return) {
-                    _iterator4.return();
-                }
-            } finally {
-                if (_didIteratorError4) {
-                    throw _iteratorError4;
-                }
+            if (_didIteratorError4) {
+                throw _iteratorError4;
             }
         }
+    }
 
-        targetSugar.childModifications = changeModifications;
-        (0, _createModificationShape.createModificaitonShape)(targetSugar);
+    if (_main.liaise.bridge) {
+        console.log("Bridge選択されたよ");
+        var bridge = new _Bridge.Bridge();
+        var bridgeBond = new _BridgeBond.Bridgeobond();
+        bridge.setName(_main.liaise.selectedModification);
         var _iteratorNormalCompletion5 = true;
         var _didIteratorError5 = false;
         var _iteratorError5 = undefined;
 
         try {
-            for (var _iterator5 = targetSugar.getChildModifications()[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-                var _item4 = _step5.value;
+            for (var _iterator5 = _main.liaise.selectedModifiactionPositions[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+                var _item = _step5.value;
 
-                _main.liaise.addStage(_item4);
-                if (!_item4.isChildCommaShapeEmpty()) {
-                    _main.liaise.addStage(_item4.getChildCommaShape());
-                }
+                bridgeBond.setParentSugarPosition(_item);
             }
         } catch (err) {
             _didIteratorError5 = true;
@@ -70433,8 +70466,95 @@ var createModification = exports.createModification = function createModificatio
             }
         }
 
-        _main.liaise.stageUpdate();
+        bridge.setBridgeBond(bridgeBond);
+        changeBridge.push(bridge);
+    } else {
+        var _iteratorNormalCompletion6 = true;
+        var _didIteratorError6 = false;
+        var _iteratorError6 = undefined;
+
+        try {
+            for (var _iterator6 = _main.liaise.selectedModifiactionPositions[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+                var _item2 = _step6.value;
+
+                var modification = new _Modification.Modification();
+                var modificationBind = new _Modificationbond.Modificationbond();
+                modification.setName(_main.liaise.selectedModification);
+                modificationBind.setParentPosition(_item2);
+                modification.setModificationBond(modificationBind);
+                changeModifications.push(modification);
+            }
+        } catch (err) {
+            _didIteratorError6 = true;
+            _iteratorError6 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion6 && _iterator6.return) {
+                    _iterator6.return();
+                }
+            } finally {
+                if (_didIteratorError6) {
+                    throw _iteratorError6;
+                }
+            }
+        }
     }
+    var _iteratorNormalCompletion7 = true;
+    var _didIteratorError7 = false;
+    var _iteratorError7 = undefined;
+
+    try {
+        for (var _iterator7 = targetSugar.getChildBridges()[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+            var _item4 = _step7.value;
+
+            changeBridge.push(_item4);
+        }
+    } catch (err) {
+        _didIteratorError7 = true;
+        _iteratorError7 = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion7 && _iterator7.return) {
+                _iterator7.return();
+            }
+        } finally {
+            if (_didIteratorError7) {
+                throw _iteratorError7;
+            }
+        }
+    }
+
+    var _iteratorNormalCompletion8 = true;
+    var _didIteratorError8 = false;
+    var _iteratorError8 = undefined;
+
+    try {
+        for (var _iterator8 = targetSugar.getChildModifications()[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+            var _item5 = _step8.value;
+
+            changeModifications.push(_item5);
+        }
+    } catch (err) {
+        _didIteratorError8 = true;
+        _iteratorError8 = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion8 && _iterator8.return) {
+                _iterator8.return();
+            }
+        } finally {
+            if (_didIteratorError8) {
+                throw _iteratorError8;
+            }
+        }
+    }
+
+    targetSugar.childModifications = changeModifications;
+    targetSugar.childBridges = changeBridge;
+    (0, _createModificationShape.createModificaitonShape)(targetSugar);
+    (0, _addModificationBridge.addModificationBridge)(targetSugar);
+    _main.liaise.stageUpdate();
+    console.log(targetSugar);
 };
 
 /***/ }),
@@ -70461,41 +70581,113 @@ var _graphicsData = __webpack_require__(55);
 
 var _getColor = __webpack_require__(19);
 
+var _Bridge = __webpack_require__(941);
+
+var _BridgeBond = __webpack_require__(942);
+
+var _main = __webpack_require__(13);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var createModificaitonShape = exports.createModificaitonShape = function createModificaitonShape(sugar) {
     var upperMody = [];
     var bottomMody = [];
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
+    //Bridgeのソート
+    if (sugar.hasChildBridges()) {
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
 
-    try {
-        for (var _iterator = sugar.getChildModifications()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var item = _step.value;
-
-            if (sugar.getCarbBode() / 2 < item.getModificationBond().getParentPosition()) {
-                upperMody.push(item);
-            } else {
-                bottomMody.push(item);
-            }
-        }
-        //上の修飾の処理
-    } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-    } finally {
         try {
-            if (!_iteratorNormalCompletion && _iterator.return) {
-                _iterator.return();
+            for (var _iterator = sugar.getChildBridges()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                var item = _step.value;
+
+                item.getBridgeBond().parentSugarPosition.sort(function (a, b) {
+                    if (a < b) return -1;
+                    if (a > b) return 1;
+                    return 0;
+                });
             }
+        } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
         } finally {
-            if (_didIteratorError) {
-                throw _iteratorError;
+            try {
+                if (!_iteratorNormalCompletion && _iterator.return) {
+                    _iterator.return();
+                }
+            } finally {
+                if (_didIteratorError) {
+                    throw _iteratorError;
+                }
             }
         }
     }
 
+    //Modificationの上か下か判別
+    if (sugar.hasChildModificaiton()) {
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
+
+        try {
+            for (var _iterator2 = sugar.getChildModifications()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                var _item = _step2.value;
+
+                if (sugar.getCarbBode() / 2 < _item.getModificationBond().getParentSugarPosition()) {
+                    upperMody.push(_item);
+                } else {
+                    bottomMody.push(_item);
+                }
+            }
+        } catch (err) {
+            _didIteratorError2 = true;
+            _iteratorError2 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                    _iterator2.return();
+                }
+            } finally {
+                if (_didIteratorError2) {
+                    throw _iteratorError2;
+                }
+            }
+        }
+    }
+
+    //Bridgeを上か下か判別
+    if (sugar.hasChildBridges()) {
+        var _iteratorNormalCompletion3 = true;
+        var _didIteratorError3 = false;
+        var _iteratorError3 = undefined;
+
+        try {
+            for (var _iterator3 = sugar.getChildBridges()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                var _item2 = _step3.value;
+
+                if (sugar.getCarbBode() / 2 < _item2.getBridgeBond().getParentSugarPosition()[0]) {
+                    upperMody.push(_item2);
+                } else {
+                    bottomMody.push(_item2);
+                }
+            }
+        } catch (err) {
+            _didIteratorError3 = true;
+            _iteratorError3 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                    _iterator3.return();
+                }
+            } finally {
+                if (_didIteratorError3) {
+                    throw _iteratorError3;
+                }
+            }
+        }
+    }
+    //上の修飾の処理
     if (upperMody.length > 1) {
         //上の修飾を小さい順にソート
         var length = upperMody.length;
@@ -70504,9 +70696,16 @@ var createModificaitonShape = exports.createModificaitonShape = function createM
             var min = 100;
             var index = 100;
             for (var j = 0; j < length2; j++) {
-                if (min > upperMody[j].getModificationBond().getParentPosition()) {
-                    min = upperMody[j].getModificationBond().getParentPosition();
-                    index = j;
+                if (upperMody[j] instanceof _Modification.Modification) {
+                    if (min > upperMody[j].getModificationBond().getParentSugarPosition()) {
+                        min = upperMody[j].getModificationBond().getParentSugarPosition();
+                        index = j;
+                    }
+                } else {
+                    if (min > upperMody[j].getBridgeBond().getParentSugarPosition()[0]) {
+                        min = upperMody[j].getBridgeBond().getParentSugarPosition()[0];
+                        index = j;
+                    }
                 }
             }
             upperMody.push(upperMody[index]);
@@ -70514,13 +70713,16 @@ var createModificaitonShape = exports.createModificaitonShape = function createM
             length2 = length2 - 1;
         }
     }
+
     if (upperMody.length !== 0) {
-        //修飾の数が偶数
+        //修飾のY座標
         var upperY = sugar.getYCoord() - _graphicsData.basicData.symbolSize - _graphicsData.basicData.commaUpperDistance;
+        //修飾の数が偶数のとき
         if (upperMody.length % 2 === 0) {
-            var left = upperMody.length / 2 - 1;
-            var right = left + 1;
-            var commaShape = [];
+            var left = upperMody.length / 2 - 1; //真ん中から左側のはじめの位置
+            var right = left + 1; //真ん中から右側のはじめの位置
+            var commaShape = []; //修飾同士の間にあるカンマのリスト
+            //カンマを必要数作成する(長さ - 1個)
             for (var _i = 0; _i < upperMody.length - 1; _i++) {
                 var comma = new _createjsEaseljs2.default.Text(",", _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
                 commaShape.push(comma);
@@ -70530,7 +70732,39 @@ var createModificaitonShape = exports.createModificaitonShape = function createM
             upperMody[left].getChildCommaShape().x = sugar.getXCoord();
             upperMody[left].getChildCommaShape().y = upperY;
             for (var _i2 = left; _i2 >= 0; _i2--) {
-                var shape = new _createjsEaseljs2.default.Text(String(upperMody[_i2].getModificationBond().getParentPosition()) + upperMody[_i2].getName(), _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                var shape = new _createjsEaseljs2.default.Text("", _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                if (upperMody[_i2] instanceof _Modification.Modification) {
+                    shape.text = String(upperMody[_i2].getModificationBond().getParentSugarPosition()) + upperMody[_i2].getName();
+                } else {
+                    var _iteratorNormalCompletion4 = true;
+                    var _didIteratorError4 = false;
+                    var _iteratorError4 = undefined;
+
+                    try {
+                        for (var _iterator4 = upperMody[_i2].getBridgeBond().getParentSugarPosition()[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+                            var _item3 = _step4.value;
+
+                            if (_item3 !== upperMody[_i2].getBridgeBond().getParentSugarPosition()[upperMody[_i2].getBridgeBond().getParentSugarPosition().length - 1]) {
+                                shape.text += String(_item3) + ",";
+                            } else {
+                                shape.text += String(_item3) + upperMody[_i2].getName();
+                            }
+                        }
+                    } catch (err) {
+                        _didIteratorError4 = true;
+                        _iteratorError4 = err;
+                    } finally {
+                        try {
+                            if (!_iteratorNormalCompletion4 && _iterator4.return) {
+                                _iterator4.return();
+                            }
+                        } finally {
+                            if (_didIteratorError4) {
+                                throw _iteratorError4;
+                            }
+                        }
+                    }
+                }
                 upperMody[_i2].addChild(shape);
                 upperMody[_i2].x = upperMody[_i2].getChildCommaShape().x - upperMody[_i2].children[0].getMeasuredWidth() - upperMody[_i2].getChildCommaShape().getMeasuredWidth() / 2;
                 upperMody[_i2].y = upperY;
@@ -70545,7 +70779,39 @@ var createModificaitonShape = exports.createModificaitonShape = function createM
             }
 
             for (var _i3 = right; _i3 < upperMody.length; _i3++) {
-                var _shape = new _createjsEaseljs2.default.Text(String(upperMody[_i3].getModificationBond().getParentPosition()) + upperMody[_i3].getName(), _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                var _shape = new _createjsEaseljs2.default.Text("", _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                if (upperMody[_i3] instanceof _Modification.Modification) {
+                    _shape.text = String(upperMody[_i3].getModificationBond().getParentSugarPosition()) + upperMody[_i3].getName();
+                } else {
+                    var _iteratorNormalCompletion5 = true;
+                    var _didIteratorError5 = false;
+                    var _iteratorError5 = undefined;
+
+                    try {
+                        for (var _iterator5 = upperMody[_i3].getBridgeBond().getParentSugarPosition()[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+                            var _item4 = _step5.value;
+
+                            if (_item4 !== upperMody[_i3].getBridgeBond().getParentSugarPosition()[upperMody[_i3].getBridgeBond().getParentSugarPosition().length - 1]) {
+                                _shape.text += String(_item4) + ",";
+                            } else {
+                                _shape.text += String(_item4) + upperMody[_i3].getName();
+                            }
+                        }
+                    } catch (err) {
+                        _didIteratorError5 = true;
+                        _iteratorError5 = err;
+                    } finally {
+                        try {
+                            if (!_iteratorNormalCompletion5 && _iterator5.return) {
+                                _iterator5.return();
+                            }
+                        } finally {
+                            if (_didIteratorError5) {
+                                throw _iteratorError5;
+                            }
+                        }
+                    }
+                }
                 upperMody[_i3].addChild(_shape);
                 upperMody[_i3].x = upperMody[_i3 - 1].getChildCommaShape().x + upperMody[_i3].children[0].getMeasuredWidth() / 4 + upperMody[_i3 - 1].getChildCommaShape().getMeasuredWidth() / 2;
                 upperMody[_i3].y = upperY;
@@ -70570,7 +70836,39 @@ var createModificaitonShape = exports.createModificaitonShape = function createM
                     var _comma = new _createjsEaseljs2.default.Text(",", _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
                     _commaShape.push(_comma);
                 }
-                var _shape2 = new _createjsEaseljs2.default.Text(String(upperMody[middle].getModificationBond().getParentPosition()) + upperMody[middle].getName(), _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                var _shape2 = new _createjsEaseljs2.default.Text("", _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                if (upperMody[middle] instanceof _Modification.Modification) {
+                    _shape2.text = String(upperMody[middle].getModificationBond().getParentSugarPosition()) + upperMody[middle].getName();
+                } else {
+                    var _iteratorNormalCompletion6 = true;
+                    var _didIteratorError6 = false;
+                    var _iteratorError6 = undefined;
+
+                    try {
+                        for (var _iterator6 = upperMody[middle].getBridgeBond().getParentSugarPosition()[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+                            var _item5 = _step6.value;
+
+                            if (_item5 !== upperMody[middle].getBridgeBond().getParentSugarPosition()[upperMody[middle].getBridgeBond().getParentSugarPosition().length - 1]) {
+                                _shape2.text += String(_item5) + ",";
+                            } else {
+                                _shape2.text += String(_item5) + upperMody[middle].getName();
+                            }
+                        }
+                    } catch (err) {
+                        _didIteratorError6 = true;
+                        _iteratorError6 = err;
+                    } finally {
+                        try {
+                            if (!_iteratorNormalCompletion6 && _iterator6.return) {
+                                _iterator6.return();
+                            }
+                        } finally {
+                            if (_didIteratorError6) {
+                                throw _iteratorError6;
+                            }
+                        }
+                    }
+                }
                 upperMody[middle].addChild(_shape2);
                 upperMody[middle].x = sugar.getXCoord() - _graphicsData.basicData.commaUpperDistance;
                 upperMody[middle].y = upperY;
@@ -70588,7 +70886,39 @@ var createModificaitonShape = exports.createModificaitonShape = function createM
                 }
 
                 for (var _i5 = middle - 1; _i5 >= 0; _i5--) {
-                    var _shape3 = new _createjsEaseljs2.default.Text(String(upperMody[_i5].getModificationBond().getParentPosition()) + upperMody[_i5].getName(), _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                    var _shape3 = new _createjsEaseljs2.default.Text("", _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                    if (upperMody[_i5] instanceof _Modification.Modification) {
+                        _shape3.text = String(upperMody[_i5].getModificationBond().getParentSugarPosition()) + upperMody[_i5].getName();
+                    } else {
+                        var _iteratorNormalCompletion7 = true;
+                        var _didIteratorError7 = false;
+                        var _iteratorError7 = undefined;
+
+                        try {
+                            for (var _iterator7 = upperMody[_i5].getBridgeBond().getParentSugarPosition()[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+                                var _item6 = _step7.value;
+
+                                if (_item6 !== upperMody[_i5].getBridgeBond().getParentSugarPosition()[upperMody[_i5].getBridgeBond().getParentSugarPosition().length - 1]) {
+                                    _shape3.text += String(_item6) + ",";
+                                } else {
+                                    _shape3.text += String(_item6) + upperMody[_i5].getName();
+                                }
+                            }
+                        } catch (err) {
+                            _didIteratorError7 = true;
+                            _iteratorError7 = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion7 && _iterator7.return) {
+                                    _iterator7.return();
+                                }
+                            } finally {
+                                if (_didIteratorError7) {
+                                    throw _iteratorError7;
+                                }
+                            }
+                        }
+                    }
                     upperMody[_i5].addChild(_shape3);
                     upperMody[_i5].x = upperMody[_i5].getChildCommaShape().x - upperMody[_i5].children[0].getMeasuredWidth() / 1.25 - upperMody[_i5].getChildCommaShape().getMeasuredWidth() / 2;
                     upperMody[_i5].y = upperY;
@@ -70603,7 +70933,39 @@ var createModificaitonShape = exports.createModificaitonShape = function createM
                 }
 
                 for (var _i6 = middle + 1; _i6 < upperMody.length; _i6++) {
-                    var _shape4 = new _createjsEaseljs2.default.Text(String(upperMody[_i6].getModificationBond().getParentPosition()) + upperMody[_i6].getName(), _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                    var _shape4 = new _createjsEaseljs2.default.Text("", _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                    if (upperMody[_i6] instanceof _Modification.Modification) {
+                        _shape4.text = String(upperMody[_i6].getModificationBond().getParentSugarPosition()) + upperMody[_i6].getName();
+                    } else {
+                        var _iteratorNormalCompletion8 = true;
+                        var _didIteratorError8 = false;
+                        var _iteratorError8 = undefined;
+
+                        try {
+                            for (var _iterator8 = upperMody[_i6].getBridgeBond().getParentSugarPosition()[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+                                var _item7 = _step8.value;
+
+                                if (_item7 !== upperMody[_i6].getBridgeBond().getParentSugarPosition()[upperMody[_i6].getBridgeBond().getParentSugarPosition().length - 1]) {
+                                    _shape4.text += String(_item7) + ",";
+                                } else {
+                                    _shape4.text += String(_item7) + upperMody[_i6].getName();
+                                }
+                            }
+                        } catch (err) {
+                            _didIteratorError8 = true;
+                            _iteratorError8 = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion8 && _iterator8.return) {
+                                    _iterator8.return();
+                                }
+                            } finally {
+                                if (_didIteratorError8) {
+                                    throw _iteratorError8;
+                                }
+                            }
+                        }
+                    }
                     upperMody[_i6].addChild(_shape4);
                     upperMody[_i6].x = upperMody[_i6 - 1].getChildCommaShape().x + upperMody[_i6].children[0].getMeasuredWidth() / 4 + upperMody[_i6 - 1].getChildCommaShape().getMeasuredWidth() / 2;
                     // upperMody[i].x = upperMody[i - 1].getChildCommaShape().x + upperMody[i].children[0].getMeasuredWidth() / 2 + upperMody[i - 1].getChildCommaShape().getMeasuredWidth() / 2;
@@ -70628,9 +70990,16 @@ var createModificaitonShape = exports.createModificaitonShape = function createM
             var _min = 100;
             var _index = 100;
             for (var _j = 0; _j < _length2; _j++) {
-                if (_min > bottomMody[_j].getModificationBond().getParentPosition()) {
-                    _min = bottomMody[_j].getModificationBond().getParentPosition();
-                    _index = _j;
+                if (bottomMody[_j] instanceof _Modification.Modification) {
+                    if (_min > bottomMody[_j].getModificationBond().getParentSugarPosition()) {
+                        _min = bottomMody[_j].getModificationBond().getParentSugarPosition();
+                        _index = _j;
+                    }
+                } else {
+                    if (_min > bottomMody[_j].getBridgeBond().getParentSugarPosition()[0]) {
+                        _min = bottomMody[_j].getBridgeBond().getParentSugarPosition()[0];
+                        _index = _j;
+                    }
                 }
             }
             bottomMody.push(bottomMody[_index]);
@@ -70640,12 +71009,14 @@ var createModificaitonShape = exports.createModificaitonShape = function createM
     }
 
     if (bottomMody.length !== 0) {
-        //修飾の数が偶数
-        var _upperY = sugar.getYCoord() + _graphicsData.basicData.symbolSize + _graphicsData.basicData.commaBottomDistance;
+        //修飾のY座標
+        var _upperY = sugar.getYCoord() + _graphicsData.basicData.symbolSize + _graphicsData.basicData.commaUpperDistance;
+        //修飾の数が偶数のとき
         if (bottomMody.length % 2 === 0) {
-            var _left = bottomMody.length / 2 - 1;
-            var _right = _left + 1;
-            var _commaShape2 = [];
+            var _left = bottomMody.length / 2 - 1; //真ん中から左側のはじめの位置
+            var _right = _left + 1; //真ん中から右側のはじめの位置
+            var _commaShape2 = []; //修飾同士の間にあるカンマのリスト
+            //カンマを必要数作成する(長さ - 1個)
             for (var _i8 = 0; _i8 < bottomMody.length - 1; _i8++) {
                 var _comma2 = new _createjsEaseljs2.default.Text(",", _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
                 _commaShape2.push(_comma2);
@@ -70655,7 +71026,39 @@ var createModificaitonShape = exports.createModificaitonShape = function createM
             bottomMody[_left].getChildCommaShape().x = sugar.getXCoord();
             bottomMody[_left].getChildCommaShape().y = _upperY;
             for (var _i9 = _left; _i9 >= 0; _i9--) {
-                var _shape5 = new _createjsEaseljs2.default.Text(String(bottomMody[_i9].getModificationBond().getParentPosition()) + bottomMody[_i9].getName(), _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                var _shape5 = new _createjsEaseljs2.default.Text("", _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                if (bottomMody[_i9] instanceof _Modification.Modification) {
+                    _shape5.text = String(bottomMody[_i9].getModificationBond().getParentSugarPosition()) + bottomMody[_i9].getName();
+                } else {
+                    var _iteratorNormalCompletion9 = true;
+                    var _didIteratorError9 = false;
+                    var _iteratorError9 = undefined;
+
+                    try {
+                        for (var _iterator9 = bottomMody[_i9].getBridgeBond().getParentSugarPosition()[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
+                            var _item8 = _step9.value;
+
+                            if (_item8 !== bottomMody[_i9].getBridgeBond().getParentSugarPosition()[bottomMody[_i9].getBridgeBond().getParentSugarPosition().length - 1]) {
+                                _shape5.text += String(_item8) + ",";
+                            } else {
+                                _shape5.text += String(_item8) + bottomMody[_i9].getName();
+                            }
+                        }
+                    } catch (err) {
+                        _didIteratorError9 = true;
+                        _iteratorError9 = err;
+                    } finally {
+                        try {
+                            if (!_iteratorNormalCompletion9 && _iterator9.return) {
+                                _iterator9.return();
+                            }
+                        } finally {
+                            if (_didIteratorError9) {
+                                throw _iteratorError9;
+                            }
+                        }
+                    }
+                }
                 bottomMody[_i9].addChild(_shape5);
                 bottomMody[_i9].x = bottomMody[_i9].getChildCommaShape().x - bottomMody[_i9].children[0].getMeasuredWidth() - bottomMody[_i9].getChildCommaShape().getMeasuredWidth() / 2;
                 bottomMody[_i9].y = _upperY;
@@ -70670,7 +71073,39 @@ var createModificaitonShape = exports.createModificaitonShape = function createM
             }
 
             for (var _i10 = _right; _i10 < bottomMody.length; _i10++) {
-                var _shape6 = new _createjsEaseljs2.default.Text(String(bottomMody[_i10].getModificationBond().getParentPosition()) + bottomMody[_i10].getName(), _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                var _shape6 = new _createjsEaseljs2.default.Text("", _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                if (bottomMody[_i10] instanceof _Modification.Modification) {
+                    _shape6.text = String(bottomMody[_i10].getModificationBond().getParentSugarPosition()) + bottomMody[_i10].getName();
+                } else {
+                    var _iteratorNormalCompletion10 = true;
+                    var _didIteratorError10 = false;
+                    var _iteratorError10 = undefined;
+
+                    try {
+                        for (var _iterator10 = bottomMody[_i10].getBridgeBond().getParentSugarPosition()[Symbol.iterator](), _step10; !(_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done); _iteratorNormalCompletion10 = true) {
+                            var _item9 = _step10.value;
+
+                            if (_item9 !== bottomMody[_i10].getBridgeBond().getParentSugarPosition()[bottomMody[_i10].getBridgeBond().getParentSugarPosition().length - 1]) {
+                                _shape6.text += String(_item9) + ",";
+                            } else {
+                                _shape6.text += String(_item9) + bottomMody[_i10].getName();
+                            }
+                        }
+                    } catch (err) {
+                        _didIteratorError10 = true;
+                        _iteratorError10 = err;
+                    } finally {
+                        try {
+                            if (!_iteratorNormalCompletion10 && _iterator10.return) {
+                                _iterator10.return();
+                            }
+                        } finally {
+                            if (_didIteratorError10) {
+                                throw _iteratorError10;
+                            }
+                        }
+                    }
+                }
                 bottomMody[_i10].addChild(_shape6);
                 bottomMody[_i10].x = bottomMody[_i10 - 1].getChildCommaShape().x + bottomMody[_i10].children[0].getMeasuredWidth() / 4 + bottomMody[_i10 - 1].getChildCommaShape().getMeasuredWidth() / 2;
                 bottomMody[_i10].y = _upperY;
@@ -70695,7 +71130,39 @@ var createModificaitonShape = exports.createModificaitonShape = function createM
                     var _comma3 = new _createjsEaseljs2.default.Text(",", _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
                     _commaShape3.push(_comma3);
                 }
-                var _shape7 = new _createjsEaseljs2.default.Text(String(bottomMody[_middle].getModificationBond().getParentPosition()) + bottomMody[_middle].getName(), _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                var _shape7 = new _createjsEaseljs2.default.Text("", _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                if (bottomMody[_middle] instanceof _Modification.Modification) {
+                    _shape7.text = String(bottomMody[_middle].getModificationBond().getParentSugarPosition()) + bottomMody[_middle].getName();
+                } else {
+                    var _iteratorNormalCompletion11 = true;
+                    var _didIteratorError11 = false;
+                    var _iteratorError11 = undefined;
+
+                    try {
+                        for (var _iterator11 = bottomMody[_middle].getBridgeBond().getParentSugarPosition()[Symbol.iterator](), _step11; !(_iteratorNormalCompletion11 = (_step11 = _iterator11.next()).done); _iteratorNormalCompletion11 = true) {
+                            var _item10 = _step11.value;
+
+                            if (_item10 !== bottomMody[_middle].getBridgeBond().getParentSugarPosition()[bottomMody[_middle].getBridgeBond().getParentSugarPosition().length - 1]) {
+                                _shape7.text += String(_item10) + ",";
+                            } else {
+                                _shape7.text += String(_item10) + bottomMody[_middle].getName();
+                            }
+                        }
+                    } catch (err) {
+                        _didIteratorError11 = true;
+                        _iteratorError11 = err;
+                    } finally {
+                        try {
+                            if (!_iteratorNormalCompletion11 && _iterator11.return) {
+                                _iterator11.return();
+                            }
+                        } finally {
+                            if (_didIteratorError11) {
+                                throw _iteratorError11;
+                            }
+                        }
+                    }
+                }
                 bottomMody[_middle].addChild(_shape7);
                 bottomMody[_middle].x = sugar.getXCoord() - _graphicsData.basicData.commaUpperDistance;
                 bottomMody[_middle].y = _upperY;
@@ -70713,7 +71180,39 @@ var createModificaitonShape = exports.createModificaitonShape = function createM
                 }
 
                 for (var _i12 = _middle - 1; _i12 >= 0; _i12--) {
-                    var _shape8 = new _createjsEaseljs2.default.Text(String(bottomMody[_i12].getModificationBond().getParentPosition()) + bottomMody[_i12].getName(), _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                    var _shape8 = new _createjsEaseljs2.default.Text("", _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                    if (bottomMody[_i12] instanceof _Modification.Modification) {
+                        _shape8.text = String(bottomMody[_i12].getModificationBond().getParentSugarPosition()) + bottomMody[_i12].getName();
+                    } else {
+                        var _iteratorNormalCompletion12 = true;
+                        var _didIteratorError12 = false;
+                        var _iteratorError12 = undefined;
+
+                        try {
+                            for (var _iterator12 = bottomMody[_i12].getBridgeBond().getParentSugarPosition()[Symbol.iterator](), _step12; !(_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done); _iteratorNormalCompletion12 = true) {
+                                var _item11 = _step12.value;
+
+                                if (_item11 !== bottomMody[_i12].getBridgeBond().getParentSugarPosition()[bottomMody[_i12].getBridgeBond().getParentSugarPosition().length - 1]) {
+                                    _shape8.text += String(_item11) + ",";
+                                } else {
+                                    _shape8.text += String(_item11) + bottomMody[_i12].getName();
+                                }
+                            }
+                        } catch (err) {
+                            _didIteratorError12 = true;
+                            _iteratorError12 = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion12 && _iterator12.return) {
+                                    _iterator12.return();
+                                }
+                            } finally {
+                                if (_didIteratorError12) {
+                                    throw _iteratorError12;
+                                }
+                            }
+                        }
+                    }
                     bottomMody[_i12].addChild(_shape8);
                     bottomMody[_i12].x = bottomMody[_i12].getChildCommaShape().x - bottomMody[_i12].children[0].getMeasuredWidth() / 1.25 - bottomMody[_i12].getChildCommaShape().getMeasuredWidth() / 2;
                     bottomMody[_i12].y = _upperY;
@@ -70728,7 +71227,39 @@ var createModificaitonShape = exports.createModificaitonShape = function createM
                 }
 
                 for (var _i13 = _middle + 1; _i13 < bottomMody.length; _i13++) {
-                    var _shape9 = new _createjsEaseljs2.default.Text(String(bottomMody[_i13].getModificationBond().getParentPosition()) + bottomMody[_i13].getName(), _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                    var _shape9 = new _createjsEaseljs2.default.Text("", _graphicsData.basicData.modificationSize + "px serif", (0, _getColor.getColor)("black"));
+                    if (bottomMody[_i13] instanceof _Modification.Modification) {
+                        _shape9.text = String(bottomMody[_i13].getModificationBond().getParentSugarPosition()) + bottomMody[_i13].getName();
+                    } else {
+                        var _iteratorNormalCompletion13 = true;
+                        var _didIteratorError13 = false;
+                        var _iteratorError13 = undefined;
+
+                        try {
+                            for (var _iterator13 = bottomMody[_i13].getBridgeBond().getParentSugarPosition()[Symbol.iterator](), _step13; !(_iteratorNormalCompletion13 = (_step13 = _iterator13.next()).done); _iteratorNormalCompletion13 = true) {
+                                var _item12 = _step13.value;
+
+                                if (_item12 !== bottomMody[_i13].getBridgeBond().getParentSugarPosition()[bottomMody[_i13].getBridgeBond().getParentSugarPosition().length - 1]) {
+                                    _shape9.text += String(_item12) + ",";
+                                } else {
+                                    _shape9.text += String(_item12) + bottomMody[_i13].getName();
+                                }
+                            }
+                        } catch (err) {
+                            _didIteratorError13 = true;
+                            _iteratorError13 = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion13 && _iterator13.return) {
+                                    _iterator13.return();
+                                }
+                            } finally {
+                                if (_didIteratorError13) {
+                                    throw _iteratorError13;
+                                }
+                            }
+                        }
+                    }
                     bottomMody[_i13].addChild(_shape9);
                     bottomMody[_i13].x = bottomMody[_i13 - 1].getChildCommaShape().x + bottomMody[_i13].children[0].getMeasuredWidth() / 4 + bottomMody[_i13 - 1].getChildCommaShape().getMeasuredWidth() / 2;
                     // bottomMody[i].x = bottomMody[i - 1].getChildCommaShape().x + bottomMody[i].children[0].getMeasuredWidth() / 2 + bottomMody[i - 1].getChildCommaShape().getMeasuredWidth() / 2;
@@ -70744,142 +71275,6 @@ var createModificaitonShape = exports.createModificaitonShape = function createM
                 }
             }
     }
-
-    // for(let item of liaise.selectedModifiactionPositions) {
-    //     let shape: createjs.Text = new createjs.Text(String(item) + liaise.selectedModification, basicData.modificationSize+ "px serif", getColor("black"));
-    //     let modification = new Modification();
-    //     modification.addChild(shape);
-    //     if(item <= 3) {
-    //         let anotherModification: Array<Object> = sugar.getChildModifications();
-    //         let parentMody: Array<Object> = [];
-    //         for(let another of anotherModification) {
-    //             if(another.getParentPosition <= 3) {
-    //                 parentMody.push(another);
-    //             }
-    //         }
-    //         switch(parentMody.length) {
-    //             case 0: {
-    //                 modification.x = sugar.getXCoord();
-    //                 modification.y = sugar.getYCoord() + basicData.symbolSize;
-    //                 break;
-    //             }
-    //             case 1: {
-    //                 if(parentMody[0].getParentPosition < item) {
-    //                     parentMody[0].x = sugar.getXCoord() - basicData.symbolSize;
-    //                     parentMody[0].y = sugar.getYCoord() + basicData.symbolSize;
-    //                     modification.x = sugar.getXCoord() + basicData.symbolSize;
-    //                     modification.y = sugar.getYCoord() + basicData.symbolSize;
-    //                     parentMody[0].setXCoord(parentMody[0].x);
-    //                     parentMody[0].setYCoord(parentMody[0].y);
-    //                 }
-    //                 else {
-    //                     modification.x = sugar.getXCoord() - basicData.symbolSize;
-    //                     modification.y = sugar.getYCoord() + basicData.symbolSize;
-    //                     parentMody[0].x = sugar.getXCoord() + basicData.symbolSize;
-    //                     parentMody[0].y = sugar.getYCoord() + basicData.symbolSize;
-    //                     parentMody[0].setXCoord(parentMody[0].x);
-    //                     parentMody[0].setYCoord(parentMody[0].y);
-    //                 }
-    //                 break;
-    //
-    //             }
-    //             case 2: {
-    //                 if (parentMody[0].getParentPosition < item && parentMody[0].getParentPosition < parentMody[1].getParentPosition) {
-    //                     if (parentMody[1].getParentPosition < item) {
-    //                         parentMody[0].x = sugar.getXCoord() - basicData.symbolSize;
-    //                         parentMody[0].y = sugar.getYCoord() + basicData.symbolSize;
-    //                         parentMody[1].x = sugar.getXCoord();
-    //                         parentMody[1].y = sugar.getYCoord() + basicData.symbolSize;
-    //                         modification.x = sugar.getXCoord() + basicData.symbolSize;
-    //                         modification.y = sugar.getYCoord() + basicData.symbolSize;
-    //                         parentMody[0].setXCoord(parentMody[0].x);
-    //                         parentMody[0].setYCoord(parentMody[0].y);
-    //                         parentMody[1].setXCoord(parentMody[1].x);
-    //                         parentMody[1].setYCoord(parentMody[1].y);
-    //                     }
-    //                     else {
-    //                         parentMody[0].x = sugar.getXCoord() - basicData.symbolSize;
-    //                         parentMody[0].y = sugar.getYCoord() + basicData.symbolSize;
-    //                         parentMody[1].x = sugar.getXCoord() + basicData.symbolSize;
-    //                         parentMody[1].y = sugar.getYCoord() + basicData.symbolSize;
-    //                         modification.x = sugar.getXCoord();
-    //                         modification.y = sugar.getYCoord() + basicData.symbolSize;
-    //                         parentMody[0].setXCoord(parentMody[0].x);
-    //                         parentMody[0].setYCoord(parentMody[0].y);
-    //                         parentMody[1].setXCoord(parentMody[1].x);
-    //                         parentMody[1].setYCoord(parentMody[1].y);
-    //                     }
-    //                 }
-    //                 else if(parentMody[1].getParentPosition < item && parentMody[1].getParentPosition < parentMody[0].getParentPosition) {
-    //                     if (parentMody[0].getParentPosition < item) {
-    //                         parentMody[1].x = sugar.getXCoord() - basicData.symbolSize;
-    //                         parentMody[1].y = sugar.getYCoord() + basicData.symbolSize;
-    //                         parentMody[0].x = sugar.getXCoord();
-    //                         parentMody[0].y = sugar.getYCoord() + basicData.symbolSize;
-    //                         modification.x = sugar.getXCoord() + basicData.symbolSize;
-    //                         modification.y = sugar.getYCoord() + basicData.symbolSize;
-    //                         parentMody[0].setXCoord(parentMody[0].x);
-    //                         parentMody[0].setYCoord(parentMody[0].y);
-    //                         parentMody[1].setXCoord(parentMody[1].x);
-    //                         parentMody[1].setYCoord(parentMody[1].y);
-    //                     }
-    //                     else {
-    //                         parentMody[1].x = sugar.getXCoord() - basicData.symbolSize;
-    //                         parentMody[1].y = sugar.getYCoord() + basicData.symbolSize;
-    //                         parentMody[0].x = sugar.getXCoord() + basicData.symbolSize;
-    //                         parentMody[0].y = sugar.getYCoord() + basicData.symbolSize;
-    //                         modification.x = sugar.getXCoord();
-    //                         modification.y = sugar.getYCoord() + basicData.symbolSize;
-    //                         parentMody[0].setXCoord(parentMody[0].x);
-    //                         parentMody[0].setYCoord(parentMody[0].y);
-    //                         parentMody[1].setXCoord(parentMody[1].x);
-    //                         parentMody[1].setYCoord(parentMody[1].y);
-    //                     }
-    //
-    //                 }
-    //                 else {
-    //                     if (parentMody[0].getParentPosition < parentMody[1].getParentPosition) {
-    //                         parentMody[0].x = sugar.getXCoord();
-    //                         parentMody[0].y = sugar.getYCoord() + basicData.symbolSize;
-    //                         parentMody[1].x = sugar.getXCoord() + basicData.symbolSize;
-    //                         parentMody[1].y = sugar.getYCoord() + basicData.symbolSize;
-    //                         modification.x = sugar.getXCoord() - basicData.symbolSize;
-    //                         modification.y = sugar.getYCoord() + basicData.symbolSize;
-    //                         parentMody[0].setXCoord(parentMody[0].x);
-    //                         parentMody[0].setYCoord(parentMody[0].y);
-    //                         parentMody[1].setXCoord(parentMody[1].x);
-    //                         parentMody[1].setYCoord(parentMody[1].y);
-    //                     }
-    //                     else {
-    //                         parentMody[0].x = sugar.getXCoord() + basicData.symbolSize;
-    //                         parentMody[0].y = sugar.getYCoord() + basicData.symbolSize;
-    //                         parentMody[1].x = sugar.getXCoord();
-    //                         parentMody[1].y = sugar.getYCoord() + basicData.symbolSize;
-    //                         modification.x = sugar.getXCoord() - basicData.symbolSize;
-    //                         modification.y = sugar.getYCoord() + basicData.symbolSize;
-    //                         parentMody[0].setXCoord(parentMody[0].x);
-    //                         parentMody[0].setYCoord(parentMody[0].y);
-    //                         parentMody[1].setXCoord(parentMody[1].x);
-    //                         parentMody[1].setYCoord(parentMody[1].y);
-    //                     }
-    //
-    //                 }
-    //                 break;
-    //             }
-    //
-    //             default: {
-    //                 alert("かぶってるよ！");
-    //             }
-    //
-    //         }
-    //         modification.setXCoord(modification.x);
-    //         modification.setYCoord(modification.y);
-    //         liaise.addStage(modification);
-    //     }
-    //     modification.setName(liaise.selectedModification);
-    //     modification.setParentPosition(item);
-    //     sugar.setChildModifications(modification);
-    // }
 };
 
 /***/ }),
@@ -74972,6 +75367,296 @@ var ModificationContents = exports.ModificationContents = function (_React$Compo
 
     return ModificationContents;
 }(_react2.default.Component);
+
+/***/ }),
+/* 941 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Bridge = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Node2 = __webpack_require__(245);
+
+var _createjsEaseljs = __webpack_require__(15);
+
+var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
+
+var _BridgeBond = __webpack_require__(942);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Bridge = exports.Bridge = function (_Node) {
+    _inherits(Bridge, _Node);
+
+    function Bridge() {
+        _classCallCheck(this, Bridge);
+
+        var _this = _possibleConstructorReturn(this, (Bridge.__proto__ || Object.getPrototypeOf(Bridge)).call(this));
+
+        _this.name = "";
+        _this.bridgeBond = {};
+        _this.childCommaShape = {};
+        return _this;
+    }
+
+    _createClass(Bridge, [{
+        key: "setName",
+        value: function setName(name) {
+            this.name = name;
+        }
+    }, {
+        key: "getName",
+        value: function getName() {
+            return this.name;
+        }
+    }, {
+        key: "setBridgeBond",
+        value: function setBridgeBond(position) {
+            this.bridgeBond = position;
+        }
+    }, {
+        key: "getBridgeBond",
+        value: function getBridgeBond() {
+            return this.bridgeBond;
+        }
+    }, {
+        key: "setChildCommaShape",
+        value: function setChildCommaShape(commaShape) {
+            this.childCommaShape = commaShape;
+        }
+    }, {
+        key: "getChildCommaShape",
+        value: function getChildCommaShape() {
+            return this.childCommaShape;
+        }
+    }, {
+        key: "isChildCommaShapeEmpty",
+        value: function isChildCommaShapeEmpty() {
+            return !Object.keys(this.childCommaShape).length;
+        }
+    }]);
+
+    return Bridge;
+}(_Node2.Node);
+
+/***/ }),
+/* 942 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Bridgeobond = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Edge2 = __webpack_require__(454);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Bridgeobond = exports.Bridgeobond = function (_Edge) {
+    _inherits(Bridgeobond, _Edge);
+
+    //親単糖の結合場所
+
+    function Bridgeobond() {
+        _classCallCheck(this, Bridgeobond);
+
+        var _this = _possibleConstructorReturn(this, (Bridgeobond.__proto__ || Object.getPrototypeOf(Bridgeobond)).call(this));
+
+        _this.parentSugarPosition = [];
+        return _this;
+    } //修飾の結合の名前
+
+
+    _createClass(Bridgeobond, [{
+        key: "hasParentPosition",
+        value: function hasParentPosition() {
+            if (this.parentSugarPosition.length === 0) return false;else return true;
+        }
+    }, {
+        key: "getParentSugarPosition",
+        value: function getParentSugarPosition() {
+            return this.parentSugarPosition;
+        }
+    }, {
+        key: "setParentSugarPosition",
+        value: function setParentSugarPosition(parentPosition) {
+            this.parentSugarPosition.push(parentPosition);
+            return;
+        }
+    }]);
+
+    return Bridgeobond;
+}(_Edge2.Edge);
+
+/***/ }),
+/* 943 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.removeModificationBridge = undefined;
+
+var _main = __webpack_require__(13);
+
+var _Sugar = __webpack_require__(8);
+
+var removeModificationBridge = exports.removeModificationBridge = function removeModificationBridge(sugar) {
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+        for (var _iterator = sugar.getChildModifications()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var item = _step.value;
+
+            _main.liaise.removeStage(item);
+            if (!item.isChildCommaShapeEmpty()) {
+                _main.liaise.removeStage(item.getChildCommaShape());
+            }
+        }
+    } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+                _iterator.return();
+            }
+        } finally {
+            if (_didIteratorError) {
+                throw _iteratorError;
+            }
+        }
+    }
+
+    var _iteratorNormalCompletion2 = true;
+    var _didIteratorError2 = false;
+    var _iteratorError2 = undefined;
+
+    try {
+        for (var _iterator2 = sugar.getChildBridges()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var _item = _step2.value;
+
+            _main.liaise.removeStage(_item);
+            if (!_item.isChildCommaShapeEmpty()) {
+                _main.liaise.removeStage(_item.getChildCommaShape());
+            }
+        }
+    } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                _iterator2.return();
+            }
+        } finally {
+            if (_didIteratorError2) {
+                throw _iteratorError2;
+            }
+        }
+    }
+};
+
+/***/ }),
+/* 944 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.addModificationBridge = undefined;
+
+var _main = __webpack_require__(13);
+
+var _Sugar = __webpack_require__(8);
+
+var addModificationBridge = exports.addModificationBridge = function addModificationBridge(sugar) {
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+        for (var _iterator = sugar.getChildModifications()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var item = _step.value;
+
+            _main.liaise.addStage(item);
+            if (!item.isChildCommaShapeEmpty()) {
+                _main.liaise.addStage(item.getChildCommaShape());
+            }
+        }
+    } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+                _iterator.return();
+            }
+        } finally {
+            if (_didIteratorError) {
+                throw _iteratorError;
+            }
+        }
+    }
+
+    var _iteratorNormalCompletion2 = true;
+    var _didIteratorError2 = false;
+    var _iteratorError2 = undefined;
+
+    try {
+        for (var _iterator2 = sugar.getChildBridges()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var _item = _step2.value;
+
+            _main.liaise.addStage(_item);
+            if (!_item.isChildCommaShapeEmpty()) {
+                _main.liaise.addStage(_item.getChildCommaShape());
+            }
+        }
+    } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                _iterator2.return();
+            }
+        } finally {
+            if (_didIteratorError2) {
+                throw _iteratorError2;
+            }
+        }
+    }
+};
 
 /***/ })
 /******/ ]);

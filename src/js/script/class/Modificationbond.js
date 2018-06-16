@@ -5,24 +5,24 @@ import { Edge } from "./Edge";
 
 class Modificationbond extends Edge {
     name: string;  //修飾の結合の名前
-    parentPosition: number;  //親単糖の結合場所
+    parentSugarPosition: number;  //親単糖の結合場所
 
     constructor(){
         super();
-        this.parentPosition = NaN;
+        this.parentSugarPosition = NaN;
     }
 
     hasParentPosition(): boolean {
-        if (isNaN(this.parentPosition)) return false;
+        if (isNaN(this.parentSugarPosition)) return false;
         else return true;
     }
 
-    getParentPosition(): number {
-        return this.parentPosition;
+    getParentSugarPosition(): number {
+        return this.parentSugarPosition;
     }
 
     setParentPosition(parentPosition: number) {
-        this.parentPosition = parentPosition;
+        this.parentSugarPosition = parentPosition;
         return;
     }
 

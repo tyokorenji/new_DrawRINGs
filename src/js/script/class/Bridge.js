@@ -2,14 +2,19 @@
 "use strict";
 
 import { Node } from "./Node";
+import createjs from "createjs-easeljs";
+import { Bridgeobond } from "./BridgeBond";
 
 export class Bridge extends Node {
     name: string;
-    parentPosition: Array<number>;
+    bridgeBond: Object;
+    childCommaShape: Object;
+
     constructor(){
         super();
         this.name = "";
-        this.parentPosition = [];
+        this.bridgeBond = {};
+        this.childCommaShape = {};
     }
 
     setName(name: string) {
@@ -18,10 +23,20 @@ export class Bridge extends Node {
     getName(): string {
         return this.name;
     }
-    setParentPosition(position: number) {
-        this.modificationBond.push(position);
+    setBridgeBond(position: Bridgeobond) {
+        this.bridgeBond = (position);
     }
-    getParentPosition(): Array<number> {
-        return this.modificationBond;
+    getBridgeBond(): Bridgeobond {
+        return this.bridgeBond;
+    }
+
+    setChildCommaShape(commaShape: createjs.Text) {
+        this.childCommaShape = commaShape;
+    }
+    getChildCommaShape(): createjs.Text {
+        return this.childCommaShape;
+    }
+    isChildCommaShapeEmpty(): boolean {
+        return !Object.keys(this.childCommaShape).length;
     }
 }

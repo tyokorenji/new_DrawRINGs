@@ -10,6 +10,7 @@ import { Glycan } from "./Glycan";
 import { RepeatBracket } from "./RepeatBracket";
 import { Cyclic } from "./Cyclic";
 import { Modification } from "./Modification";
+import { Bridge } from "./Bridge";
 
 class Sugar extends Node{
     name: string;  //単糖の名前
@@ -23,6 +24,7 @@ class Sugar extends Node{
     cyclic: Object; //その糖鎖がCyclic構造を形成する単糖で、非還元末端側の場合
     layer: number;
     childModifications: Array<Object>;
+    childBridges: Array<Object>;
     carbBone: number;
 
     constructor(name: string){
@@ -37,6 +39,7 @@ class Sugar extends Node{
         this.cyclic = {};
         this.layer = 1;
         this.childModifications = [];
+        this.childBridges = [];
         this.carbBone = NaN;
     }
 
@@ -206,6 +209,22 @@ class Sugar extends Node{
     }
     getChildModifications(): Array<Object> {
         return this.childModifications;
+    }
+    hasChildModificaiton(): boolean {
+        if(this.childModifications.length === 0) return false;
+        else return true;
+    }
+
+    setChildBridges(bridge: Bridge) {
+        this.childBridges.push(bridge);
+        return;
+    }
+    getChildBridges(): Array<Object> {
+        return this.childBridges;
+    }
+    hasChildBridges(): boolean {
+        if (this.childBridges.length === 0) return false;
+        else return true;
     }
 
     setCarbBone(carbBone: number) {
