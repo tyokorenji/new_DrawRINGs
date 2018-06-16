@@ -6,6 +6,8 @@ import { NodeTable } from "./nodeTable";
 import { EdgeTable } from "./edgeTable";
 import { structureTable } from "./structureTable";
 import { KCFTextArea } from "./KCFTextArea";
+import { ModificationContents } from "./ModificationItem";
+
 export class SidebarContens {
     constructor(textareaValue){
         this.contents = undefined;
@@ -22,10 +24,16 @@ export class SidebarContens {
             );
         }
         else if (currentModeType === modeType.EDGE) {
-            console.log("Edge");
             // this.contents = new edgeTable();
             return (
                 <EdgeTable/>
+                // this.contents.getContents()
+            );
+        }
+        else if (currentModeType === modeType.ADD_MODIFICATION) {
+            // this.contents = new edgeTable();
+            return (
+                <ModificationContents/>
                 // this.contents.getContents()
             );
         }

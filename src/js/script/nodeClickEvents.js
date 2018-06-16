@@ -8,6 +8,7 @@ import { createRepeatBracket } from "./createRepeatBracket/createRepeatBeacket";
 import { RepeatBracket } from "./class/RepeatBracket";
 import { repeatClickEvent } from "./createRepeatBracket/repeatClickEvent";
 import { glycanClickEvent } from "./glycanClickEvent";
+import { createModification } from "./createModification/createModification";
 
 export function nodeClickEvents(event: Object) {
     switch (liaise.modeType) {
@@ -31,6 +32,11 @@ export function nodeClickEvents(event: Object) {
                 liaise.changeNodeClick();
                 liaise.setSelectedNode(event.currentTarget);
             }
+            break;
+        }
+        case modeType.ADD_MODIFICATION: {
+            console.log("add_modificaiton入ったよ！");
+            createModification(event.currentTarget);
             break;
         }
         case modeType.REPEAT: {

@@ -5,32 +5,23 @@ import { Edge } from "./Edge";
 
 class Modificationbond extends Edge {
     name: string;  //修飾の結合の名前
-    parentPosition: string;  //親単糖の結合場所
+    parentPosition: number;  //親単糖の結合場所
+
     constructor(){
         super();
-        this.name = "undefined";
-        this.parentPosition = "undefined";
-    }
-
-    getName(): string {
-        return this.name;
-    }
-
-    setName() {
-        this.name = "-" + this.parentPosition;
-        return;
+        this.parentPosition = NaN;
     }
 
     hasParentPosition(): boolean {
-        if (this.parentPosition == "undefined") return false;
+        if (isNaN(this.parentPosition)) return false;
         else return true;
     }
 
-    getParentPosition(): string {
+    getParentPosition(): number {
         return this.parentPosition;
     }
 
-    setParentPosition(parentPosition: string) {
+    setParentPosition(parentPosition: number) {
         this.parentPosition = parentPosition;
         return;
     }

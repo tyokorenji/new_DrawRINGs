@@ -48,6 +48,7 @@ export let createDi_Deoxynonulosonate = (event: Event, symbolSize: number): Suga
     let sugar: Sugar = new Sugar(nodeName);
     sugar.setIsomer(isomer);
     sugar.setRing(ring);
+    sugar.setCarbBone(SNFGSymbolGlycan[nodeName].carbBone);
     sugar.createIsomerShape();
     sugar.createRingShape();
     liaise.stage.addChild(sugar);

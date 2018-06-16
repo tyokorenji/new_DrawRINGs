@@ -56,6 +56,7 @@ export let createDeoxyHexose = (event: Event, symbolSize: number): Sugar => {
     let sugar: Sugar = new Sugar(nodeName);
     sugar.setIsomer(isomer);
     sugar.setRing(ring);
+    sugar.setCarbBone(SNFGSymbolGlycan[nodeName].carbBone);
     sugar.createIsomerShape();
     sugar.createRingShape();
     liaise.stage.addChild(sugar);

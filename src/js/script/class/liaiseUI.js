@@ -5,6 +5,7 @@ import createjs from "createjs-easeljs";
 import { nodeModeType } from "../../react/nodeModeType";
 import { modeType } from "../../react/modeType";
 import { Sugar } from "./Sugar";
+import { modifiData } from "../data/modificationData";
 import { Node } from "./Node";
 import { Glycan } from "./Glycan";
 
@@ -17,6 +18,9 @@ class LiaiseUI {
     selectedNode: Sugar;
     linkageSelect: Symbol;
     selectedGlycan: Array<Object>;
+    selectedModification: string;
+    selectedModifiactionPositions: Array<number>;
+    bridge: boolean;
 
 
     constructor() {
@@ -27,6 +31,9 @@ class LiaiseUI {
         this.nodeClick = false;
         this.linkageSelect;
         this.selectedGlycan = [];
+        this.selectedModification = modifiData.Undefined.TrivalName;
+        this.selectedModifiactionPositions = [];
+        this.bridge = false;
     }
 
     hasTextAreaValue() {
@@ -81,6 +88,27 @@ class LiaiseUI {
     setSelectedGlycan(glycan: Object) {
         this.selectedGlycan.push(glycan);
         return;
+    }
+
+    setSelectedModifiactionPositions(data: string) {
+        this.selectedModifiactionPositions.push(Number(data));
+        return;
+    }
+    deleateSelectedModifiactionPositions(data: string) {
+        for (let i = 0; i < this.selectedModifiactionPositions.length; i++){
+            if(Number(data) === this.selectedModifiactionPositions[i]) {
+                this.selectedModifiactionPositions.splice(i, 1);
+            }
+        }
+        return;
+    }
+    initModifiactionCondition() {
+        this.selectedModification = modifiData.Undefined.TrivalName;
+        this.selectedModifiactionPositions = [];
+        this.bridge = false;
+    }
+    changeBridge(data: boolean) {
+        this.bridge = data;
     }
 }
 

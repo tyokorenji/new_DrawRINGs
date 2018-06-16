@@ -9,6 +9,7 @@ import { liaise } from "../main";
 import { Glycan } from "./Glycan";
 import { RepeatBracket } from "./RepeatBracket";
 import { Cyclic } from "./Cyclic";
+import { Modification } from "./Modification";
 
 class Sugar extends Node{
     name: string;  //単糖の名前
@@ -21,6 +22,8 @@ class Sugar extends Node{
     repeatBracket: RepeatBracket;  //繰り返しのstartNodeの時、Bracketを持つ
     cyclic: Object; //その糖鎖がCyclic構造を形成する単糖で、非還元末端側の場合
     layer: number;
+    childModifications: Array<Object>;
+    carbBone: number;
 
     constructor(name: string){
         super();
@@ -33,6 +36,8 @@ class Sugar extends Node{
         this.glycan;
         this.cyclic = {};
         this.layer = 1;
+        this.childModifications = [];
+        this.carbBone = NaN;
     }
 
     getName(): string{
@@ -193,6 +198,22 @@ class Sugar extends Node{
     }
     getLayer(): number {
         return this.layer;
+    }
+
+    setChildModifications(modification: Modification) {
+        this.childModifications.push(modification);
+        return;
+    }
+    getChildModifications(): Array<Object> {
+        return this.childModifications;
+    }
+
+    setCarbBone(carbBone: number) {
+        this.carbBone = carbBone;
+    }
+
+    getCarbBode(): number {
+        return this.carbBone;
     }
 
 

@@ -3,7 +3,6 @@
 
 import { VisibleElement } from "./VisibleElement";
 // import { Sugar } from "./Sugar";
-// import { Modification } from "./Modification";
 import { Glycobond } from "./Glycobond";
 
 class Node extends VisibleElement {
@@ -18,7 +17,6 @@ class Node extends VisibleElement {
         this.parentSugars = [];
         this.childNodes = [];
         this.childSugars = [];
-        this.childModifications = [];
         this.parentBonds = [];
     }
 
@@ -61,20 +59,6 @@ class Node extends VisibleElement {
 
     setChildSugars(sugar: Sugar) {
         this.childSugars.push(sugar);
-        return;
-    }
-
-    hasChildModifications(): boolean{
-        if (this.childModifications.length != 0) return true;
-        else return false;
-    }
-
-    getChildModifications(): Array<Modification> {
-        return this.childModifications;
-    }
-
-    setChildModifications(modification: Modification) {
-        this.childModifications.push(modification);
         return;
     }
 

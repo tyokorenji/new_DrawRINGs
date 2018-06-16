@@ -40,12 +40,14 @@ export let createAssigned = (event: Event, symbolSize: number): Sugar => {
     }
     let isomer = SNFGSymbolGlycan[nodeName].isomer;
     let ring = SNFGSymbolGlycan[nodeName].ring;
+    let carbBone = SNFGSymbolGlycan[nodeName].carbBone;
     shape.graphics.beginStroke(getColor("black"));
     shape.graphics.setStrokeStyle(2);
     shape.graphics.drawPolyStar(0, 0, symbolSize, 5, 0, -90);
     let sugar: Sugar = new Sugar(nodeName);
     sugar.setIsomer(isomer);
     sugar.setRing(ring);
+    sugar.setCarbBone(carbBone);
     sugar.createIsomerShape();
     sugar.createRingShape();
     liaise.stage.addChild(sugar);

@@ -16,5 +16,8 @@ export let basicData: Object = {
     "fragmentBracketStrokeSize": 5,
     "symbolDistance": 45,
     "canvasSize": 5000,
-    "fragmentEdgeDistance": 15
+    "fragmentEdgeDistance": 15,
+    "commaUpperDistance": 15,
+    "commaBottomDistance": 5,
+    "modificationSize": 15
 };
