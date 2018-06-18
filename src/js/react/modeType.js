@@ -7,6 +7,7 @@ export const modeType = {
     REPEAT: Symbol(),
     FRAGMENT: Symbol(),
     STRUCTURE: Symbol(),
+    COMPOSITION: Symbol(),
     CLEAR: Symbol(),
     DRAW_KCF: Symbol(),
     KCF_TEXT_OUT: Symbol(),

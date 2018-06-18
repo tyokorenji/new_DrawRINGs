@@ -26,7 +26,6 @@ export class ModificationContents extends React.Component {
     onChangeToggleEvent = () => {
         let currentState = this.state;
         let key = modifiData.Undefined.TrivalName;
-        console.log(liaise.bridge);
         for(let item in modifiData) {
             if(currentState.selectedModification === modifiData[item].TrivalName) key = item;
         }
@@ -45,7 +44,6 @@ export class ModificationContents extends React.Component {
             }
         }
         this.setState(currentState);
-        console.log(liaise.bridge);
     };
 
     onChangeCheckboxEvent = (e, data) => {
@@ -55,7 +53,6 @@ export class ModificationContents extends React.Component {
         else {
             liaise.deleateSelectedModifiactionPositions(data.label);
         }
-        console.log(liaise.selectedModifiactionPositions);
     };
 
     render () {

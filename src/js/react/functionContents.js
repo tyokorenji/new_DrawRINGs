@@ -50,6 +50,13 @@ export class FunctionContents{
                 </div>
             );
         }
+        else if (currentModeType === modeType.COMPOSITION) {
+            return (
+                <div>
+                    <p>Glycan Composition!!!</p>
+                </div>
+            );
+        }
         else if (currentModeType === modeType.CLEAR) {
             return (
                 <div>

@@ -105,5 +105,4 @@ export let createModification = ( targetSugar: Sugar ) => {
     createModificaitonShape(targetSugar);
     addModificationBridge(targetSugar);
     liaise.stageUpdate();
-    console.log(targetSugar);
 };
