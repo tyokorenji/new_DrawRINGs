@@ -20,6 +20,9 @@ import { SidebarLeftPush } from "./sideBar";
 
 import { modeType } from "./modeType";
 import { liaise } from "../script/main";
+import { initGlycans } from "../script/main";
+import { initGlids } from "../script/main";
+import { removeAll } from "../script/removeObjet/removeAll";
 
 export class InterFace extends React.Component {
     constructor(props) {
@@ -121,6 +124,10 @@ export class InterFace extends React.Component {
                 liaise.initSelectedGlycan();
             }
             liaise.initModifiactionCondition();
+            removeAll();
+            liaise.stageUpdate();
+            initGlycans();
+            initGlids();
         }
         else if (targetId === "drawKCF") {
             currentState.current_mode_type = modeType.DRAW_KCF;

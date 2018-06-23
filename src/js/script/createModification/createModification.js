@@ -8,7 +8,7 @@ import { Modificationbond } from "../class/Modificationbond";
 import { modifiData } from "../data/modificationData";
 import { Bridge } from "../class/Bridge";
 import { Bridgeobond } from "../class/BridgeBond";
-import { removeModificationBridge } from "./removeModificationBridge";
+import { removeAllModificationBridgeShape } from "../removeObjet/removeAllModificationBridgeShape";
 import { addModificationBridge } from "./addModificationBridge";
 
 export let createModification = ( targetSugar: Sugar ) => {
@@ -39,7 +39,7 @@ export let createModification = ( targetSugar: Sugar ) => {
     let changeModifications: Array<Modification> = [];
     let changeBridge: Array<Bridge> = [];
     //昇順ソート
-    removeModificationBridge(targetSugar);
+    removeAllModificationBridgeShape(targetSugar);
     liaise.selectedModifiactionPositions.sort(function(a,b){
         if( a < b ) return -1;
         if( a > b ) return 1;

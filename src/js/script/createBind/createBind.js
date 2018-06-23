@@ -31,29 +31,24 @@ export function createEdge(target: Sugar) {
         case target.getGlycan(): {
             for(let parentBond: Glycobond of parentChild[1].getParentBond()) {
                 if(parentBond.getChildSugar() === parentChild[1] && parentBond.getParentSugar() === parentChild[0]) {
-                    console.log("すでに結合されている構造");
                     return;
                 }
             }
             if (parentChild[1].isCyclicEmpty()) {
-                console.log("結合のないサイクリック");
                 // pastBond = parentChild[1].checkDrawingParentBond(parentChild[0]);
                 pastBond = {};
                 break;
             }
             else {
-                console.log("すでに結合されているサイクリック");
                 // pastBond = parentChild[0].checkDrawingParentBond(parentChild[1]);
                 return;
             }
         }
         default: {
             if(parentChild[0].getGlycan() instanceof Fragment && parentChild[1].getGlycan() instanceof Fragment) {
-                console.log("Fragment");
                 pastBond = parentChild[1].getParentBond()[0];
             }
             else {
-                console.log("普通のEdge");
                 pastBond = {};
             }
             break;

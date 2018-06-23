@@ -70,6 +70,10 @@ class Node extends VisibleElement {
         this.parentBonds.push(edge);
         return;
     }
+    hasParentBond(): boolean {
+        if(this.parentBonds.length === 0) return false;
+        else return true;
+    }
     checkDrawingParentBond(parentSugar: Sugar): Object {
         for (let parentBond: Glycobond of this.parentBonds) {
             if(parentBond.getParentSugar() === parentSugar) {

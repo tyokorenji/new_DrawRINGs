@@ -4,6 +4,6 @@
 import { RepeatBracket } from "../class/RepeatBracket";
 import { liaise } from "../main";
 
-export let removeRepeat = (repeatBracket: RepeatBracket) => {
+export let removeRepeatShape = (repeatBracket: RepeatBracket) => {
     liaise.removeStage(repeatBracket);
 };

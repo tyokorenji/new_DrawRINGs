@@ -9,7 +9,6 @@ import { Glycobond } from "../class/Glycobond";
 import { Fragment } from "../class/Fragment";
 
 export function createLinkage(target: Glycobond, linkage: string) {
-    console.log(target);
     target.setChildPosition(linkageData[linkage].childPosition);
     target.setParentPositon(linkageData[linkage].parentPosition);
     target.setChildAnomeric(linkageData[linkage].anomeric);

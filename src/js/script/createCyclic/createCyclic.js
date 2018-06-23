@@ -17,17 +17,17 @@ export let createCyclic = (edge: Glycobond, sugar1: Sugar, sugar2: Sugar) => {
     cyclic.setNonReductionSugar(parentSugar);
     childSugar.setParentSugars(parentSugar);
     childSugar.setParentBond(edge);
-    for (let i = 0; i < glycans.length; i++) {
-        switch (parentSugar.getGlycan()) {
-            case glycans[i]: {
-                glycans.splice(i, 1);
-                childSugar.setGlycan(parentSugar.getGlycan());
-                break;
-            }
-            default:
-                break;
-        }
-    }
+    // for (let i = 0; i < glycans.length; i++) {
+    //     switch (parentSugar.getGlycan()) {
+    //         case glycans[i]: {
+    //             glycans.splice(i, 1);
+    //             childSugar.setGlycan(parentSugar.getGlycan());
+    //             break;
+    //         }
+    //         default:
+    //             break;
+    //     }
+    // }
     parentSugar.setChildSugars(childSugar);
     parentSugar.setChildNodes(childSugar);
     parentSugar.setCyclic(cyclic);

@@ -1,6 +1,9 @@
 //@flow
 "use strict";
 
-export let removeSugar = () => {
+import { Sugar } from "../class/Sugar";
+import { liaise } from "../main";
 
+export let removeSugarShape = (sugar: Sugar) => {
+    liaise.removeStage(sugar);
 };

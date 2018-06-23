@@ -51,6 +51,9 @@ class Glycan extends createjs.Container {
     getFragmentBracket(): FragmentBracket {
         return this.fragmentBracket;
     }
+    isFragmentBracketEmpty(): boolean {
+        return !Object.keys(this.fragmentBracket).length;
+    }
 
 
     highLight(sugar: Sugar) {
@@ -134,9 +137,9 @@ class Glycan extends createjs.Container {
     }
 
 
-    isFragmentBracketEmpty(): boolean {
-        return !Object.keys(this.fragmentBracket).length;
-    }
+    // isFragmentBracketEmpty(): boolean {
+    //     return !Object.keys(this.fragmentBracket).length;
+    // }
 
     // hasParentGlycan(): boolean {
     //     if (this.parentSugars.length != 0) return true;

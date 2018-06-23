@@ -20,7 +20,7 @@ class Sugar extends Node{
     isomerShape: createjs.Text;  //isomerのcreatejs.Text
     ringShape: createjs.Text;  //ringのcreatejs.Text
     glycan: Glycan;  //Sugarが所属するGlycanオブジェクト
-    repeatBracket: RepeatBracket;  //繰り返しのstartNodeの時、Bracketを持つ
+    repeatBracket: Object;  //繰り返しのstartNodeの時、Bracketを持つ
     cyclic: Object; //その糖鎖がCyclic構造を形成する単糖で、非還元末端側の場合
     layer: number;
     childModifications: Array<Object>;
@@ -41,6 +41,7 @@ class Sugar extends Node{
         this.childModifications = [];
         this.childBridges = [];
         this.carbBone = NaN;
+        this.repeatBracket = {};
     }
 
     getName(): string{
@@ -182,6 +183,12 @@ class Sugar extends Node{
     getRepeatBracket(): RepeatBracket {
         return this.repeatBracket;
     }
+    isRepeatBracketEmpty(): boolean {
+        return !Object.keys(this.repeatBracket).length;
+    }
+    initRepeatBracket() {
+        this.repeatBracket = {};
+    }
 
     setCyclic(cyclic: Cyclic) {
         this.cyclic = cyclic;
@@ -192,6 +199,9 @@ class Sugar extends Node{
     }
     isCyclicEmpty(): boolean {
         return !Object.keys(this.cyclic).length;
+    }
+    initCyclic() {
+        this.cyclic = {};
     }
 
 

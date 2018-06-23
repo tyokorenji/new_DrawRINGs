@@ -2,7 +2,7 @@
 "use strict";
 
 import { modeType } from "../react/modeType";
-import { liaise, glycans, monosachrrides } from "./main";
+import { liaise, glycans } from "./main";
 import { nodeType } from "../react/nodeModeSearch";
 import { createNodeShape } from "./createSugar/createNodeShape";
 import { nodeClickEvents } from "./nodeClickEvents";

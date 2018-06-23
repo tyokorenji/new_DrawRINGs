@@ -8,7 +8,6 @@ import { Sugar } from "./class/Sugar";
 
 export let liaise: LiaiseUI = new LiaiseUI();  //UIのの状態を納めるクラス変数。Reactとのつなげ役
 export let glycans: Array<Glycan> = [];  //canvas上に描画された糖鎖構造を納める配列
-export let monosachrrides: Array<Sugar> = []; //canvas上にある単糖を納める配列
 export let setGlids: Array<Array<number>> = [];
 
 export let checkGrids = (coordinates: Array<number>): boolean => {
@@ -18,5 +17,12 @@ export let checkGrids = (coordinates: Array<number>): boolean => {
         }
     }
     return true;
+};
+
+export let initGlycans = () => {
+    glycans = [];
+};
+export let initGlids = () => {
+    setGlids = [];
 };
 // console.log(liaise.hasTextAreaValue());

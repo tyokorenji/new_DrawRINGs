@@ -33,20 +33,23 @@ export let glycanClickEvent = (targetSugar: Sugar) => {
                         console.log(glycan.getFragmentBracket());
                         selectedGlycans.push(selectedGlycan);
                     }
-                    let shape: createjs.Shpae = createFragmentBracket(selectedGlycans);
-                    let fragmentBrackt = new FragmentBracket();
-                    fragmentBrackt.addChild(shape);
-                    for(let parentGlycan: Fragment of glycan.getParentFragmentBracket().getChildGlycans()) {
-                        parentGlycan.highLight(parentGlycan.getRootNode());
-                        liaise.setSelectedGlycan(parentGlycan);
-                        parentGlycan.setFragmentBracket(fragmentBrackt);
-                        fragmentBrackt.setParentGlycan(parentGlycan);
-                    }
-                    // glycan.highLight(glycan.getRootNode());
-                    // liaise.setSelectedGlycan(glycan);
+                    if(targetSugar.getGlycan().isFragmentBracketEmpty()) {
+                        let shape: createjs.Shpae = createFragmentBracket(selectedGlycans);
+                        let fragmentBrackt = new FragmentBracket();
+                        fragmentBrackt.addChild(shape);
+                        for(let parentGlycan: Fragment of glycan.getParentFragmentBracket().getChildGlycans()) {
+                            parentGlycan.highLight(parentGlycan.getRootNode());
+                            liaise.setSelectedGlycan(parentGlycan);
+                            parentGlycan.setFragmentBracket(fragmentBrackt);
+                            fragmentBrackt.setParentGlycan(parentGlycan);
+                        }
+                        // glycan.highLight(glycan.getRootNode());
+                        // liaise.setSelectedGlycan(glycan);
 
-                    liaise.addStage(fragmentBrackt);
-                    liaise.stageUpdate();
+                        liaise.addStage(fragmentBrackt);
+                        liaise.stageUpdate();
+                    }
+
                     // glycan.setParentFragmentBracket(fragmentBrackt);
 
 
@@ -72,13 +75,16 @@ export let glycanClickEvent = (targetSugar: Sugar) => {
                 else {
                     glycan.highLight(glycan.getRootNode());
                     liaise.setSelectedGlycan(glycan);
-                    let shape: createjs.Shpae = createFragmentBracket([glycan]);
-                    let fragmentBrackt = new FragmentBracket();
-                    fragmentBrackt.addChild(shape);
-                    liaise.addStage(fragmentBrackt);
-                    liaise.stageUpdate();
-                    glycan.setFragmentBracket(fragmentBrackt);
-                    fragmentBrackt.setParentGlycan(glycan);
+                    if(targetSugar.getGlycan().isFragmentBracketEmpty()) {
+                        let shape: createjs.Shpae = createFragmentBracket([glycan]);
+                        let fragmentBrackt = new FragmentBracket();
+                        fragmentBrackt.addChild(shape);
+                        liaise.addStage(fragmentBrackt);
+                        liaise.stageUpdate();
+                        glycan.setFragmentBracket(fragmentBrackt);
+                        fragmentBrackt.setParentGlycan(glycan);
+                    }
+
 
                     // glycan.offLight(glycan.getRootNode());
                 }
