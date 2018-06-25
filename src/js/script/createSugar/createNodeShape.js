@@ -18,53 +18,143 @@ import { createUnknown } from "./createUnknown";
 import { createAssigned } from "./createAssigned";
 import { createUndefSNFG } from "./createUndefSNFG";
 import { getRelativeCoordinate } from "../getRelativeCoordinate";
+import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
+import {liaise} from "../main";
 
 export let createNodeShape: Function = (shapeType: Symbol, event: Event): Function => {
     let symbolSize: number = 15;
     let sugar: Sugar;
     switch (shapeType) {
-        case nodeModeType.HEXOSE:
-            sugar = createHexose(event, symbolSize);
+        case nodeModeType.HEXOSE: {
+            let sugarObject: Object = createHexose(liaise.nodeSelect, symbolSize);
+            sugar = new Sugar(sugarObject.nodeName);
+            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
+            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
+            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
+            liaise.stage.addChild(sugar);
+            sugar.addChild(sugarObject.shape);
             break;
-        case nodeModeType.HEXNAC:
-            sugar = createHexNAc(event, symbolSize);
+        }
+        case nodeModeType.HEXNAC:{
+            let sugarObject: Object = createHexNAc(liaise.nodeSelect, symbolSize);
+            sugar = new Sugar(sugarObject.nodeName);
+            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
+            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
+            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
+            liaise.stage.addChild(sugar);
+            sugar.addChild(sugarObject.shape);
             break;
-        case nodeModeType.HEXOSAMINE:
-            sugar = createHexosamine(event, symbolSize);
+        }
+
+        case nodeModeType.HEXOSAMINE: {
+            let sugarObject: Object = createHexosamine(liaise.nodeSelect, symbolSize);
+            sugar = new Sugar(sugarObject.nodeName);
+            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
+            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
+            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
+            liaise.stage.addChild(sugar);
+            sugar.addChild(sugarObject.shape);
             break;
-        case nodeModeType.HEXURONATE:
-            sugar =  createHexuronate(event, symbolSize);
+        }
+        case nodeModeType.HEXURONATE: {
+            let sugarObject: Object = createHexuronate(liaise.nodeSelect, symbolSize);
+            sugar = new Sugar(sugarObject.nodeName);
+            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
+            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
+            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
+            liaise.stage.addChild(sugar);
+            sugar.addChild(sugarObject.shape);
             break;
-        case nodeModeType.DEOXYHEXOSE:
-            sugar =  createDeoxyHexose(event, symbolSize);
+        }
+        case nodeModeType.DEOXYHEXOSE: {
+            let sugarObject: Object = createDeoxyHexose(liaise.nodeSelect, symbolSize);
+            sugar = new Sugar(sugarObject.nodeName);
+            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
+            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
+            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
+            liaise.stage.addChild(sugar);
+            sugar.addChild(sugarObject.shape);
             break;
-        case nodeModeType.DEOXYHEXNAC:
-            sugar =  createDeoxyHexNAc(event, symbolSize);
+        }
+        case nodeModeType.DEOXYHEXNAC: {
+            let sugarObject: Object = createDeoxyHexNAc(liaise.nodeSelect, symbolSize);
+            sugar = new Sugar(sugarObject.nodeName);
+            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
+            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
+            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
+            liaise.stage.addChild(sugar);
+            sugar.addChild(sugarObject.shape);
             break;
-        case nodeModeType.DI_DEOXYHEXOSE:
-            sugar =  createDi_DeoxyHexose(event, symbolSize);
+        }
+        case nodeModeType.DI_DEOXYHEXOSE: {
+            let sugarObject: Object = createDi_DeoxyHexose(liaise.nodeSelect, symbolSize);
+            sugar = new Sugar(sugarObject.nodeName);
+            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
+            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
+            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
+            liaise.stage.addChild(sugar);
+            sugar.addChild(sugarObject.shape);
             break;
-        case nodeModeType.PENTOSE:
-            sugar =  createPentose(event, symbolSize);
+        }
+        case nodeModeType.PENTOSE: {
+            let sugarObject: Object = createPentose(liaise.nodeSelect, symbolSize);
+            sugar = new Sugar(sugarObject.nodeName);
+            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
+            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
+            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
+            liaise.stage.addChild(sugar);
+            sugar.addChild(sugarObject.shape);
             break;
-        case nodeModeType.DEOXYNONULOSONATE:
-            sugar =  createDeoxynonulosonate(event, symbolSize);
+        }
+        case nodeModeType.DEOXYNONULOSONATE: {
+            let sugarObject: Object = createDeoxynonulosonate(liaise.nodeSelect, symbolSize);
+            sugar = new Sugar(sugarObject.nodeName);
+            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
+            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
+            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
+            liaise.stage.addChild(sugar);
+            sugar.addChild(sugarObject.shape);
             break;
-        case nodeModeType.DI_DEOXYNONULOSONATE:
-            sugar =  createDi_Deoxynonulosonate(event, symbolSize);
+        }
+        case nodeModeType.DI_DEOXYNONULOSONATE: {
+            let sugarObject: Object = createDi_Deoxynonulosonate(liaise.nodeSelect, symbolSize);
+            sugar = new Sugar(sugarObject.nodeName);
+            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
+            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
+            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
+            liaise.stage.addChild(sugar);
+            sugar.addChild(sugarObject.shape);
             break;
-        case nodeModeType.UNKNOWN:
-            sugar =  createUnknown(event, symbolSize);
+        }
+        case nodeModeType.UNKNOWN: {
+            let sugarObject: Object = createUnknown(liaise.nodeSelect, symbolSize);
+            sugar = new Sugar(sugarObject.nodeName);
+            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
+            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
+            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
+            liaise.stage.addChild(sugar);
+            sugar.addChild(sugarObject.shape);
             break;
-        case nodeModeType.ASSIGNED:
-            sugar =  createAssigned(event, symbolSize);
+        }
+        case nodeModeType.ASSIGNED: {
+            let sugarObject: Object = createAssigned(liaise.nodeSelect, symbolSize);
+            sugar = new Sugar(sugarObject.nodeName);
+            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
+            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
+            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
+            liaise.stage.addChild(sugar);
+            sugar.addChild(sugarObject.shape);
             break;
-        case nodeModeType.NOT_SELECTED:
+        }
+        case nodeModeType.NOT_SELECTED: {
             //未定義
-            sugar =  createUndefSNFG(event);
+            let sugarObject: Object = createUndefSNFG(event);
+            sugar = new Sugar(sugarObject.nodeName);
             break;
-        default:
+        }
+        default: {
             return createError();
+        }
     }
     // let coordinate: Array<number> = getRelativeCoordinate(event);
     // sugar.setCoordinate(coordinate[0], coordinate[1]);

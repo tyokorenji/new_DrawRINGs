@@ -9,7 +9,7 @@ import createjs from "createjs-easeljs";
 import { getRelativeCoordinate } from "../getRelativeCoordinate";
 import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
 
-export let createHexuronate = (event: Event, symbolSize: number): Sugar => {
+export let createHexuronate = (nameSymbol: Symbol, symbolSize: number): Object => {
     let shape: createjs.Shape = new createjs.Shape();
     let nodeName: string = "undefined";
     shape.graphics.beginStroke(getColor("black"));
@@ -52,14 +52,14 @@ export let createHexuronate = (event: Event, symbolSize: number): Sugar => {
             nodeName = "IdoA";
             break;
     }
-    let isomer = SNFGSymbolGlycan[nodeName].isomer;
-    let ring = SNFGSymbolGlycan[nodeName].ring;
+    // let isomer = SNFGSymbolGlycan[nodeName].isomer;
+    // let ring = SNFGSymbolGlycan[nodeName].ring;
     shape.graphics.moveTo(-15, -15)
         .lineTo(15, -15)
         .lineTo(15, 15)
         .closePath()
         .endFill();
-    switch(liaise.nodeSelect) {
+    switch(nameSymbol) {
         case nodeModeType.IDOA:
             shape.graphics.beginFill(getColor("brown"));
             break;
@@ -76,14 +76,14 @@ export let createHexuronate = (event: Event, symbolSize: number): Sugar => {
         .closePath()
         .endFill();
     shape.rotation = 315;
-    let sugar: Sugar = new Sugar(nodeName);
-    sugar.setIsomer(isomer);
-    sugar.setRing(ring);
-    sugar.setCarbBone(SNFGSymbolGlycan[nodeName].carbBone);
-    sugar.createIsomerShape();
-    sugar.createRingShape();
-    liaise.stage.addChild(sugar);
-    sugar.addChild(shape);
+    // let sugar: Sugar = new Sugar(nodeName);
+    // sugar.setIsomer(isomer);
+    // sugar.setRing(ring);
+    // sugar.setCarbBone(SNFGSymbolGlycan[nodeName].carbBone);
+    // sugar.createIsomerShape();
+    // sugar.createRingShape();
+    // liaise.stage.addChild(sugar);
+    // sugar.addChild(shape);
     // switch (sugar.isomerShape.text) {
     //     case "undefined":
     //         break;
@@ -98,5 +98,5 @@ export let createHexuronate = (event: Event, symbolSize: number): Sugar => {
     //         sugar.addChild(sugar.ringShape);
     //         break;
     // }
-    return sugar;
+    return { "shape": shape, "nodeName": nodeName };
 };

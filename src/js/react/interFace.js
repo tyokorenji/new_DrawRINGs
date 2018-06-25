@@ -19,7 +19,7 @@ import { ExplainTextarea } from "./explainTextarea";
 import { SidebarLeftPush } from "./sideBar";
 
 import { modeType } from "./modeType";
-import { liaise } from "../script/main";
+import {glycans, liaise} from "../script/main";
 import { initGlycans } from "../script/main";
 import { initGlids } from "../script/main";
 import { removeAll } from "../script/removeObjet/removeAll";
@@ -103,7 +103,7 @@ export class InterFace extends React.Component {
         }
         else if (targetId === "composition") {
             currentState.current_mode_type = modeType.COMPOSITION;
-            currentState.sideBarVisible = false;
+            currentState.sideBarVisible = true;
             if(!liaise.isSelectedGlycanEmpty()) {
                 for (let selectedGlycan of liaise.getSelectedGlycan()) {
                     selectedGlycan.offLight(selectedGlycan.getRootNode());
@@ -112,6 +112,11 @@ export class InterFace extends React.Component {
                 liaise.initSelectedGlycan();
             }
             liaise.initModifiactionCondition();
+            if(glycans.length !== 0) {
+                removeAll();
+            }
+            liaise.stageUpdate();
+
         }
         else if (targetId === "clear") {
             currentState.current_mode_type = modeType.CLEAR;
@@ -126,8 +131,6 @@ export class InterFace extends React.Component {
             liaise.initModifiactionCondition();
             removeAll();
             liaise.stageUpdate();
-            initGlycans();
-            initGlids();
         }
         else if (targetId === "drawKCF") {
             currentState.current_mode_type = modeType.DRAW_KCF;

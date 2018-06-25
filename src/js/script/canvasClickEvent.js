@@ -14,7 +14,8 @@ import { setGlids } from "./main";
 import { checkGrids } from "./main";
 import { Glycobond } from "./class/Glycobond";
 import { createFragmentBind } from "./createBind/createFragmentBind";
-import {edgeClickEvent} from "./edgeClickEvent";
+import { edgeClickEvent } from "./edgeClickEvent";
+import { createComposition } from "./createComposition/createComposition";
 
 
 export function canvasClickEvent() {

@@ -9,10 +9,10 @@ import createjs from "createjs-easeljs";
 import { getRelativeCoordinate } from "../getRelativeCoordinate";
 import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
 
-export let createDi_Deoxynonulosonate = (event: Event, symbolSize: number): Sugar => {
+export let createDi_Deoxynonulosonate = (nameSymbol: Symbol, symbolSize: number): Object => {
     let shape: createjs.Shape = new createjs.Shape();
     let nodeName = "undefined";
-    switch (liaise.nodeSelect) {
+    switch (nameSymbol) {
         case nodeModeType.DI_DEOXYNONULOSONATE:
             shape.graphics.beginFill(getColor("white"));
             nodeName = "Di-deoxynonulosonate";
@@ -34,8 +34,8 @@ export let createDi_Deoxynonulosonate = (event: Event, symbolSize: number): Suga
             nodeName = "4eLeg";
             break;
     }
-    let isomer = SNFGSymbolGlycan[nodeName].isomer;
-    let ring = SNFGSymbolGlycan[nodeName].ring;
+    // let isomer = SNFGSymbolGlycan[nodeName].isomer;
+    // let ring = SNFGSymbolGlycan[nodeName].ring;
     shape.graphics.beginStroke(getColor("black"));
     shape.graphics.setStrokeStyle(2);
     // let scale = 20;
@@ -45,14 +45,14 @@ export let createDi_Deoxynonulosonate = (event: Event, symbolSize: number): Suga
         .lineTo( symbolSize * 2 *2 /3 / 2 * Math.sqrt(3), 0)
         .closePath()
         .endFill();
-    let sugar: Sugar = new Sugar(nodeName);
-    sugar.setIsomer(isomer);
-    sugar.setRing(ring);
-    sugar.setCarbBone(SNFGSymbolGlycan[nodeName].carbBone);
-    sugar.createIsomerShape();
-    sugar.createRingShape();
-    liaise.stage.addChild(sugar);
-    sugar.addChild(shape);
+    // let sugar: Sugar = new Sugar(nodeName);
+    // sugar.setIsomer(isomer);
+    // sugar.setRing(ring);
+    // sugar.setCarbBone(SNFGSymbolGlycan[nodeName].carbBone);
+    // sugar.createIsomerShape();
+    // sugar.createRingShape();
+    // liaise.stage.addChild(sugar);
+    // sugar.addChild(shape);
     // switch (sugar.isomerShape.text) {
     //     case "undefined":
     //         break;
@@ -67,5 +67,5 @@ export let createDi_Deoxynonulosonate = (event: Event, symbolSize: number): Suga
     //         sugar.addChild(sugar.ringShape);
     //         break;
     // }
-    return sugar;
+    return { "shape": shape, "nodeName": nodeName };
 };

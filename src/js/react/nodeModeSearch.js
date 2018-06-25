@@ -96,7 +96,7 @@ export function nodeModeSearch(target: string) {
     }
 }
 
-export function nodeType(target: Symbol) {
+export function nodeType(target: Symbol): Symbol {
     switch (target) {
         case nodeModeType.HEXOSE:
         case nodeModeType.GLC:

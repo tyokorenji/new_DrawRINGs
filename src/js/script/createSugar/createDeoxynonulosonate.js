@@ -10,10 +10,10 @@ import { liaise } from "../main";
 import createjs from "createjs-easeljs";
 import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
 
-export let createDeoxynonulosonate = (event: Event, symbolSize: number): Sugar => {
+export let createDeoxynonulosonate = (nameSymbol: Symbol, symbolSize: number): Object => {
     let shape: createjs.Shape = new createjs.Shape();
     let nodeName: string = "undefined";
-    switch (liaise.nodeSelect) {
+    switch (nameSymbol) {
         case nodeModeType.DEOXYNONULOSONATE:
             shape.graphics.beginFill(getColor("white"));
             nodeName = "Deoxynonulosonate";
@@ -39,20 +39,20 @@ export let createDeoxynonulosonate = (event: Event, symbolSize: number): Sugar =
             nodeName = "Sia";
             break;
     }
-    let isomer = SNFGSymbolGlycan[nodeName].isomer;
-    let ring = SNFGSymbolGlycan[nodeName].ring;
+    // let isomer = SNFGSymbolGlycan[nodeName].isomer;
+    // let ring = SNFGSymbolGlycan[nodeName].ring;
     shape.graphics.beginStroke(getColor("black"));
     shape.graphics.setStrokeStyle(2);
     shape.graphics.drawRect(-2 * symbolSize / 2, -2 * symbolSize / 2, 2 * symbolSize, 2 * symbolSize);
     shape.rotation = 45;
-    let sugar: Sugar = new Sugar(nodeName);
-    sugar.setIsomer(isomer);
-    sugar.setRing(ring);
-    sugar.setCarbBone(SNFGSymbolGlycan[nodeName].carbBone);
-    sugar.createIsomerShape();
-    sugar.createRingShape();
-    liaise.stage.addChild(sugar);
-    sugar.addChild(shape);
+    // let sugar: Sugar = new Sugar(nodeName);
+    // sugar.setIsomer(isomer);
+    // sugar.setRing(ring);
+    // sugar.setCarbBone(SNFGSymbolGlycan[nodeName].carbBone);
+    // sugar.createIsomerShape();
+    // sugar.createRingShape();
+    // liaise.stage.addChild(sugar);
+    // sugar.addChild(shape);
     // switch (sugar.isomerShape.text) {
     //     case "undefined":
     //         break;
@@ -67,5 +67,5 @@ export let createDeoxynonulosonate = (event: Event, symbolSize: number): Sugar =
     //         sugar.addChild(sugar.ringShape);
     //         break;
     // }
-    return sugar;
+    return { "shape": shape, "nodeName": nodeName };
 };

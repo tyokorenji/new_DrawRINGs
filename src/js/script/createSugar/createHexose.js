@@ -12,10 +12,10 @@ import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
 import { nodeClickEvents } from "../nodeClickEvents";
 
 
-export let createHexose = (event: Event, symbolSize: number): Sugar => {
+export let createHexose = (nameSymbol: Symbol, symbolSize: number): Object => {
     let shape = new createjs.Shape();
     let nodeName: string = "undefined";
-    switch (liaise.nodeSelect){
+    switch (nameSymbol){
         case nodeModeType.HEXOSE:
             shape.graphics.beginFill(getColor("white"));
             nodeName = "Hexose";
@@ -55,33 +55,8 @@ export let createHexose = (event: Event, symbolSize: number): Sugar => {
         default:
             return createError();
     }
-    let isomer = SNFGSymbolGlycan[nodeName].isomer;
-    let ring = SNFGSymbolGlycan[nodeName].ring;
     shape.graphics.beginStroke(getColor("black"));
     shape.graphics.setStrokeStyle(2);
     shape.graphics.drawCircle(0, 0, symbolSize);
-    let sugar: Sugar = new Sugar(nodeName);
-    sugar.setIsomer(isomer);
-    sugar.setRing(ring);
-    sugar.setCarbBone(SNFGSymbolGlycan[nodeName].carbBone);
-    // sugar.createIsomerShape();
-    // sugar.createRingShape();
-    liaise.stage.addChild(sugar);
-    sugar.addChild(shape);
-    // shape.addEventListener("click", nodeClickEvents, false);
-    // switch (sugar.isomerShape.text) {
-    //     case "undefined":
-    //         break;
-    //     default:
-    //         sugar.addChild(sugar.isomerShape);
-    //         break;
-    // }
-    // switch (sugar.ringShape.text) {
-    //     case "undefined":
-    //         break;
-    //     default:
-    //         sugar.addChild(sugar.ringShape);
-    //         break;
-    // }
-    return sugar;
+    return { "shape": shape, "nodeName": nodeName };
 };

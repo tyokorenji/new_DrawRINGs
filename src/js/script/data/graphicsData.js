@@ -19,5 +19,7 @@ export let basicData: Object = {
     "fragmentEdgeDistance": 15,
     "commaUpperDistance": 15,
     "commaBottomDistance": 5,
-    "modificationSize": 15
+    "modificationSize": 15,
+    "compositionTextToSymbol": 10,
+    "compositionTextSize": 30
 };

@@ -9,10 +9,10 @@ import createjs from "createjs-easeljs";
 import { getRelativeCoordinate } from "../getRelativeCoordinate";
 import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
 
-export let createAssigned = (event: Event, symbolSize: number): Sugar => {
+export let createAssigned = (nameSymbol: Symbol, symbolSize: number): Object => {
     let shape: createjs.Shape = new createjs.Shape();
     let nodeName: string = "undefined";
-    switch (liaise.nodeSelect) {
+    switch (nameSymbol) {
         case nodeModeType.ASSIGNED:
             shape.graphics.beginFill(getColor("white"));
             nodeName = "Assigned";
@@ -38,34 +38,9 @@ export let createAssigned = (event: Event, symbolSize: number): Sugar => {
             nodeName = "Psi";
             break;
     }
-    let isomer = SNFGSymbolGlycan[nodeName].isomer;
-    let ring = SNFGSymbolGlycan[nodeName].ring;
-    let carbBone = SNFGSymbolGlycan[nodeName].carbBone;
     shape.graphics.beginStroke(getColor("black"));
     shape.graphics.setStrokeStyle(2);
     shape.graphics.drawPolyStar(0, 0, symbolSize, 5, 0, -90);
-    let sugar: Sugar = new Sugar(nodeName);
-    sugar.setIsomer(isomer);
-    sugar.setRing(ring);
-    sugar.setCarbBone(carbBone);
-    sugar.createIsomerShape();
-    sugar.createRingShape();
-    liaise.stage.addChild(sugar);
-    sugar.addChild(shape);
-    // switch (sugar.isomerShape.text) {
-    //     case "undefined":
-    //         break;
-    //     default:
-    //         sugar.addChild(sugar.isomerShape);
-    //         break;
-    // }
-    // switch (sugar.ringShape.text) {
-    //     case "undefined":
-    //         break;
-    //     default:
-    //         sugar.addChild(sugar.ringShape);
-    //         break;
-    // }
-    return sugar;
+    return { "shape": shape, "nodeName": nodeName };
 
 };

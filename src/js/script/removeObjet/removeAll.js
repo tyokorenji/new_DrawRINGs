@@ -6,13 +6,14 @@ import { removeBindShape } from "./removeBindShape";
 import { removeRepeatShape } from "./removeRepeatShape";
 import { removeSugarShape } from "./removeSugarShape";
 import { removeFragmentBracketShape } from "./removeFragmentBracketShape";
-import { glycans } from "../main";
+import { glycans, initGlids, initGlycans } from "../main";
 import { Sugar } from "../class/Sugar";
 import { Glycobond } from "../class/Glycobond";
 import { liaise } from "../main";
 import { Glycan } from "../class/Glycan";
 import { FragmentBracket } from "../class/FragmentBracket";
 import { Fragment } from "../class/Fragment";
+import { compositions } from "../main";
 
 
 //サイクリック エラー
@@ -20,12 +21,19 @@ import { Fragment } from "../class/Fragment";
 export let removeAll = () => {
     let answer: boolean = confirm("Would you remove all Objects?");
     if(answer) {
-        console.log("All Clear 入ったよ!!!");
-        for(let glycan: Glycan of glycans) {
-            if(!glycan.isFragmentBracketEmpty()) {
-                recuversiveRemoveFragment(glycan.getFragmentBracket());
+        if(glycans.length !== 0) {
+            console.log("All Clear 入ったよ!!!");
+            for(let glycan: Glycan of glycans) {
+                if(!glycan.isFragmentBracketEmpty()) {
+                    recuversiveRemoveFragment(glycan.getFragmentBracket());
+                }
+                removeGlycan(glycan);
             }
-            removeGlycan(glycan);
+            initGlycans();
+            initGlids();
+        }
+        else if(compositions.length !== 0) {
+            return;
         }
 
     }

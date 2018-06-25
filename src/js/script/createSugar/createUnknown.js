@@ -9,10 +9,10 @@ import createjs from "createjs-easeljs";
 import { getRelativeCoordinate } from "../getRelativeCoordinate";
 import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
 
-export let createUnknown = (event: Event, symbolSize: number): Sugar => {
+export let createUnknown = (nameSymbol: Symbol, symbolSize: number): Object => {
     let shape: createjs.Shape = new createjs.Shape();
     let nodeName: string = "undefined";
-    switch (liaise.nodeSelect) {
+    switch (nameSymbol) {
         case nodeModeType.UNKNOWN:
             shape.graphics.beginFill(getColor("white"));
             nodeName = "Unknown";
@@ -50,8 +50,8 @@ export let createUnknown = (event: Event, symbolSize: number): Sugar => {
             nodeName = "Mur";
             break;
     }
-    let isomer = SNFGSymbolGlycan[nodeName].isomer;
-    let ring = SNFGSymbolGlycan[nodeName].ring;
+    // let isomer = SNFGSymbolGlycan[nodeName].isomer;
+    // let ring = SNFGSymbolGlycan[nodeName].ring;
     shape.graphics.beginStroke(getColor("black"));
     shape.graphics.setStrokeStyle(2);
     shape.graphics.moveTo(-1 * symbolSize, 0)
@@ -62,14 +62,14 @@ export let createUnknown = (event: Event, symbolSize: number): Sugar => {
         .lineTo(-1 * 1 / 2 * symbolSize, symbolSize)
         .closePath()
         .endFill();
-    let sugar: Sugar = new Sugar(nodeName);
-    sugar.setIsomer(isomer);
-    sugar.setRing(ring);
-    sugar.setCarbBone(SNFGSymbolGlycan[nodeName].carbBone);
-    sugar.createIsomerShape();
-    sugar.createRingShape();
-    liaise.stage.addChild(sugar);
-    sugar.addChild(shape);
+    // let sugar: Sugar = new Sugar(nodeName);
+    // sugar.setIsomer(isomer);
+    // sugar.setRing(ring);
+    // sugar.setCarbBone(SNFGSymbolGlycan[nodeName].carbBone);
+    // sugar.createIsomerShape();
+    // sugar.createRingShape();
+    // liaise.stage.addChild(sugar);
+    // sugar.addChild(shape);
     // switch (sugar.isomerShape.text) {
     //     case "undefined":
     //         break;
@@ -84,5 +84,5 @@ export let createUnknown = (event: Event, symbolSize: number): Sugar => {
     //         sugar.addChild(sugar.ringShape);
     //         break;
     // }
-    return sugar;
+    return { "shape": shape, "nodeName": nodeName };
 };

@@ -7,6 +7,7 @@ import { EdgeTable } from "./edgeTable";
 import { structureTable } from "./structureTable";
 import { KCFTextArea } from "./KCFTextArea";
 import { ModificationContents } from "./ModificationItem";
+import { CompositionTable } from "./compositionTable";
 
 export class SidebarContens {
     constructor(textareaValue){
@@ -40,6 +41,13 @@ export class SidebarContens {
         else if (currentModeType === modeType.FRAGMENT) {
             return (
                 <NodeTable/>
+            );
+        }
+        else if (currentModeType === modeType.COMPOSITION) {
+            // this.contents = new nodeTable();
+            return (
+                // this.contents.getContents()
+                <CompositionTable/>
             );
         }
         else if (currentModeType === modeType.STRUCTURE) {

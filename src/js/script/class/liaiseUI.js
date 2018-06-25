@@ -8,6 +8,7 @@ import { Sugar } from "./Sugar";
 import { modifiData } from "../data/modificationData";
 import { Node } from "./Node";
 import { Glycan } from "./Glycan";
+import { compositionSlected } from "../data/compositionSelected";
 
 class LiaiseUI {
     textArea: string;
@@ -21,6 +22,7 @@ class LiaiseUI {
     selectedModification: string;
     selectedModifiactionPositions: Array<number>;
     bridge: boolean;
+    compositionSelect: Object;
 
 
     constructor() {
@@ -34,6 +36,7 @@ class LiaiseUI {
         this.selectedModification = modifiData.Undefined.TrivalName;
         this.selectedModifiactionPositions = [];
         this.bridge = false;
+        this.compositionSelect = compositionSlected;
     }
 
     hasTextAreaValue() {
@@ -110,7 +113,29 @@ class LiaiseUI {
     changeBridge(data: boolean) {
         this.bridge = data;
     }
+
+    getCompositionSelect(): Object {
+        return this.compositionSelect;
+    }
+    setCompositionSelect(name: string, value: number) {
+        this.compositionSelect[name] = value;
+    }
+
+    searchComposition(): Array<string> {
+        let resultArray: Array<string> = [];
+        for(let key in this.compositionSelect) {
+            if(this.compositionSelect[key] !== 0) {
+                resultArray.push(key);
+            }
+            else {
+                continue;
+            }
+        }
+        return resultArray;
+
+    }
 }
+
 
 export { LiaiseUI };
 
