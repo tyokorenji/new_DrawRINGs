@@ -52,4 +52,10 @@ export let initGlycans = () => {
 export let initGlids = () => {
     setGlids = [];
 };
+export let initCompositions = () => {
+    compositions = [];
+};
+export let initCompositionsGlids = () => {
+    compositionsGlids = [];
+};
 // console.log(liaise.hasTextAreaValue());

@@ -11,14 +11,14 @@ export class FunctionContents{
         if (currentModeType === modeType.NODE) {
             return (
                 <div>
-                    <p>this is drawGlycan!!!</p>
+                    <p>this is Draw Monosaccharide!!!</p>
                 </div>
             );
         }
         else if (currentModeType === modeType.EDGE) {
             return (
                 <div>
-                    <p>this is bind!!!</p>
+                    <p>this is Draw linkage!!!</p>
                 </div>
             );
         }
@@ -39,28 +39,28 @@ export class FunctionContents{
         else if (currentModeType === modeType.REPEAT) {
             return (
                 <div>
-                    <p>this is Repeat!!!</p>
+                    <p>this is Draw repeating unit!!!</p>
                 </div>
             );
         }
         else if (currentModeType === modeType.FRAGMENT) {
             return (
                 <div>
-                    <p>this is Fragment!!!</p>
+                    <p>this is Draw glycan fragment!!!</p>
                 </div>
             );
         }
         else if (currentModeType === modeType.COMPOSITION) {
             return (
                 <div>
-                    <p>Glycan Composition!!!</p>
+                    <p>Draw composition!!!</p>
                 </div>
             );
         }
         else if (currentModeType === modeType.CLEAR) {
             return (
                 <div>
-                    <p>this is Clear!!!</p>
+                    <p>Clear canvas!!!</p>
                 </div>
             );
         }

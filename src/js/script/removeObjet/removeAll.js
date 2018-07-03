@@ -13,7 +13,9 @@ import { liaise } from "../main";
 import { Glycan } from "../class/Glycan";
 import { FragmentBracket } from "../class/FragmentBracket";
 import { Fragment } from "../class/Fragment";
-import { compositions } from "../main";
+import { compositions, initCompositions, initCompositionsGlids } from "../main";
+import { Composition } from "../class/Composition";
+import { CompositionText } from "../class/compositionText";
 
 
 //サイクリック エラー
@@ -33,6 +35,12 @@ export let removeAll = () => {
             initGlids();
         }
         else if(compositions.length !== 0) {
+            for(let composition: Composition of compositions) {
+                liaise.removeStage(composition.getCompositionText());
+                liaise.removeStage(composition);
+            }
+            initCompositions();
+            initCompositionsGlids();
             return;
         }
 

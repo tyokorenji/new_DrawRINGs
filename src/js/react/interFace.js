@@ -19,7 +19,7 @@ import { ExplainTextarea } from "./explainTextarea";
 import { SidebarLeftPush } from "./sideBar";
 
 import { modeType } from "./modeType";
-import {glycans, liaise} from "../script/main";
+import {glycans, liaise, compositions} from "../script/main";
 import { initGlycans } from "../script/main";
 import { initGlids } from "../script/main";
 import { removeAll } from "../script/removeObjet/removeAll";
@@ -48,6 +48,10 @@ export class InterFace extends React.Component {
                 liaise.initSelectedGlycan();
             }
             liaise.initModifiactionCondition();
+            if(compositions.length !== 0) {
+                removeAll();
+                liaise.stageUpdate();
+            }
         }
         else if (targetId === "edge") {
             currentState.current_mode_type = modeType.EDGE;
@@ -60,6 +64,10 @@ export class InterFace extends React.Component {
                 liaise.initSelectedGlycan();
             }
             liaise.initModifiactionCondition();
+            if(compositions.length !== 0) {
+                removeAll();
+                liaise.stageUpdate();
+            }
         }
         else if (targetId === "addModification") {
             currentState.current_mode_type = modeType.ADD_MODIFICATION;
@@ -70,6 +78,11 @@ export class InterFace extends React.Component {
                 }
                 // liaise.getSelectedGlycan().offLight(liaise.getSelectedGlycan().getRootNode());}
                 liaise.initSelectedGlycan();
+
+            }
+            if(compositions.length !== 0) {
+                removeAll();
+                liaise.stageUpdate();
             }
         }
         else if (targetId === "structure") {
@@ -83,6 +96,10 @@ export class InterFace extends React.Component {
                 liaise.initSelectedGlycan();
             }
             liaise.initModifiactionCondition();
+            if(compositions.length !== 0) {
+                removeAll();
+                liaise.stageUpdate();
+            }
         }
         else if (targetId === "repeat") {
             currentState.current_mode_type = modeType.REPEAT;
@@ -95,11 +112,19 @@ export class InterFace extends React.Component {
                 liaise.initSelectedGlycan();
             }
             liaise.initModifiactionCondition();
+            if(compositions.length !== 0) {
+                removeAll();
+                liaise.stageUpdate();
+            }
         }
         else if (targetId === "fragment") {
             currentState.current_mode_type = modeType.FRAGMENT;
             currentState.sideBarVisible = true;
             liaise.initModifiactionCondition();
+            if(compositions.length !== 0) {
+                removeAll();
+                liaise.stageUpdate();
+            }
         }
         else if (targetId === "composition") {
             currentState.current_mode_type = modeType.COMPOSITION;
@@ -143,6 +168,10 @@ export class InterFace extends React.Component {
                 liaise.initSelectedGlycan();
             }
             liaise.initModifiactionCondition();
+            if(compositions.length !== 0) {
+                removeAll();
+                liaise.stageUpdate();
+            }
         }
         else if (targetId === "KCFTextOut") {
             currentState.current_mode_type = modeType.KCF_TEXT_OUT;
@@ -155,6 +184,10 @@ export class InterFace extends React.Component {
                 liaise.initSelectedGlycan();
             }
             liaise.initModifiactionCondition();
+            if(compositions.length !== 0) {
+                removeAll();
+                liaise.stageUpdate();
+            }
         }
         // else if (targetId === "undo") {
         //     currentState.current_mode_type = modeType.UNDO;
@@ -184,14 +217,14 @@ export class InterFace extends React.Component {
 
     mouseOverEvent(e) {
         let currentState = this.state;
-        if (e.target.id === "node") currentState.explainText = "Draw Glycan!!!";
-        else if (e.target.id === "edge") currentState.explainText = "Bind Glycan!!!";
+        if (e.target.id === "node") currentState.explainText = "Draw Monosaccharide!!!";
+        else if (e.target.id === "edge") currentState.explainText = "Draw linkage!!!";
         else if (e.target.id === "addModification") currentState.explainText = "Add Modification!!!";
         else if (e.target.id === "structure") currentState.explainText = "Motif Structure!!!";
-        else if (e.target.id === "repeat") currentState.explainText = "Repeat Glycan!!!";
-        else if (e.target.id === "fragment") currentState.explainText = "Fragment Glycan!!!";
-        else if (e.target.id === "composition") currentState.explainText = "Glycan Composition!!!";
-        else if (e.target.id === "clear") currentState.explainText = "Canvas Clear!!!";
+        else if (e.target.id === "repeat") currentState.explainText = "Draw repeating unit!!!";
+        else if (e.target.id === "fragment") currentState.explainText = "Draw glycan fragment!!!";
+        else if (e.target.id === "composition") currentState.explainText = "Draw composition!!!";
+        else if (e.target.id === "clear") currentState.explainText = "Clear canvas!!!";
         else if (e.target.id === "draeKCF") currentState.explainText = "Image to KCF!!!";
         else if (e.target.id === "KCFTextOut") currentState.explainText = "KCF to Image!!!";
         // else if (e.target.id === "undo") currentState.explainText = "Undo!!!";
@@ -241,14 +274,14 @@ export class InterFace extends React.Component {
         return (
             <div>
                 <div style = { defFunctionMenu }>
-                    <ImageWrap id = "node" content = "Draw Glycan" selected = { this.state.current_mode_type === modeType.NODE } image = { NodeImg } defStyle = { defImageStyle } />
-                    <ImageWrap id = "edge" content = "Bind Glycan" selected = { this.state.current_mode_type === modeType.EDGE } image = {EdgeImg } defStyle = { defImageStyle } />
+                    <ImageWrap id = "node" content = "Draw Monosaccharide!" selected = { this.state.current_mode_type === modeType.NODE } image = { NodeImg } defStyle = { defImageStyle } />
+                    <ImageWrap id = "edge" content = "Draw linkage" selected = { this.state.current_mode_type === modeType.EDGE } image = {EdgeImg } defStyle = { defImageStyle } />
                     <ImageWrap id = "addModification" content = "Add modification" selected = { this.state.current_mode_type === modeType.ADD_MODIFICATION } image = { AddModificationImg } defStyle = { defImageStyle } />
                     <ImageWrap id = "structure" content = "Motif Structure" selected = { this.state.current_mode_type === modeType.STRUCTURE } image = { StructureImag } defStyle = { defImageStyle } />
-                    <ImageWrap id = "repeat" content = "Repeat glycan" selected = { this.state.current_mode_type === modeType.REPEAT} image = { RepeatImg } defStyle = { defImageStyle } />
-                    <ImageWrap id = "fragment" content = "Fragment glycan" selected = { this.state.current_mode_type === modeType.FRAGMENT} image = { FragmentImg } defStyle = { defImageStyle } />
-                    <ImageWrap id = "composition" content = "Composition" selected = { this.state.current_mode_type === modeType.COMPOSITION} image = { CompositionImg } defStyle = { defImageStyle } />
-                    <ImageWrap id = "clear" content = "canvas clear" selected = { this.state.current_mode_type === modeType.CLEAR } image = { ClearImg } defStyle = { defImageStyle } />
+                    <ImageWrap id = "repeat" content = "Draw repeating unit" selected = { this.state.current_mode_type === modeType.REPEAT} image = { RepeatImg } defStyle = { defImageStyle } />
+                    <ImageWrap id = "fragment" content = "Draw glycan fragment" selected = { this.state.current_mode_type === modeType.FRAGMENT} image = { FragmentImg } defStyle = { defImageStyle } />
+                    <ImageWrap id = "composition" content = "Draw composition" selected = { this.state.current_mode_type === modeType.COMPOSITION} image = { CompositionImg } defStyle = { defImageStyle } />
+                    <ImageWrap id = "clear" content = "Clear canvas" selected = { this.state.current_mode_type === modeType.CLEAR } image = { ClearImg } defStyle = { defImageStyle } />
                     <ImageWrap id = "drawKCF" content = "Image to KCF" selected = { this.state.current_mode_type === modeType.DRAW_KCF } image = { DrawKcfImg } defStyle = { defImageStyle } />
                     <ImageWrap id = "KCFTextOut" content = "KCF to Image" selected = { this.state.current_mode_type === modeType.KCF_TEXT_OUT } image = { KcfTextOutImg } defStyle = { defImageStyle } />
                     {/*<ImageWrap id = "undo" content = "Undo" selected = { this.state.current_mode_type === modeType.UNDO } image = { UndoImg } defStyle = { defImageStyle } />*/}
