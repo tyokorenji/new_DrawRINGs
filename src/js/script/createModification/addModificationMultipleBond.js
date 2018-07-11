@@ -4,7 +4,7 @@
 import { liaise } from "../main";
 import { Sugar } from "../class/Sugar";
 
-export let addModificationBridge = (sugar: Sugar) => {
+export let addModificationMultipleBond = (sugar: Sugar) => {
     for(let item of sugar.getChildModifications()) {
         liaise.addStage(item);
         if(!item.isChildCommaShapeEmpty()) {

@@ -8,7 +8,7 @@ export class Header extends  React.Component {
     }
     render(){
         return (
-            <h1>DrawRINGS</h1>
+            <h1>DrawRINGS 2</h1>
         );
     }
 }

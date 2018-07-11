@@ -11,14 +11,14 @@ export class ModificationContents extends React.Component {
         this.state = {
             selectedModification: modifiData.Undefined.TrivalName,
             selectedModificationPositions: liaise.selectedModifiactionPositions,
-            bride: false
+            multipleBond: false
         };
     }
 
     onChangeModificationEvent = (e, { value }) =>  {
         let currentState = this.state;
         currentState.selectedModification = value;
-        currentState.bride = false;
+        currentState.multipleBond = false;
         this.setState(currentState);
         liaise.selectedModification = currentState.selectedModification;
     };
@@ -29,17 +29,17 @@ export class ModificationContents extends React.Component {
         for(let item in modifiData) {
             if(currentState.selectedModification === modifiData[item].TrivalName) key = item;
         }
-        if(currentState.bride === true) {
-            currentState.bride = false;
+        if(currentState.multipleBond === true) {
+            currentState.multipleBond = false;
             liaise.changeBridge(false);
         }
-        else if(currentState.bride === false) {
-            if(modifiData[key].bride){
-                currentState.bride = true;
+        else if(currentState.multipleBond === false) {
+            if(modifiData[key].multipleBond){
+                currentState.multipleBond = true;
                 liaise.changeBridge(true);
             }
             else {
-                currentState.bride = false;
+                currentState.multipleBond = false;
                 liaise.changeBridge(false);
             }
         }
@@ -440,8 +440,8 @@ export class ModificationContents extends React.Component {
                                 <Table.Cell>
                                     <Checkbox
                                         toggle
-                                        label = "bridge"
-                                        checked= {this.state.bride}
+                                        label = "Multiple bond"
+                                        checked= {this.state.multipleBond}
                                         onChange = {this.onChangeToggleEvent}
                                     />
                                 </Table.Cell>

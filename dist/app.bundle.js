@@ -869,7 +869,7 @@ var _Cyclic = __webpack_require__(460);
 
 var _Modification = __webpack_require__(251);
 
-var _Bridge = __webpack_require__(252);
+var _MultipleBond = __webpack_require__(252);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6442,9 +6442,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 var basicData = exports.basicData = {
     "symbolSize": 15,
-    "edgeSize": 6.0,
+    "edgeSize": 3.0,
     "linkageSize": 20,
-    "linkageYPosition": -20,
+    "linkageTopYPositiom": -20,
+    "linkageBottomYPosition": -5,
     "repeatRange": 10,
     "repeatStrokeSize": 5,
     "repeatNumberX": 10,
@@ -19993,7 +19994,7 @@ exports.Modification = Modification;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Bridge = undefined;
+exports.MultipleBond = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -20003,7 +20004,7 @@ var _createjsEaseljs = __webpack_require__(15);
 
 var _createjsEaseljs2 = _interopRequireDefault(_createjsEaseljs);
 
-var _BridgeBond = __webpack_require__(253);
+var _MultipleBondBind = __webpack_require__(253);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20013,13 +20014,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Bridge = exports.Bridge = function (_Node) {
-    _inherits(Bridge, _Node);
+var MultipleBond = exports.MultipleBond = function (_Node) {
+    _inherits(MultipleBond, _Node);
 
-    function Bridge() {
-        _classCallCheck(this, Bridge);
+    function MultipleBond() {
+        _classCallCheck(this, MultipleBond);
 
-        var _this = _possibleConstructorReturn(this, (Bridge.__proto__ || Object.getPrototypeOf(Bridge)).call(this));
+        var _this = _possibleConstructorReturn(this, (MultipleBond.__proto__ || Object.getPrototypeOf(MultipleBond)).call(this));
 
         _this.name = "";
         _this.bridgeBond = {};
@@ -20027,7 +20028,7 @@ var Bridge = exports.Bridge = function (_Node) {
         return _this;
     }
 
-    _createClass(Bridge, [{
+    _createClass(MultipleBond, [{
         key: "setName",
         value: function setName(name) {
             this.name = name;
@@ -20064,7 +20065,7 @@ var Bridge = exports.Bridge = function (_Node) {
         }
     }]);
 
-    return Bridge;
+    return MultipleBond;
 }(_Node2.Node);
 
 /***/ }),
@@ -20139,177 +20140,177 @@ var modifiData = exports.modifiData = {
     "RLac": {
         "TrivalName": "(R)Lac",
         "Name": "R-lactate",
-        "bride": false
+        "multipleBond": false
     },
     "RPy": {
         "TrivalName": "(R)Py",
         "Name": "R-pyruvate",
-        "bride": true
+        "multipleBond": true
     },
     "SLac": {
         "TrivalName": "(S)Lac",
         "Name": "S-lactate",
-        "bride": false
+        "multipleBond": false
     },
     "SPy": {
         "TrivalName": "(S)Py",
         "Name": "S-pyruvate",
-        "bride": true
+        "multipleBond": true
     },
     "XLac": {
         "TrivalName": "(X)Lac",
         "Name": "X-lactate",
-        "bride": false
+        "multipleBond": false
     },
     "Am": {
         "TrivalName": "Am",
         "Name": "Amidino",
-        "bride": false
+        "multipleBond": false
     },
     "Br": {
         "TrivalName": "Br",
         "Name": "Bromo",
-        "bride": false
+        "multipleBond": false
     },
     "Cl": {
         "TrivalName": "Cl",
         "Name": "Cholo",
-        "bride": false
+        "multipleBond": false
     },
     "DiMe": {
         "TrivalName": "DiMe",
         "Name": "Dimethyl",
-        "bride": false
+        "multipleBond": false
     },
     "Et": {
         "TrivalName": "Et",
         "Name": "Ethanol",
-        "bride": false
+        "multipleBond": false
     },
     "F": {
         "TrivalName": "F",
         "Name": "Fluoro",
-        "bride": false
+        "multipleBond": false
     },
     "Fo": {
         "TrivalName": "Fo",
         "Name": "Formyl",
-        "bride": false
+        "multipleBond": false
     },
     "Gc": {
         "TrivalName": "Gc",
         "Name": "Clycolyl",
-        "bride": false
+        "multipleBond": false
     },
     "I": {
         "TrivalName": "I",
         "Name": "Iodo",
-        "bride": false
+        "multipleBond": false
     },
     "N": {
         "TrivalName": "N",
         "Name": "Amine",
-        "bride": true
+        "multipleBond": true
     },
     "NAm": {
         "TrivalName": "NAm",
         "Name": "N-amidino",
-        "bride": false
+        "multipleBond": false
     },
     "NDiMe": {
         "TrivalName": "NDiMe",
         "Name": "N-dimethyl",
-        "bride": false
+        "multipleBond": false
     },
     "NEtOH": {
         "TrivalName": "NEtOH",
         "Name": "N-ethanol",
-        "bride": false
+        "multipleBond": false
     },
     "NFo": {
         "TrivalName": "NFo",
         "Name": "F-formyl",
-        "bride": false
+        "multipleBond": false
     },
     "NGc": {
         "TrivalName": "NGc",
         "Name": "N-glycolyl",
-        "bride": false
+        "multipleBond": false
     },
     "NMe": {
         "TrivalName": "NMe",
         "Name": "N-methyl",
-        "bride": false
+        "multipleBond": false
     },
     "NS": {
         "TrivalName": "NS",
         "Name": "N-sulfate",
-        "bride": true
+        "multipleBond": true
     },
     "NSuc": {
         "TrivalName": "NSuc",
         "Name": "N-succinate",
-        "bride": false
+        "multipleBond": false
     },
     "OMeOH": {
         "TrivalName": "OMeOH",
         "Name": "Hydroxymethyl",
-        "bride": false
+        "multipleBond": false
     },
     "P": {
         "TrivalName": "P",
         "Name": "Phosphate",
-        "bride": true
+        "multipleBond": true
     },
     "PCho": {
         "TrivalName": "PCho",
         "Name": "Phosphocholine",
-        "bride": false
+        "multipleBond": false
     },
     "PEm": {
         "TrivalName": "Pem",
         "Name": "Phospho-ethanol-amine",
-        "bride": true
+        "multipleBond": true
     },
     "PPEm": {
         "TrivalName": "PPEm",
         "Name": "DiPhospho-ethanol-amine",
-        "bride": true
+        "multipleBond": true
     },
     "Py": {
         "TrivalName": "Py",
         "Name": "X-pyruvate",
-        "bride": true
+        "multipleBond": true
     },
     "PyP": {
         "TrivalName": "PyP",
         "Name": "Pyrophosphate",
-        "bride": true
+        "multipleBond": true
     },
     "S": {
         "TrivalName": "S",
         "Name": "Sulfate",
-        "bride": true
+        "multipleBond": true
     },
     "SH": {
         "TrivalName": "SH",
         "Name": "Thio",
-        "bride": false
+        "multipleBond": false
     },
     "Suc": {
         "TrivalName": "Suc",
         "Name": "Succinate",
-        "bride": true
+        "multipleBond": true
     },
     "Tri_P": {
         "TrivalName": "Tri-P",
         "Name": "Triphosphate",
-        "bride": true
+        "multipleBond": true
     },
     "Undefined": {
         "TrivalName": "Undefined",
         "Name": "undefined",
-        "bride": false
+        "multipleBond": false
     }
 };
 
@@ -49103,7 +49104,7 @@ var Header = exports.Header = function (_React$Component) {
             return _react2.default.createElement(
                 "h1",
                 null,
-                "DrawRINGS"
+                "DrawRINGS 2"
             );
         }
     }]);
@@ -70475,7 +70476,7 @@ var LiaiseUI = function () {
         this.selectedGlycan = [];
         this.selectedModification = _modificationData.modifiData.Undefined.TrivalName;
         this.selectedModifiactionPositions = [];
-        this.bridge = false;
+        this.multipleBond = false;
         this.compositionSelect = _compositionSelected.compositionSlected;
     }
 
@@ -70565,12 +70566,12 @@ var LiaiseUI = function () {
         value: function initModifiactionCondition() {
             this.selectedModification = _modificationData.modifiData.Undefined.TrivalName;
             this.selectedModifiactionPositions = [];
-            this.bridge = false;
+            this.multipleBond = false;
         }
     }, {
         key: "changeBridge",
         value: function changeBridge(data) {
-            this.bridge = data;
+            this.multipleBond = data;
         }
     }, {
         key: "getCompositionSelect",
@@ -71380,11 +71381,11 @@ function createLinkage(target, linkage) {
     }
 
     if (target.whitchParentHighChildLow(parentQuarterCoordinate, childQuarterCoordinate)) {
-        parentShape.y = parentQuarterCoordinate[1] - _graphicsData.basicData.linkageYPosition;
-        childShape.y = childQuarterCoordinate[1] - _graphicsData.basicData.linkageYPosition;
+        parentShape.y = parentQuarterCoordinate[1] - _graphicsData.basicData.linkageBottomYPosition;
+        childShape.y = childQuarterCoordinate[1] - _graphicsData.basicData.linkageBottomYPosition;
     } else {
-        parentShape.y = parentQuarterCoordinate[1] + _graphicsData.basicData.linkageYPosition;
-        childShape.y = childQuarterCoordinate[1] + _graphicsData.basicData.linkageYPosition;
+        parentShape.y = parentQuarterCoordinate[1] + _graphicsData.basicData.linkageTopYPositiom;
+        childShape.y = childQuarterCoordinate[1] + _graphicsData.basicData.linkageTopYPositiom;
     }
     target.addChild(parentShape);
     target.addChild(childShape);
@@ -71767,6 +71768,9 @@ var repeatClickEvent = exports.repeatClickEvent = function repeatClickEvent(even
         case _modeType.modeType.REPEAT:
             {
                 var repeatNumber = (0, _repeatModal.repeatModal)();
+                if (repeatNumber === "") {
+                    return;
+                }
                 (0, _createRepeatShape.createRepeatShape)(repeatNumber, event.currentTarget);
                 _main.liaise.stageUpdate();
                 break;
@@ -71789,8 +71793,37 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var repeatModal = exports.repeatModal = function repeatModal() {
-    var repeatNumber = prompt("Please repeat number", "n");
+    var repeatNumber = prompt("Please Enter number of repeat(n, 3, 3-5)", "n");
     if (repeatNumber) {
+        switch (repeatNumber) {
+            case "n":
+                {
+                    break;
+                }
+            default:
+                {
+                    var repeatNumberList = repeatNumber.split("");
+                    for (var i = 0; i < repeatNumberList.length; i++) {
+                        if (repeatNumberList[i] === " ") {
+                            repeatNumberList.splice(i, 1);
+                        }
+                    }
+                    for (var _i = 0; _i < repeatNumberList.length; _i++) {
+                        if (repeatNumberList[_i] === "-") {
+                            if (repeatNumberList[_i - 1] === "n" || repeatNumberList[_i + 1] === "n") {
+                                continue;
+                            } else if (Number(repeatNumberList[_i - 1]) > Number(repeatNumberList[_i + 1])) {
+                                alert("Please change the range(small number - big number)");
+                                return "";
+                            } else if (Number(repeatNumberList[_i - 1]) === Number(repeatNumberList[_i + 1])) {
+                                alert("The range not difference");
+                                return "";
+                            }
+                        }
+                    }
+                }
+
+        }
         return repeatNumber;
     } else {
         repeatNumber = "n";
@@ -72274,13 +72307,13 @@ var _Modificationbond = __webpack_require__(461);
 
 var _modificationData = __webpack_require__(254);
 
-var _Bridge = __webpack_require__(252);
+var _MultipleBond = __webpack_require__(252);
 
-var _BridgeBond = __webpack_require__(253);
+var _MultipleBondBind = __webpack_require__(253);
 
 var _removeAllModificationBridgeShape = __webpack_require__(467);
 
-var _addModificationBridge = __webpack_require__(938);
+var _addModificationMultipleBond = __webpack_require__(938);
 
 var createModification = exports.createModification = function createModification(targetSugar) {
     //エラー表示
@@ -72290,9 +72323,9 @@ var createModification = exports.createModification = function createModificatio
     } else if (_main.liaise.selectedModifiactionPositions.length === 0) {
         alert("Please select modification position!!");
         return;
-    } else if (_main.liaise.bridge) {
+    } else if (_main.liaise.multipleBond) {
         if (_main.liaise.selectedModifiactionPositions.length <= 1) {
-            alert("Please select two items if you draw bridge structure!");
+            alert("Please select two items if you draw multipleBond structure!");
             return;
         }
     } else {
@@ -72453,10 +72486,10 @@ var createModification = exports.createModification = function createModificatio
         }
     }
 
-    if (_main.liaise.bridge) {
+    if (_main.liaise.multipleBond) {
         console.log("Bridge選択されたよ");
-        var bridge = new _Bridge.Bridge();
-        var bridgeBond = new _BridgeBond.Bridgeobond();
+        var bridge = new _MultipleBond.MultipleBond();
+        var bridgeBond = new _MultipleBondBind.Bridgeobond();
         bridge.setName(_main.liaise.selectedModification);
         var _iteratorNormalCompletion5 = true;
         var _didIteratorError5 = false;
@@ -72569,7 +72602,7 @@ var createModification = exports.createModification = function createModificatio
     targetSugar.childModifications = changeModifications;
     targetSugar.childBridges = changeBridge;
     (0, _createModificationShape.createModificaitonShape)(targetSugar);
-    (0, _addModificationBridge.addModificationBridge)(targetSugar);
+    (0, _addModificationMultipleBond.addModificationMultipleBond)(targetSugar);
     _main.liaise.stageUpdate();
 };
 
@@ -72597,9 +72630,9 @@ var _graphicsData = __webpack_require__(40);
 
 var _getColor = __webpack_require__(18);
 
-var _Bridge = __webpack_require__(252);
+var _MultipleBond = __webpack_require__(252);
 
-var _BridgeBond = __webpack_require__(253);
+var _MultipleBondBind = __webpack_require__(253);
 
 var _main = __webpack_require__(7);
 
@@ -73303,13 +73336,13 @@ var createModificaitonShape = exports.createModificaitonShape = function createM
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.addModificationBridge = undefined;
+exports.addModificationMultipleBond = undefined;
 
 var _main = __webpack_require__(7);
 
 var _Sugar = __webpack_require__(9);
 
-var addModificationBridge = exports.addModificationBridge = function addModificationBridge(sugar) {
+var addModificationMultipleBond = exports.addModificationMultipleBond = function addModificationMultipleBond(sugar) {
     var _iteratorNormalCompletion = true;
     var _didIteratorError = false;
     var _iteratorError = undefined;
@@ -75751,7 +75784,7 @@ var ModificationContents = exports.ModificationContents = function (_React$Compo
 
             var currentState = _this.state;
             currentState.selectedModification = value;
-            currentState.bride = false;
+            currentState.multipleBond = false;
             _this.setState(currentState);
             _main.liaise.selectedModification = currentState.selectedModification;
         };
@@ -75762,15 +75795,15 @@ var ModificationContents = exports.ModificationContents = function (_React$Compo
             for (var item in _modificationData.modifiData) {
                 if (currentState.selectedModification === _modificationData.modifiData[item].TrivalName) key = item;
             }
-            if (currentState.bride === true) {
-                currentState.bride = false;
+            if (currentState.multipleBond === true) {
+                currentState.multipleBond = false;
                 _main.liaise.changeBridge(false);
-            } else if (currentState.bride === false) {
-                if (_modificationData.modifiData[key].bride) {
-                    currentState.bride = true;
+            } else if (currentState.multipleBond === false) {
+                if (_modificationData.modifiData[key].multipleBond) {
+                    currentState.multipleBond = true;
                     _main.liaise.changeBridge(true);
                 } else {
-                    currentState.bride = false;
+                    currentState.multipleBond = false;
                     _main.liaise.changeBridge(false);
                 }
             }
@@ -75788,7 +75821,7 @@ var ModificationContents = exports.ModificationContents = function (_React$Compo
         _this.state = {
             selectedModification: _modificationData.modifiData.Undefined.TrivalName,
             selectedModificationPositions: _main.liaise.selectedModifiactionPositions,
-            bride: false
+            multipleBond: false
         };
         return _this;
     }
@@ -76286,8 +76319,8 @@ var ModificationContents = exports.ModificationContents = function (_React$Compo
                                     null,
                                     _react2.default.createElement(_semanticUiReact.Checkbox, {
                                         toggle: true,
-                                        label: "bridge",
-                                        checked: this.state.bride,
+                                        label: "Multiple bond",
+                                        checked: this.state.multipleBond,
                                         onChange: this.onChangeToggleEvent
                                     })
                                 )

@@ -6,10 +6,10 @@ import { createModificaitonShape } from "./createModificationShape";
 import { Modification } from "../class/Modification";
 import { Modificationbond } from "../class/Modificationbond";
 import { modifiData } from "../data/modificationData";
-import { Bridge } from "../class/Bridge";
-import { Bridgeobond } from "../class/BridgeBond";
+import { MultipleBond } from "../class/MultipleBond";
+import { Bridgeobond } from "../class/MultipleBondBind";
 import { removeAllModificationBridgeShape } from "../removeObjet/removeAllModificationBridgeShape";
-import { addModificationBridge } from "./addModificationBridge";
+import { addModificationMultipleBond } from "./addModificationMultipleBond";
 
 export let createModification = ( targetSugar: Sugar ) => {
     //エラー表示
@@ -21,9 +21,9 @@ export let createModification = ( targetSugar: Sugar ) => {
         alert("Please select modification position!!");
         return;
     }
-    else if(liaise.bridge) {
+    else if(liaise.multipleBond) {
         if(liaise.selectedModifiactionPositions.length <= 1) {
-            alert("Please select two items if you draw bridge structure!");
+            alert("Please select two items if you draw multipleBond structure!");
             return;
         }
     }
@@ -37,7 +37,7 @@ export let createModification = ( targetSugar: Sugar ) => {
     }
 
     let changeModifications: Array<Modification> = [];
-    let changeBridge: Array<Bridge> = [];
+    let changeBridge: Array<MultipleBond> = [];
     //昇順ソート
     removeAllModificationBridgeShape(targetSugar);
     liaise.selectedModifiactionPositions.sort(function(a,b){
@@ -47,7 +47,7 @@ export let createModification = ( targetSugar: Sugar ) => {
     });
     //targetSugarから同じ箇所にあるBridgeを削除する
     if(targetSugar.hasChildBridges) {
-        for( let item: Bridge of targetSugar.getChildBridges()) {
+        for( let item: MultipleBond of targetSugar.getChildBridges()) {
             console.log(targetSugar);
             for(let position: number of item.getBridgeBond().getParentSugarPosition()) {
                 if(liaise.selectedModifiactionPositions.indexOf(position) !== -1) {
@@ -72,9 +72,9 @@ export let createModification = ( targetSugar: Sugar ) => {
             }
         }
     }
-    if(liaise.bridge) {
+    if(liaise.multipleBond) {
         console.log("Bridge選択されたよ");
-        let bridge: Bridge = new Bridge();
+        let bridge: MultipleBond = new MultipleBond();
         let bridgeBond: Bridgeobond = new Bridgeobond();
         bridge.setName(liaise.selectedModification);
         for(let item of liaise.selectedModifiactionPositions) {
@@ -103,6 +103,6 @@ export let createModification = ( targetSugar: Sugar ) => {
     targetSugar.childModifications = changeModifications;
     targetSugar.childBridges = changeBridge;
     createModificaitonShape(targetSugar);
-    addModificationBridge(targetSugar);
+    addModificationMultipleBond(targetSugar);
     liaise.stageUpdate();
 };

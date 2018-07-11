@@ -10,6 +10,9 @@ export let repeatClickEvent = (event: Object) => {
     switch (liaise.modeType) {
         case modeType.REPEAT: {
             let repeatNumber: string = repeatModal();
+            if(repeatNumber === "") {
+                return;
+            }
             createRepeatShape(repeatNumber, event.currentTarget);
             liaise.stageUpdate();
             break;

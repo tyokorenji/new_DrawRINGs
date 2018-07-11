@@ -112,7 +112,7 @@
     }
   ],
   //"Parent"は親サイドのグリコシド結合を示す。
-  //"Position"、"Probability"、"Bridge"、"LinkageType"を持つ
+  //"Position"、"Probability"、"MultipleBond"、"LinkageType"を持つ
   //"Position"はグリコシド結合の位置を示す。"ChildSide"と"ParentSide"を持つ
   //"Probability"は結合の可能性を示す。"ChildSide"、"ParentSide"を持つ。
   //それぞれ"High"と"Low"を持つ。いくつかのグリコシド結合が80％で構成されている場合、「低」および「高」には0.8が割り当てられる。
@@ -393,7 +393,7 @@
                                 "Low": 100
                             }
                         },
-                        "Bridge": {
+                        "MultipleBond": {
                             "Position": {},
                             "Notation": ""
                         },
@@ -445,7 +445,7 @@
                                 "Low": 100
                             }
                         },
-                        "Bridge": {
+                        "MultipleBond": {
                             "Position": {},
                             "Notation": ""
                         },
@@ -497,7 +497,7 @@
                                 "Low": 100
                             }
                         },
-                        "Bridge": {
+                        "MultipleBond": {
                             "Position": {},
                             "Notation": ""
                         },
@@ -549,7 +549,7 @@
                                 "Low": 100
                             }
                         },
-                        "Bridge": {
+                        "MultipleBond": {
                             "Position": {},
                             "Notation": ""
                         },

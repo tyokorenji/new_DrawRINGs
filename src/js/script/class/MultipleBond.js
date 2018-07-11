@@ -3,9 +3,9 @@
 
 import { Node } from "./Node";
 import createjs from "createjs-easeljs";
-import { Bridgeobond } from "./BridgeBond";
+import { Bridgeobond } from "./MultipleBondBind";
 
-export class Bridge extends Node {
+export class MultipleBond extends Node {
     name: string;
     bridgeBond: Object;
     childCommaShape: Object;

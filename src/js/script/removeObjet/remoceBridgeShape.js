@@ -1,9 +1,9 @@
 //@flow
 "use strict";
 
-import { Bridge } from "../class/Bridge";
+import { MultipleBond } from "../class/MultipleBond";
 import { liaise } from "../main";
 
-export let removeBridgeShape = (bridge: Bridge) => {
+export let removeBridgeShape = (bridge: MultipleBond) => {
     liaise.removeStage(bridge);
 };

@@ -34,12 +34,12 @@ export function createLinkage(target: Glycobond, linkage: string) {
     }
 
     if (target.whitchParentHighChildLow(parentQuarterCoordinate, childQuarterCoordinate)) {
-        parentShape.y = parentQuarterCoordinate[1] - basicData.linkageYPosition;
-        childShape.y = childQuarterCoordinate[1] - basicData.linkageYPosition;
+        parentShape.y = parentQuarterCoordinate[1] - basicData.linkageBottomYPosition;
+        childShape.y = childQuarterCoordinate[1] - basicData.linkageBottomYPosition;
     }
     else {
-        parentShape.y = parentQuarterCoordinate[1] + basicData.linkageYPosition;
-        childShape.y = childQuarterCoordinate[1] + basicData.linkageYPosition;
+        parentShape.y = parentQuarterCoordinate[1] + basicData.linkageTopYPositiom;
+        childShape.y = childQuarterCoordinate[1] + basicData.linkageTopYPositiom;
     }
     target.addChild(parentShape);
     target.addChild(childShape);

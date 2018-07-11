@@ -3,9 +3,10 @@
 
 export let basicData: Object = {
     "symbolSize": 15,
-    "edgeSize": 6.0,
+    "edgeSize": 3.0,
     "linkageSize": 20,
-    "linkageYPosition": -20,
+    "linkageTopYPositiom": -20,
+    "linkageBottomYPosition": -5,
     "repeatRange": 10,
     "repeatStrokeSize": 5,
     "repeatNumberX": 10,

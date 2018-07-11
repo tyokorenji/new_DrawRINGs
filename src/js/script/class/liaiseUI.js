@@ -21,7 +21,7 @@ class LiaiseUI {
     selectedGlycan: Array<Object>;
     selectedModification: string;
     selectedModifiactionPositions: Array<number>;
-    bridge: boolean;
+    multipleBond: boolean;
     compositionSelect: Object;
 
 
@@ -35,7 +35,7 @@ class LiaiseUI {
         this.selectedGlycan = [];
         this.selectedModification = modifiData.Undefined.TrivalName;
         this.selectedModifiactionPositions = [];
-        this.bridge = false;
+        this.multipleBond = false;
         this.compositionSelect = compositionSlected;
     }
 
@@ -108,10 +108,10 @@ class LiaiseUI {
     initModifiactionCondition() {
         this.selectedModification = modifiData.Undefined.TrivalName;
         this.selectedModifiactionPositions = [];
-        this.bridge = false;
+        this.multipleBond = false;
     }
     changeBridge(data: boolean) {
-        this.bridge = data;
+        this.multipleBond = data;
     }
 
     getCompositionSelect(): Object {

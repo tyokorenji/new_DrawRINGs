@@ -10,7 +10,7 @@ import { Glycan } from "./Glycan";
 import { RepeatBracket } from "./RepeatBracket";
 import { Cyclic } from "./Cyclic";
 import { Modification } from "./Modification";
-import { Bridge } from "./Bridge";
+import { MultipleBond } from "./MultipleBond";
 
 class Sugar extends Node{
     name: string;  //単糖の名前
@@ -225,7 +225,7 @@ class Sugar extends Node{
         else return true;
     }
 
-    setChildBridges(bridge: Bridge) {
+    setChildBridges(bridge: MultipleBond) {
         this.childBridges.push(bridge);
         return;
     }

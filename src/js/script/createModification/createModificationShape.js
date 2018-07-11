@@ -6,8 +6,8 @@ import { Sugar } from "../class/Sugar";
 import { Modification } from "../class/Modification";
 import { basicData } from "../data/graphicsData";
 import { getColor } from "../data/getColor";
-import { Bridge } from "../class/Bridge";
-import { Bridgeobond } from "../class/BridgeBond";
+import { MultipleBond } from "../class/MultipleBond";
+import { Bridgeobond } from "../class/MultipleBondBind";
 import {liaise} from "../main";
 
 export let createModificaitonShape = (sugar: Sugar) => {
@@ -15,7 +15,7 @@ export let createModificaitonShape = (sugar: Sugar) => {
     let bottomMody: Array<Object> = [];
     //Bridgeのソート
     if(sugar.hasChildBridges()) {
-        for (let item: Bridge of sugar.getChildBridges()) {
+        for (let item: MultipleBond of sugar.getChildBridges()) {
             item.getBridgeBond().parentSugarPosition.sort(function(a,b){
                 if( a < b ) return -1;
                 if( a > b ) return 1;
@@ -39,7 +39,7 @@ export let createModificaitonShape = (sugar: Sugar) => {
 
     //Bridgeを上か下か判別
     if(sugar.hasChildBridges()) {
-        for (let item: Bridge of sugar.getChildBridges()) {
+        for (let item: MultipleBond of sugar.getChildBridges()) {
             if (sugar.getCarbBode() / 2 < item.getBridgeBond().getParentSugarPosition()[0]) {
                 upperMody.push(item);
             }
