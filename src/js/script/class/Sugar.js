@@ -11,6 +11,8 @@ import { RepeatBracket } from "./RepeatBracket";
 import { Cyclic } from "./Cyclic";
 import { Modification } from "./Modification";
 import { MultipleBond } from "./MultipleBond";
+import { Bridge } from "./Bridge";
+import { BridgeEdge } from "./BridgeEdge";
 
 class Sugar extends Node{
     name: string;  //単糖の名前
@@ -24,8 +26,10 @@ class Sugar extends Node{
     cyclic: Object; //その糖鎖がCyclic構造を形成する単糖で、非還元末端側の場合
     layer: number;
     childModifications: Array<Object>;
-    childBridges: Array<Object>;
+    childMultipleBind: Array<Object>;
     carbBone: number;
+    childBridge: Array<Object>;
+
 
     constructor(name: string){
         super();
@@ -39,10 +43,12 @@ class Sugar extends Node{
         this.cyclic = {};
         this.layer = 1;
         this.childModifications = [];
-        this.childBridges = [];
+        this.childMultipleBind = [];
         this.carbBone = NaN;
         this.repeatBracket = {};
+        this.childBridge =[];
     }
+
 
     getName(): string{
         return this.name;
@@ -225,15 +231,15 @@ class Sugar extends Node{
         else return true;
     }
 
-    setChildBridges(bridge: MultipleBond) {
-        this.childBridges.push(bridge);
+    setChildMultipleBind(bridge: MultipleBond) {
+        this.childMultipleBind.push(bridge);
         return;
     }
-    getChildBridges(): Array<Object> {
-        return this.childBridges;
+    getChildMultipleBind(): Array<Object> {
+        return this.childMultipleBind;
     }
-    hasChildBridges(): boolean {
-        if (this.childBridges.length === 0) return false;
+    hasChildMultipleBind(): boolean {
+        if (this.childMultipleBind.length === 0) return false;
         else return true;
     }
 
@@ -244,6 +250,19 @@ class Sugar extends Node{
     getCarbBode(): number {
         return this.carbBone;
     }
+
+    setChildBridge(bridge: Bridge) {
+        this.childBridge.push(bridge);
+    }
+    getChildBridge(): Array<Bridge> {
+        return this.childBridge;
+    }
+    hasChildBridgeEmpty(): boolean {
+        if(this.childBridge.length !== 0) return true;
+        else return false;
+    }
+
+
 
 
 }

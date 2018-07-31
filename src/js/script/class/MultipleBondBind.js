@@ -3,7 +3,7 @@
 
 import { Edge } from "./Edge";
 
-export class Bridgeobond extends Edge {
+export class MultipleBondEdge extends Edge {
     name: string;  //修飾の結合の名前
     parentSugarPosition: Array<number>;  //親単糖の結合場所
 

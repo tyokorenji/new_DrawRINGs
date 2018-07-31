@@ -22,5 +22,6 @@ export let basicData: Object = {
     "commaBottomDistance": 5,
     "modificationSize": 15,
     "compositionTextToSymbol": 10,
-    "compositionTextSize": 30
+    "compositionTextSize": 30,
+    "bridgeSize": 30
 };

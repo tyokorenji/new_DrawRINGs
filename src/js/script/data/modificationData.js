@@ -5,176 +5,176 @@ export const modifiData = {
     "RLac": {
         "TrivalName": "(R)Lac",
         "Name": "R-lactate",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "RPy": {
         "TrivalName": "(R)Py",
         "Name": "R-pyruvate",
-        "multipleBond": true
+        "bridgeBind": true
     },
     "SLac": {
         "TrivalName": "(S)Lac",
         "Name": "S-lactate",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "SPy": {
         "TrivalName": "(S)Py",
         "Name": "S-pyruvate",
-        "multipleBond": true
+        "bridgeBind": true
     },
     "XLac": {
         "TrivalName": "(X)Lac",
         "Name": "X-lactate",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "Am": {
         "TrivalName": "Am",
         "Name": "Amidino",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "Br": {
         "TrivalName": "Br",
         "Name": "Bromo",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "Cl": {
         "TrivalName": "Cl",
         "Name": "Cholo",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "DiMe": {
         "TrivalName": "DiMe",
         "Name": "Dimethyl",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "Et": {
         "TrivalName": "Et",
         "Name": "Ethanol",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "F": {
         "TrivalName": "F",
         "Name": "Fluoro",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "Fo": {
         "TrivalName": "Fo",
         "Name": "Formyl",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "Gc": {
         "TrivalName": "Gc",
         "Name": "Clycolyl",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "I": {
         "TrivalName": "I",
         "Name": "Iodo",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "N": {
         "TrivalName": "N",
         "Name": "Amine",
-        "multipleBond": true
+        "bridgeBind": true
     },
     "NAm": {
         "TrivalName": "NAm",
         "Name": "N-amidino",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "NDiMe": {
         "TrivalName": "NDiMe",
         "Name": "N-dimethyl",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "NEtOH": {
         "TrivalName": "NEtOH",
         "Name": "N-ethanol",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "NFo": {
         "TrivalName": "NFo",
         "Name": "F-formyl",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "NGc": {
         "TrivalName": "NGc",
         "Name": "N-glycolyl",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "NMe": {
         "TrivalName": "NMe",
         "Name": "N-methyl",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "NS": {
         "TrivalName": "NS",
         "Name": "N-sulfate",
-        "multipleBond": true
+        "bridgeBind": true
     },
     "NSuc": {
         "TrivalName": "NSuc",
         "Name": "N-succinate",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "OMeOH": {
         "TrivalName": "OMeOH",
         "Name": "Hydroxymethyl",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "P": {
         "TrivalName": "P",
         "Name": "Phosphate",
-        "multipleBond": true
+        "bridgeBind": true
     },
     "PCho": {
         "TrivalName": "PCho",
         "Name": "Phosphocholine",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "PEm": {
         "TrivalName": "Pem",
         "Name": "Phospho-ethanol-amine",
-        "multipleBond": true
+        "bridgeBind": true
     },
     "PPEm": {
         "TrivalName": "PPEm",
         "Name": "DiPhospho-ethanol-amine",
-        "multipleBond": true
+        "bridgeBind": true
     },
     "Py": {
         "TrivalName": "Py",
         "Name": "X-pyruvate",
-        "multipleBond": true
+        "bridgeBind": true
     },
     "PyP": {
         "TrivalName": "PyP",
         "Name": "Pyrophosphate",
-        "multipleBond": true
+        "bridgeBind": true
     },
     "S": {
         "TrivalName": "S",
         "Name": "Sulfate",
-        "multipleBond": true
+        "bridgeBind": true
     },
     "SH": {
         "TrivalName": "SH",
         "Name": "Thio",
-        "multipleBond": false
+        "bridgeBind": false
     },
     "Suc": {
         "TrivalName": "Suc",
         "Name": "Succinate",
-        "multipleBond": true
+        "bridgeBind": true
     },
     "Tri_P": {
         "TrivalName": "Tri-P",
         "Name": "Triphosphate",
-        "multipleBond": true
+        "bridgeBind": true
     },
     "Undefined": {
         "TrivalName": "Undefined",
         "Name": "undefined",
-        "multipleBond": false
+        "bridgeBind": false
     }
 };

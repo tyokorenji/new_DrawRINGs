@@ -63,8 +63,8 @@ class Glycan extends createjs.Container {
                 // if(this.rootNode instanceof Fragment) {
                 //     this.rootNode.getParentBond().highLight();
                 // }
-                if(sugar.hasParentSugar()) {
-                    console.log(sugar.hasParentSugar());
+                if(sugar.hasParentSugars()) {
+                    console.log(sugar.hasParentSugars());
                     let parentBonds = sugar.getParentBond();
                     for (let parentBond: Glycobond of parentBonds) {
                         parentBond.highLight();
@@ -102,7 +102,7 @@ class Glycan extends createjs.Container {
         sugar.offLight();
         switch (sugar) {
             case this.rootNode: {
-                if(sugar.hasParentSugar()) {
+                if(sugar.hasParentSugars()) {
                     let parentBonds = sugar.getParentBond();
                     for (let parentBond: Glycobond of parentBonds) {
                         parentBond.offLight();

@@ -17,6 +17,7 @@ class VisibleElement extends cleatejs.Container {
     }
 
     setXCoord(xCoord: number) {
+        this.x = xCoord;
         this.xCoord = xCoord;
         return;
     }
@@ -26,6 +27,7 @@ class VisibleElement extends cleatejs.Container {
     }
 
     setYCoord(yCoord: number) {
+        this.y = yCoord;
         this.yCoord = yCoord;
         return;
     }

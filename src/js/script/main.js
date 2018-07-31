@@ -52,6 +52,15 @@ export let initGlycans = () => {
 export let initGlids = () => {
     setGlids = [];
 };
+export let removeSetGlids = (coordinate: Array<number>) => {
+    for (let index = 0; index < setGlids.length; index++) {
+        switch(setGlids[index]) {
+            case coordinate: {
+                setGlids.splice(index, 1);
+            }
+        }
+    }
+};
 export let initCompositions = () => {
     compositions = [];
 };

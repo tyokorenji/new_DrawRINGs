@@ -2,7 +2,7 @@
 "use strict";
 
 import { VisibleElement } from "./VisibleElement";
-// import { Sugar } from "./Sugar";
+import { Sugar } from "./Sugar";
 import { Glycobond } from "./Glycobond";
 
 class Node extends VisibleElement {
@@ -20,7 +20,7 @@ class Node extends VisibleElement {
         this.parentBonds = [];
     }
 
-    hasParentSugar(): boolean{
+    hasParentSugars(): boolean{
         if (this.parentSugars.length != 0) return true;
         else return false;
     }
@@ -34,8 +34,8 @@ class Node extends VisibleElement {
         return;
     }
 
-    hasChildNodes(): boolean{
-        if (this.parentNodes.length != 0) return true;
+    hasChildSugars(): boolean{
+        if (this.parentSugars.length != 0) return true;
         else return false;
     }
 

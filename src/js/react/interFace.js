@@ -40,6 +40,7 @@ export class InterFace extends React.Component {
         if (targetId === "node") {
             currentState.current_mode_type = modeType.NODE;
             currentState.sideBarVisible = true;
+            //glycanの選択状態をもとに戻す
             if(!liaise.isSelectedGlycanEmpty()) {
                 for (let selectedGlycan of liaise.getSelectedGlycan()) {
                     selectedGlycan.offLight(selectedGlycan.getRootNode());
@@ -47,10 +48,18 @@ export class InterFace extends React.Component {
                 // liaise.getSelectedGlycan().offLight(liaise.getSelectedGlycan().getRootNode());
                 liaise.initSelectedGlycan();
             }
+            //Modification機能の選択状態を初期化する
             liaise.initModifiactionCondition();
+            //compositionの選択状態を初期化する
             if(compositions.length !== 0) {
                 removeAll();
                 liaise.stageUpdate();
+            }
+            //nodeの選択状態を初期化する
+            if(liaise.nodeClick) {
+                liaise.selectedNode.offLight();
+                liaise.removeSelectedNode();
+                liaise.changeNodeClick();
             }
         }
         else if (targetId === "edge") {
@@ -68,6 +77,11 @@ export class InterFace extends React.Component {
                 removeAll();
                 liaise.stageUpdate();
             }
+            if(liaise.nodeClick) {
+                liaise.selectedNode.offLight();
+                liaise.removeSelectedNode();
+                liaise.changeNodeClick();
+            }
         }
         else if (targetId === "addModification") {
             currentState.current_mode_type = modeType.ADD_MODIFICATION;
@@ -83,6 +97,11 @@ export class InterFace extends React.Component {
             if(compositions.length !== 0) {
                 removeAll();
                 liaise.stageUpdate();
+            }
+            if(liaise.nodeClick) {
+                liaise.selectedNode.offLight();
+                liaise.removeSelectedNode();
+                liaise.changeNodeClick();
             }
         }
         else if (targetId === "structure") {
@@ -100,6 +119,11 @@ export class InterFace extends React.Component {
                 removeAll();
                 liaise.stageUpdate();
             }
+            if(liaise.nodeClick) {
+                liaise.selectedNode.offLight();
+                liaise.removeSelectedNode();
+                liaise.changeNodeClick();
+            }
         }
         else if (targetId === "repeat") {
             currentState.current_mode_type = modeType.REPEAT;
@@ -115,6 +139,11 @@ export class InterFace extends React.Component {
             if(compositions.length !== 0) {
                 removeAll();
                 liaise.stageUpdate();
+            }
+            if(liaise.nodeClick) {
+                liaise.selectedNode.offLight();
+                liaise.removeSelectedNode();
+                liaise.changeNodeClick();
             }
         }
         else if (targetId === "fragment") {
@@ -141,6 +170,11 @@ export class InterFace extends React.Component {
                 removeAll();
             }
             liaise.stageUpdate();
+            if(liaise.nodeClick) {
+                liaise.selectedNode.offLight();
+                liaise.removeSelectedNode();
+                liaise.changeNodeClick();
+            }
 
         }
         else if (targetId === "clear") {
@@ -156,6 +190,11 @@ export class InterFace extends React.Component {
             liaise.initModifiactionCondition();
             removeAll();
             liaise.stageUpdate();
+            if(liaise.nodeClick) {
+                liaise.selectedNode.offLight();
+                liaise.removeSelectedNode();
+                liaise.changeNodeClick();
+            }
         }
         else if (targetId === "drawKCF") {
             currentState.current_mode_type = modeType.DRAW_KCF;
@@ -172,6 +211,11 @@ export class InterFace extends React.Component {
                 removeAll();
                 liaise.stageUpdate();
             }
+            if(liaise.nodeClick) {
+                liaise.selectedNode.offLight();
+                liaise.removeSelectedNode();
+                liaise.changeNodeClick();
+            }
         }
         else if (targetId === "KCFTextOut") {
             currentState.current_mode_type = modeType.KCF_TEXT_OUT;
@@ -187,6 +231,11 @@ export class InterFace extends React.Component {
             if(compositions.length !== 0) {
                 removeAll();
                 liaise.stageUpdate();
+            }
+            if(liaise.nodeClick) {
+                liaise.selectedNode.offLight();
+                liaise.removeSelectedNode();
+                liaise.changeNodeClick();
             }
         }
         // else if (targetId === "undo") {

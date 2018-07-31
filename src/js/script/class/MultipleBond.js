@@ -3,7 +3,7 @@
 
 import { Node } from "./Node";
 import createjs from "createjs-easeljs";
-import { Bridgeobond } from "./MultipleBondBind";
+import { MultipleBondEdge } from "./MultipleBondBind";
 
 export class MultipleBond extends Node {
     name: string;
@@ -23,10 +23,10 @@ export class MultipleBond extends Node {
     getName(): string {
         return this.name;
     }
-    setBridgeBond(position: Bridgeobond) {
+    setBridgeBond(position: MultipleBondEdge) {
         this.bridgeBond = (position);
     }
-    getBridgeBond(): Bridgeobond {
+    getBridgeBond(): MultipleBondEdge {
         return this.bridgeBond;
     }
 

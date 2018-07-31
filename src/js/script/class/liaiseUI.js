@@ -22,6 +22,7 @@ class LiaiseUI {
     selectedModification: string;
     selectedModifiactionPositions: Array<number>;
     multipleBond: boolean;
+    bridgeBind: boolean
     compositionSelect: Object;
 
 
@@ -36,6 +37,7 @@ class LiaiseUI {
         this.selectedModification = modifiData.Undefined.TrivalName;
         this.selectedModifiactionPositions = [];
         this.multipleBond = false;
+        this.bridgeBind = false;
         this.compositionSelect = compositionSlected;
     }
 
@@ -109,9 +111,13 @@ class LiaiseUI {
         this.selectedModification = modifiData.Undefined.TrivalName;
         this.selectedModifiactionPositions = [];
         this.multipleBond = false;
+        this.bridgeBind = false;
     }
-    changeBridge(data: boolean) {
+    changeMultipleBind(data: boolean) {
         this.multipleBond = data;
+    }
+    changeBridgeBind(data: boolean) {
+        this.bridgeBind = data;
     }
 
     getCompositionSelect(): Object {

@@ -11,7 +11,7 @@ export let addModificationMultipleBond = (sugar: Sugar) => {
             liaise.addStage(item.getChildCommaShape());
         }
     }
-    for(let item of sugar.getChildBridges()) {
+    for(let item of sugar.getChildMultipleBind()) {
         liaise.addStage(item);
         if(!item.isChildCommaShapeEmpty()) {
             liaise.addStage(item.getChildCommaShape());

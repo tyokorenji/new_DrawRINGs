@@ -11,7 +11,7 @@ export let removeAllModificationBridgeShape = (sugar: Sugar) => {
             liaise.removeStage(item.getChildCommaShape());
         }
     }
-    for(let item of sugar.getChildBridges()) {
+    for(let item of sugar.getChildMultipleBind()) {
         liaise.removeStage(item);
         if(!item.isChildCommaShapeEmpty()) {
             liaise.removeStage(item.getChildCommaShape());

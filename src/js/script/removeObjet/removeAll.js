@@ -2,7 +2,7 @@
 "use strict";
 
 import { removeAllModificationBridgeShape } from "./removeAllModificationBridgeShape";
-import { removeBindShape } from "./removeBindShape";
+import { removeGlycoBindShape } from "./removeGlycoBindShape";
 import { removeRepeatShape } from "./removeRepeatShape";
 import { removeSugarShape } from "./removeSugarShape";
 import { removeFragmentBracketShape } from "./removeFragmentBracketShape";
@@ -56,12 +56,12 @@ let removeGlycan = (glycan: Glycan) => {
 };
 
 let recuversiveRemoveGlycan = (sugar: Sugar, glycan: Glycan) => {
-    if(sugar.hasChildModificaiton() || sugar.hasChildBridges()) {
+    if(sugar.hasChildModificaiton() || sugar.hasChildMultipleBind()) {
         removeAllModificationBridgeShape(sugar);
     }
     if(sugar.hasParentBond()) {
         for(let bind: Glycobond of sugar.getParentBond()) {
-            removeBindShape(bind);
+            removeGlycoBindShape(bind);
         }
     }
     removeSugarShape(sugar);
@@ -89,7 +89,7 @@ let recuversiveRemoveCiyclicRepeatInGlycan = (sugar: Sugar) => {
         for (let item: Glycobond of childSugar.getParentBond()) {
             switch(item.getParentSugar()) {
                 case sugar: {
-                    removeBindShape(item);
+                    removeGlycoBindShape(item);
                     sugar.initCyclic();
                     for(let i: number = 0; i < sugar.getChildSugars().length; i++) {
                         switch(sugar.getChildSugars()[i]) {

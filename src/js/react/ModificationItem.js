@@ -11,7 +11,8 @@ export class ModificationContents extends React.Component {
         this.state = {
             selectedModification: modifiData.Undefined.TrivalName,
             selectedModificationPositions: liaise.selectedModifiactionPositions,
-            multipleBond: false
+            multipleBond: false,
+            bridgeBind: false
         };
     }
 
@@ -19,28 +20,72 @@ export class ModificationContents extends React.Component {
         let currentState = this.state;
         currentState.selectedModification = value;
         currentState.multipleBond = false;
+        currentState.bridgeBind = false;
+        liaise.changeMultipleBind(false);
+        liaise.changeBridgeBind(false);
         this.setState(currentState);
         liaise.selectedModification = currentState.selectedModification;
     };
 
-    onChangeToggleEvent = () => {
+    onChangeMultipleBindToggleEvent = () => {
+        let currentState = this.state;
+        if(currentState.multipleBond) {
+            currentState.multipleBond = false;
+            liaise.changeMultipleBind(false);
+        }
+        else {
+            currentState.multipleBond = true;
+            liaise.changeMultipleBind(true);
+            if(liaise.bridgeBind) {
+                currentState.bridgeBind = false;
+                liaise.changeBridgeBind(false);
+            }
+        }
+        console.log(liaise.multipleBond);
+        // let key = modifiData.Undefined.TrivalName;
+        // for(let item in modifiData) {
+        //     if(currentState.selectedModification === modifiData[item].TrivalName) key = item;
+        // }
+        // if(currentState.multipleBond === true) {
+        //     currentState.multipleBond = false;
+        //     liaise.changeMultipleBind(false);
+        // }
+        // else if(currentState.multipleBond === false) {
+        //     if(modifiData[key].multipleBond){
+        //         currentState.multipleBond = true;
+        //         liaise.changeMultipleBind(true);
+        //     }
+        //     else {
+        //         currentState.multipleBond = false;
+        //         liaise.changeMultipleBind(false);
+        //     }
+        // }
+        this.setState(currentState);
+    };
+
+    onChangeBridgeBindToggleEvent = () => {
+        console.log("bridgeToggleクリック");
         let currentState = this.state;
         let key = modifiData.Undefined.TrivalName;
         for(let item in modifiData) {
             if(currentState.selectedModification === modifiData[item].TrivalName) key = item;
         }
-        if(currentState.multipleBond === true) {
-            currentState.multipleBond = false;
-            liaise.changeBridge(false);
+        if(currentState.bridgeBind === true) {
+            currentState.bridgeBind = false;
+            liaise.changeBridgeBind(false);
         }
-        else if(currentState.multipleBond === false) {
-            if(modifiData[key].multipleBond){
-                currentState.multipleBond = true;
-                liaise.changeBridge(true);
+        else if(currentState.bridgeBind === false) {
+            if(modifiData[key].bridgeBind){
+                currentState.bridgeBind = true;
+                liaise.changeBridgeBind(true);
+                if(liaise.multipleBond) {
+                    currentState.multipleBond = false;
+                    liaise.changeMultipleBind(false);
+                }
             }
             else {
-                currentState.multipleBond = false;
-                liaise.changeBridge(false);
+                currentState.bridgeBind = false;
+                liaise.changeBridgeBind(false);
             }
         }
         this.setState(currentState);
@@ -442,7 +487,15 @@ export class ModificationContents extends React.Component {
                                         toggle
                                         label = "Multiple bond"
                                         checked= {this.state.multipleBond}
-                                        onChange = {this.onChangeToggleEvent}
+                                        onChange = {this.onChangeMultipleBindToggleEvent}
+                                    />
+                                </Table.Cell>
+                                <Table.Cell>
+                                    <Checkbox
+                                        toggle
+                                        label = "bridge bond"
+                                        checked= {this.state.bridgeBind}
+                                        onChange = {this.onChangeBridgeBindToggleEvent}
                                     />
                                 </Table.Cell>
                             </Table.Row>

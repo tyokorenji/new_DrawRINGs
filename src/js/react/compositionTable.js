@@ -43,7 +43,7 @@ export class CompositionTable extends React.Component {
         };
         return (
             <div>
-                <Button onClick = { () => this.onClickEvent() } primary active = {false} >Supply!</Button>
+                <Button onClick = { () => this.onClickEvent() } primary active = {false} >Apply!</Button>
                 <Table definition>
                     <Table.Header>
                         <Table.Row>

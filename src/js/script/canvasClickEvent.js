@@ -16,13 +16,15 @@ import { Glycobond } from "./class/Glycobond";
 import { createFragmentBind } from "./createBind/createFragmentBind";
 import { edgeClickEvent } from "./edgeClickEvent";
 import { createComposition } from "./createComposition/createComposition";
+import { getMouseCoordinateCanvas } from "./getRelativeCoordinate";
 
 
 export function canvasClickEvent() {
     //DrawGlycanの機能
     switch(liaise.modeType) {
         case modeType.NODE: {
-            let coordinates: Array<number> = getRelativeCoordinate(event);
+            let mouseCoordinate: Array<number> = getMouseCoordinateCanvas(event);
+            let coordinates: Array<number> = getRelativeCoordinate(mouseCoordinate[0], mouseCoordinate[1]);
             if(coordinates[0] === 0 && coordinates[1] === 0) {
                 return;
             }
@@ -61,7 +63,8 @@ export function canvasClickEvent() {
                 return;
             }
             else {
-                let coordinates: Array<number> = getRelativeCoordinate(event);
+                let mouseCoordinate: Array<number> = getMouseCoordinateCanvas(event);
+                let coordinates: Array<number> = getRelativeCoordinate(mouseCoordinate[0], mouseCoordinate[1]);
                 if(coordinates[0] === 0 && coordinates[1] === 0) {
                     return;
                 }
