@@ -15,6 +15,8 @@ import { Fragment } from "../class/Fragment";
 import { Glycan } from "../class/Glycan";
 import { selectParentNode } from "./selectParentNode";
 import {Cyclic} from "../class/Cyclic";
+import {FragmentBracket} from "../class/FragmentBracket";
+import {removeGlycoBindShape} from "../removeObjet/removeGlycoBindShape";
 
 /**
  *
@@ -41,7 +43,31 @@ export function createEdge(target: Sugar) {
                     break;
                 }
                 default: {
-                    continue;
+                    if(parentChild[1].getGlycan() instanceof Fragment) {
+                        switch(parentChild[1].getGlycan().getRootNode()) {
+                            case parentChild[1]: {
+                                switch(parentChild[1].getParentBond().length) {
+                                    case 1: {
+                                        removeGlycoBindShape(parentChild[1].getParentBond()[0]);
+                                        parentChild[1].parentBonds = [];
+                                        break;
+                                    }
+                                    default: {
+                                        for(let parentBond: Glycobond of parentChild[1].getParentBond()) {
+                                            if(!parentBond.hasParentSugar()) {
+                                                removeGlycoBindShape(parentChild[1].getParentBond()[parentChild[1].getParentBond().indexOf(parentBond)]);
+                                                parentChild[1].getParentBond().splice(parentChild[1].getParentBond().indexOf(parentBond), 1);
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    else {
+                        continue;
+                    }
                 }
             }
         }
@@ -71,15 +97,18 @@ export function createEdge(target: Sugar) {
         case (parentChild[1].getGlycan()): {
             //サイクリック
             bind = createCyclic(parentChild[0], parentChild[1]);
+            console.log("サイクリック", bind);
             break;
         }
         //グリコシド結合
         default: {
             bind = createGlycobond(parentChild[0], parentChild[1]);
+            console.log("グリコシド結合", bind);
             break;
         }
     }
     bind.addEventListener("click", edgeClickEvent, false);
+
     stageUpdate(parentChild[0], parentChild[1], bind);
 
     // let parentChild: Array<Sugar> = culcParentChild(liaise.selectedNode, target);
@@ -182,13 +211,25 @@ let createGlycobond = (parentSugar: Sugar, childSugar: Sugar): Glycobond => {
 
 //子単糖以降非還元末端までのglycanデータを親単糖のglycanに変更
 let setGlycanDeta = (childSugar: Sugar, glycan: Glycan) => {
+    console.log("set glycan data");
     for (let array_in_glycans: Glycan of glycans) {
         if(array_in_glycans === childSugar.getGlycan()) {
             glycans.splice(glycans.indexOf(array_in_glycans), 1);
         }
     }
+    if(childSugar.getGlycan() instanceof Fragment) {
+        console.log("childSugar.getGlycan", childSugar.getGlycan());
+        let fragmentBracket: FragmentBracket = childSugar.getGlycan().getParentFragmentBracket();
+        console.log(fragmentBracket);
+        for(let childFragment: Fragment of fragmentBracket.getChildGlycans()) {
+            if(childSugar.getGlycan() === childFragment) {
+                fragmentBracket.getChildGlycans().splice(fragmentBracket.getChildGlycans().indexOf(childFragment), 1);
+            }
+        }
+    }
     childSugar.setGlycan(glycan);
-    //chilsSugarがサイクリックでないと気
+
+    //chilsSugarがサイクリックでないとき
     if(childSugar.isCyclicEmpty()) {
         for (let child: Sugar of childSugar.getChildSugars()) {
             setGlycanDeta(child, glycan);

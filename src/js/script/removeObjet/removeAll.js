@@ -50,7 +50,7 @@ export let removeAll = () => {
     }
 };
 
-let removeGlycan = (glycan: Glycan) => {
+export let removeGlycan = (glycan: Glycan) => {
     recuversiveRemoveCiyclicRepeatInGlycan(glycan.getRootNode());
     recuversiveRemoveGlycan(glycan.getRootNode(), glycan);
 };
@@ -72,7 +72,7 @@ let recuversiveRemoveGlycan = (sugar: Sugar, glycan: Glycan) => {
 };
 
 
-let recuversiveRemoveFragment = (fragmentBracket: FragmentBracket) => {
+export let recuversiveRemoveFragment = (fragmentBracket: FragmentBracket) => {
     let fragmentGlycans: Array<Fragment> = fragmentBracket.getChildGlycans();
     removeFragmentBracketShape(fragmentBracket);
     if(!fragmentGlycans[0].isFragmentBracketEmpty()) {

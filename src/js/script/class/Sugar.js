@@ -257,7 +257,7 @@ class Sugar extends Node{
     getChildBridge(): Array<Bridge> {
         return this.childBridge;
     }
-    hasChildBridgeEmpty(): boolean {
+    hasChildBridge(): boolean {
         if(this.childBridge.length !== 0) return true;
         else return false;
     }

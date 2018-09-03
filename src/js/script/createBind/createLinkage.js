@@ -20,7 +20,7 @@ export function createLinkage(target: Glycobond, linkage: string) {
     let parentShape = new createjs.Text(target.getParentPosition(), basicData.linkageSize + "px serif", getColor("black"));
     let childShape = new createjs.Text(target.childAnomeric, basicData.linkageSize + "px serif", getColor("black"));
     console.log(target);
-    if(target.getChildSugar().getGlycan() instanceof Fragment) {
+    if(target.getChildSugar().getGlycan() instanceof Fragment === target.getChildSugar().getGlycan().getRootNode() === target.getChildSugar()) {
         parentShape.x = target.children[0].graphics._activeInstructions[1].x;
         childShape.x = childQuarterCoordinate[0];
     }
