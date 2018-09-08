@@ -22,8 +22,10 @@ class LiaiseUI {
     selectedModification: string;
     selectedModifiactionPositions: Array<number>;
     multipleBond: boolean;
-    bridgeBind: boolean
+    bridgeBind: boolean;
     compositionSelect: Object;
+    undef: boolean;
+    undefNodeSelect: Object;
 
 
     constructor() {
@@ -39,6 +41,13 @@ class LiaiseUI {
         this.multipleBond = false;
         this.bridgeBind = false;
         this.compositionSelect = compositionSlected;
+        this.undef = false;
+        this.undefNodeSelect = {
+            name: "",
+            isomer: "",
+            ring: "",
+            backbone: ""
+        };
     }
 
     hasTextAreaValue() {

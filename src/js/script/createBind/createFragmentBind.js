@@ -6,6 +6,7 @@ import { Glycobond } from "../class/Glycobond";
 import createjs from "createjs-easeljs";
 import { basicData } from "../data/graphicsData";
 import { getColor } from "../data/getColor";
+import {UndefSugar} from "../class/UndefSugar";
 
 export let createFragmentBind = (sugar: Sugar): Glycobond => {
     let bind: createjs.Shape = new createjs.Shape();
@@ -15,5 +16,6 @@ export let createFragmentBind = (sugar: Sugar): Glycobond => {
         .lineTo(sugar.getXCoord() + basicData.symbolSize + basicData.fragmentEdgeDistance, sugar.getYCoord());
     let edge: Glycobond = new Glycobond();
     edge.addChild(bind);
+
     return edge;
 };

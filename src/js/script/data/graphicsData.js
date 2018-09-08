@@ -23,5 +23,7 @@ export let basicData: Object = {
     "modificationSize": 15,
     "compositionTextToSymbol": 10,
     "compositionTextSize": 30,
-    "bridgeSize": 30
+    "bridgeSize": 30,
+    "isomerSize": 20,
+    "ringSize": 20
 };

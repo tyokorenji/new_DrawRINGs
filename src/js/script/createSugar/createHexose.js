@@ -21,6 +21,7 @@ export let createHexose = (nameSymbol: Symbol, symbolSize: number): Object => {
             nodeName = "Hexose";
             break;
         case nodeModeType.GLC:
+            console.log("入ってる?");
             shape.graphics.beginFill(getColor("blue"));
             nodeName = "Glc";
             break;

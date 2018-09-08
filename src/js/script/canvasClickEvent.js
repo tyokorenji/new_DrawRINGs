@@ -3,7 +3,7 @@
 
 import { modeType } from "../react/modeType";
 import { liaise, glycans } from "./main";
-import { nodeType } from "../react/nodeModeSearch";
+import {nodeModeSearch, nodeType} from "../react/nodeModeSearch";
 import { createNodeShape } from "./createSugar/createNodeShape";
 import { nodeClickEvents } from "./nodeClickEvents";
 import { Glycan } from "./class/Glycan";
@@ -17,6 +17,9 @@ import { createFragmentBind } from "./createBind/createFragmentBind";
 import { edgeClickEvent } from "./edgeClickEvent";
 import { createComposition } from "./createComposition/createComposition";
 import { getMouseCoordinateCanvas } from "./getRelativeCoordinate";
+import {SNFGSymbolGlycan} from "./data/SNFGGlycanTable";
+import { nodeModeType } from "../react/nodeModeType";
+import {UndefSugar} from "./class/UndefSugar";
 
 
 export function canvasClickEvent() {
@@ -32,8 +35,63 @@ export function canvasClickEvent() {
                 return;
             }
             console.log("canvasClick Nodeに入ったよ！");
-            let shapeType: Symbol = nodeType(liaise.nodeSelect);
-            let sugar: Sugar = createNodeShape(shapeType, event);
+            let shapeType: Symbol;
+            let sugar: Sugar;
+            let difIsomerFlag: boolean = false;
+            let difRingFlag: boolean = false;
+            let difBackboneFlag: boolean = false;
+            if(liaise.undef) {
+                if(liaise.undefNodeSelect.name === "") {
+                    alert("Please apply undefined sugar name.");
+                    return;
+                }
+                else if (liaise.undefNodeSelect.isomer === "") {
+                    alert("Please apply undefined sugar isomer.");
+                    return;
+                }
+                else if (liaise.undefNodeSelect.ring === "") {
+                    alert("Please apply undefined sugar ring.");
+                    return;
+                }
+                else if (liaise.undefNodeSelect.backbone === "") {
+                    alert("Please apply undefined sugar backbone.");
+                    return;
+                }
+                let name = liaise.undefNodeSelect.name[0].toUpperCase();
+                name += liaise.undefNodeSelect.name.substr(1,liaise.undefNodeSelect.name.length).toLowerCase();
+                console.log(name);
+                liaise.nodeSelect = nodeModeSearch(name);
+                switch(liaise.nodeSelect) {
+                    case (nodeModeType.NOT_SELECTED): {
+                        shapeType = nodeType(liaise.nodeSelect);
+                        // sugar = createNodeShape(nodeTableSymbol, event, difIsomerFlag, difRingFlag, difBackboneFlag;
+                        break;
+                    }
+                    default: {
+                        if(liaise.undefNodeSelect.isomer !== SNFGSymbolGlycan[name].isomer) {
+                            difIsomerFlag = true;
+                        }
+                        if(liaise.undefNodeSelect.ring !== SNFGSymbolGlycan[name].ring) {
+                            difRingFlag = true;
+                        }
+                        if(liaise.undefNodeSelect.backbone !== SNFGSymbolGlycan[name].carbBone) {
+                            difBackboneFlag = true;
+                        }
+                        shapeType = nodeType(liaise.nodeSelect);
+                        if(liaise.nodeSelect === nodeModeType.GLC) {
+                            console.log("GLCだよ");
+                        }
+                        if(shapeType === nodeModeType.HEXOSE) {
+                            console.log("HEXOSE");
+                        }
+                    }
+                }
+
+            }
+            else {
+                shapeType = nodeType(liaise.nodeSelect);
+            }
+            sugar = createNodeShape(shapeType, event, difIsomerFlag, difRingFlag, difBackboneFlag);
             sugar.setCoordinate(coordinates[0], coordinates[1]);
             setGlids.push(coordinates);
             liaise.stageUpdate();
@@ -72,10 +130,70 @@ export function canvasClickEvent() {
                     return;
                 }
                 console.log("canvasClick Fragmentに入ったよ！");
-                let shapeType: Symbol = nodeType(liaise.nodeSelect);
-                let sugar: Sugar = createNodeShape(shapeType, event);
+                // let shapeType: Symbol = nodeType(liaise.nodeSelect);
+                // let sugar: Sugar = createNodeShape(shapeType, event);
+                // sugar.setCoordinate(coordinates[0], coordinates[1]);
+                // setGlids.push(coordinates);
+                let shapeType: Symbol;
+                let sugar: Sugar;
+                let difIsomerFlag: boolean = false;
+                let difRingFlag: boolean = false;
+                let difBackboneFlag: boolean = false;
+                if(liaise.undef) {
+                    if(liaise.undefNodeSelect.name === "") {
+                        alert("Please apply undefined sugar name.");
+                        return;
+                    }
+                    else if (liaise.undefNodeSelect.isomer === "") {
+                        alert("Please apply undefined sugar isomer.");
+                        return;
+                    }
+                    else if (liaise.undefNodeSelect.ring === "") {
+                        alert("Please apply undefined sugar ring.");
+                        return;
+                    }
+                    else if (liaise.undefNodeSelect.backbone === "") {
+                        alert("Please apply undefined sugar backbone.");
+                        return;
+                    }
+                    let name = liaise.undefNodeSelect.name[0].toUpperCase();
+                    name += liaise.undefNodeSelect.name.substr(1,liaise.undefNodeSelect.name.length).toLowerCase();
+                    console.log(name);
+                    liaise.nodeSelect = nodeModeSearch(name);
+                    switch(liaise.nodeSelect) {
+                        case (nodeModeType.NOT_SELECTED): {
+                            shapeType = nodeType(liaise.nodeSelect);
+                            // sugar = createNodeShape(nodeTableSymbol, event, difIsomerFlag, difRingFlag, difBackboneFlag;
+                            break;
+                        }
+                        default: {
+                            if(liaise.undefNodeSelect.isomer !== SNFGSymbolGlycan[name].isomer) {
+                                difIsomerFlag = true;
+                            }
+                            if(liaise.undefNodeSelect.ring !== SNFGSymbolGlycan[name].ring) {
+                                difRingFlag = true;
+                            }
+                            if(liaise.undefNodeSelect.backbone !== SNFGSymbolGlycan[name].carbBone) {
+                                difBackboneFlag = true;
+                            }
+                            shapeType = nodeType(liaise.nodeSelect);
+                            if(liaise.nodeSelect === nodeModeType.GLC) {
+                                console.log("GLCだよ");
+                            }
+                            if(shapeType === nodeModeType.HEXOSE) {
+                                console.log("HEXOSE");
+                            }
+                        }
+                    }
+
+                }
+                else {
+                    shapeType = nodeType(liaise.nodeSelect);
+                }
+                sugar = createNodeShape(shapeType, event, difIsomerFlag, difRingFlag, difBackboneFlag);
                 sugar.setCoordinate(coordinates[0], coordinates[1]);
                 setGlids.push(coordinates);
+                liaise.stageUpdate();
                 switch (sugar.name) {
                     case "undefined":
                         alert("ERROR!!!");
@@ -89,12 +207,6 @@ export function canvasClickEvent() {
                 sugar.setGlycan(fragmentGlycan);
                 fragmentGlycan.setParentFragmentBracket(liaise.selectedGlycan[0].getFragmentBracket());
                 liaise.selectedGlycan[0].getFragmentBracket().setChildGlycans(fragmentGlycan);
-                // if (sugar.hasChildSugars()) {
-                //     for (let child: Sugar of sugar.getChildSugars()){
-                //         sugar.setChildGlycan(child);
-                //     }
-                // }
-                // fragmentGlycan.setParentFragmentBracket(liaise.selectedGlycan.getParentFragmentBracket());
                 let edge: Glycobond = createFragmentBind(sugar);
                 edge.setChildSugar(sugar);
                 sugar.setParentBond(edge);

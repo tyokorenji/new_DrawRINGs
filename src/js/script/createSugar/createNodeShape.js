@@ -17,146 +17,155 @@ import { createDi_Deoxynonulosonate } from "./createDi_Deoxynonulosonate";
 import { createUnknown } from "./createUnknown";
 import { createAssigned } from "./createAssigned";
 import { createUndefSNFG } from "./createUndefSNFG";
-import { getRelativeCoordinate } from "../getRelativeCoordinate";
+// import { getRelativeCoordinate } from "../getRelativeCoordinate";
 import { SNFGSymbolGlycan } from "../data/SNFGGlycanTable";
 import {liaise} from "../main";
+import createjs from "createjs-easeljs";
+import {getColor} from "../data/getColor";
+import { basicData } from "../data/graphicsData";
+import { UndefSugar } from "../class/UndefSugar";
 
-export let createNodeShape: Function = (shapeType: Symbol, event: Event): Function => {
-    let symbolSize: number = 15;
-    let sugar: Sugar;
+
+export let createNodeShape: Function = (shapeType: Symbol, event: Event, isomerFlag: boolean, ringFlag: boolean, backboneFlag: boolean): Function => {
+    let symbolSize: number = basicData.symbolSize;
+    let sugarObject: Object;
+
     switch (shapeType) {
         case nodeModeType.HEXOSE: {
-            let sugarObject: Object = createHexose(liaise.nodeSelect, symbolSize);
-            sugar = new Sugar(sugarObject.nodeName);
-            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
-            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
-            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
-            liaise.stage.addChild(sugar);
-            sugar.addChild(sugarObject.shape);
+            sugarObject = createHexose(liaise.nodeSelect, symbolSize);
             break;
         }
         case nodeModeType.HEXNAC:{
-            let sugarObject: Object = createHexNAc(liaise.nodeSelect, symbolSize);
-            sugar = new Sugar(sugarObject.nodeName);
-            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
-            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
-            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
-            liaise.stage.addChild(sugar);
-            sugar.addChild(sugarObject.shape);
+            sugarObject = createHexNAc(liaise.nodeSelect, symbolSize);
             break;
         }
 
         case nodeModeType.HEXOSAMINE: {
-            let sugarObject: Object = createHexosamine(liaise.nodeSelect, symbolSize);
-            sugar = new Sugar(sugarObject.nodeName);
-            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
-            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
-            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
-            liaise.stage.addChild(sugar);
-            sugar.addChild(sugarObject.shape);
+            sugarObject= createHexosamine(liaise.nodeSelect, symbolSize);
             break;
         }
         case nodeModeType.HEXURONATE: {
-            let sugarObject: Object = createHexuronate(liaise.nodeSelect, symbolSize);
-            sugar = new Sugar(sugarObject.nodeName);
-            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
-            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
-            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
-            liaise.stage.addChild(sugar);
-            sugar.addChild(sugarObject.shape);
+            sugarObject= createHexuronate(liaise.nodeSelect, symbolSize);
             break;
         }
         case nodeModeType.DEOXYHEXOSE: {
-            let sugarObject: Object = createDeoxyHexose(liaise.nodeSelect, symbolSize);
-            sugar = new Sugar(sugarObject.nodeName);
-            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
-            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
-            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
-            liaise.stage.addChild(sugar);
-            sugar.addChild(sugarObject.shape);
+            sugarObject= createDeoxyHexose(liaise.nodeSelect, symbolSize);
             break;
         }
         case nodeModeType.DEOXYHEXNAC: {
-            let sugarObject: Object = createDeoxyHexNAc(liaise.nodeSelect, symbolSize);
-            sugar = new Sugar(sugarObject.nodeName);
-            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
-            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
-            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
-            liaise.stage.addChild(sugar);
-            sugar.addChild(sugarObject.shape);
+            sugarObject= createDeoxyHexNAc(liaise.nodeSelect, symbolSize);
             break;
         }
         case nodeModeType.DI_DEOXYHEXOSE: {
-            let sugarObject: Object = createDi_DeoxyHexose(liaise.nodeSelect, symbolSize);
-            sugar = new Sugar(sugarObject.nodeName);
-            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
-            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
-            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
-            liaise.stage.addChild(sugar);
-            sugar.addChild(sugarObject.shape);
+            sugarObject= createDi_DeoxyHexose(liaise.nodeSelect, symbolSize);
             break;
         }
         case nodeModeType.PENTOSE: {
-            let sugarObject: Object = createPentose(liaise.nodeSelect, symbolSize);
-            sugar = new Sugar(sugarObject.nodeName);
-            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
-            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
-            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
-            liaise.stage.addChild(sugar);
-            sugar.addChild(sugarObject.shape);
+            sugarObject= createPentose(liaise.nodeSelect, symbolSize);
             break;
         }
         case nodeModeType.DEOXYNONULOSONATE: {
-            let sugarObject: Object = createDeoxynonulosonate(liaise.nodeSelect, symbolSize);
-            sugar = new Sugar(sugarObject.nodeName);
-            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
-            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
-            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
-            liaise.stage.addChild(sugar);
-            sugar.addChild(sugarObject.shape);
+            sugarObject= createDeoxynonulosonate(liaise.nodeSelect, symbolSize);
             break;
         }
         case nodeModeType.DI_DEOXYNONULOSONATE: {
-            let sugarObject: Object = createDi_Deoxynonulosonate(liaise.nodeSelect, symbolSize);
-            sugar = new Sugar(sugarObject.nodeName);
-            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
-            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
-            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
-            liaise.stage.addChild(sugar);
-            sugar.addChild(sugarObject.shape);
+            sugarObject= createDi_Deoxynonulosonate(liaise.nodeSelect, symbolSize);
             break;
         }
         case nodeModeType.UNKNOWN: {
-            let sugarObject: Object = createUnknown(liaise.nodeSelect, symbolSize);
-            sugar = new Sugar(sugarObject.nodeName);
-            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
-            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
-            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
-            liaise.stage.addChild(sugar);
-            sugar.addChild(sugarObject.shape);
+            sugarObject= createUnknown(liaise.nodeSelect, symbolSize);
             break;
         }
         case nodeModeType.ASSIGNED: {
-            let sugarObject: Object = createAssigned(liaise.nodeSelect, symbolSize);
-            sugar = new Sugar(sugarObject.nodeName);
-            sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
-            sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
-            sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
-            liaise.stage.addChild(sugar);
-            sugar.addChild(sugarObject.shape);
+            sugarObject= createAssigned(liaise.nodeSelect, symbolSize);
             break;
         }
         case nodeModeType.NOT_SELECTED: {
             //未定義
-            let sugarObject: Object = createUndefSNFG(event);
-            sugar = new Sugar(sugarObject.nodeName);
+            sugarObject= createUndefSNFG(symbolSize  + 10);
             break;
         }
         default: {
             return createError();
         }
     }
-    // let coordinate: Array<number> = getRelativeCoordinate(event);
-    // sugar.setCoordinate(coordinate[0], coordinate[1]);
-    return sugar;
+    switch(shapeType) {
+        case nodeModeType.NOT_SELECTED: {
+            let undefSugar: UndefSugar = new UndefSugar(sugarObject.nodeName);
+            undefSugar.setIsomer(liaise.undefNodeSelect.isomer);
+            undefSugar.setRing(liaise.undefNodeSelect.ring);
+            undefSugar.setCarbBone(liaise.undefNodeSelect.backbone);
+            undefSugar.addChild(sugarObject.rect);
+            undefSugar.addChild(sugarObject.shape);
+            liaise.stage.addChild(undefSugar);
+            return undefSugar;
+
+        }
+        default: {
+            let sugar = new Sugar(sugarObject.nodeName);
+            let isomerTextShape: createjs.Text;
+            let ringTextShape: createjs.Text;
+            if(isomerFlag) {
+                isomerTextShape = createDifIsomer();
+                sugar.setIsomer(liaise.undefNodeSelect.isomer.toUpperCase());
+            }
+            else {
+                isomerTextShape = new createjs.Text("", "bold" + basicData.isomerSize + "px serif", getColor("black"));
+                sugar.setIsomer(SNFGSymbolGlycan[sugarObject.nodeName].isomer);
+            }
+            if(ringFlag) {
+                ringTextShape = createDifRing();
+                sugar.setRing(liaise.undefNodeSelect.ring.toLowerCase());
+
+            }
+            else {
+                ringTextShape = new createjs.Text("", "bold" + basicData.isomerSize + "px serif", getColor("black"));
+                sugar.setRing(SNFGSymbolGlycan[sugarObject.nodeName].ring);
+            }
+            if(backboneFlag) {
+                sugar.setCarbBone(liaise.undefNodeSelect.backbone);
+            }
+            else {
+                sugar.setCarbBone(SNFGSymbolGlycan[sugarObject.nodeName].carbBone);
+            }
+            sugar.addChild(sugarObject.shape);
+            sugar.addChild(isomerTextShape);
+            sugar.addChild(ringTextShape);
+
+            liaise.stage.addChild(sugar);
+
+            return sugar;
+        }
+    }
+
+};
+
+let createDifIsomer = (): createjs.Text => {
+    let Text: createjs.Text = new createjs.Text(liaise.undefNodeSelect.isomer.toUpperCase(), basicData.isomerSize + "px serif", getColor("black"));
+    console.log(Text);
+    Text.textAlign = "right";
+    Text.textBaseline = "middle";  //垂直方向(y軸)の位置
+    Text.scaleX = 1.0;
+    Text.scaleY = 1.0;
+    // Text.x = Text.getMeasuredWidth() / 2;
+    // Text.y = Text.getMeasuredHeight() / 2;
+    return Text;
+};
+
+let createDifRing = (): createjs.Text => {
+    let ringText: string;
+    if(liaise.undefNodeSelect.ring.toLowerCase() === "p"  || liaise.undefNodeSelect.ring.toLowerCase() === "pyranose") {
+        ringText = "p";
+    }
+    else if(liaise.undefNodeSelect.ring.toLowerCase() === "f"  || liaise.undefNodeSelect.ring.toLowerCase() === "furanose") {
+        ringText = "f";
+    }
+    let Text: createjs.Text = new createjs.Text(ringText, basicData.ringSize + "px serif", getColor("black"));
+    Text.textAlign = "left";
+    Text.textBaseline = "middle";  //垂直方向(y軸)の位置
+    Text.scaleX = 1.0;
+    Text.scaleY = 0.8;
+    // Text.x = Text.getMeasuredWidth() / 2;
+    Text.y = Text.getMeasuredHeight() / 2.5;
+    return Text;
 };
