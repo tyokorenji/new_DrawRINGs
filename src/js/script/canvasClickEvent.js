@@ -40,7 +40,7 @@ export function canvasClickEvent() {
             let difIsomerFlag: boolean = false;
             let difRingFlag: boolean = false;
             let difBackboneFlag: boolean = false;
-            if(liaise.undef) {
+            if(liaise.undefNode) {
                 if(liaise.undefNodeSelect.name === "") {
                     alert("Please apply undefined sugar name.");
                     return;
@@ -139,7 +139,7 @@ export function canvasClickEvent() {
                 let difIsomerFlag: boolean = false;
                 let difRingFlag: boolean = false;
                 let difBackboneFlag: boolean = false;
-                if(liaise.undef) {
+                if(liaise.undefNode) {
                     if(liaise.undefNodeSelect.name === "") {
                         alert("Please apply undefined sugar name.");
                         return;

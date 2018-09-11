@@ -24,8 +24,10 @@ class LiaiseUI {
     multipleBond: boolean;
     bridgeBind: boolean;
     compositionSelect: Object;
-    undef: boolean;
+    undefNode: boolean;
     undefNodeSelect: Object;
+    undefLinkage: boolean;
+    undefLinkageSelect: Object;
 
 
     constructor() {
@@ -41,15 +43,40 @@ class LiaiseUI {
         this.multipleBond = false;
         this.bridgeBind = false;
         this.compositionSelect = compositionSlected;
-        this.undef = false;
+        this.undefNode = false;
         this.undefNodeSelect = {
             name: "",
             isomer: "",
             ring: "",
             backbone: ""
         };
+        this.undefLinkage = false;
+        this.undefLinkageSelect = {
+            anomeric: "",
+            parentPosition: "",
+            childPotisiotn: ""
+        }
     }
 
+
+    initUndefNodeSelect() {
+      this.undefNode = false;
+        this.undefNodeSelect = {
+            name: "",
+            isomer: "",
+            ring: "",
+            backbone: ""
+        }
+    }
+
+    initUndefLinakgeSelect() {
+        this.undefLinkage = false;
+        this.undefLinkageSelect = {
+            anomeric: "",
+            parentPosition: "",
+            childPotisiotn: ""
+        };
+    }
     hasTextAreaValue() {
         if (this.textArea != "") {
             return true;
@@ -153,4 +180,3 @@ class LiaiseUI {
 
 
 export { LiaiseUI };
-

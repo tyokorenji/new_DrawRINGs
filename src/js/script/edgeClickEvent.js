@@ -10,13 +10,9 @@ export function edgeClickEvent(event: Object) {
     switch(liaise.modeType) {
         case modeType.EDGE: {
             let linkage = searchSelectedLinkage();
-            switch (linkage) {
-                case "undefined":
-                    return;
-                default:
-                    createLinkage(event.currentTarget, linkage);
-                    liaise.stageUpdate();
-            }
+            console.log(event.currentTarget);
+            createLinkage(event.currentTarget, linkage);
+            liaise.stageUpdate();
             break;
         }
         default: {

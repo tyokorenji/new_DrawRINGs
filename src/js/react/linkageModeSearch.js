@@ -26,6 +26,7 @@ export function linkageModeSearch(target: string) {
         case "a2-6": return linkageModeType.A2_6;
         case "a2-7": return linkageModeType.A2_7;
         case "a2-8": return linkageModeType.A2_8;
+        default: return linkageModeType.NOT_SELECTED
 
     }
 }

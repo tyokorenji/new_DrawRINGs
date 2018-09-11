@@ -30,13 +30,8 @@ export class NodeTable extends React.Component {
         currentState.isomerValue = "";
         currentState.ringValue = "";
         currentState.carbonBackbone = "";
-        liaise.undef = currentState.undef;
-        liaise.undefNodeSelect = {
-            name: "",
-            isomer: "",
-            ring: "",
-            backbone: ""
-        };
+        //undeNodeの設定を削除
+        liaise.initUndefNodeSelect();
         this.setState(currentState);
         liaise.nodeSelect = currentState.currentMode;
         console.log(e.target.id);
@@ -52,7 +47,7 @@ export class NodeTable extends React.Component {
         else {
             currentState.undef = true;
         }
-        liaise.undef = currentState.undef;
+        liaise.undefNode = currentState.undef;
         this.setState(currentState);
     };
 

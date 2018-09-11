@@ -1,7 +1,7 @@
 //@flow
 "use strict";
 
-import { LiaiseUI } from "./class/liaiseUI";
+import { LiaiseUI } from "./class/LiaiseUI";
 import { Glycan } from "./class/Glycan";
 import { Sugar } from "./class/Sugar";
 import { Composition } from "./class/Composition";
