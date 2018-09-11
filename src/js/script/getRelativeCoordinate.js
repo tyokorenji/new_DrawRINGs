@@ -12,6 +12,7 @@ import {FragmentBracket} from "./class/FragmentBracket";
 import createjs from "createjs-easeljs";
 import { liaise } from "./main";
 import { Bridge } from "./class/Bridge";
+import { Modification } from "./class/Modification";
 
 
 export let getRelativeCoordinate = (mouseX: number, mouseY: number): Array<number> => {
@@ -113,6 +114,30 @@ let recursiveChildSugarChangeCoordinate = (childSugar: Sugar, sugar: Sugar, dist
     sugar.setXCoord(oldXCoord + distanceX);  //新しいX座標を設定
     sugar.setYCoord(oldYCoord + distanceY);  //新しいY座標を設定
     setGlids.push([sugar.getXCoord(), sugar.getYCoord()]);
+    //Modificatinを持っている場合
+    if(sugar.hasChildModificaiton()) {
+        for (let modification: Object of sugar.getChildModifications()) {
+            // console.log(modification.isChildCommaShapeEmpty);
+            if(!modification.isChildCommaShapeEmpty()) {
+                modification.getChildCommaShape().x =  modification.getChildCommaShape().x  + distanceX;
+                modification.getChildCommaShape().y =  modification.getChildCommaShape().y + distanceY;
+            }
+            modification.setXCoord(modification.getXCoord() + distanceX);
+            modification.setYCoord(modification.getYCoord() + distanceY);
+        }
+    }
+    //複数箇所で結合している修飾を持っている結合の場合
+    if(sugar.hasChildMultipleBind()) {
+        for (let modification: Object of sugar.getChildMultipleBind()) {
+            // console.log(modification.isChildCommaShapeEmpty);
+            if(!modification.isChildCommaShapeEmpty()) {
+                modification.getChildCommaShape().x =  modification.getChildCommaShape().x  + distanceX;
+                modification.getChildCommaShape().y =  modification.getChildCommaShape().y + distanceY;
+            }
+            modification.setXCoord(modification.getXCoord() + distanceX);
+            modification.setYCoord(modification.getYCoord() + distanceY);
+        }
+    }
     //bridgeを持っている場合
     if(sugar.hasChildBridge) {
         for(let bridge: Bridge of sugar.getChildBridge()) {

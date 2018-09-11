@@ -28,6 +28,7 @@ class LiaiseUI {
     undefNodeSelect: Object;
     undefLinkage: boolean;
     undefLinkageSelect: Object;
+    undefModification: boolean;
 
 
     constructor() {
@@ -60,13 +61,13 @@ class LiaiseUI {
 
 
     initUndefNodeSelect() {
-      this.undefNode = false;
+        this.undefNode = false;
         this.undefNodeSelect = {
             name: "",
             isomer: "",
             ring: "",
             backbone: ""
-        }
+        };
     }
 
     initUndefLinakgeSelect() {

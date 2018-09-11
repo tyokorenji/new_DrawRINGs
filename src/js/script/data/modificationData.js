@@ -173,8 +173,8 @@ export const modifiData = {
         "bridgeBind": true
     },
     "Undefined": {
-        "TrivalName": "Undefined",
-        "Name": "undefined",
-        "bridgeBind": false
+        "TrivalName": "",
+        "Name": "",
+        "bridgeBind": true
     }
 };
