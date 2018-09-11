@@ -82,7 +82,7 @@ export let createNodeShape: Function = (shapeType: Symbol, event: Event, isomerF
         }
         case nodeModeType.NOT_SELECTED: {
             //未定義
-            sugarObject= createUndefSNFG(symbolSize  + 10);
+            sugarObject= createUndefSNFG("", symbolSize  + 10);
             break;
         }
         default: {

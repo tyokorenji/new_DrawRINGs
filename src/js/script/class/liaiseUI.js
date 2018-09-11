@@ -28,7 +28,8 @@ class LiaiseUI {
     undefNodeSelect: Object;
     undefLinkage: boolean;
     undefLinkageSelect: Object;
-    undefModification: boolean;
+    undefComposition: boolean;
+    undefCompositionName: string;
 
 
     constructor() {
@@ -56,7 +57,9 @@ class LiaiseUI {
             anomeric: "",
             parentPosition: "",
             childPotisiotn: ""
-        }
+        };
+        this.undefComposition = false;
+        this.undefCompositionName = "";
     }
 
 
@@ -78,6 +81,11 @@ class LiaiseUI {
             childPotisiotn: ""
         };
     }
+    initUndefComposition() {
+        this.undefComposition = false;
+        this.undefCompositionName = "";
+    };
+
     hasTextAreaValue() {
         if (this.textArea != "") {
             return true;
@@ -166,9 +174,16 @@ class LiaiseUI {
 
     searchComposition(): Array<string> {
         let resultArray: Array<string> = [];
+        console.log(this.compositionSelect);
         for(let key in this.compositionSelect) {
             if(this.compositionSelect[key] !== 0) {
-                resultArray.push(key);
+                if(key === "Undefined") {
+                    console.log(this.undefCompositionName);
+                    resultArray.push(this.undefCompositionName);
+                }
+                else {
+                    resultArray.push(key);
+                }
             }
             else {
                 continue;

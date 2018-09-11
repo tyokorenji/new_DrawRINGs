@@ -3,6 +3,7 @@
 
 import { liaise } from "../main";
 import { Sugar } from "../class/Sugar";
+import {Bridge} from "../class/Bridge";
 
 export let removeAllModificationBridgeShape = (sugar: Sugar) => {
     for(let item of sugar.getChildModifications()) {
@@ -16,5 +17,9 @@ export let removeAllModificationBridgeShape = (sugar: Sugar) => {
         if(!item.isChildCommaShapeEmpty()) {
             liaise.removeStage(item.getChildCommaShape());
         }
+    }
+    console.log(sugar);
+    for(let bridge: Bridge of sugar.getChildBridge()) {
+        liaise.removeStage(bridge);
     }
 };

@@ -1,8 +1,8 @@
 "use strict";
 
 import React from "react";
-import { Table, Image, Button } from "semantic-ui-react";
-import { liaise } from "../script/main";
+import { Table, Image, Button, Checkbox, Form, TextArea} from "semantic-ui-react";
+import {compositions, liaise} from "../script/main";
 import { nodeModeSearch } from "./nodeModeSearch";
 import { NodeImage } from "./nodeImage";
 import { nodeModeType } from "./nodeModeType";
@@ -14,7 +14,9 @@ export class CompositionTable extends React.Component {
         super(props);
         this.state = {
             // currentValue: liaise.nodeSelect,
-            currentValue: liaise.compositionSelect
+            currentValue: liaise.compositionSelect,
+            undef: false,
+            textAreaValue: ""
         };
     }
 
@@ -22,6 +24,7 @@ export class CompositionTable extends React.Component {
     onClickEvent() {
         console.log("compositionに入ったよ！");
         let compositionsArray = liaise.searchComposition();
+        console.log(compositionsArray);
         if(compositionsArray.length === 0 ) {
             return;
         }
@@ -35,11 +38,38 @@ export class CompositionTable extends React.Component {
         this.setState(currentState);
     }
 
+    onClickToggleEvent = () => {
+        let currentState = this.state;
+        if(currentState.undef) {
+            currentState.undef = false;
+        }
+        else {
+            currentState.undef = true;
+        }
+        liaise.undefComposition = currentState.undef;
+        this.setState(currentState);
+    };
+
+    onChangeUndefSugarNameAra = (e) => {
+        let currentState = this.state;
+        if(currentState.undef) {
+            currentState.textAreaValue = e.target.value;
+            liaise.undefCompositionName = currentState.textAreaValue;
+            this.setState(currentState);
+        }
+    };
+
 
 
     render(){
         const defImageStyle = {
             style: {}
+        };
+        const defTextAreaSize = {
+            style: {
+                width: "100%",
+                height: "100%"
+            }
         };
         return (
             <div>
@@ -655,6 +685,26 @@ export class CompositionTable extends React.Component {
                         </Table.Row>
                     </Table.Body>
                 </Table>
+                <Form>
+                    <Form.Field>
+                        <Table>
+                            <Table.Body>
+                                <Table.Row>
+                                    <Table.Cell>
+                                        <Checkbox
+                                            toggle
+                                            label = "undefined Sugar in up-list."
+                                            checked = {this.state.undef}
+                                            onChange = {this.onClickToggleEvent}
+                                        />
+                                    </Table.Cell>
+                                </Table.Row>
+                            </Table.Body>
+                        </Table>
+                        <TextArea value = {this.state.textAreaValue} { ...defTextAreaSize } onChange = {(event) => this.onChangeUndefSugarNameAra(event)} placeholder = "please enter undefind sugar name." autoHeight/>
+                        <input type = {"number"} name = {"Undefined"} min = {"0"} max = {"100"} value = {this.state.currentValue["Undefined"]} step = {"1"} onChange={ (event) => this.onChangeEvent(event) } />
+                    </Form.Field>
+                </Form>
             </div>
         );
     }

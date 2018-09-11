@@ -5,14 +5,12 @@ import { basicData } from "./data/graphicsData";
 import { Sugar } from "./class/Sugar";
 import {removeSetGlids, setGlids} from "./main";
 import {Glycobond} from "./class/Glycobond";
-import {Glycan} from "./class/Glycan";
 import { createFragmentBracket } from "./createFragment/createFragmentBracket";
 import {Fragment} from "./class/Fragment";
 import {FragmentBracket} from "./class/FragmentBracket";
 import createjs from "createjs-easeljs";
 import { liaise } from "./main";
 import { Bridge } from "./class/Bridge";
-import { Modification } from "./class/Modification";
 
 
 export let getRelativeCoordinate = (mouseX: number, mouseY: number): Array<number> => {

@@ -56,7 +56,7 @@ export let removeGlycan = (glycan: Glycan) => {
 };
 
 let recuversiveRemoveGlycan = (sugar: Sugar, glycan: Glycan) => {
-    if(sugar.hasChildModificaiton() || sugar.hasChildMultipleBind()) {
+    if(sugar.hasChildModificaiton() || sugar.hasChildMultipleBind() || sugar.hasChildBridge()) {
         removeAllModificationBridgeShape(sugar);
     }
     if(sugar.hasParentBond()) {

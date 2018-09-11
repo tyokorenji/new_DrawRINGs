@@ -88,5 +88,6 @@ export let compositionSlected = {
     "Deoxynonulosonate": 0,
     "Di-deoxynonulosonate": 0,
     "Unknown": 0,
-    "Assigned": 0
+    "Assigned": 0,
+    "Undefined": 0
 };
