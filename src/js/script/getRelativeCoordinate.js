@@ -11,6 +11,7 @@ import {FragmentBracket} from "./class/FragmentBracket";
 import createjs from "createjs-easeljs";
 import { liaise } from "./main";
 import { Bridge } from "./class/Bridge";
+import {checkSugarHasFragmentBracketinGlycan, getSugarHasFragmentBracket} from "./createFragment/checkGetSugarFragment";
 
 
 export let getRelativeCoordinate = (mouseX: number, mouseY: number): Array<number> => {
@@ -196,7 +197,6 @@ let recursiveChildSugarChangeCoordinate = (childSugar: Sugar, sugar: Sugar, dist
  * @param distanceY: 変更距離
  */
 let glycanChildSugarChangeCoordinate = (childSugar: Sugar, sugar: Sugar, distanceX: number, distanceY: number) => {
-    console.log("childSugar: ", childSugar);
     //対象子単糖とそれ以降の子Nodeの座標変更
     recursiveChildSugarChangeCoordinate(childSugar, sugar, distanceX, distanceY);
     //Fragmentをもつ場合、FragmentBracketとFragmentの座標を変更
@@ -246,6 +246,50 @@ let glycanChildSugarChangeCoordinate = (childSugar: Sugar, sugar: Sugar, distanc
         }
 
     }
+    //非還元末端がフラグメントブラケットを持っているとき
+    else if(checkSugarHasFragmentBracketinGlycan(sugar.getGlycan().getRootNode())) {
+        let sugar_has_fragmentBracket: Array<Sugar> = [];
+        let bracketCheck:boolean = false;
+        sugar_has_fragmentBracket = getSugarHasFragmentBracket(sugar.getGlycan().getRootNode(), sugar_has_fragmentBracket);
+        let has_same_fragmentBracket_sugar: Array<Array<Sugar>> = [[sugar_has_fragmentBracket[0]]];
+        let firstSugar: boolean = true;
+        for(let sugarHasFramgent: Sugar of sugar_has_fragmentBracket) {
+            if(firstSugar) {
+                firstSugar = false;
+                continue;
+            }
+            let flag: boolean = false;
+            for(let sugarArray: Array<Sugar> of has_same_fragmentBracket_sugar) {
+                if(sugarArray[0].getFragmentBracket() === sugarHasFramgent.getFragmentBracket()) {
+                    sugarArray.push(sugarHasFramgent);
+                    flag = true;
+                }
+            }
+            if(!flag) {
+                has_same_fragmentBracket_sugar.push([sugarHasFramgent]);
+            }
+        }
+        for(let sugarArray: Array<Sugar> of has_same_fragmentBracket_sugar) {
+            liaise.selectedFragmentNonReductionSugar = sugarArray;
+            let shape: createjs.Shape = createFragmentBracket([]);
+            bracketCheck = checkBracketPosition(shape, sugarArray[0].getFragmentBracket().children[0]);
+            if(bracketCheck) {
+                let fragmentBracket: FragmentBracket = new FragmentBracket();
+                fragmentBracket.addChild(shape);
+                liaise.removeStage(sugarArray[0].getFragmentBracket());
+                liaise.addStage(fragmentBracket);
+                fragmentBracket.childGlycans = sugarArray[0].getFragmentBracket().getChildGlycans();
+                fragmentBracket.parentSugars = sugarArray[0].getFragmentBracket().getParentSugars();
+                for(let same_bracket_sguar: Sugar of sugarArray) {
+                    same_bracket_sguar.setFragmentBracket(fragmentBracket);
+                }
+            }
+            if(bracketCheck) {
+                fragmentChildSugarChangeCoordinate(childSugar, sugarArray[0].getFragmentBracket(), distanceX, distanceY);
+            }
+        }
+        liaise.selectedFragmentNonReductionSugar = [];
+    }
 };
 
 /***
@@ -267,6 +311,8 @@ let checkBracketPosition = (shape1: createjs.Shape, shape2: createjs.Shape): boo
     }
 };
 
+
+
 /***
  *  fragmentの座標移動
  *  @param childSugar: 変更の支点
@@ -275,6 +321,10 @@ let checkBracketPosition = (shape1: createjs.Shape, shape2: createjs.Shape): boo
  * @param distanceY: 変更距離
  */
 let fragmentChildSugarChangeCoordinate = (childSugar: Sugar, fragmentBracket: FragmentBracket, distanceX: number, distanceY: number) => {
+    console.log(fragmentBracket);
+    if(!fragmentBracket.hasChildGlycans()) {
+        return false;
+    }
     for (let childFragment: Fragment of fragmentBracket.getChildGlycans()) {
         recursiveChildSugarChangeCoordinate(childSugar, childFragment.getRootNode(), distanceX, distanceY);
     }
@@ -304,4 +354,53 @@ let fragmentChildSugarChangeCoordinate = (childSugar: Sugar, fragmentBracket: Fr
         }
 
     }
+    else {
+        for(let childFragment: Fragment of fragmentBracket.getChildGlycans()){
+            if(checkSugarHasFragmentBracketinGlycan(childFragment.getRootNode())){
+                let sugar_has_fragmentBracket: Array<Sugar> = [];
+                let bracketCheck:boolean = false;
+                sugar_has_fragmentBracket = getSugarHasFragmentBracket(childFragment.getRootNode(), sugar_has_fragmentBracket);
+                let has_same_fragmentBracket_sugar: Array<Array<Sugar>> = [[sugar_has_fragmentBracket[0]]];
+                let firstSugar: boolean = true;
+                for(let sugarHasFragment: Sugar of sugar_has_fragmentBracket) {
+                    if(firstSugar) {
+                        firstSugar = false;
+                        continue;
+                    }
+                    let flag: boolean = false;
+                    for(let sugarArray: Array<Sugar> of has_same_fragmentBracket_sugar) {
+                        if(sugarArray[0].getFragmentBracket() === sugarHasFragment.getFragmentBracket()) {
+                            sugarArray.push(sugarHasFragment);
+                            flag = true;
+                        }
+                    }
+                    if(!flag) {
+                        has_same_fragmentBracket_sugar.push([sugarHasFragment]);
+                    }
+                }
+                for(let sugarArray: Array<Sugar> of has_same_fragmentBracket_sugar) {
+                    liaise.selectedFragmentNonReductionSugar = sugarArray;
+                    let shape: createjs.Shape = createFragmentBracket([]);
+                    bracketCheck = checkBracketPosition(shape, sugarArray[0].getFragmentBracket().children[0]);
+                    if(bracketCheck) {
+                        let newFragmentBracket: FragmentBracket = new FragmentBracket();
+                        newFragmentBracket.addChild(shape);
+                        liaise.removeStage(sugarArray[0].getFragmentBracket());
+                        liaise.addStage(newFragmentBracket);
+                        newFragmentBracket.childGlycans = sugarArray[0].getFragmentBracket().getChildGlycans();
+                        newFragmentBracket.parentSugars = sugarArray[0].getFragmentBracket().getParentSugars();
+                        for(let same_bracket_sguar: Sugar of sugarArray) {
+                            same_bracket_sguar.setFragmentBracket(newFragmentBracket);
+                        }
+                    }
+                    if(bracketCheck) {
+                        fragmentChildSugarChangeCoordinate(childSugar, sugarArray[0].getGlycan().getFragmentBracket(), distanceX, distanceY);
+                    }
+                }
+                liaise.selectedFragmentNonReductionSugar = [];
+            }
+        }
+
+    }
+
 };

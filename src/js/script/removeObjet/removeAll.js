@@ -15,7 +15,7 @@ import { FragmentBracket } from "../class/FragmentBracket";
 import { Fragment } from "../class/Fragment";
 import { compositions, initCompositions, initCompositionsGlids } from "../main";
 import { Composition } from "../class/Composition";
-import { CompositionText } from "../class/compositionText";
+import { checkSugarHasFragmentBracketinGlycan, getSugarHasFragmentBracket } from "../createFragment/checkGetSugarFragment";
 
 
 //サイクリック エラー
@@ -27,7 +27,15 @@ export let removeAll = () => {
             console.log("All Clear 入ったよ!!!");
             for(let glycan: Glycan of glycans) {
                 if(!glycan.isFragmentBracketEmpty()) {
-                    recuversiveRemoveFragment(glycan.getFragmentBracket());
+                    // recuversiveRemoveFragment(glycan.getFragmentBracket());
+                    recuversiveRemoveSugarFragment(glycan.getFragmentBracket());
+                }
+                else if(checkSugarHasFragmentBracketinGlycan(glycan.getRootNode())) {
+                    let sugar_has_fragmentBracket: Array<Sugar> = [];
+                    sugar_has_fragmentBracket = getSugarHasFragmentBracket(glycan.getRootNode(), sugar_has_fragmentBracket);
+                    for(let sugar: Sugar of sugar_has_fragmentBracket) {
+                        recuversiveRemoveSugarFragment(sugar.getFragmentBracket());
+                    }
                 }
                 removeGlycan(glycan);
             }
@@ -72,16 +80,16 @@ let recuversiveRemoveGlycan = (sugar: Sugar, glycan: Glycan) => {
 };
 
 
-export let recuversiveRemoveFragment = (fragmentBracket: FragmentBracket) => {
-    let fragmentGlycans: Array<Fragment> = fragmentBracket.getChildGlycans();
-    removeFragmentBracketShape(fragmentBracket);
-    if(!fragmentGlycans[0].isFragmentBracketEmpty()) {
-        recuversiveRemoveFragment(fragmentGlycans[0].getFragmentBracket());
-    }
-    for(let item: Fragment of fragmentGlycans) {
-        removeGlycan(item);
-    }
-};
+// export let recuversiveRemoveFragment = (fragmentBracket: FragmentBracket) => {
+//     let fragmentGlycans: Array<Fragment> = fragmentBracket.getChildGlycans();
+//     removeFragmentBracketShape(fragmentBracket);
+//     if(!fragmentGlycans[0].isFragmentBracketEmpty()) {
+//         recuversiveRemoveFragment(fragmentGlycans[0].getFragmentBracket());
+//     }
+//     for(let item: Fragment of fragmentGlycans) {
+//         removeGlycan(item);
+//     }
+// };
 
 let recuversiveRemoveCiyclicRepeatInGlycan = (sugar: Sugar) => {
     if(!sugar.isCyclicEmpty()) {
@@ -110,4 +118,28 @@ let recuversiveRemoveCiyclicRepeatInGlycan = (sugar: Sugar) => {
         recuversiveRemoveCiyclicRepeatInGlycan(child);
     }
 
+};
+
+
+
+export let recuversiveRemoveSugarFragment = (fragmentBracket: FragmentBracket) => {
+    let fragmentGlycans: Array<Fragment> = fragmentBracket.getChildGlycans();
+    removeFragmentBracketShape(fragmentBracket);
+    //もしFragmentがFragmentBracketを持っていたら
+    if(!fragmentGlycans[0].isFragmentBracketEmpty()) {
+        recuversiveRemoveSugarFragment(fragmentGlycans[0].getFragmentBracket());
+    }
+    //もし非還元末端の単糖がFragmentBracketを持っていたら
+    for(let fragment: Fragment of fragmentGlycans) {
+        if(checkSugarHasFragmentBracketinGlycan(fragment.getRootNode())) {
+            let sugar_has_fragmentBracket: Array<Sugar> = [];
+            sugar_has_fragmentBracket = getSugarHasFragmentBracket(fragment.getRootNode(), sugar_has_fragmentBracket);
+            for(let sugar: Sugar of sugar_has_fragmentBracket) {
+                recuversiveRemoveSugarFragment(sugar.getFragmentBracket());
+            }
+        }
+    }
+    for(let item: Fragment of fragmentGlycans) {
+        removeGlycan(item);
+    }
 };

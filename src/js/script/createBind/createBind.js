@@ -28,6 +28,12 @@ import {removeGlycoBindShape} from "../removeObjet/removeGlycoBindShape";
  *
  */
 export function createEdge(target: Sugar) {
+    if(target.getGlycan() instanceof Fragment && liaise.selectedNode.getGlycan() instanceof Fragment) {
+        if(target.getGlycan().getParentFragmentBracket() !== liaise.selectedNode.getGlycan().getParentFragmentBracket()) {
+            alert("you selected two monosacchrides are different fragment. ");
+            return;
+        }
+    }
     let parentChild: Array<Sugar> = selectParentNode(liaise.selectedNode, target);  //選択された２つのNodeの親子関係を計算。parentChild[0]に親、parentChild[1]に子
     //すでに描画されている場合削除
     if(parentChild[1].isCyclicEmpty()) {

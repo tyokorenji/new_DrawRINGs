@@ -136,6 +136,30 @@ class Glycan extends createjs.Container {
         return;
     }
 
+    checkSugarInGlycan(sugar: Sugar): boolean {
+        let result: boolean = false;
+        result = this.recuversiveCheckSugarInGlycan(sugar, this.getRootNode());
+        return result;
+    }
+    recuversiveCheckSugarInGlycan(sugar: Sugar, child: Sugar): boolean {
+        if(sugar === child) {
+            return true;
+        }
+        else if(!child.isCyclicEmpty()) {
+            return false;
+        }
+        else {
+            for(let child_child: Sugar of child.getChildSugars()) {
+                let result: boolean = this.recuversiveCheckSugarInGlycan(sugar, child_child);
+                if(result) {
+                    return result;
+                }
+            }
+        }
+        return false;
+
+    }
+
 
     // isFragmentBracketEmpty(): boolean {
     //     return !Object.keys(this.fragmentBracket).length;

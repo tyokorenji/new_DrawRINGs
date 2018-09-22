@@ -67,6 +67,8 @@ export class InterFace extends React.Component {
             liaise.initUndefLinakgeSelect();
             //undefCompositionの設定を削除
             liaise.initUndefComposition();
+            //Fragmentの状態を削除
+            liaise.initFragmentBrackCondition();
         }
         else if (targetId === "edge") {
             currentState.current_mode_type = modeType.EDGE;
@@ -95,6 +97,8 @@ export class InterFace extends React.Component {
             liaise.initUndefLinakgeSelect();
             //undefCompositionの設定を削除
             liaise.initUndefComposition();
+            //Fragmentの状態を削除
+            liaise.initFragmentBrackCondition();
         }
         else if (targetId === "addModification") {
             currentState.current_mode_type = modeType.ADD_MODIFICATION;
@@ -123,6 +127,8 @@ export class InterFace extends React.Component {
             liaise.initUndefLinakgeSelect();
             //undefCompositionの設定を削除
             liaise.initUndefComposition();
+            //Fragmentの状態を削除
+            liaise.initFragmentBrackCondition();
         }
         else if (targetId === "structure") {
             currentState.current_mode_type = modeType.STRUCTURE;
@@ -151,6 +157,8 @@ export class InterFace extends React.Component {
             liaise.initUndefLinakgeSelect();
             //undefCompositionの設定を削除
             liaise.initUndefComposition();
+            //Fragmentの状態を削除
+            liaise.initFragmentBrackCondition();
         }
         else if (targetId === "repeat") {
             currentState.current_mode_type = modeType.REPEAT;
@@ -179,6 +187,8 @@ export class InterFace extends React.Component {
             liaise.initUndefLinakgeSelect();
             //undefCompositionの設定を削除
             liaise.initUndefComposition();
+            //Fragmentの状態を削除
+            liaise.initFragmentBrackCondition();
         }
         else if (targetId === "fragment") {
             currentState.current_mode_type = modeType.FRAGMENT;
@@ -221,6 +231,8 @@ export class InterFace extends React.Component {
             liaise.initUndefLinakgeSelect();
             //undefCompositionの設定を削除
             liaise.initUndefComposition();
+            //Fragmentの状態を削除
+            liaise.initFragmentBrackCondition();
 
         }
         else if (targetId === "clear") {
@@ -247,6 +259,8 @@ export class InterFace extends React.Component {
             liaise.initUndefLinakgeSelect();
             //undefCompositionの設定を削除
             liaise.initUndefComposition();
+            //Fragmentの状態を削除
+            liaise.initFragmentBrackCondition();
         }
         else if (targetId === "drawKCF") {
             currentState.current_mode_type = modeType.DRAW_KCF;
@@ -274,6 +288,8 @@ export class InterFace extends React.Component {
             liaise.initUndefLinakgeSelect();
             //undefCompositionの設定を削除
             liaise.initUndefComposition();
+            //Fragmentの状態を削除
+            liaise.initFragmentBrackCondition();
         }
         else if (targetId === "KCFTextOut") {
             currentState.current_mode_type = modeType.KCF_TEXT_OUT;
@@ -301,6 +317,8 @@ export class InterFace extends React.Component {
             liaise.initUndefLinakgeSelect();
             //undefCompositionの設定を削除
             liaise.initUndefComposition();
+            //Fragmentの状態を削除
+            liaise.initFragmentBrackCondition();
         }
         // else if (targetId === "undo") {
         //     currentState.current_mode_type = modeType.UNDO;

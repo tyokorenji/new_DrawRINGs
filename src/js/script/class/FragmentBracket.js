@@ -10,12 +10,14 @@ class FragmentBracket extends Bracket {
     parentSugars: Array<Sugar>;  //フラグメントがつく親単糖
     parentGlycan: Object ; //親となる糖鎖構造
     childGlycans: Array<Object>;  //フラグメントの糖鎖構造
+    isResuctionSugar: boolean;
 
     constructor(){
         super();
         this.parentSugars = [];
         this.parentGlycan = {};
         this.childGlycans = [];
+        this.isResuctionSugar = false;
     }
 
     getParentSugars(): Array<Sugar> {
@@ -56,6 +58,15 @@ class FragmentBracket extends Bracket {
             }
         }
         return;
+    }
+
+    changeIsReductionSugar() {
+        if(this.isResuctionSugar) {
+            this.isResuctionSugar = false;
+        }
+        else {
+            this.isResuctionSugar = true;
+        }
     }
 
 }

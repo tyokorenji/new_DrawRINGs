@@ -117,10 +117,9 @@ export function canvasClickEvent() {
         }
 
         case modeType.FRAGMENT: {
-            if(liaise.isSelectedGlycanEmpty()) {
-                return;
-            }
-            else {
+            if(liaise.isSelectedGlycanEmpty() && liaise.isSelectedFragmentNonReductionSugarEmpty()) return;
+            else if(!liaise.isSelectedFragmentNonReductionSugarEmpty() && liaise.getSelectedFragmentNonReductionSugar()[0].isFragmentBracketEmpty()) return;
+            else{
                 let mouseCoordinate: Array<number> = getMouseCoordinateCanvas(event);
                 let coordinates: Array<number> = getRelativeCoordinate(mouseCoordinate[0], mouseCoordinate[1]);
                 if(coordinates[0] === 0 && coordinates[1] === 0) {
@@ -130,10 +129,6 @@ export function canvasClickEvent() {
                     return;
                 }
                 console.log("canvasClick Fragmentに入ったよ！");
-                // let shapeType: Symbol = nodeType(liaise.nodeSelect);
-                // let sugar: Sugar = createNodeShape(shapeType, event);
-                // sugar.setCoordinate(coordinates[0], coordinates[1]);
-                // setGlids.push(coordinates);
                 let shapeType: Symbol;
                 let sugar: Sugar;
                 let difIsomerFlag: boolean = false;
@@ -205,19 +200,27 @@ export function canvasClickEvent() {
                 let fragmentGlycan: Fragment = new Fragment();
                 fragmentGlycan.setRootNode(sugar);
                 sugar.setGlycan(fragmentGlycan);
-                fragmentGlycan.setParentFragmentBracket(liaise.selectedGlycan[0].getFragmentBracket());
-                liaise.selectedGlycan[0].getFragmentBracket().setChildGlycans(fragmentGlycan);
+                //糖鎖構造全体に対しフラグメントがつくとき
+                if(!liaise.isSelectedGlycanEmpty()){
+                    fragmentGlycan.setParentFragmentBracket(liaise.selectedGlycan[0].getFragmentBracket());
+                    liaise.selectedGlycan[0].getFragmentBracket().setChildGlycans(fragmentGlycan);
+                }
+                //非還元末端にフラグメントがつくとき
+                else {
+                    fragmentGlycan.setParentFragmentBracket(liaise.getSelectedFragmentNonReductionSugar()[0].getFragmentBracket());
+                    liaise.getSelectedFragmentNonReductionSugar()[0].getFragmentBracket().setChildGlycans(fragmentGlycan);
+                }
                 let edge: Glycobond = createFragmentBind(sugar);
                 edge.setChildSugar(sugar);
                 sugar.setParentBond(edge);
                 edge.addEventListener("click", edgeClickEvent, false);
-                console.log(edge);
                 liaise.removeStage(sugar);
                 liaise.addStage(edge);
                 liaise.addStage(sugar);
                 liaise.stageUpdate();
                 return;
             }
+            break;
         }
         default: {
             return;

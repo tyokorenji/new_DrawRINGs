@@ -13,6 +13,7 @@ import { Modification } from "./Modification";
 import { MultipleBond } from "./MultipleBond";
 import { Bridge } from "./Bridge";
 import { BridgeEdge } from "./BridgeEdge";
+import { FragmentBracket } from "./FragmentBracket";
 
 class Sugar extends Node{
     name: string;  //単糖の名前
@@ -29,6 +30,7 @@ class Sugar extends Node{
     childMultipleBind: Array<Object>;
     carbBone: number;
     childBridge: Array<Object>;
+    fragmentBracket: Object;
 
 
     constructor(name: string){
@@ -47,6 +49,7 @@ class Sugar extends Node{
         this.carbBone = NaN;
         this.repeatBracket = {};
         this.childBridge =[];
+        this.fragmentBracket = {};
     }
 
 
@@ -260,6 +263,16 @@ class Sugar extends Node{
     hasChildBridge(): boolean {
         if(this.childBridge.length !== 0) return true;
         else return false;
+    }
+
+    setFragmentBracket(fragmentBracket: FragmentBracket) {
+        this.fragmentBracket = fragmentBracket;
+    }
+    getFragmentBracket(): FragmentBracket {
+        return this.fragmentBracket;
+    }
+    isFragmentBracketEmpty(): boolean {
+        return !Object.keys(this.fragmentBracket).length;
     }
 
 
