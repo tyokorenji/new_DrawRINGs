@@ -31,7 +31,7 @@ export let createBridgeModification = (targetSugar: Sugar) => {
         parentSugar = parentChild[0];  //親単糖を代入
         childSugar = parentChild[1];  //子単糖を代入
         //隣り合った単糖出なかった場合,Error
-        if(parentSugar.getLayer() + 1 !== childSugar.getLayer()) {
+        if(parentSugar.getXLayer() + 1 !== childSugar.getXLayer()) {
             alert("Please select adjacent sugar.");
             return;
         }
@@ -45,7 +45,7 @@ export let createBridgeModification = (targetSugar: Sugar) => {
             cyclicFlag = true;
         }
         //選択した単糖が隣り合った単糖であった場合
-        else if(parentChild[0].getLayer() + 1 === parentChild[1].getLayer()) {
+        else if(parentChild[0].getXLayer() + 1 === parentChild[1].getXLayer()) {
             parentSugar = parentChild[0];  //親単糖を代入
             childSugar = parentChild[1];  //子単糖を代入
         }

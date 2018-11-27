@@ -25,12 +25,16 @@ class Sugar extends Node{
     glycan: Glycan;  //Sugarが所属するGlycanオブジェクト
     repeatBracket: Object;  //繰り返しのstartNodeの時、Bracketを持つ
     cyclic: Object; //その糖鎖がCyclic構造を形成する単糖で、非還元末端側の場合
-    layer: number;
+    Xlayer: number;
+    YLayer: number;
     childModifications: Array<Object>;
     childMultipleBind: Array<Object>;
     carbBone: number;
     childBridge: Array<Object>;
     fragmentBracket: Object;
+    svgXCoord: number;
+    svgYCoord: number;
+    svgShape: string;
 
 
     constructor(name: string){
@@ -43,16 +47,23 @@ class Sugar extends Node{
         this.ringShape;
         this.glycan;
         this.cyclic = {};
-        this.layer = 1;
+        this.Xlayer = 0;
+        this.Ylayer = 0;
         this.childModifications = [];
         this.childMultipleBind = [];
         this.carbBone = NaN;
         this.repeatBracket = {};
         this.childBridge =[];
         this.fragmentBracket = {};
+        this.svgXCoord = -1;
+        this.svgYCoord = -1;
+        this.svgShape = "";
     }
 
 
+    changeName(name: string) {
+        this.name = name;
+    }
     getName(): string{
         return this.name;
     }
@@ -214,12 +225,19 @@ class Sugar extends Node{
     }
 
 
-    setLayer(layer: number) {
-        this.layer = layer;
+    setXLayer(layer: number) {
+        this.Xlayer = layer;
         return;
     }
-    getLayer(): number {
-        return this.layer;
+    getXLayer(): number {
+        return this.Xlayer;
+    }
+
+    setYLayer(layer: number) {
+        this.YLayer = layer;
+    }
+    getYLayer(): number {
+        return this.YLayer;
     }
 
     setChildModifications(modification: Modification) {
@@ -273,6 +291,30 @@ class Sugar extends Node{
     }
     isFragmentBracketEmpty(): boolean {
         return !Object.keys(this.fragmentBracket).length;
+    }
+
+    setSvgXCoord(coord: number) {
+        this.svgXCoord = coord;
+    }
+    getSvgXCoord(): number {
+        return this.svgXCoord;
+    }
+
+    setSvgYCoord(coord: number) {
+        this.svgYCoord = coord;
+    }
+    getSvgYCoord(): number {
+        return this.svgYCoord;
+    }
+
+    setSvgShape(svg: string) {
+        this.svgShape = svg;
+    }
+    getSvgShape(): string {
+        return this.svgShape;
+    }
+    addSvgShape(addString: string) {
+        this.svgShape += addString;
     }
 
 

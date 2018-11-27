@@ -88,7 +88,7 @@ export let createModification = ( targetSugar: Sugar ) => {
             let modification = new Modification();
             let modificationBind = new Modificationbond();
             modification.setName(liaise.selectedModification);
-            modificationBind.setParentPosition(item);
+            modificationBind.setParentSugarPosition(item);
             modification.setModificationBond(modificationBind);
             changeModifications.push(modification);
         }

@@ -25,5 +25,7 @@ export let basicData: Object = {
     "compositionTextSize": 30,
     "bridgeSize": 30,
     "isomerSize": 20,
-    "ringSize": 20
+    "ringSize": 20,
+    "svgLinkageUp": 8,  //右、下にずらす
+    "svgLinkagedown": -8
 };

@@ -13,6 +13,7 @@ import KcfTextOutImg from "../../../image/kcf_text_out.png";
 // import RedoImg from "../../../image/redo.png";
 import AddModificationImg from "../../../image/add_modification.png";
 import CompositionImg from "../../../image/composition.png";
+import SVGDownloadImg from "../../../image/svg_download.png";
 
 import { ImageWrap } from "./imageWrap";
 import { ExplainTextarea } from "./explainTextarea";
@@ -23,6 +24,7 @@ import {glycans, liaise, compositions} from "../script/main";
 import { initGlycans } from "../script/main";
 import { initGlids } from "../script/main";
 import { removeAll } from "../script/removeObjet/removeAll";
+import {createSVG} from "../script/createSVG/createSVG";
 
 export class InterFace extends React.Component {
     constructor(props) {
@@ -320,6 +322,42 @@ export class InterFace extends React.Component {
             //Fragmentの状態を削除
             liaise.initFragmentBrackCondition();
         }
+        else if(targetId === "SVGDownload") {
+            currentState.current_mode_type = modeType.SVG_DOWNLOAD;
+            currentState.sideBarVisible = false;
+            if(!liaise.isSelectedGlycanEmpty()) {
+                for (let selectedGlycan of liaise.getSelectedGlycan()) {
+                    selectedGlycan.offLight(selectedGlycan.getRootNode());
+                }
+                // liaise.getSelectedGlycan().offLight(liaise.getSelectedGlycan().getRootNode());}
+                liaise.initSelectedGlycan();
+            }
+            liaise.initModifiactionCondition();
+            if(compositions.length !== 0) {
+                removeAll();
+                liaise.stageUpdate();
+            }
+            if(liaise.nodeClick) {
+                liaise.selectedNode.offLight();
+                liaise.removeSelectedNode();
+                liaise.changeNodeClick();
+            }
+            //undeNodeの設定を削除
+            liaise.initUndefNodeSelect();
+            //undefLinkageの設定を削除
+            liaise.initUndefLinakgeSelect();
+            //undefCompositionの設定を削除
+            liaise.initUndefComposition();
+            //Fragmentの状態を削除
+            liaise.initFragmentBrackCondition();
+            for(let glycan of glycans) {
+                if(Object.keys(glycan).length !== 0) {
+                    createSVG(glycan);
+                    // drawGlycan(glycan);
+                }
+            }
+            console.log("SVG download!");
+        }
         // else if (targetId === "undo") {
         //     currentState.current_mode_type = modeType.UNDO;
         //     currentState.sideBarVisible = false;
@@ -358,6 +396,7 @@ export class InterFace extends React.Component {
         else if (e.target.id === "clear") currentState.explainText = "Clear canvas!!!";
         else if (e.target.id === "draeKCF") currentState.explainText = "Image to KCF!!!";
         else if (e.target.id === "KCFTextOut") currentState.explainText = "KCF to Image!!!";
+        else if (e.target.id === "SVGDownload") currentState.explainText = "SVG format download!!!";
         // else if (e.target.id === "undo") currentState.explainText = "Undo!!!";
         // else if (e.target.id === "redo") currentState.explainText = "Redo!!!";
 
@@ -366,7 +405,7 @@ export class InterFace extends React.Component {
 
     render() {
         const defImageStyle = {
-            width: "10%",
+            width: "9%",
             height: "10%",
             centered: true,
             onMouseOver : (event) => {this.mouseOverEvent(event);},
@@ -415,6 +454,7 @@ export class InterFace extends React.Component {
                     <ImageWrap id = "clear" content = "Clear canvas" selected = { this.state.current_mode_type === modeType.CLEAR } image = { ClearImg } defStyle = { defImageStyle } />
                     <ImageWrap id = "drawKCF" content = "Image to KCF" selected = { this.state.current_mode_type === modeType.DRAW_KCF } image = { DrawKcfImg } defStyle = { defImageStyle } />
                     <ImageWrap id = "KCFTextOut" content = "KCF to Image" selected = { this.state.current_mode_type === modeType.KCF_TEXT_OUT } image = { KcfTextOutImg } defStyle = { defImageStyle } />
+                    <ImageWrap id = "SVGDownload" content = "SVG format download" selected = { this.state.current_mode_type === modeType.SVG_DOWNLOAD } image = { SVGDownloadImg } defStyle = { defImageStyle } />
                     {/*<ImageWrap id = "undo" content = "Undo" selected = { this.state.current_mode_type === modeType.UNDO } image = { UndoImg } defStyle = { defImageStyle } />*/}
                     {/*<ImageWrap id = "redo" content = "Redo" selected = { this.state.current_mode_type === modeType.REDO } image = { RedoImg } defStyle = { defImageStyle } />*/}
                 </div>

@@ -1,7 +1,7 @@
 //@flow
 "use strict";
 
-export function getColor(color: string) {
+export function getColor(color: string): string  {
     switch (color) {
         case "white": return "rgb(255, 255, 255)";
         case "blue": return "rgb(0, 144, 188)";
@@ -14,6 +14,7 @@ export function getColor(color: string) {
         case "brown": return "rgb(161, 122, 77)";
         case "red": return "rgb(237, 28, 36)";
         case "black": return "rgb(0, 0, 0)";
+        default: return "";
     }
 
 }

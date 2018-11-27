@@ -1,0 +1,37 @@
+//@flow
+"use strict";
+
+export const JSONKeys = {
+    SubFragments: "SubFragments",
+    Position: "Position",
+    ChildSide: "ChildSide",
+    ParentSide: "ParentSide",
+    Probability: "Probability",
+    High: "High",
+    Low: "Low",
+    Notation: "Notation",
+    LinkageType: "LinkageType",
+    ParentNodeID: "ParentNodeID",
+    Monosaccharides: "Monosaccharides",
+    Modifications: "Modifications",
+    PositionOne: "PositionOne",
+    PositionTwo: "PositionTwo",
+    TrivialName: "TrivialName",
+    RingEnd: "RingEnd",
+    AnomericSymbol: "AnomericSymbol",
+    Subsituents: "Substituents",
+    SuperClass: "SuperClass",
+    AnomericPosition: "AnomericPosition",
+    RingStart: "RingStart",
+    Edge: "Edge",
+    Parent: "Parent",
+    Bridge: "Bridge",
+    Repeat: "Repeat",
+    Min: "Min",
+    Max: "Max",
+    Fragment: "Fragment",
+    AnchorID: "AnchorID",
+    MultipleBond: "MultipleBond",
+    Configuration: "Configuration",
+    TrivialNotation: "TrivialNotation"
+};

@@ -29,6 +29,7 @@ class LiaiseUI {
     undefComposition: boolean;
     undefCompositionName: string;
     selectedFragmentNonReductionSugar: Array<Sugar>;
+    textAreaValue: Object;
 
 
     constructor() {
@@ -60,6 +61,7 @@ class LiaiseUI {
         this.undefComposition = false;
         this.undefCompositionName = "";
         this.selectedFragmentNonReductionSugar = [];
+        this.textAreaValue = {};
     }
 
     initFragmentBrackCondition() {
@@ -218,6 +220,17 @@ class LiaiseUI {
     initSelectedFragmentNonReductionSugar() {
         this.selectedFragmentNonReductionSugar = [];
     }
+
+    setTextAreaValue(text: string) {
+        this.textAreaValue = JSON.parse(text);
+    }
+    getTextAreaValue(): Object {
+        return this.textAreaValue;
+    }
+    initTextAreaValue() {
+        this.textAreaValue = {};
+    }
+
 }
 
 

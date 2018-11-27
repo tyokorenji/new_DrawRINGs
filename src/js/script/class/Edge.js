@@ -6,13 +6,13 @@ import { Sugar } from "./Sugar";
 
 class Edge extends VisibleElement{
     linkageType: string;
-    parentSugar: Sugar;
+    parentSugar: Object;
     parentPosition: string;  //親Nodeの結合位置(未定義の場合"undefined")
 
     constructor(){
         super();
         this.linkageType = "undefined";
-        this.parentSugar;
+        this.parentSugar = {};
         this.parentPosition = "undefined";
     }
 
@@ -31,9 +31,8 @@ class Edge extends VisibleElement{
     getParentSugar(): Sugar {
         return this.parentSugar;
     }
-    hasParentSugar(): boolean {
-        if (this.parentSugr === {}) return false;
-        else return true;
+    isEmptyParentSugar(): boolean {
+        return !Object.keys(this.parentSugar).length;
     }
 
     hasParentPosition(): boolean {

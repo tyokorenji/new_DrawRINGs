@@ -5,7 +5,7 @@ import { Sugar } from "./class/Sugar";
 
 export function culcParentChild(sugar1: Sugar, sugar2: Sugar): Array<Sugar> {
     let parentChild: Array<Sugar> = [];
-    if (sugar1.getLayer() < sugar2.getLayer()) {
+    if (sugar1.getXLayer() < sugar2.getXLayer()) {
         parentChild = [sugar1, sugar2];
     }
     else {

@@ -35,8 +35,39 @@ class Node extends VisibleElement {
     }
 
     hasChildSugars(): boolean{
-        if (this.parentSugars.length != 0) return true;
+        if (this.childSugars.length != 0) return true;
         else return false;
+    }
+    sortChildSugar() {
+        let sortedList: Array<Sugar> = [];
+        if(this.getChildSugars().length === 1) {
+            return;
+        }
+        let bindList: Array<Glycobond> = [];
+        for(let child: Sugar of this.getChildSugars()) {
+            for(let bind: Glycobond of child.getParentBond()) {
+                if(bind.getParentSugar() === this) {
+                    console.log("入ってる?");
+                    bindList.push(bind);
+                }
+            }
+        }
+        bindList.sort(function(a, b){
+            if(Number(a.parentPosition) > Number(b.parentPosition)) return -1;
+            if(Number(a.parentPosition) < Number(b.parentPosition)) return 1;
+            return 0;
+        });
+        console.log("bindList", bindList);
+        for(let bind: Glycobond of bindList) {
+            for(let child: Sugar of this.getChildSugars()) {
+                for(let cbind: Glycobond of child.getParentBond()) {
+                    if(cbind === bind) {
+                        sortedList.push(child);
+                    }
+                }
+            }
+        }
+        this.childSugars = sortedList;
     }
 
     getChildNodes(): Array<Node> {
@@ -48,10 +79,10 @@ class Node extends VisibleElement {
         return;
     }
 
-    hasChildSugars(): boolean{
-        if (this.childSugars.length != 0) return true;
-        else return false;
-    }
+    // hasChildSugars(): boolean{
+    //     if (this.childSugars.length != 0) return true;
+    //     else return false;
+    // }
 
     getChildSugars(): Array<Sugar> {
         return this.childSugars;

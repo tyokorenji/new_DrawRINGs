@@ -11,6 +11,7 @@ export const modeType = {
     CLEAR: Symbol(),
     DRAW_KCF: Symbol(),
     KCF_TEXT_OUT: Symbol(),
+    SVG_DOWNLOAD: Symbol(),
     // UNDO: Symbol(),
     // REDO: Symbol(),
     NOT_SELECTED: Symbol()

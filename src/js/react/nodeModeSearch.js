@@ -2,96 +2,97 @@
 "use strict";
 
 import { nodeModeType } from "./nodeModeType";
+import { getColor } from "../script/data/getColor";
 
 export function nodeModeSearch(target: string) {
-    switch (target) {
-        case "Hexose": return nodeModeType.HEXOSE;
-        case "Glc": return nodeModeType.GLC;
-        case "Man": return nodeModeType.MAN;
-        case "Gal": return nodeModeType.GAL;
-        case "Gul": return nodeModeType.GUL;
-        case "Alt": return nodeModeType.ALT;
-        case "All": return nodeModeType.ALL;
-        case "Tal": return nodeModeType.TAL;
-        case "Ido": return nodeModeType.IDO;
-        case "HexNAc": return nodeModeType.HEXNAC;
-        case "GlcNAc": return nodeModeType.GLCNAC;
-        case "ManNAc": return nodeModeType.MANNAC;
-        case "GalNAc": return nodeModeType.GALNAC;
-        case "GulNAc": return nodeModeType.GULNAC;
-        case "AltNAc": return nodeModeType.ALTNAC;
-        case "AllNAc": return nodeModeType.ALLNAC;
-        case "TalNAc": return nodeModeType.TALNAC;
-        case "IdoNAc": return nodeModeType.IDONAC;
-        case "Hexosamine": return nodeModeType.HEXOSAMINE;
-        case "GlcN": return nodeModeType.GLCN;
-        case "ManN": return nodeModeType.MANN;
-        case "GalN": return nodeModeType.GALN;
-        case "GulN": return nodeModeType.GULN;
-        case "AltN": return nodeModeType.ALTN;
-        case "AllN": return nodeModeType.ALLN;
-        case "TalN": return nodeModeType.TALN;
-        case "IdoN": return nodeModeType.IDON;
-        case "Hexuronate": return nodeModeType.HEXURONATE;
-        case "GlcA": return nodeModeType.GLCA;
-        case "ManA": return nodeModeType.MANA;
-        case "GalA": return nodeModeType.GALA;
-        case "GulA": return nodeModeType.GULA;
-        case "AltA": return nodeModeType.ALTA;
-        case "AllA": return nodeModeType.ALLA;
-        case "TalA": return nodeModeType.TALA;
-        case "IdoA": return nodeModeType.IDOA;
-        case "Deoxyhexose": return nodeModeType.DEOXYHEXOSE;
-        case "Qui": return nodeModeType.QUI;
-        case "Rha": return nodeModeType.RHA;
-        case "6dGul": return nodeModeType.D6GUL;
-        case "6dAlt": return nodeModeType.D6ALT;
-        case "6dTal": return nodeModeType.D6TAL;
-        case "Fuc": return nodeModeType.FUC;
-        case "DeoxyhexNAc": return nodeModeType.DEOXYHEXNAC;
-        case "QuiNAc": return nodeModeType.QUINAC;
-        case "RhaNAc": return nodeModeType.RHANAC;
-        case "6dAltNAc": return nodeModeType.D6ALTNAC;
-        case "6dTalNAc": return nodeModeType.D6TALNAC;
-        case "FucNAc": return nodeModeType.FUCNAC;
-        case "Di-deoxyhexose": return nodeModeType.DI_DEOXYHEXOSE;
-        case "Oli": return nodeModeType.OLI;
-        case "Tyv": return nodeModeType.TYV;
-        case "Abe": return nodeModeType.ABE;
-        case "Par": return nodeModeType.PAR;
-        case "Dig": return nodeModeType.DIG;
-        case "Col": return nodeModeType.COL;
-        case "Pentose": return nodeModeType.PENTOSE;
-        case "Ara": return nodeModeType.ARA;
-        case "Lyx": return nodeModeType.LYX;
-        case "Xyl": return nodeModeType.XYL;
-        case "Rib": return nodeModeType.RIB;
-        case "Deoxynonulosonate": return nodeModeType.DEOXYNONULOSONATE;
-        case "Kdn": return nodeModeType.KDN;
-        case "Neu5Ac": return nodeModeType.NEU5AC;
-        case "Neu5Gc": return nodeModeType.NEU5GC;
-        case "Neu": return nodeModeType.NEU;
-        case "Sia": return nodeModeType.SIA;
-        case "Di-deoxynonulosonate": return nodeModeType.DI_DEOXYNONULOSONATE;
-        case "Pse": return nodeModeType.PSE;
-        case "Leg": return nodeModeType.LEG;
-        case "Aci": return nodeModeType.ACI;
-        case "4eLeg": return nodeModeType.E4LEG;
-        case "Unknown": return nodeModeType.UNKNOWN;
-        case "Bac": return nodeModeType.BAC;
-        case "LDmanHep": return nodeModeType.LDMANHEP;
-        case "Kdo": return nodeModeType.KDO;
-        case "Dha": return nodeModeType.DHA;
-        case "DDmanHep": return nodeModeType.DDMANHEP;
-        case "MurNAc": return nodeModeType.MURNAC;
-        case "MurNGc": return nodeModeType.MURNGC;
-        case "Mur": return nodeModeType.MUR;
-        case "Assigned": return nodeModeType.ASSIGNED;
-        case "Api": return nodeModeType.API;
-        case "Fru": return nodeModeType.FRU;
-        case "Tag": return nodeModeType.TAG;
-        case "Sor": return nodeModeType.SOR;
-        case "Psi": return nodeModeType.PSI;
+    switch (target.toLowerCase()) {
+        case "Hexose".toLowerCase(): return nodeModeType.HEXOSE;
+        case "Glc".toLowerCase(): return nodeModeType.GLC;
+        case "Man".toLowerCase(): return nodeModeType.MAN;
+        case "Gal".toLowerCase(): return nodeModeType.GAL;
+        case "Gul".toLowerCase(): return nodeModeType.GUL;
+        case "Alt".toLowerCase(): return nodeModeType.ALT;
+        case "All".toLowerCase(): return nodeModeType.ALL;
+        case "Tal".toLowerCase(): return nodeModeType.TAL;
+        case "Ido".toLowerCase(): return nodeModeType.IDO;
+        case "HexNAc".toLowerCase(): return nodeModeType.HEXNAC;
+        case "GlcNAc".toLowerCase(): return nodeModeType.GLCNAC;
+        case "ManNAc".toLowerCase(): return nodeModeType.MANNAC;
+        case "GalNAc".toLowerCase(): return nodeModeType.GALNAC;
+        case "GulNAc".toLowerCase(): return nodeModeType.GULNAC;
+        case "AltNAc".toLowerCase(): return nodeModeType.ALTNAC;
+        case "AllNAc".toLowerCase(): return nodeModeType.ALLNAC;
+        case "TalNAc".toLowerCase(): return nodeModeType.TALNAC;
+        case "IdoNAc".toLowerCase(): return nodeModeType.IDONAC;
+        case "Hexosamine".toLowerCase(): return nodeModeType.HEXOSAMINE;
+        case "GlcN".toLowerCase(): return nodeModeType.GLCN;
+        case "ManN".toLowerCase(): return nodeModeType.MANN;
+        case "GalN".toLowerCase(): return nodeModeType.GALN;
+        case "GulN".toLowerCase(): return nodeModeType.GULN;
+        case "AltN".toLowerCase(): return nodeModeType.ALTN;
+        case "AllN".toLowerCase(): return nodeModeType.ALLN;
+        case "TalN".toLowerCase(): return nodeModeType.TALN;
+        case "IdoN".toLowerCase(): return nodeModeType.IDON;
+        case "Hexuronate".toLowerCase(): return nodeModeType.HEXURONATE;
+        case "GlcA".toLowerCase(): return nodeModeType.GLCA;
+        case "ManA".toLowerCase(): return nodeModeType.MANA;
+        case "GalA".toLowerCase(): return nodeModeType.GALA;
+        case "GulA".toLowerCase(): return nodeModeType.GULA;
+        case "AltA".toLowerCase(): return nodeModeType.ALTA;
+        case "AllA".toLowerCase(): return nodeModeType.ALLA;
+        case "TalA".toLowerCase(): return nodeModeType.TALA;
+        case "IdoA".toLowerCase(): return nodeModeType.IDOA;
+        case "Deoxyhexose".toLowerCase(): return nodeModeType.DEOXYHEXOSE;
+        case "Qui".toLowerCase(): return nodeModeType.QUI;
+        case "Rha".toLowerCase(): return nodeModeType.RHA;
+        case "6dGul".toLowerCase(): return nodeModeType.D6GUL;
+        case "6dAlt".toLowerCase(): return nodeModeType.D6ALT;
+        case "6dTal".toLowerCase(): return nodeModeType.D6TAL;
+        case "Fuc".toLowerCase(): return nodeModeType.FUC;
+        case "DeoxyhexNAc".toLowerCase(): return nodeModeType.DEOXYHEXNAC;
+        case "QuiNAc".toLowerCase(): return nodeModeType.QUINAC;
+        case "RhaNAc".toLowerCase(): return nodeModeType.RHANAC;
+        case "6dAltNAc".toLowerCase(): return nodeModeType.D6ALTNAC;
+        case "6dTalNAc".toLowerCase(): return nodeModeType.D6TALNAC;
+        case "FucNAc".toLowerCase(): return nodeModeType.FUCNAC;
+        case "Di-deoxyhexose".toLowerCase(): return nodeModeType.DI_DEOXYHEXOSE;
+        case "Oli".toLowerCase(): return nodeModeType.OLI;
+        case "Tyv".toLowerCase(): return nodeModeType.TYV;
+        case "Abe".toLowerCase(): return nodeModeType.ABE;
+        case "Par".toLowerCase(): return nodeModeType.PAR;
+        case "Dig".toLowerCase(): return nodeModeType.DIG;
+        case "Col".toLowerCase(): return nodeModeType.COL;
+        case "Pentose".toLowerCase(): return nodeModeType.PENTOSE;
+        case "Ara".toLowerCase(): return nodeModeType.ARA;
+        case "Lyx".toLowerCase(): return nodeModeType.LYX;
+        case "Xyl".toLowerCase(): return nodeModeType.XYL;
+        case "Rib".toLowerCase(): return nodeModeType.RIB;
+        case "Deoxynonulosonate".toLowerCase(): return nodeModeType.DEOXYNONULOSONATE;
+        case "Kdn".toLowerCase(): return nodeModeType.KDN;
+        case "Neu5Ac".toLowerCase(): return nodeModeType.NEU5AC;
+        case "Neu5Gc".toLowerCase(): return nodeModeType.NEU5GC;
+        case "Neu".toLowerCase(): return nodeModeType.NEU;
+        case "Sia".toLowerCase(): return nodeModeType.SIA;
+        case "Di-deoxynonulosonate".toLowerCase(): return nodeModeType.DI_DEOXYNONULOSONATE;
+        case "Pse".toLowerCase(): return nodeModeType.PSE;
+        case "Leg".toLowerCase(): return nodeModeType.LEG;
+        case "Aci".toLowerCase(): return nodeModeType.ACI;
+        case "4eLeg".toLowerCase(): return nodeModeType.E4LEG;
+        case "Unknown".toLowerCase(): return nodeModeType.UNKNOWN;
+        case "Bac".toLowerCase(): return nodeModeType.BAC;
+        case "LDmanHep".toLowerCase(): return nodeModeType.LDMANHEP;
+        case "Kdo".toLowerCase(): return nodeModeType.KDO;
+        case "Dha".toLowerCase(): return nodeModeType.DHA;
+        case "DDmanHep".toLowerCase(): return nodeModeType.DDMANHEP;
+        case "MurNAc".toLowerCase(): return nodeModeType.MURNAC;
+        case "MurNGc".toLowerCase(): return nodeModeType.MURNGC;
+        case "Mur".toLowerCase(): return nodeModeType.MUR;
+        case "Assigned".toLowerCase(): return nodeModeType.ASSIGNED;
+        case "Api".toLowerCase(): return nodeModeType.API;
+        case "Fru".toLowerCase(): return nodeModeType.FRU;
+        case "Tag".toLowerCase(): return nodeModeType.TAG;
+        case "Sor".toLowerCase(): return nodeModeType.SOR;
+        case "Psi".toLowerCase(): return nodeModeType.PSI;
         default: return nodeModeType.NOT_SELECTED;
     }
 }
@@ -202,3 +203,108 @@ export function nodeType(target: Symbol): Symbol {
     }
 
 }
+
+export const getSymbolColor = (SNFGNameSymbol: Symbol): string => {
+    switch (SNFGNameSymbol) {
+        case nodeModeType.HEXOSE:
+        case nodeModeType.HEXNAC:
+        case nodeModeType.HEXOSAMINE:
+        case nodeModeType.HEXURONATE:
+        case nodeModeType.DEOXYHEXOSE:
+        case nodeModeType.DEOXYHEXNAC:
+        case nodeModeType.DI_DEOXYHEXOSE:
+        case nodeModeType.PENTOSE:
+        case nodeModeType.DEOXYNONULOSONATE:
+        case nodeModeType.DI_DEOXYNONULOSONATE:
+        case nodeModeType.UNKNOWN:
+        case nodeModeType.ASSIGNED:
+            return getColor("white");
+        case nodeModeType.GLC:
+        case nodeModeType.GLCNAC:
+        case nodeModeType.GLCN:
+        case nodeModeType.GLCA:
+        case nodeModeType.QUI:
+        case nodeModeType.QUINAC:
+        case nodeModeType.OLI:
+        case nodeModeType.BAC:
+        case nodeModeType.API:
+            return getColor("blue");
+        case nodeModeType.MAN:
+        case nodeModeType.MANNAC:
+        case nodeModeType.MANN:
+        case nodeModeType.MANA:
+        case nodeModeType.RHA:
+        case nodeModeType.RHANAC:
+        case nodeModeType.TYV:
+        case nodeModeType.ARA:
+        case nodeModeType.KDN:
+        case nodeModeType.PSE:
+        case nodeModeType.LDMANHEP:
+        case nodeModeType.FRU:
+            return getColor("green");
+        case nodeModeType.GAL:
+        case nodeModeType.GALNAC:
+        case nodeModeType.GALN:
+        case nodeModeType.GALA:
+        case nodeModeType.LYX:
+        case nodeModeType.LEG:
+        case nodeModeType.KDO:
+        case nodeModeType.TAG:
+            return getColor("yellow");
+        case nodeModeType.GUL:
+        case nodeModeType.GULNAC:
+        case nodeModeType.GULN:
+        case nodeModeType.GULA:
+        case nodeModeType.D6GUL:
+        case nodeModeType.ABE:
+        case nodeModeType.XYL:
+        case nodeModeType.DHA:
+        case nodeModeType.SOR:
+            return getColor("orange");
+        case nodeModeType.ALT:
+        case nodeModeType.ALTNAC:
+        case nodeModeType.ALTN:
+        case nodeModeType.ALTA:
+        case nodeModeType.D6ALT:
+        case nodeModeType.D6ALTNAC:
+        case nodeModeType.PAR:
+        case nodeModeType.RIB:
+        case nodeModeType.ACI:
+        case nodeModeType.DDMANHEP:
+        case nodeModeType.PSI:
+            return getColor("pink");
+        case nodeModeType.ALL:
+        case nodeModeType.ALLNAC:
+        case nodeModeType.ALLN:
+        case nodeModeType.ALLA:
+        case nodeModeType.DIG:
+        case nodeModeType.NEU5AC:
+        case nodeModeType.MURNAC:
+            return getColor("purple");
+        case nodeModeType.TAL:
+        case nodeModeType.TALNAC:
+        case nodeModeType.TALN:
+        case nodeModeType.TALA:
+        case nodeModeType.D6TAL:
+        case nodeModeType.D6TALNAC:
+        case nodeModeType.COL:
+        case nodeModeType.NEU5GC:
+        case nodeModeType.E4LEG:
+        case nodeModeType.MURNGC:
+            return getColor("light_blue");
+        case nodeModeType.IDO:
+        case nodeModeType.IDONAC:
+        case nodeModeType.IDON:
+        case nodeModeType.IDOA:
+        case nodeModeType.NEU:
+        case nodeModeType.MUR:
+            return getColor("brown");
+        case nodeModeType.FUC:
+        case nodeModeType.FUCNAC:
+        case nodeModeType.SIA:
+            return getColor("red");
+        default: return "";
+
+    }
+
+};

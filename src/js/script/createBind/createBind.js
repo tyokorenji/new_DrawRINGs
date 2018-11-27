@@ -60,7 +60,8 @@ export function createEdge(target: Sugar) {
                                     }
                                     default: {
                                         for(let parentBond: Glycobond of parentChild[1].getParentBond()) {
-                                            if(!parentBond.hasParentSugar()) {
+                                            if(parentBond.isEmptyParentSugar()) {
+                                                console.log("大丈夫??");
                                                 removeGlycoBindShape(parentChild[1].getParentBond()[parentChild[1].getParentBond().indexOf(parentBond)]);
                                                 parentChild[1].getParentBond().splice(parentChild[1].getParentBond().indexOf(parentBond), 1);
                                             }
@@ -170,7 +171,7 @@ export function createEdge(target: Sugar) {
     //                     case glycans[i]: {
     //                         glycans.splice(i, 1);
     //                         childSugar.setGlycan(parentSugar.getGlycan());
-    //                         childSugar.setLayer(parentSugar.getLayer() + 1);
+    //                         childSugar.setXLayer(parentSugar.getXLayer() + 1);
     //                         break;
     //                     }
     //                     default:
@@ -260,7 +261,7 @@ let setGlycanDeta = (childSugar: Sugar, glycan: Glycan) => {
 
 //ルート単糖から全てのlayerを計算し代入
 let setLayer = (sugar: Sugar, layer: number) => {
-    sugar.setLayer(layer);
+    sugar.setXLayer(layer);
     if(sugar.isCyclicEmpty()) {
         for (let child: Sugar of sugar.getChildSugars()) {
             setLayer(child, layer + 1);

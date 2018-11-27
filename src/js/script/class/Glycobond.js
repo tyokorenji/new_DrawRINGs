@@ -9,11 +9,18 @@ class Glycobond extends Edge {
     childPosition: string;  //子Nodeの結合位置(未定義の場合"undefined")
     childSugar: Sugar;
     childAnomeric: string;
+    parentId: number;
+    svgLineShape: string;
+    svgTextShape: string;
+
 
     constructor(){
         super();
         this.childAnomeric = "undefined";
         this.childPosition = "undefined";
+        this.parentId = -1;
+        this.svgLineShape = "";
+        this.svgTextShape = "";
     }
 
     hasChildPosition(): boolean {
@@ -68,6 +75,30 @@ class Glycobond extends Edge {
     checkYCoordinate(): boolean {
         if(this.children[0].graphics._activeInstructions[0].y ===  this.children[0].graphics._activeInstructions[1].y) return true;
         else return false;
+    }
+
+    setParentId(id: number) {
+        this.parentId = id;
+    }
+    getParentId(): number {
+        return this.parentId;
+    }
+    hasParentid(): boolean {
+        if(this.parentId === -1) return false;
+        else return true;
+    }
+
+    setSvgLineShape(svg: string) {
+        this.svgLineShape = svg;
+    }
+    getSvgLineShape(): string{
+        return this.svgLineShape;
+    }
+    setSvgTextShape(svg: string) {
+        this.svgTextShape = svg;
+    }
+    getSvgTextShape(): string{
+        return this.svgTextShape;
     }
 
 

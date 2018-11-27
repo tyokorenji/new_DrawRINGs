@@ -21,7 +21,7 @@ class Modificationbond extends Edge {
         return this.parentSugarPosition;
     }
 
-    setParentPosition(parentPosition: number) {
+    setParentSugarPosition(parentPosition: number) {
         this.parentSugarPosition = parentPosition;
         return;
     }
