@@ -14,22 +14,6 @@ export let glycans: Array<Glycan> = [];  //canvas上に描画された糖鎖構�
 export let setGlids: Array<Array<number>> = [];
 export let compositions: Array<Composition> = [];
 export let compositionsGlids: Array<Array<number>> = [];
-var cl = google.loader.ClientLocation;
-if(cl){
-    //国コード（例：jp）
-    var code = cl.address.country_code;
-    //国名（例：Japan）
-    var kuni = cl.address.country;
-    //都道府県（例：東京都）
-    var todofuken = cl.address.region;
-    //市区町村（例：東村山市）
-    var sikuchoson = cl.address.city;
-    //緯度
-    var lat = cl.address.latitude;
-    //経度
-    var lon = cl.address.longltude;
-    console.log(code);
-}
 
 export let checkGrids = (coordinates: Array<number>): boolean => {
     for (let grid of setGlids) {

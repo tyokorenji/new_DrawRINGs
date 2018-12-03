@@ -33,11 +33,12 @@ export class KCFTextArea extends React.Component {
         let parser: JSONParser = new JSONParser(jsonObejct);
         let glycoJSON: boolean = parser.checkJson();
         if(!glycoJSON) return false;
-        let glycan: Glycan = parser.setData();
-        if(Object.keys(glycan).length !== 0) {
-            // createSVG(glycan);
-            drawGlycan(glycan);
-        }
+
+        // let glycan: Glycan = parser.setData();
+        // if(Object.keys(glycan).length !== 0) {
+        //     // createSVG(glycan);
+        //     drawGlycan(glycan);
+        // }
 
 
         // throw new Error("Error!!");

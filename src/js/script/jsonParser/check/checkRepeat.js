@@ -2,62 +2,71 @@
 "use strict";
 
 import { JSONKeys } from "../../data/JSONKeys";
-import { check_position_key } from "./checkPositionKey";
-import { check_probability_key } from "./checkProbabilityKey";
-import { check_linkagetype_key } from "./checkLinkagetypeKey";
+import { check_position } from "./checkPosition";
+import { check_probability } from "./checkProbability";
+import { check_linkagetype } from "./checkLinkagetype";
 import { check_parentNodeID_value } from "./checkParentNodeIdValue";
+import {check_bridge} from "./checkBridge";
 
-export let check_repeat = (repeats: Array<Object>): boolean => {
-    for(let repeat: Object of repeats) {
+export let check_repeat = (repeat: Object): boolean => {
+    let repeat_numKeys: Array<string> = Object.keys(repeat);
+    if(repeat_numKeys.length === 0) return true;
+    for(let repeat_numKey: string of repeat_numKeys) {
+        let repeat_keys: Array<string> = Object.keys(repeat[repeat_numKey]);
+        if(repeat_keys.length === 0) return false;
         let MIN_FLAG: boolean = false;
         let POSITION_FLAG: boolean = false;
         let MAX_FLAG: boolean = false;
+        let START_FLAG: boolean = false;
         let PROBABILITY_FLAG: boolean = false;
+        let END_FLAG: boolean = false;
         let BRIDGE_FLAG: boolean = false;
         let LINKAGE_FLAG: boolean = false;
-        let PARENTNODEID_FLAG: boolean = false;
-        let keys: Array<string> = Object.keys(repeat);
-        for(let key: string of keys){
-            switch(key.toLowerCase()) {
+        for(let repeat_key: string of repeat_keys) {
+            switch(repeat_key.toLowerCase()) {
                 case JSONKeys.Min.toLowerCase(): {
-                    if(typeof repeat[key] === "number") MIN_FLAG = true;
-                    if(!MIN_FLAG) return false;
+                    if(typeof repeat[repeat_numKey][repeat_key] === "number") MIN_FLAG = true;
+                    else MIN_FLAG = false;
                     break;
                 }
                 case JSONKeys.Position.toLowerCase(): {
-                    POSITION_FLAG = check_position_key(repeat[key]);
-                    if(!POSITION_FLAG) return false;
+                    POSITION_FLAG = check_position(repeat[repeat_numKey][repeat_key]);
                     break;
                 }
                 case JSONKeys.Max.toLowerCase(): {
-                    if(typeof repeat[key] === "number") MAX_FLAG = true;
-                    if(!MAX_FLAG) return false;
+                    if(typeof repeat[repeat_numKey][repeat_key] === "number") MAX_FLAG = true;
+                    else MAX_FLAG = false;
+                    break;
+
+                }
+                case JSONKeys.Start.toLowerCase(): {
+                    if(typeof repeat[repeat_numKey][repeat_key] === "string") START_FLAG = true;
+                    else START_FLAG = false;
                     break;
                 }
                 case JSONKeys.Probability.toLowerCase(): {
-                    PROBABILITY_FLAG = check_probability_key(repeat[key]);
-                    if(!PROBABILITY_FLAG) return false;
+                    PROBABILITY_FLAG = check_probability(repeat[repeat_numKey][repeat_key]);
                     break;
                 }
-                case JSONKeys.Bridge.toLowerCase():{
-                    BRIDGE_FLAG = true;
+                case JSONKeys.End.toLowerCase(): {
+                    if(typeof repeat[repeat_numKey][repeat_key] === "string") END_FLAG = true;
+                    else END_FLAG = false;
+                    break;
+                }
+                case JSONKeys.Bridge.toLowerCase(): {
+                    BRIDGE_FLAG = check_bridge(repeat[repeat_numKey][repeat_key]);
                     break;
                 }
                 case JSONKeys.LinkageType.toLowerCase(): {
-                    LINKAGE_FLAG = check_linkagetype_key(repeat[key]);
-                    if(!LINKAGE_FLAG) return false;
+                    LINKAGE_FLAG = check_linkagetype(repeat[repeat_numKey][repeat_key]);
                     break;
                 }
-                case JSONKeys.ParentNodeID.toLowerCase(): {
-                    PARENTNODEID_FLAG = check_parentNodeID_value(repeat[key]);
-                    if(!PARENTNODEID_FLAG) return false;
-                    break;
+                default: {
+                    return false;
                 }
-                default: return false;
             }
-
         }
-        if(MIN_FLAG && POSITION_FLAG && MAX_FLAG && PROBABILITY_FLAG && BRIDGE_FLAG && LINKAGE_FLAG && PARENTNODEID_FLAG) continue;
+        if(MIN_FLAG && POSITION_FLAG && MAX_FLAG && START_FLAG && PROBABILITY_FLAG && END_FLAG && BRIDGE_FLAG && LINKAGE_FLAG) continue;
         else return false;
     }
     return true;

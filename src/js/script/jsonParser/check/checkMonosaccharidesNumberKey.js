@@ -2,9 +2,9 @@
 "use strict";
 
 import { JSONKeys } from "../../data/JSONKeys";
-import { check_monosaccharides_modifications } from "./checkMonosaccharidesModifications";
+import { check_modifications } from "./checkModifications";
 import { check_monosaccharides_substituent } from "./checkMonosaccharidesSubstituent";
-import { check_monosaccharides_edge } from "./checkMonosaccharidesEdge";
+import { check_edge } from "./checkEdge";
 import { check_configuration } from "./checkConfiguration";
 
 export let check_monosaccharides_number_key= (json: Object): boolean => {
@@ -24,7 +24,7 @@ export let check_monosaccharides_number_key= (json: Object): boolean => {
         switch (key.toLowerCase()) {
             case JSONKeys.Modifications.toLowerCase(): {
                 //Modificationの中身がOKかどうかのcheck
-                MODIFICATION_FALG = check_monosaccharides_modifications(json[key]);
+                MODIFICATION_FALG = check_modifications(json[key]);
                 break;
             }
             case JSONKeys.TrivialName.toLowerCase(): {
@@ -91,7 +91,7 @@ export let check_monosaccharides_number_key= (json: Object): boolean => {
                 break;
             }
             case JSONKeys.Edge.toLowerCase(): {
-                EDGE_FLAG = check_monosaccharides_edge(json[key]);
+                EDGE_FLAG = check_edge(json[key]);
                 break;
             }
             default: return false;

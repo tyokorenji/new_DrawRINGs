@@ -2,11 +2,11 @@
 "use strict";
 
 import { JSONKeys } from "../../data/JSONKeys";
-import { check_position_key } from "./checkPositionKey";
-import { check_probability_key } from "./checkProbabilityKey";
+import { check_position } from "./checkPosition";
+import { check_probability } from "./checkProbability";
 // import { check_multipulebond } from "./checkMultipulebond";
 import { check_bridge } from "./checkBridge";
-import { check_linkagetype_key } from "./checkLinkagetypeKey";
+import { check_linkagetype } from "./checkLinkagetype";
 import { check_parentNodeID_value } from "./checkParentNodeIdValue";
 
 export let check_parent = (json: Array<Object>): boolean => {
@@ -21,12 +21,12 @@ export let check_parent = (json: Array<Object>): boolean => {
         for(let key: string of keys) {
             switch(key.toLowerCase()) {
                 case JSONKeys.Position.toLowerCase(): {
-                    POSITION_FLAG = check_position_key(parentObject[key]);
+                    POSITION_FLAG = check_position(parentObject[key]);
                     if(!POSITION_FLAG) return false;
                     break;
                 }
                 case JSONKeys.Probability.toLowerCase(): {
-                    PROBABILITY_FLAG = check_probability_key(parentObject[key]);
+                    PROBABILITY_FLAG = check_probability(parentObject[key]);
                     if(!PROBABILITY_FLAG) return false;
                     break;
 
@@ -43,7 +43,7 @@ export let check_parent = (json: Array<Object>): boolean => {
                 //     break;
                 // }
                 case JSONKeys.LinkageType.toLowerCase(): {
-                    LINKAGE_FLAG = check_linkagetype_key(parentObject[key]);
+                    LINKAGE_FLAG = check_linkagetype(parentObject[key]);
                     if(!LINKAGE_FLAG) return false;
                     break;
                 }

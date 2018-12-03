@@ -2,10 +2,10 @@
 "use strict";
 
 import { JSONKeys } from "../../data/JSONKeys";
-import { check_position_key } from "./checkPositionKey";
-import { check_probability_key } from "./checkProbabilityKey";
+import { check_position } from "./checkPosition";
+import { check_probability } from "./checkProbability";
 import { check_notation_value } from "./checkNotationValue";
-import { check_linkagetype_key } from "./checkLinkagetypeKey";
+import { check_linkagetype } from "./checkLinkagetype";
 
 export let check_subfrafgment_number_key = (subfragment: Object): boolean => {
     let POSITION_FLAG: boolean = false;
@@ -17,12 +17,12 @@ export let check_subfrafgment_number_key = (subfragment: Object): boolean => {
     for(let key: string of keys) {
         switch(key.toLowerCase()) {
             case JSONKeys.Position.toLowerCase(): {
-                POSITION_FLAG = check_position_key(subfragment[key]);
+                POSITION_FLAG = check_position(subfragment[key]);
                 if(!POSITION_FLAG) return false;
                 break;
             }
             case JSONKeys.Probability.toLowerCase(): {
-                PROBABILITY_FLAG = check_probability_key(subfragment[key]);
+                PROBABILITY_FLAG = check_probability(subfragment[key]);
                 if(!PROBABILITY_FLAG) return false;
                 break;
             }
@@ -32,7 +32,7 @@ export let check_subfrafgment_number_key = (subfragment: Object): boolean => {
                 break;
             }
             case JSONKeys.LinkageType.toLowerCase(): {
-                LINKAGE_FLAG = check_linkagetype_key(subfragment[key]);
+                LINKAGE_FLAG = check_linkagetype(subfragment[key]);
                 if(!LINKAGE_FLAG) return false;
                 break;
             }
