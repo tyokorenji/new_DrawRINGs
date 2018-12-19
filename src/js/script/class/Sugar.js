@@ -10,7 +10,7 @@ import { Glycan } from "./Glycan";
 import { RepeatBracket } from "./RepeatBracket";
 import { Cyclic } from "./Cyclic";
 import { Modification } from "./Modification";
-import { MultipleBond } from "./MultipleBond";
+import { MultipleModification } from "./MultipleModification";
 import { Bridge } from "./Bridge";
 import { BridgeEdge } from "./BridgeEdge";
 import { FragmentBracket } from "./FragmentBracket";
@@ -24,7 +24,8 @@ class Sugar extends Node{
     ringShape: createjs.Text;  //ringのcreatejs.Text
     glycan: Glycan;  //Sugarが所属するGlycanオブジェクト
     repeatBracket: Object;  //繰り返しのstartNodeの時、Bracketを持つ
-    cyclic: Object; //その糖鎖がCyclic構造を形成する単糖で、非還元末端側の場合
+    childCyclic: Object; //その糖鎖がCyclic構造を形成する単糖で、非還元末端側の場合
+    parentCyclic: Object;  //還元末端側が持つサイクリック
     Xlayer: number;
     YLayer: number;
     childModifications: Array<Object>;
@@ -46,7 +47,8 @@ class Sugar extends Node{
         this.isomerShape;
         this.ringShape;
         this.glycan;
-        this.cyclic = {};
+        this.childCyclic = {};
+        this.parentCyclic = {};
         this.Xlayer = 0;
         this.Ylayer = 0;
         this.childModifications = [];
@@ -173,8 +175,8 @@ class Sugar extends Node{
         sugar.setGlycan(this.glycan);
         if (sugar.hasChildSugars()) {
             for(let child: Sugar of sugar.getChildSugars()) {
-                if(!sugar.isCyclicEmpty()) {
-                    if(child === sugar.getCyclic().getReductionSugar()){
+                if(!sugar.isChildCyclicEmpty()) {
+                    if(child === sugar.getChildCyclic().getReductionSugar()){
                         continue;
                     }
                 }
@@ -210,18 +212,32 @@ class Sugar extends Node{
         this.repeatBracket = {};
     }
 
-    setCyclic(cyclic: Cyclic) {
-        this.cyclic = cyclic;
+    setChildCyclic(cyclic: Cyclic) {
+        this.childCyclic = cyclic;
         return;
     }
-    getCyclic(): Cyclic {
-        return this.cyclic;
+    getChildCyclic(): Cyclic {
+        return this.childCyclic;
     }
-    isCyclicEmpty(): boolean {
-        return !Object.keys(this.cyclic).length;
+    isChildCyclicEmpty(): boolean {
+        return !Object.keys(this.childCyclic).length;
     }
-    initCyclic() {
-        this.cyclic = {};
+    initChildCyclic() {
+        this.childCyclic = {};
+    }
+
+    setParentCyclic(cyclic: Cyclic) {
+        this.parentCyclic = cyclic;
+        return;
+    }
+    getParentCyclic(): Cyclic {
+        return this.parentCyclic;
+    }
+    isParentCyclicEmpty(): boolean {
+        return !Object.keys(this.parentCyclic).length;
+    }
+    initParentCyclic() {
+        this.parentCyclic = {};
     }
 
 
@@ -252,7 +268,7 @@ class Sugar extends Node{
         else return true;
     }
 
-    setChildMultipleBind(bridge: MultipleBond) {
+    setChildMultipleBind(bridge: MultipleModification) {
         this.childMultipleBind.push(bridge);
         return;
     }

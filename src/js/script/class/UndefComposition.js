@@ -19,4 +19,4 @@ class UndefComposition extends Composition {
     }
 }
 
-export { UndefComposition }
+export { UndefComposition };

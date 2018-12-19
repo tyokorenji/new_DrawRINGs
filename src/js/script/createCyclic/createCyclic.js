@@ -16,7 +16,7 @@ import { drawCyclicEdge } from "./drawCyclicEdge";
 
 export let createCyclic = (parentSugar: Sugar, childSugar: Sugar): Glycobond => {
     let cyclicBond: Glycobond;
-    // if(!childSugar.isCyclicEmpty()) {
+    // if(!childSugar.isChildCyclicEmpty()) {
     //     //すでに描画されているか検索
     //     for (let bind: Glycobond of parentSugar.getParentBond()) {
     //         //すでに描画されている場合、削除する
@@ -33,7 +33,7 @@ export let createCyclic = (parentSugar: Sugar, childSugar: Sugar): Glycobond => 
     cyclic.setNonReductionSugar(childSugar);
     cyclic.setReductionSugar(parentSugar);
     childSugar.setChildSugars(parentSugar);
-    childSugar.setCyclic(cyclic);
+    childSugar.setChildCyclic(cyclic);
     parentSugar.setParentSugars(childSugar);
     parentSugar.setParentBond(cyclicBond);
     cyclicBond.setParentSugar(childSugar);
@@ -43,9 +43,9 @@ export let createCyclic = (parentSugar: Sugar, childSugar: Sugar): Glycobond => 
     // let parentSugar: Sugar = parentChild[1];
     // let childSugar: Sugar = parentChild[0];
     //
-    // let cyclic: Cyclic = new Cyclic();
-    // cyclic.setReductionSugar(childSugar);
-    // cyclic.setNonReductionSugar(parentSugar);
+    // let childCyclic: Cyclic = new Cyclic();
+    // childCyclic.setReductionSugar(childSugar);
+    // childCyclic.setNonReductionSugar(parentSugar);
     // childSugar.setParentSugars(parentSugar);
     // childSugar.setParentBond(edge);
     // // for (let i = 0; i < glycans.length; i++) {
@@ -61,7 +61,7 @@ export let createCyclic = (parentSugar: Sugar, childSugar: Sugar): Glycobond => 
     // // }
     // parentSugar.setChildSugars(childSugar);
     // parentSugar.setChildNodes(childSugar);
-    // parentSugar.setCyclic(cyclic);
+    // parentSugar.setChildCyclic(childCyclic);
     // edge.setParentSugar(parentSugar);
     // edge.setChildSugar(childSugar);
 };

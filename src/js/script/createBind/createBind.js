@@ -36,7 +36,7 @@ export function createEdge(target: Sugar) {
     }
     let parentChild: Array<Sugar> = selectParentNode(liaise.selectedNode, target);  //選択された２つのNodeの親子関係を計算。parentChild[0]に親、parentChild[1]に子
     //すでに描画されている場合削除
-    if(parentChild[1].isCyclicEmpty()) {
+    if(parentChild[1].isChildCyclicEmpty()) {
         //サイクリックでない場合
         for (let parentBond: Glycobond of parentChild[1].getParentBond()) {
             switch (parentBond.getParentSugar()) {
@@ -127,7 +127,7 @@ export function createEdge(target: Sugar) {
     //                 return;
     //             }
     //         }
-    //         if (parentChild[1].isCyclicEmpty()) {
+    //         if (parentChild[1].isChildCyclicEmpty()) {
     //             pastBond = {};
     //             break;
     //         }
@@ -183,8 +183,8 @@ export function createEdge(target: Sugar) {
     //         parentSugar.setChildSugars(childSugar);
     //         parentSugar.setChildNodes(childSugar);
     //         for (let child: Sugar of parentSugar.getChildSugars()) {
-    //             if(!parentSugar.isCyclicEmpty()) {
-    //                 if(child === parentSugar.getCyclic().getReductionSugar()){
+    //             if(!parentSugar.isChildCyclicEmpty()) {
+    //                 if(child === parentSugar.getChildCyclic().getReductionSugar()){
     //                     continue;
     //                 }
     //             }
@@ -237,14 +237,14 @@ let setGlycanDeta = (childSugar: Sugar, glycan: Glycan) => {
     childSugar.setGlycan(glycan);
 
     //chilsSugarがサイクリックでないとき
-    if(childSugar.isCyclicEmpty()) {
+    if(childSugar.isChildCyclicEmpty()) {
         for (let child: Sugar of childSugar.getChildSugars()) {
             setGlycanDeta(child, glycan);
         }
     }
     //childSugarがサイクリックを持っているとき
     else {
-        let cyclicSugar: Sugar = childSugar.getCyclic().getReductionSugar();
+        let cyclicSugar: Sugar = childSugar.getChildCyclic().getReductionSugar();
         for (let child: Sugar of childSugar.getChildSugars()) {
             switch (child) {
                 case (cyclicSugar): {
@@ -262,14 +262,14 @@ let setGlycanDeta = (childSugar: Sugar, glycan: Glycan) => {
 //ルート単糖から全てのlayerを計算し代入
 let setLayer = (sugar: Sugar, layer: number) => {
     sugar.setXLayer(layer);
-    if(sugar.isCyclicEmpty()) {
+    if(sugar.isChildCyclicEmpty()) {
         for (let child: Sugar of sugar.getChildSugars()) {
             setLayer(child, layer + 1);
         }
     }
     //childSugarがサイクリックを持っているとき
     else {
-        let cyclicSugar: Sugar = sugar.getCyclic().getReductionSugar();
+        let cyclicSugar: Sugar = sugar.getChildCyclic().getReductionSugar();
         for (let child: Sugar of sugar.getChildSugars()) {
             switch (child) {
                 case (cyclicSugar): {

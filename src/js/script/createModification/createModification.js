@@ -6,8 +6,8 @@ import { createModificaitonShape } from "./createModificationShape";
 import { Modification } from "../class/Modification";
 import { Modificationbond } from "../class/Modificationbond";
 import { modifiData } from "../data/modificationData";
-import { MultipleBond } from "../class/MultipleBond";
-import { MultipleBondEdge } from "../class/MultipleBondBind";
+import { MultipleModification } from "../class/MultipleModification";
+import { MultipleModificationBind } from "../class/MultipleModificationBind";
 import { removeAllModificationBridgeShape } from "../removeObjet/removeAllModificationBridgeShape";
 import { addModificationMultipleBond } from "./addModificationMultipleBond";
 
@@ -37,7 +37,7 @@ export let createModification = ( targetSugar: Sugar ) => {
     }
 
     let changeModifications: Array<Modification> = [];
-    let changeBridge: Array<MultipleBond> = [];
+    let changeBridge: Array<MultipleModification> = [];
     //昇順ソート
     removeAllModificationBridgeShape(targetSugar);
     liaise.selectedModifiactionPositions.sort(function(a,b){
@@ -47,9 +47,9 @@ export let createModification = ( targetSugar: Sugar ) => {
     });
     //targetSugarから同じ箇所にあるMultipleBondを削除する
     if(targetSugar.hasChildMultipleBind) {
-        for( let item: MultipleBond of targetSugar.getChildMultipleBind()) {
+        for( let item: MultipleModification of targetSugar.getChildMultipleBind()) {
             console.log(targetSugar);
-            for(let position: number of item.getBridgeBond().getParentSugarPosition()) {
+            for(let position: number of item.getMultipleBind().getParentSugarPosition()) {
                 if(liaise.selectedModifiactionPositions.indexOf(position) !== -1) {
                     targetSugar.childMultipleBind = targetSugar.getChildMultipleBind().filter( function(value) {
                         return value !== item;
@@ -74,13 +74,13 @@ export let createModification = ( targetSugar: Sugar ) => {
     }
     if(liaise.multipleBond) {
         console.log("MultipleBOnd選択されたよ");
-        let bridge: MultipleBond = new MultipleBond();
-        let bridgeBond: MultipleBondEdge = new MultipleBondEdge();
+        let bridge: MultipleModification = new MultipleModification();
+        let bridgeBond: MultipleModificationBind = new MultipleModificationBind();
         bridge.setName(liaise.selectedModification);
         for(let item of liaise.selectedModifiactionPositions) {
             bridgeBond.setParentSugarPosition(item);
         }
-        bridge.setBridgeBond(bridgeBond);
+        bridge.setMultipleBind(bridgeBond);
         changeBridge.push(bridge);
     }
     else {

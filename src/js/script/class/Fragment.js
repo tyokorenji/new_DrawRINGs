@@ -36,8 +36,8 @@ export class Fragment extends Glycan {
         }
         else {
             for (let child: Sugar of sugar.childSugars) {
-                if(!sugar.isCyclicEmpty()) {
-                    if(sugar.getCyclic().getReductionSugar() === child) {
+                if(!sugar.isChildCyclicEmpty()) {
+                    if(sugar.getChildCyclic().getReductionSugar() === child) {
                         continue;
                     }
                 }
@@ -59,8 +59,8 @@ export class Fragment extends Glycan {
         }
         else {
             for (let child: Sugar of sugar.childSugars) {
-                if(!sugar.isCyclicEmpty()) {
-                    if(sugar.getCyclic().getReductionSugar() === child) {
+                if(!sugar.isChildCyclicEmpty()) {
+                    if(sugar.getChildCyclic().getReductionSugar() === child) {
                         continue;
                     }
                 }
@@ -70,4 +70,49 @@ export class Fragment extends Glycan {
         liaise.stageUpdate();
         return;
     }
+    culcPlucXLayer(plus: number) {
+        recuversiveSetXLayer(this.getRootNode(), plus + 1);
+    }
+    culcPlucYLayer(plus: number) {
+        recuversiveSetYLayer(this.getRootNode(), plus);
+    }
 }
+
+const recuversiveSetXLayer = (sugar: Sugar, plusX: number) => {
+    sugar.setXLayer(sugar.getXLayer() + plusX);
+    if(sugar.hasChildSugars()) {
+        if(sugar.isChildCyclicEmpty()) {
+            for(let child: Sugar of sugar.getChildSugars()) {
+                recuversiveSetXLayer(child, plusX);
+            }
+        }
+        else {
+            for(let child: Sugar of sugar.getChildSugars()) {
+                if(sugar.getChildCyclic().getReductionSugar() === child) continue;
+                else recuversiveSetXLayer(child, plusX);
+            }
+        }
+    }
+    else {
+        return;
+    }
+};
+const recuversiveSetYLayer = (sugar: Sugar, plusY: number) => {
+    sugar.setYLayer(sugar.getYLayer() + plusY);
+    if(sugar.hasChildSugars()) {
+        if(sugar.isChildCyclicEmpty()) {
+            for(let child: Sugar of sugar.getChildSugars()) {
+                recuversiveSetYLayer(child, plusY);
+            }
+        }
+        else {
+            for(let child: Sugar of sugar.getChildSugars()) {
+                if(sugar.getChildCyclic().getReductionSugar() === child) continue;
+                else recuversiveSetYLayer(child, plusY);
+            }
+        }
+    }
+    else {
+        return;
+    }
+};

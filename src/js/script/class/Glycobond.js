@@ -12,16 +12,26 @@ class Glycobond extends Edge {
     parentId: number;
     svgLineShape: string;
     svgTextShape: string;
+    svgChildPosition: Array<number>;
+    svgParentPosition: Array<number>;
+    jsonParentId: string;
+    jsonChildId: string;
+    minParentPosition: number;
 
 
-    constructor(){
+    constructor() {
         super();
         this.childAnomeric = "undefined";
         this.childPosition = "undefined";
         this.parentId = -1;
         this.svgLineShape = "";
         this.svgTextShape = "";
+        this.svgChildPosition = [];
+        this.svgParentPosition = [];
+        this.jsonParentId = "";
+        this.jsonChildId = "";
     }
+
 
     hasChildPosition(): boolean {
         if (this.childPosition === "undefined") return false;
@@ -99,6 +109,29 @@ class Glycobond extends Edge {
     }
     getSvgTextShape(): string{
         return this.svgTextShape;
+    }
+    getSvgParentPosition(): Array<number> {
+        return this.svgParentPosition;
+    }
+    hasSvgParentPosition(): boolean {
+        if(this.getSvgParentPosition().length === 0) return false;
+        return true;
+    }
+    hasSvgChildPosition(): boolean {
+        if(this.getSvgChildPosition().length === 0) return false;
+        return true;
+    }
+    getSvgChildPosition(): Array<number> {
+        return this.svgChildPosition;
+    }
+    culcMinParentPosition(){
+        let num: number = 200;
+        for(let posi: number of this.svgParentPosition) {
+            if(num > posi) {
+                num = posi;
+            }
+        }
+        this.minParentPosition = num;
     }
 
 

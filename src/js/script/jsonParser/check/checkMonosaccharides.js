@@ -1,10 +1,9 @@
 //@flow
 "use strict";
 
-import { check_monosaccharides_number_key } from "./checkMonosaccharidesNumberKey";
 import {JSONKeys} from "../../data/JSONKeys";
-import {set_monosaccharides} from "../setDrawGlycanData/setMonosaccharide";
 import {check_modifications} from "./checkModifications";
+import { check_substituents } from "./checkSubstituents";
 
 export let check_monosaccharides = (monosaccharides: Object): boolean => {
     let monosaccharides_numKeys: Array<string> = Object.keys(monosaccharides);
@@ -35,7 +34,7 @@ export let check_monosaccharides = (monosaccharides: Object): boolean => {
                     break;
                 }
                 case JSONKeys.Substituents.toLowerCase(): {
-                    SUBSTITUENTS_FLAG = check_modifications(monosaccharides[monosaccharides_numKey][monosaccharides_key]);
+                    SUBSTITUENTS_FLAG = check_substituents(monosaccharides[monosaccharides_numKey][monosaccharides_key]);
                     break;
                 }
                 case JSONKeys.Configuration.toLowerCase(): {
@@ -75,6 +74,16 @@ export let check_monosaccharides = (monosaccharides: Object): boolean => {
                 }
             }
         }
+        // console.log("Modification", MODIFICATION_FLAG);
+        // console.log("TrivialName", TRIVIALNAME_FLAG);
+        // console.log("Substituents", SUBSTITUENTS_FLAG);
+        // console.log("Configuration", CONFIGURATION_FLAG);
+        // console.log("SuperClass", SUPERCLASS_FLAG);
+        // console.log("RingSize", RINGSIZE_FLAG);
+        // console.log("AnomeState", ANOMSTATE_FLAG);
+        // console.log("AnomPosition", ANOMPOSITION_FLAG);
+        // console.log("Notation", NOTATION_FLAG);
+        // console.log("");
         if(MODIFICATION_FLAG && TRIVIALNAME_FLAG && SUBSTITUENTS_FLAG && CONFIGURATION_FLAG && SUPERCLASS_FLAG && RINGSIZE_FLAG && ANOMSTATE_FLAG && ANOMPOSITION_FLAG && NOTATION_FLAG){
             continue;
         }

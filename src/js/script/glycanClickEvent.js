@@ -113,7 +113,7 @@ let recuverisveAlreadyHasBracket = (child: Sugar): boolean => {
     if(!child.isFragmentBracketEmpty())   {
         return true;
     }
-    else if(!child.isCyclicEmpty()) {
+    else if(!child.isChildCyclicEmpty()) {
         return false;
     }
     else {

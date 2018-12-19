@@ -5,12 +5,13 @@ import { Bracket } from "./Bracket";
 import { Sugar } from "./Sugar";
 // import { Glycan } from "./Glycan";
 // import { Fragment } from "./Fragment";
+// import { recuversiveNonReductionSugar } from "../createSVG/setYLayer";
 
 class FragmentBracket extends Bracket {
     parentSugars: Array<Sugar>;  //フラグメントがつく親単糖
     parentGlycan: Object ; //親となる糖鎖構造
     childGlycans: Array<Object>;  //フラグメントの糖鎖構造
-    isResuctionSugar: boolean;
+    ParentNonReductionSugars: Array<Sugar>;
 
     constructor(){
         super();
@@ -18,6 +19,7 @@ class FragmentBracket extends Bracket {
         this.parentGlycan = {};
         this.childGlycans = [];
         this.isResuctionSugar = false;
+
     }
 
     getParentSugars(): Array<Sugar> {
@@ -28,6 +30,11 @@ class FragmentBracket extends Bracket {
         this.parentSugars.push(sugar);
         return;
     }
+    hasParentSugars(): boolean {
+        if (this.getParentSugars().length === 0) return false;
+        else return true;
+    }
+
 
     getParentGlycan(): Object {
         return this.parentGlycan;
@@ -36,6 +43,9 @@ class FragmentBracket extends Bracket {
     setParentGlycan(glycan: Object) {
         this.parentGlycan = glycan;
         return;
+    }
+    isEmptyParentGlycan(): boolean {
+        return !Object.keys(this.parentGlycan).length;
     }
 
     getChildGlycans(): Array<Object> {
@@ -59,6 +69,11 @@ class FragmentBracket extends Bracket {
         }
         return;
     }
+    getParentGlycanNonReductionSguars(): Array<Sugar> {
+        let nonReductionSugars: Array<Sugar> = [];
+        return recuversiveNonReductionSugar(this.getParentGlycan().getRootNode(), nonReductionSugars);
+
+    }
 
     changeIsReductionSugar() {
         if(this.isResuctionSugar) {
@@ -71,6 +86,34 @@ class FragmentBracket extends Bracket {
 
 }
 
+const recuversiveNonReductionSugar = (sugar: Sugar, nonReductionSugars: Array<Sugar>): Array<Sugar> => {
+    if(sugar.hasChildSugars()) {
+        if(sugar.isChildCyclicEmpty()){
+            for(let child: Sugar of sugar.getChildSugars()) {
+                nonReductionSugars = recuversiveNonReductionSugar(child, nonReductionSugars);
+            }
+        }
+        else {
+            if(sugar.getChildSugars().length === 1) {
+                nonReductionSugars.push(sugar);
+            }
+            else {
+                for(let child: Sugar of sugar.getChildSugars()) {
+                    if(child === sugar.getChildCyclic().getReductionSugar()) continue;
+                    else {
+                        nonReductionSugars = recuversiveNonReductionSugar(child, nonReductionSugars);
+                    }
+                }
+            }
+        }
+    }
+    else {
+        nonReductionSugars.push(sugar);
+        return nonReductionSugars;
+    }
+    return nonReductionSugars;
+};
 
 
-export { FragmentBracket }
+
+export { FragmentBracket };

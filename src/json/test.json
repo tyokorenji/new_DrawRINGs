@@ -112,7 +112,7 @@
     }
   ],
   //"Parent"は親サイドのグリコシド結合を示す。
-  //"Position"、"Probability"、"MultipleBond"、"LinkageType"を持つ
+  //"Position"、"Probability"、"MultipleModification"、"LinkageType"を持つ
   //"Position"はグリコシド結合の位置を示す。"ChildSide"と"ParentSide"を持つ
   //"Probability"は結合の可能性を示す。"ChildSide"、"ParentSide"を持つ。
   //それぞれ"High"と"Low"を持つ。いくつかのグリコシド結合が80％で構成されている場合、「低」および「高」には0.8が割り当てられる。
@@ -194,7 +194,7 @@
   //"Min"と"Max"は繰り返し回数の最小値と最大値を示す。
   //これらのパラメータは"-1"か数字で表されるべきである。
   //"Repeat"は一つ以上のリーピート単位を持つことができます。
-  //環状(cyclic)構造は"Min"と"Max"に"0"が割り当てられる。
+  //環状(childCyclic)構造は"Min"と"Max"に"0"が割り当てられる。
   "Repeat": [
     {
       "Min": -1,
@@ -393,7 +393,7 @@
                                 "Low": 100
                             }
                         },
-                        "MultipleBond": {
+                        "MultipleModification": {
                             "Position": {},
                             "Notation": ""
                         },
@@ -445,7 +445,7 @@
                                 "Low": 100
                             }
                         },
-                        "MultipleBond": {
+                        "MultipleModification": {
                             "Position": {},
                             "Notation": ""
                         },
@@ -497,7 +497,7 @@
                                 "Low": 100
                             }
                         },
-                        "MultipleBond": {
+                        "MultipleModification": {
                             "Position": {},
                             "Notation": ""
                         },
@@ -549,7 +549,7 @@
                                 "Low": 100
                             }
                         },
-                        "MultipleBond": {
+                        "MultipleModification": {
                             "Position": {},
                             "Notation": ""
                         },

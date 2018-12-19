@@ -5,7 +5,6 @@ import { JSONKeys } from "../../data/JSONKeys";
 import { check_position } from "./checkPosition";
 import { check_probability } from "./checkProbability";
 import { check_linkagetype } from "./checkLinkagetype";
-import { check_parentNodeID_value } from "./checkParentNodeIdValue";
 import {check_bridge} from "./checkBridge";
 
 export let check_repeat = (repeat: Object): boolean => {
@@ -20,7 +19,7 @@ export let check_repeat = (repeat: Object): boolean => {
         let START_FLAG: boolean = false;
         let PROBABILITY_FLAG: boolean = false;
         let END_FLAG: boolean = false;
-        let BRIDGE_FLAG: boolean = false;
+        // let BRIDGE_FLAG: boolean = false;
         let LINKAGE_FLAG: boolean = false;
         for(let repeat_key: string of repeat_keys) {
             switch(repeat_key.toLowerCase()) {
@@ -53,10 +52,10 @@ export let check_repeat = (repeat: Object): boolean => {
                     else END_FLAG = false;
                     break;
                 }
-                case JSONKeys.Bridge.toLowerCase(): {
-                    BRIDGE_FLAG = check_bridge(repeat[repeat_numKey][repeat_key]);
-                    break;
-                }
+                // case JSONKeys.Bridge.toLowerCase(): {
+                //     BRIDGE_FLAG = check_bridge(repeat[repeat_numKey][repeat_key]);
+                //     break;
+                // }
                 case JSONKeys.LinkageType.toLowerCase(): {
                     LINKAGE_FLAG = check_linkagetype(repeat[repeat_numKey][repeat_key]);
                     break;
@@ -66,7 +65,7 @@ export let check_repeat = (repeat: Object): boolean => {
                 }
             }
         }
-        if(MIN_FLAG && POSITION_FLAG && MAX_FLAG && START_FLAG && PROBABILITY_FLAG && END_FLAG && BRIDGE_FLAG && LINKAGE_FLAG) continue;
+        if(MIN_FLAG && POSITION_FLAG && MAX_FLAG && START_FLAG && PROBABILITY_FLAG && END_FLAG && LINKAGE_FLAG) continue;
         else return false;
     }
     return true;

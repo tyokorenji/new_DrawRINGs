@@ -27,7 +27,7 @@ export let createBridgeModification = (targetSugar: Sugar) => {
         return;
     }
     //子単糖がサイクリックを形成していなかった場合
-    if(parentChild[1].isCyclicEmpty()) {
+    if(parentChild[1].isChildCyclicEmpty()) {
         parentSugar = parentChild[0];  //親単糖を代入
         childSugar = parentChild[1];  //子単糖を代入
         //隣り合った単糖出なかった場合,Error
@@ -39,7 +39,7 @@ export let createBridgeModification = (targetSugar: Sugar) => {
     //サイクリックの場合
     else {
         //選択した単糖がサイクリックの結合をしている場合
-        if(parentChild[1].getCyclic().getReductionSugar() === parentChild[0]) {
+        if(parentChild[1].getChildCyclic().getReductionSugar() === parentChild[0]) {
             parentSugar = parentChild[1];  //親単糖を代入
             childSugar = parentChild[0];  //子単糖を代入
             cyclicFlag = true;

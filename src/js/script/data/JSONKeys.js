@@ -28,5 +28,6 @@ export const JSONKeys = {
     Min: "Min",
     Max: "Max",
     Start: "Start",
-    End: "End"
+    End: "End",
+    Status: "Status"
 };

@@ -10,6 +10,7 @@ import { JSONParser } from "../script/class/ParserClass/JSONParser";
 import {Glycan} from "../script/class/Glycan";
 import { drawGlycan } from "../script/drawGlycan/drawGlycan";
 import { createSVG } from "../script/createSVG/createSVG";
+import {createSVGMain} from "../script/createSVG/createSVGMain";
 
 export class KCFTextArea extends React.Component {
     state: Object;
@@ -29,10 +30,13 @@ export class KCFTextArea extends React.Component {
 
     onButtonClickEvent() {
         liaise.setTextAreaValue(this.state.textareraValue);
-        let jsonObejct: Object = JSON.parse(this.state.textareraValue);;
+        let jsonObejct: Object = JSON.parse(this.state.textareraValue);
         let parser: JSONParser = new JSONParser(jsonObejct);
         let glycoJSON: boolean = parser.checkJson();
         if(!glycoJSON) return false;
+        let glycans: Array<Glycan> = parser.assignData();
+        console.log(glycans);
+        createSVGMain(glycans);
 
         // let glycan: Glycan = parser.setData();
         // if(Object.keys(glycan).length !== 0) {

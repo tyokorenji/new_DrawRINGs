@@ -47,14 +47,16 @@ class Node extends VisibleElement {
         for(let child: Sugar of this.getChildSugars()) {
             for(let bind: Glycobond of child.getParentBond()) {
                 if(bind.getParentSugar() === this) {
-                    console.log("入ってる?");
                     bindList.push(bind);
                 }
             }
         }
+        for(let bind: Glycobond of bindList) {
+            bind.culcMinParentPosition();
+        }
         bindList.sort(function(a, b){
-            if(Number(a.parentPosition) > Number(b.parentPosition)) return -1;
-            if(Number(a.parentPosition) < Number(b.parentPosition)) return 1;
+            if(Number(a.minParentPosition) > Number(b.minParentPosition)) return -1;
+            if(Number(a.minParentPosition) < Number(b.minParentPosition)) return 1;
             return 0;
         });
         console.log("bindList", bindList);

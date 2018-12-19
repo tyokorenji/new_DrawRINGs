@@ -1,9 +1,9 @@
 //@flow
 "use strict";
 
-import { MultipleBond } from "../class/MultipleBond";
+import { MultipleModification } from "../class/MultipleModification";
 import { liaise } from "../main";
 
-export let removeMultipleBond = (multipleBond: MultipleBond) => {
+export let removeMultipleBond = (multipleBond: MultipleModification) => {
     liaise.removeStage(multipleBond);
 };

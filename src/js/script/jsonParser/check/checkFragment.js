@@ -36,9 +36,9 @@ export let check_fragment = (fragment: Object): boolean => {
                 }
             }
         }
-        console.log("Acceptor", ACCEPTER_FLAG);
-        console.log("Donor", DONOR_FLAG);
-        console.log("Edge", EDGE_FLAG);
+        // console.log("Acceptor", ACCEPTER_FLAG);
+        // console.log("Donor", DONOR_FLAG);
+        // console.log("Edge", EDGE_FLAG);
         if(ACCEPTER_FLAG && DONOR_FLAG && EDGE_FLAG) continue;
         else return false;
     }

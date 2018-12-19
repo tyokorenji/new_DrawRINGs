@@ -12,15 +12,17 @@ import { check_notation_value } from "./checkNotationValue";
  */
 export let check_modifications = (modifications: Array<Object>): boolean => {
     if(modifications.length === 0) return true;
-    let POSITIONONE_FLAG:boolean = false;
-    let NOTATION_FLAG: boolean = false;
     for(let modification: Object of modifications) {
+        let POSITION_FLAG:boolean = true;
+        let NOTATION_FLAG: boolean = false;
         let keys: Array<string> = Object.keys(modification);
         for(let key of keys) {
             switch (key.toLowerCase()) {
-                case JSONKeys.PositionOne.toLowerCase(): {
-                    if(typeof modification[key] === "number") {
-                        POSITIONONE_FLAG = true;
+                case JSONKeys.Position.toLowerCase(): {
+                    for(let positionNum: number of modification[key]) {
+                        if(typeof positionNum !== "number") {
+                            POSITION_FLAG = false;
+                        }
                     }
                     break;
                 }
@@ -34,7 +36,7 @@ export let check_modifications = (modifications: Array<Object>): boolean => {
                 }
             }
         }
-        if(POSITIONONE_FLAG && NOTATION_FLAG) {
+        if(POSITION_FLAG && NOTATION_FLAG) {
             continue;
         }
         else {

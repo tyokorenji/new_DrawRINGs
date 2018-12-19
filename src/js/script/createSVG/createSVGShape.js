@@ -28,7 +28,12 @@ const createParentBonSVGLineText = (bind: Glycobond) => {
     let childX: number = bind.getChildSugar().getSvgXCoord();
     let childY: number = bind.getChildSugar().getSvgYCoord();
     if(bind.hasChildAnomeric()) anomeric = bind.getChildAnomeric();
-    if(bind.hasParentPosition()) parentPosition = bind.getParentPosition();
+    if(bind.hasSvgParentPosition()){
+        parentPosition = "";
+        for(let parentPositionNum: number of bind.getSvgParentPosition()) {
+            parentPosition += String(parentPositionNum);
+        }
+    }
     let lineText: string = "<line stroke =\"black\" x1 = \"" +parentX + "\" y1 = \"" + parentY + "\" x2 = \"" + childX+ "\" y2 = \"" + childY + "\" nodeIndex=\"1\"></line>";
     let text: string = "";
     if(parentY > childY) {
@@ -104,7 +109,7 @@ const createSVGNodeSymbol = (sugar: Sugar, shapeType: Symbol, shapeSymbol: Symbo
         return "<polygon points = \"" + String(x) + "," + String(y - scale) + "," + String(x - 0.75 * scale) + "," + String(y - 0.25 * scale) + "," + String(x - 0.5 * scale) + "," + String(y + 0.75 * scale) + "," + String(x + 0.5 * scale) + "," + String(y + 0.75 * scale) + "," + String(x + 0.75 * scale) + "," + String(y - 0.25 * scale) + "\" stroke = \"black\" stroke-width = \"" + String(0.1 * scale) + "\" fill = \"" + color + "\"/>";
     }
     else {
-        return "";
+        return "<text text-anchor = \"middle\" dominant-baseline = \"central\" x = \"" + String(x / 2) + "\" y = \"" + String(y / 2 + basicData.svgLinkagedown) + "\" >" + sugar.getName() + "</text>";
     }
 };
 

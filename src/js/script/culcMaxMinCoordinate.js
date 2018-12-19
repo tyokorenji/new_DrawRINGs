@@ -60,8 +60,8 @@ let recursiveCulcuration = (array: Array<number>, sugar: Sugar): Array<number> =
     }
     else {
         for (let child: Sugar of sugar.childSugars) {
-            if(!sugar.isCyclicEmpty()) {
-                if(sugar.getCyclic().getReductionSugar() === child) {
+            if(!sugar.isChildCyclicEmpty()) {
+                if(sugar.getChildCyclic().getReductionSugar() === child) {
                     continue;
                 }
             }

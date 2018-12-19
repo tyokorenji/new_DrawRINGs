@@ -7,7 +7,7 @@ export let checkSugarHasFragmentBracketinGlycan = (sugar: Sugar): boolean => {
     if(!sugar.isFragmentBracketEmpty()) {
         return true;
     }
-    else if(!sugar.isCyclicEmpty()) {
+    else if(!sugar.isChildCyclicEmpty()) {
         return false;
     }
     else {

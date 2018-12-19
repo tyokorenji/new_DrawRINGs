@@ -2,9 +2,6 @@
 "use strict";
 
 import { JSONKeys } from "../../data/JSONKeys";
-import { check_parent } from "./checkParent";
-import { check_repeat } from "./checkRepeat";
-import { check_fragment } from "./checkFragment";
 import { check_position } from "./checkPosition";
 import {check_probability} from "./checkProbability";
 import {check_linkagetype} from "./checkLinkagetype";

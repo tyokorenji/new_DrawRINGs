@@ -6,8 +6,8 @@ import { Sugar } from "../class/Sugar";
 import { Modification } from "../class/Modification";
 import { basicData } from "../data/graphicsData";
 import { getColor } from "../data/getColor";
-import { MultipleBond } from "../class/MultipleBond";
-import { MultipleBondEdge } from "../class/MultipleBondBind";
+import { MultipleModification } from "../class/MultipleModification";
+import { MultipleModificationBind } from "../class/MultipleModificationBind";
 import {liaise} from "../main";
 
 export let createModificaitonShape = (sugar: Sugar) => {
@@ -15,8 +15,8 @@ export let createModificaitonShape = (sugar: Sugar) => {
     let bottomMody: Array<Object> = [];
     //Bridgeのソート
     if(sugar.hasChildMultipleBind()) {
-        for (let item: MultipleBond of sugar.getChildMultipleBind()) {
-            item.getBridgeBond().parentSugarPosition.sort(function(a,b){
+        for (let item: MultipleModification of sugar.getChildMultipleBind()) {
+            item.getMultipleBind().parentSugarPosition.sort(function(a, b){
                 if( a < b ) return -1;
                 if( a > b ) return 1;
                 return 0;
@@ -39,8 +39,8 @@ export let createModificaitonShape = (sugar: Sugar) => {
 
     //Bridgeを上か下か判別
     if(sugar.hasChildMultipleBind()) {
-        for (let item: MultipleBond of sugar.getChildMultipleBind()) {
-            if (sugar.getCarbBode() / 2 < item.getBridgeBond().getParentSugarPosition()[0]) {
+        for (let item: MultipleModification of sugar.getChildMultipleBind()) {
+            if (sugar.getCarbBode() / 2 < item.getMultipleBind().getParentSugarPosition()[0]) {
                 upperMody.push(item);
             }
             else {
@@ -64,8 +64,8 @@ export let createModificaitonShape = (sugar: Sugar) => {
                     }
                 }
                 else {
-                    if (min > upperMody[j].getBridgeBond().getParentSugarPosition()[0]) {
-                        min = upperMody[j].getBridgeBond().getParentSugarPosition()[0];
+                    if (min > upperMody[j].getMultipleBind().getParentSugarPosition()[0]) {
+                        min = upperMody[j].getMultipleBind().getParentSugarPosition()[0];
                         index = j;
                     }
                 }
@@ -100,8 +100,8 @@ export let createModificaitonShape = (sugar: Sugar) => {
                     shape.text = String(upperMody[i].getModificationBond().getParentSugarPosition()) + upperMody[i].getName();
                 }
                 else {
-                    for(let item of upperMody[i].getBridgeBond().getParentSugarPosition()) {
-                        if(item !== upperMody[i].getBridgeBond().getParentSugarPosition()[upperMody[i].getBridgeBond().getParentSugarPosition().length - 1]) {
+                    for(let item of upperMody[i].getMultipleBind().getParentSugarPosition()) {
+                        if(item !== upperMody[i].getMultipleBind().getParentSugarPosition()[upperMody[i].getMultipleBind().getParentSugarPosition().length - 1]) {
                             shape.text += String(item) + ",";
                         }
                         else {
@@ -129,8 +129,8 @@ export let createModificaitonShape = (sugar: Sugar) => {
                     shape.text = String(upperMody[i].getModificationBond().getParentSugarPosition()) + upperMody[i].getName();
                 }
                 else {
-                    for(let item of upperMody[i].getBridgeBond().getParentSugarPosition()) {
-                        if(item !== upperMody[i].getBridgeBond().getParentSugarPosition()[upperMody[i].getBridgeBond().getParentSugarPosition().length - 1]) {
+                    for(let item of upperMody[i].getMultipleBind().getParentSugarPosition()) {
+                        if(item !== upperMody[i].getMultipleBind().getParentSugarPosition()[upperMody[i].getMultipleBind().getParentSugarPosition().length - 1]) {
                             shape.text += String(item) + ",";
                         }
                         else {
@@ -168,8 +168,8 @@ export let createModificaitonShape = (sugar: Sugar) => {
                 shape.text = String(upperMody[middle].getModificationBond().getParentSugarPosition()) + upperMody[middle].getName();
             }
             else {
-                for(let item of upperMody[middle].getBridgeBond().getParentSugarPosition()) {
-                    if(item !== upperMody[middle].getBridgeBond().getParentSugarPosition()[upperMody[middle].getBridgeBond().getParentSugarPosition().length - 1]) {
+                for(let item of upperMody[middle].getMultipleBind().getParentSugarPosition()) {
+                    if(item !== upperMody[middle].getMultipleBind().getParentSugarPosition()[upperMody[middle].getMultipleBind().getParentSugarPosition().length - 1]) {
                         shape.text += String(item) + ",";
                     }
                     else {
@@ -200,8 +200,8 @@ export let createModificaitonShape = (sugar: Sugar) => {
                     shape.text = String(upperMody[i].getModificationBond().getParentSugarPosition()) + upperMody[i].getName();
                 }
                 else {
-                    for(let item of upperMody[i].getBridgeBond().getParentSugarPosition()) {
-                        if(item !== upperMody[i].getBridgeBond().getParentSugarPosition()[upperMody[i].getBridgeBond().getParentSugarPosition().length - 1]) {
+                    for(let item of upperMody[i].getMultipleBind().getParentSugarPosition()) {
+                        if(item !== upperMody[i].getMultipleBind().getParentSugarPosition()[upperMody[i].getMultipleBind().getParentSugarPosition().length - 1]) {
                             shape.text += String(item) + ",";
                         }
                         else {
@@ -229,8 +229,8 @@ export let createModificaitonShape = (sugar: Sugar) => {
                     shape.text = String(upperMody[i].getModificationBond().getParentSugarPosition()) + upperMody[i].getName();
                 }
                 else {
-                    for(let item of upperMody[i].getBridgeBond().getParentSugarPosition()) {
-                        if(item !== upperMody[i].getBridgeBond().getParentSugarPosition()[upperMody[i].getBridgeBond().getParentSugarPosition().length - 1]) {
+                    for(let item of upperMody[i].getMultipleBind().getParentSugarPosition()) {
+                        if(item !== upperMody[i].getMultipleBind().getParentSugarPosition()[upperMody[i].getMultipleBind().getParentSugarPosition().length - 1]) {
                             shape.text += String(item) + ",";
                         }
                         else {
@@ -272,8 +272,8 @@ export let createModificaitonShape = (sugar: Sugar) => {
                     }
                 }
                 else {
-                    if (min > bottomMody[j].getBridgeBond().getParentSugarPosition()[0]) {
-                        min = bottomMody[j].getBridgeBond().getParentSugarPosition()[0];
+                    if (min > bottomMody[j].getMultipleBind().getParentSugarPosition()[0]) {
+                        min = bottomMody[j].getMultipleBind().getParentSugarPosition()[0];
                         index = j;
                     }
                 }
@@ -308,8 +308,8 @@ export let createModificaitonShape = (sugar: Sugar) => {
                     shape.text = String(bottomMody[i].getModificationBond().getParentSugarPosition()) + bottomMody[i].getName();
                 }
                 else {
-                    for(let item of bottomMody[i].getBridgeBond().getParentSugarPosition()) {
-                        if(item !== bottomMody[i].getBridgeBond().getParentSugarPosition()[bottomMody[i].getBridgeBond().getParentSugarPosition().length - 1]) {
+                    for(let item of bottomMody[i].getMultipleBind().getParentSugarPosition()) {
+                        if(item !== bottomMody[i].getMultipleBind().getParentSugarPosition()[bottomMody[i].getMultipleBind().getParentSugarPosition().length - 1]) {
                             shape.text += String(item) + ",";
                         }
                         else {
@@ -337,8 +337,8 @@ export let createModificaitonShape = (sugar: Sugar) => {
                     shape.text = String(bottomMody[i].getModificationBond().getParentSugarPosition()) + bottomMody[i].getName();
                 }
                 else {
-                    for(let item of bottomMody[i].getBridgeBond().getParentSugarPosition()) {
-                        if(item !== bottomMody[i].getBridgeBond().getParentSugarPosition()[bottomMody[i].getBridgeBond().getParentSugarPosition().length - 1]) {
+                    for(let item of bottomMody[i].getMultipleBind().getParentSugarPosition()) {
+                        if(item !== bottomMody[i].getMultipleBind().getParentSugarPosition()[bottomMody[i].getMultipleBind().getParentSugarPosition().length - 1]) {
                             shape.text += String(item) + ",";
                         }
                         else {
@@ -376,8 +376,8 @@ export let createModificaitonShape = (sugar: Sugar) => {
                 shape.text = String(bottomMody[middle].getModificationBond().getParentSugarPosition()) + bottomMody[middle].getName();
             }
             else {
-                for(let item of bottomMody[middle].getBridgeBond().getParentSugarPosition()) {
-                    if(item !== bottomMody[middle].getBridgeBond().getParentSugarPosition()[bottomMody[middle].getBridgeBond().getParentSugarPosition().length - 1]) {
+                for(let item of bottomMody[middle].getMultipleBind().getParentSugarPosition()) {
+                    if(item !== bottomMody[middle].getMultipleBind().getParentSugarPosition()[bottomMody[middle].getMultipleBind().getParentSugarPosition().length - 1]) {
                         shape.text += String(item) + ",";
                     }
                     else {
@@ -408,8 +408,8 @@ export let createModificaitonShape = (sugar: Sugar) => {
                     shape.text = String(bottomMody[i].getModificationBond().getParentSugarPosition()) + bottomMody[i].getName();
                 }
                 else {
-                    for(let item of bottomMody[i].getBridgeBond().getParentSugarPosition()) {
-                        if(item !== bottomMody[i].getBridgeBond().getParentSugarPosition()[bottomMody[i].getBridgeBond().getParentSugarPosition().length - 1]) {
+                    for(let item of bottomMody[i].getMultipleBind().getParentSugarPosition()) {
+                        if(item !== bottomMody[i].getMultipleBind().getParentSugarPosition()[bottomMody[i].getMultipleBind().getParentSugarPosition().length - 1]) {
                             shape.text += String(item) + ",";
                         }
                         else {
@@ -437,8 +437,8 @@ export let createModificaitonShape = (sugar: Sugar) => {
                     shape.text = String(bottomMody[i].getModificationBond().getParentSugarPosition()) + bottomMody[i].getName();
                 }
                 else {
-                    for(let item of bottomMody[i].getBridgeBond().getParentSugarPosition()) {
-                        if(item !== bottomMody[i].getBridgeBond().getParentSugarPosition()[bottomMody[i].getBridgeBond().getParentSugarPosition().length - 1]) {
+                    for(let item of bottomMody[i].getMultipleBind().getParentSugarPosition()) {
+                        if(item !== bottomMody[i].getMultipleBind().getParentSugarPosition()[bottomMody[i].getMultipleBind().getParentSugarPosition().length - 1]) {
                             shape.text += String(item) + ",";
                         }
                         else {

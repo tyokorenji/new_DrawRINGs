@@ -12,6 +12,9 @@ class Glycan extends createjs.Container {
     rootNode: Sugar;  //その糖鎖構造のルート単糖
     amino: string;  //糖鎖が就職するタンパク質の結合アミノ酸部位
     fragmentBracket: Object;
+    maxXLayer: number;
+    maxYLayer: number;
+    minYLayer: number;
     // parentGlycan: Glycan;
     // parentSugars: Array<Sugar>;
     // childGlycans: Array<Glycan>;
@@ -21,6 +24,9 @@ class Glycan extends createjs.Container {
         this.rootNode = new Sugar("undefined");
         this.amino = "";
         this.fragmentBracket = {};
+        this.maxXLayer = 0;
+        this.maxYLayer = 0;
+        this.minYLayer = 1000;
         // this.parentGlycan = new Glycan();
         // this.parentSugars = [];
         // this.childGlycans = [];
@@ -54,6 +60,22 @@ class Glycan extends createjs.Container {
     isFragmentBracketEmpty(): boolean {
         return !Object.keys(this.fragmentBracket).length;
     }
+    setMaxXLayer(layer: number) {
+        if(this.maxXLayer < layer) {
+            this.maxXLayer = layer;
+        }
+    }
+    getMaxXLayer(): number {
+        return this.maxXLayer;
+    }
+    setMaxYLayer(layer: number) {
+        if(this.maxYLayer < layer) {
+            this.maxYLayer = layer;
+        }
+    }
+    getMaxYLayer(): number {
+        return this.maxXYayer;
+    }
 
 
     highLight(sugar: Sugar) {
@@ -86,8 +108,8 @@ class Glycan extends createjs.Container {
         }
         else {
             for (let child: Sugar of sugar.childSugars) {
-                if(!sugar.isCyclicEmpty()) {
-                    if(sugar.getCyclic().getReductionSugar() === child) {
+                if(!sugar.isChildCyclicEmpty()) {
+                    if(sugar.getChildCyclic().getReductionSugar() === child) {
                         continue;
                     }
                 }
@@ -124,8 +146,8 @@ class Glycan extends createjs.Container {
         }
         else {
             for (let child: Sugar of sugar.childSugars) {
-                if(!sugar.isCyclicEmpty()) {
-                    if(sugar.getCyclic().getReductionSugar() === child) {
+                if(!sugar.isChildCyclicEmpty()) {
+                    if(sugar.getChildCyclic().getReductionSugar() === child) {
                         continue;
                     }
                 }
@@ -142,23 +164,50 @@ class Glycan extends createjs.Container {
         return result;
     }
     recuversiveCheckSugarInGlycan(sugar: Sugar, child: Sugar): boolean {
-        if(sugar === child) {
+        if (sugar === child) {
             return true;
         }
-        else if(!child.isCyclicEmpty()) {
+        else if (!child.isChildCyclicEmpty()) {
             return false;
         }
         else {
-            for(let child_child: Sugar of child.getChildSugars()) {
+            for (let child_child: Sugar of child.getChildSugars()) {
                 let result: boolean = this.recuversiveCheckSugarInGlycan(sugar, child_child);
-                if(result) {
+                if (result) {
                     return result;
                 }
             }
         }
         return false;
-
     }
+
+    recversiveCulcMaxMinYLayer(sugar: Sugar) {
+        if(sugar.hasChildSugars()) {
+            if(sugar.isChildCyclicEmpty()) {
+                for(let child: Sugar of sugar.getChildSugars()){
+                    this.recversiveCulcMaxMinYLayer(child);
+                }
+            }
+            else {
+                for(let child: Sugar of sugar.getChildSugars()) {
+                    if(child === sugar.getChildCyclic().getReductionSugar()) {
+                        continue;
+                    }
+                    else{
+                        this.recversiveCulcMaxMinYLayer(child);
+                    }
+                }
+
+            }
+        }
+        else {
+            if(this.maxYLayer < sugar.getYLayer()) this.maxYLayer = sugar.getYLayer();
+            if(this.minYLayer > sugar.getYLayer()) this.minYLayer = sugar.getYLayer();
+        }
+        if(this.maxYLayer < sugar.getYLayer()) this.maxYLayer = sugar.getYLayer();
+        if(this.minYLayer > sugar.getYLayer()) this.minYLayer = sugar.getYLayer();
+    }
+
 
 
     // isFragmentBracketEmpty(): boolean {

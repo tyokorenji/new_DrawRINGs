@@ -92,13 +92,13 @@ let recuversiveRemoveGlycan = (sugar: Sugar, glycan: Glycan) => {
 // };
 
 let recuversiveRemoveCiyclicRepeatInGlycan = (sugar: Sugar) => {
-    if(!sugar.isCyclicEmpty()) {
-        let childSugar: Sugar = sugar.getCyclic().getReductionSugar();
+    if(!sugar.isChildCyclicEmpty()) {
+        let childSugar: Sugar = sugar.getChildCyclic().getReductionSugar();
         for (let item: Glycobond of childSugar.getParentBond()) {
             switch(item.getParentSugar()) {
                 case sugar: {
                     removeGlycoBindShape(item);
-                    sugar.initCyclic();
+                    sugar.initChildCyclic();
                     for(let i: number = 0; i < sugar.getChildSugars().length; i++) {
                         switch(sugar.getChildSugars()[i]) {
                             case item.getChildSugar(): {

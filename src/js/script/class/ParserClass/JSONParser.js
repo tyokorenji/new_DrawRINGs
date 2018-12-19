@@ -4,11 +4,12 @@
 import { Glycan } from "../Glycan";
 import { JSONKeys } from "../../data/JSONKeys";
 import { check_monosaccharides } from "../../jsonParser/check/checkMonosaccharides";
-import { set_monosaccharides } from "../../jsonParser/setDrawGlycanData/setMonosaccharide";
+// import { set_monosaccharides } from "../../jsonParser/setDrawGlycanData/setMonosaccharide";
 import {check_fragment} from "../../jsonParser/check/checkFragment";
 import {check_repeat} from "../../jsonParser/check/checkRepeat";
 import {check_edge} from "../../jsonParser/check/checkEdge";
 import { check_bridge } from "../../jsonParser/check/checkBridge";
+import { assignMain } from "../../jsonParser/assignDataStructure/assignMain";
 
 export class JSONParser {
     json: Object;
@@ -40,6 +41,7 @@ export class JSONParser {
                 }
                 case JSONKeys.Fragments.toLowerCase(): {
                     FRAGMENTS_FLAG = check_fragment(this.json[key]);
+                    break;
                 }
                 case JSONKeys.Repeat.toLowerCase(): {
                     REPEAT_FLAG = check_repeat(this.json[key]);
@@ -54,8 +56,9 @@ export class JSONParser {
                     break;
                 }
                 default:
-                    alert("this json is error!");
-                    return false;
+                    // alert("this json is error!");
+                    // return false;
+                    continue;
             }
         }
         console.log("keycheck1: Monosaccharide", MONOSACCHARIDES_FLAG);
@@ -70,22 +73,23 @@ export class JSONParser {
         }
     }
 
-    setData(): Glycan{
-        let keys: Array<string> = Object.keys(this.json);
-        let glycan: Object = {};
-        for(let key: string of keys ){
-            switch(key.toLowerCase()) {
-                case JSONKeys.Monosaccharides.toLowerCase(): {
-                    glycan = set_monosaccharides(this.json[key]);
-                    break;
-                }
-                case JSONKeys.SubFragments.toLowerCase(): {
-                    break;
-                }
-                default: break;
-            }
-        }
-        return glycan;
+    assignData(): Array<Glycan> {
+        return assignMain(this.json);
     }
+
+    // setData(): Glycan{
+    //     let keys: Array<string> = Object.keys(this.json);
+    //     let glycan: Object = {};
+    //     for(let key: string of keys ){
+    //         switch(key.toLowerCase()) {
+    //             case JSONKeys.Monosaccharides.toLowerCase(): {
+    //                 glycan = set_monosaccharides(this.json[key]);
+    //                 break;
+    //             }
+    //             default: break;
+    //         }
+    //     }
+    //     return glycan;
+    // }
 }
 

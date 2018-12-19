@@ -10,6 +10,7 @@ export let createRepeatShape = (repeatNumber: string, target: RepeatBracket) => 
     switch (target.children.length) {
         case 3: {
             target.children[2].text = repeatNumber;
+            target.setReepatNumber(repeatNumber);
             return;
         }
         default: {
@@ -24,6 +25,7 @@ export let createRepeatShape = (repeatNumber: string, target: RepeatBracket) => 
             shape.x = targetBracket.graphics._activeInstructions[2].x + basicData.repeatNumberX;
             shape.y = targetBracket.graphics._activeInstructions[2].y + basicData.repeatNumberY;
             target.addChild(shape);
+            target.setReepatNumber(repeatNumber);
             return;
         }
     }
